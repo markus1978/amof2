@@ -1,0 +1,74 @@
+<project name = "Traffic Lights" default="compile" basedir=".">
+	<description>
+        The World Famous Traffic Lights
+	</description>
+	<property name="base-dir" value="./"/>
+	<property name="build-dir" value="${base-dir}/build"/>
+    <property name="meta-model" value="traffic.mdxml"/>
+
+
+	<path id="classpath">
+		<pathelement path="${build-dir}"/>
+        <pathelement path="../../../build"/>
+        <fileset dir="../../../resources/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+    </path>
+
+	<path id="sourcepath">
+		<pathelement path="./src"/>
+		<pathelement path="./generated-src"/>
+	</path>
+
+    <target name="init" depends="precompile" >
+	   	<mkdir dir="./generated-src"/>
+        <mkdir dir="./build"/>
+        <taskdef name="prepare" classname="hub.sam.mof.ant.PrepareLanguageModel">
+	        <classpath refid="classpath"/>
+		</taskdef>
+        <taskdef name="upgrade" classname="hub.sam.mof.ant.UpgradeXmi">
+	        <classpath refid="classpath"/>
+		</taskdef>
+    </target>
+
+	<target name="domain-model" depends="init">
+        <javadoc packagenames="TrafficDomainModel" sourcepathref="sourcepath">
+			<classpath refid="classpath"/>
+            <doclet name="hub.sam.mof.domainmodels.JavaModelGenerationDoclet" pathref="classpath">
+                <param name="-modelfile" value="traffic-domain-model.xml"/>
+                <param name="-modelname" value="Traffic"/>
+            </doclet>
+        </javadoc>
+        <upgrade inFile="traffic-domain-model.xml" inKind="mof" outFile="traffic-domain-model.mdxml" outKind="md"/>
+	</target>
+
+    <target name="prepare" depends="init">
+        <prepare src="${meta-model}" dest="traffic.xml" destDir="./generated-src" staticModel="Traffic.TrafficModel"/>
+	</target>
+
+    <target name="precompile">
+        <ant antfile="build.xml" dir="../../../" target="compile" />
+    </target>
+
+    <target name="compile" depends="prepare, init">
+		<javac debug="on" destdir="${build-dir}" source="1.5" nowarn="yes" memorymaximumsize="100m" fork="true">
+			<src refid="sourcepath"/>
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+
+    <target name="test" depends="compile">
+        <junit printsummary="true" haltonfailure="true" haltonerror="true" fork="on" maxmemory="200000000">
+			<formatter type="plain" usefile="no"/>
+    		<classpath refid="classpath"/>
+			<test name="Traffic.Test"/>
+		</junit>
+    </target>
+
+    <target name="clean">
+		<delete dir="${build-dir}"/>
+		<delete dir="./generated-src"/>
+        <delete file="traffic.xml"/>
+	</target>
+
+</project>

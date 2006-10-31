@@ -1,0 +1,11 @@
+start;
+do {
+    [CreateObject: Integer] >new(uniqueId:Integer);
+} par {
+    [CreateObject: SingleAutomatonInstance] >new(sai:SingleAutomatonInstance);    
+}
+[WriteStructuralFeature: id] <sai as context, <uniqueId;
+[WrtieStructuralFeatureValue: instance] <sai;
+[Expression: classifier->any().start] >new(start:State);
+[WriteStructuralFeature: actualState] <start;
+end;

@@ -1,0 +1,318 @@
+<?xml version = '1.0' encoding = 'ISO-8859-1' ?>
+<!-- <!DOCTYPE XMI SYSTEM 'UMLX13-11.dtd' > -->
+<XMI xmi.version = '1.1' xmlns:UML='href://org.omg/UML/1.3' timestamp = 'Fri Aug 26 09:56:56 2005' >
+ <XMI.header>
+  <XMI.documentation>
+   <XMI.exporter>Unisys.JCR.1</XMI.exporter>
+   <XMI.exporterVersion>1.3.4</XMI.exporterVersion>
+  </XMI.documentation>
+  <XMI.metamodel xmi.name = 'UML' xmi.version = '1.3'/>
+ </XMI.header>
+<XMI.content>
+<!-- ==================== tutorial    [Model] ==================== -->
+<UML:Model xmi.id = 'G.0' 
+  name = 'tutorial' visibility = 'public' isSpecification = 'false' 
+  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+  <UML:Namespace.ownedElement>
+    <!-- ==================== tutorial::warehouse    [Package] ==================== -->
+    <UML:Package xmi.id = 'S.237.0956.11.0' 
+      name = 'warehouse' visibility = 'public' isSpecification = 'false' 
+      isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+      namespace = 'G.0' >
+      <UML:Namespace.ownedElement>
+        <UML:Stereotype xmi.id = 'S.237.0956.11.12' 
+          name = 'metamodel' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          icon = '' baseClass = 'Package' 
+          extendedElement = 'S.237.0956.11.0' />
+        <!-- ==================== tutorial::warehouse::Contains{42C3D0F10095}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.1' 
+          name = 'Contains' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== tutorial::warehouse::Contains{42C3D0F10095}.content    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.2' 
+              name = 'content' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.237.0956.11.3' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== tutorial::warehouse::Contains{42C3D0F10095}.container    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.3' 
+              name = 'container' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'composite' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.237.0956.11.9' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== tutorial::warehouse::BoxContains{42C3D109031A}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.4' 
+          name = 'BoxContains' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== tutorial::warehouse::BoxContains{42C3D109031A}.item    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.5' 
+              name = 'item' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              constraint = 'S.237.0956.11.13' 
+              type = 'S.237.0956.11.1' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== tutorial::warehouse::BoxContains{42C3D109031A}.box    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.6' 
+              name = 'box' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'composite' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.237.0956.11.7' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== Constraint-S.237.0956.11.13    [Constraint] ==================== -->
+        <UML:Constraint xmi.id = 'S.237.0956.11.13' 
+          name = 'Constraint-S.237.0956.11.13' visibility = 'public' isSpecification = 'false' 
+          constrainedElement = 'G.5 G.8' >
+          <UML:Constraint.body>
+            <UML:BooleanExpression 
+              language = '' body = 'subsets content' />
+          </UML:Constraint.body>
+        </UML:Constraint>
+        <!-- ==================== tutorial::warehouse::ShelfContains{42C3D10D0302}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.7' 
+          name = 'ShelfContains' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== tutorial::warehouse::ShelfContains{42C3D10D0302}.box    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.8' 
+              name = 'box' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              constraint = 'S.237.0956.11.13' 
+              type = 'S.237.0956.11.7' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== tutorial::warehouse::ShelfContains{42C3D10D0302}.rack    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.9' 
+              name = 'rack' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'composite' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.237.0956.11.6' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== tutorial::warehouse::Item    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.237.0956.11.1' 
+          name = 'Item' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.237.0956.11.0' 
+          generalization = 'G.12' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.12' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.237.0956.11.1' parent = 'S.237.0956.11.3' />
+          </UML:Namespace.ownedElement>
+          <UML:Classifier.feature>
+            <!-- ==================== tutorial::warehouse::Item.weight    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.237.0956.11.2' 
+              name = 'weight' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'G.10' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <!-- ==================== tutorial::warehouse::Element    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.237.0956.11.3' 
+          name = 'Element' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'true' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.237.0956.11.0' 
+          specialization = 'G.12 G.15' >
+          <UML:Classifier.feature>
+            <!-- ==================== tutorial::warehouse::Element.id    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.237.0956.11.4' 
+              name = 'identifier' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'G.11' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+            <!-- ==================== tutorial::warehouse::Element./position    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.237.0956.11.5' 
+              name = '/position' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'G.11' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <!-- ==================== tutorial::warehouse::Rack    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.237.0956.11.6' 
+          name = 'Rack' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.237.0956.11.0' 
+          generalization = 'G.13' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.13' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.237.0956.11.6' parent = 'S.237.0956.11.9' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== tutorial::warehouse::Box    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.237.0956.11.7' 
+          name = 'Box' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.237.0956.11.0' 
+          generalization = 'G.14' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.14' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.237.0956.11.7' parent = 'S.237.0956.11.9' />
+          </UML:Namespace.ownedElement>
+          <UML:Classifier.feature>
+            <!-- ==================== tutorial::warehouse::Box./weight    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.237.0956.11.8' 
+              name = '/weight' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'G.10' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <!-- ==================== tutorial::warehouse::Container    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.237.0956.11.9' 
+          name = 'Container' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.237.0956.11.0' 
+          generalization = 'G.15' specialization = 'G.13 G.14' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.15' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.237.0956.11.9' parent = 'S.237.0956.11.3' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+      </UML:Namespace.ownedElement>
+    </UML:Package>
+    <!-- ==================== Integer    [DataType] ==================== -->
+    <UML:DataType xmi.id = 'G.10' 
+      name = 'Integer' visibility = 'public' isSpecification = 'false' 
+      isRoot = 'false' isLeaf = 'false' isAbstract = 'false' />
+    <!-- ==================== String    [DataType] ==================== -->
+    <UML:DataType xmi.id = 'G.11' 
+      name = 'String' visibility = 'public' isSpecification = 'false' 
+      isRoot = 'false' isLeaf = 'false' isAbstract = 'false' />
+  </UML:Namespace.ownedElement>
+</UML:Model>
+<UML:TaggedValue xmi.id = 'XX.26.956.11.2' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.237.0956.11.1' />
+<UML:TaggedValue xmi.id = 'XX.26.956.11.3' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.237.0956.11.3' />
+<UML:TaggedValue xmi.id = 'XX.26.956.36.4' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.237.0956.11.6' />
+<UML:TaggedValue xmi.id = 'XX.26.956.36.5' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.237.0956.11.7' />
+<UML:TaggedValue xmi.id = 'XX.26.956.36.6' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.237.0956.11.9' />
+</XMI.content>
+</XMI>

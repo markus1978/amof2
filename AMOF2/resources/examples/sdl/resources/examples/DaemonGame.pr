@@ -1,0 +1,189 @@
+PACKAGE predefined;
+    VALUE TYPE Duration;
+        LITERALS "1.1", "2.2";
+        OPERATORS 
+            add(in Duration, in Duration)->Duration;
+    ENDVALUE TYPE;
+
+    VALUE TYPE Time;
+        LITERALS "1.1", "2.2";
+        OPERATORS 
+            add(in Time, in Duration)->Time;
+    ENDVALUE TYPE;
+
+    VALUE TYPE Pid;
+    ENDVALUE TYPE;
+
+    VALUE TYPE Boolean;
+        LITERALS "false", "true";
+        OPERATORS
+            and(in Boolean, in Boolean)->Boolean;
+            or(in Boolean, in Boolean)->Boolean;
+            not(in Boolean)->Boolean;
+            equal(in Boolean, in Boolean)->Boolean;
+    ENDVALUE TYPE;
+
+    VALUE TYPE Integer;
+        LITERALS "0", "1", "2", "3", "-1", "-2", "-3";
+        OPERATORS
+            add(in Integer, in Integer)->Integer;
+            sub(in Integer, in Integer)->Integer;
+            mul(in Integer, in Integer)->Integer;
+            neg(in Integer)->Integer;
+            equal(in Integer, in Integer)->Boolean;
+            greater(in Integer, in Integer)->Boolean;
+            less(in Integer, in Integer)->Boolean;
+    ENDVALUE TYPE;
+ENDPACKAGE;
+
+SYSTEM deamonGame_sys : << daemonGame_pkg >> daemonGameSystem_type;
+
+PACKAGE daemonGame_pkg;
+  SYSTEM TYPE daemonGameSystem_type;
+    SIGNAL newGame, endGame, probe, result, gameId, win, lose, score(<<predefined>>Integer);
+    PROCESS user(1,1):user_type;
+    BLOCK demonGame(1,1): demonGame_type;
+
+    CHANNEL user_channel
+        FROM user VIA aGate TO demonGame VIA userGate WITH newGame, endGame, probe, result;
+        FROM demonGame VIA userGate TO user VIA aGate WITH gameId, win, lose, score;
+    ENDCHANNEL;
+
+    PROCESS TYPE user_type;
+        GATE aGate OUT WITH newGame, endGame, probe, result; IN WITH gameId, win, lose, score;
+
+        STATE TYPE userStateType; SUBSTRUCTURE
+            START;
+                OUTPUT newGame VIA aGate;
+                NEXTSTATE one;
+
+            STATE one;
+                INPUT gameId;
+                OUTPUT probe TO sender;
+                NEXTSTATE two;
+            ENDSTATE;
+
+            STATE two;
+                INPUT win;
+                OUTPUT probe TO sender;
+                NEXTSTATE -;
+            ENDSTATE;
+
+            STATE two;
+                INPUT lose;
+                OUTPUT probe TO sender;
+                NEXTSTATE -;
+                /*
+                OUTPUT result TO sender;
+                OUTPUT endGame TO sender;
+                NEXTSTATE three;*/
+            ENDSTATE;
+
+            STATE three;
+                INPUT score;
+                NEXTSTATE -;
+            ENDSTATE;
+        ENDSUBSTRUCTURE STATE TYPE;
+        STATE AGGREGATION userState:userStateType;
+    ENDPROCESS TYPE;
+
+    BLOCK TYPE demonGame_type;
+        GATE userGate OUT WITH gameId, win, lose, score; IN WITH newGame, endGame, probe, result;    
+        SIGNAL Gameover(<<predefined>>Pid);
+        PROCESS Monitor(1,1): Monitor_type;
+        PROCESS Game(0,): Game_type;
+        CHANNEL r1
+            FROM THIS VIA userGate TO Monitor WITH newGame;
+        ENDCHANNEL;
+        CHANNEL r2
+            FROM THIS VIA userGate TO Game WITH endGame, probe, result;
+            FROM Game TO THIS VIA userGate WITH gameId, score, win, lose;
+        ENDCHANNEL;
+        CHANNEL r4
+            FROM Game TO Monitor WITH Gameover;
+        ENDCHANNEL;
+        
+        PROCESS TYPE Monitor_type;
+            DCL player PidSet := "empty";
+            DCL pl <<predefined>>Pid;
+            VALUE TYPE PidSet;
+                LITERALS "empty";
+                OPERATORS
+                    contains(in PidSet, in <<predefined>>Pid)-><<predefined>>Boolean;
+                    incl(in PidSet, in <<predefined>>Pid)->PidSet;
+                    del(in PidSet, in <<predefined>>Pid)->PidSet;
+            ENDVALUE TYPE;
+                
+            STATE TYPE monitorStateType; SUBSTRUCTURE
+                START;
+                    NEXTSTATE wait;
+
+                STATE wait;
+                    INPUT newGame;
+                    DECISION <<predefined / Boolean>> not(contains(player,sender));
+                        (<< predefined / Boolean >> equal << predefined / Boolean >> "false") : NEXTSTATE wait;
+                        (<< predefined / Boolean >> equal << predefined / Boolean >> "true") : 
+                            TASK player := incl(player, sender);
+                            CREATE Game(sender);
+                            NEXTSTATE wait;
+                    ENDDECISION;
+                ENDSTATE;
+
+                STATE wait;
+                    INPUT Gameover(pl);
+                    TASK player := del(player, pl);
+                    NEXTSTATE wait;
+                ENDSTATE;
+            ENDSUBSTRUCTURE STATE TYPE;
+            STATE AGGREGATION monitorState:monitorStateType;
+        ENDPROCESS TYPE;
+
+        PROCESS TYPE Game_type FPAR user <<predefined>>Pid;
+            DCL count <<predefined>>Integer := <<predefined/Integer>>"0";
+
+            STATE TYPE gameStateType; SUBSTRUCTURE
+                START;
+                    OUTPUT gameId TO user;
+                    NEXTSTATE even;
+
+                STATE even;
+                    INPUT none;
+                    NEXTSTATE odd;
+                ENDSTATE;
+
+                STATE even;
+                    INPUT probe;
+                    OUTPUT lose TO user;
+                    TASK count := <<predefined/Integer>>sub(count, <<predefined/Integer>>"1");
+                    NEXTSTATE even;
+                ENDSTATE;
+
+                STATE odd;
+                    INPUT none;
+                    NEXTSTATE even;
+                ENDSTATE;
+
+                STATE odd;
+                    INPUT probe;
+                    OUTPUT win TO user;
+                    TASK count := <<predefined/Integer>>add(count, <<predefined/Integer>>"1");
+                    NEXTSTATE odd;
+                ENDSTATE;
+
+                STATE even, odd;
+                    INPUT result;
+                    OUTPUT score(count) TO user;
+                    NEXTSTATE -;
+                ENDSTATE;
+
+                STATE even, odd;
+                    INPUT endGame;
+                    OUTPUT Gameover(user);
+                    STOP;
+                ENDSTATE;
+            ENDSUBSTRUCTURE STATE TYPE;
+            STATE AGGREGATION gameState:gameStateType;
+        ENDPROCESS TYPE;
+    ENDBLOCK TYPE; 
+  ENDSYSTEM TYPE;
+ENDPACKAGE;

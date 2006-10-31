@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version='2.1' timestamp='Mon Apr 10 19:50:01 CEST 2006' xmlns:uml='http://schema.omg.org/spec/UML/2.0' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1'>
+	<xmi:Documentation xmi:Exporter='MagicDraw UML' xmi:ExporterVersion='10.5'/>
+  <uml:Model xmi:id="1523">
+		<xmi:Extension xmi:Extender='MagicDraw UML 10.5' xmi:ExtenderID='MagicDraw UML 10.5'>
+			<moduleExtension ignoredInModule='true'/>
+		</xmi:Extension>
+		<ownedMember xmi:type='uml:Package' href='UML_Standard_Profile.xml|magicdraw_uml_standard_profile_v_0001'>
+			<xmi:Extension xmi:Extender='MagicDraw UML 10.5' xmi:ExtenderID='MagicDraw UML 10.5'>
+				<referenceExtension referentPath='UML Standard Profile' referentType='Package'/>
+			</xmi:Extension>
+		</ownedMember>
+		<ownedComment xmi:type='uml:Comment' xmi:id='_10_5_ec1033d_1144403794143_327282_1' body='Author:scheidge.&#10;Created:4/7/06 11:56 AM.&#10;Title:.&#10;Comment:.&#10;' annotatedElement='eee_1045467100313_135436_1'/>
+    <ownedElement xmi:id="1520" element="1514" value="TrafficDomainModel.SignalLightControl" name="hub.sam.mof.domainmodels.classProxy" xmi:type="Tag" />
+    <ownedElement xmi:id="1503" element="1504" value="TrafficDomainModel.SignalLightControl" name="hub.sam.mof.domainmodels.proxy" xmi:type="Tag" />
+    <ownedElement xmi:id="1513" visibility="public" name="TrafficTrafficDomainModel" xmi:type="Package">
+      <ownedMember xmi:id="1504" visibility="public" isAbstract="false" tag="1503" name="SignalLightControl" package="1513" xmi:type="Class">
+        <ownedAttribute xmi:id="1507" visibility="public" isDerived="false" type="1508" class="1504" aggregation="composite" isDerivedUnion="false" isReadOnly="true" isUnique="true" isOrdered="false" name="On" xmi:type="Property">
+          <upperValue xmi:id="1525" value="1" xmi:type="LiteralString" />
+          <lowerValue xmi:id="1527" value="0" xmi:type="LiteralString" />
+        </ownedAttribute>
+        <ownedOperation xmi:id="1505" isQuery="false" visibility="public" upper="1" lower="1" class="1504" isOrdered="false" isUnique="true" name="switchOn" xmi:type="Operation" />
+        <ownedOperation xmi:id="1506" isQuery="false" visibility="public" upper="1" lower="1" class="1504" isOrdered="false" isUnique="true" name="switchOff" xmi:type="Operation" />
+      </ownedMember>
+      <ownedMember xmi:id="1514" visibility="public" isAbstract="false" tag="1520" name="SignalLightControlClass" package="1513" xmi:type="Class">
+        <ownedOperation xmi:id="1515" isQuery="false" visibility="public" upper="1" lower="1" type="1504" class="1514" isOrdered="false" isUnique="true" name="createSignalLightControl" xmi:type="Operation">
+          <formalParameter xmi:id="1516" visibility="public" direction="return" type="1504" isOrdered="false" isUnique="true" operation="1515" xmi:type="Parameter">
+            <upperValue xmi:id="1531" value="1" xmi:type="LiteralString" />
+            <lowerValue xmi:id="1532" value="0" xmi:type="LiteralString" />
+          </formalParameter>
+        </ownedOperation>
+        <ownedOperation xmi:id="1517" isQuery="false" visibility="public" upper="1" lower="1" type="1504" class="1514" tag="1518" isOrdered="false" isUnique="true" name="SignalLightControl" xmi:type="Operation">
+          <formalParameter xmi:id="1519" visibility="public" direction="return" type="1504" isOrdered="false" isUnique="true" operation="1517" xmi:type="Parameter">
+            <upperValue xmi:id="1533" value="1" xmi:type="LiteralString" />
+            <lowerValue xmi:id="1534" value="0" xmi:type="LiteralString" />
+          </formalParameter>
+        </ownedOperation>
+      </ownedMember>
+    </ownedElement>
+    <ownedElement xmi:id="1518" element="1517" name="hub.sam.mof.domainmodels.constructor" xmi:type="Tag" />
+    <ownedElement xmi:id="1522" element="1521" value="domainmodels.lang.Object" name="hub.sam.mof.domainmodels.proxy" xmi:type="Tag" />
+    <ownedElement xmi:id="1521" visibility="public" isAbstract="false" tag="1522" name="domainmodels.lang.Object" xmi:type="Class" />
+    <ownedElement xmi:id="1509" visibility="public" name="PrimitiveTypes" xmi:type="Package">
+      <ownedMember xmi:id="1508" visibility="public" isAbstract="false" name="Boolean" package="1509" xmi:type="PrimitiveType" />
+      <ownedMember xmi:id="1510" visibility="public" isAbstract="false" name="Integer" package="1509" xmi:type="PrimitiveType" />
+      <ownedMember xmi:id="1511" visibility="public" isAbstract="false" name="String" package="1509" xmi:type="PrimitiveType" />
+      <ownedMember xmi:id="1512" visibility="public" isAbstract="false" name="UnlimitedNatural" package="1509" xmi:type="PrimitiveType" />
+    </ownedElement>
+  </uml:Model>
+</xmi:XMI>
+

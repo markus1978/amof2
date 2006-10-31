@@ -1,0 +1,632 @@
+<XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:cmof="http://schema.omg.org/spec/mof/2.0/cmof.xmi">
+    <cmof:Package xmi:id="_InfrastructureLibrary_Core" name="core">
+      <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions" name="abstractions">
+        <packageImport importedPackage="_InfrastructureLibrary_Core_PrimitiveTypes"/>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Ownerships" name="ownerships">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Elements"/>
+          <ownedType xmi:type="Association" xmi:id="GG.1" memberEnd="GG.2 GG.3"/>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element" name="Element" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Elements_Element">
+            <ownedRule xmi:id="S.058.0909.55.6" name="not_own_self" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element">
+              <specification xmi:type="OpaqueExpression" body="not self.allOwnedElements()->includes(self)" language="OCL"/>
+            </ownedRule>
+            <ownedRule xmi:id="S.058.0909.55.7" name="has_owner" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element">
+              <specification xmi:type="OpaqueExpression" body="self.mustBeOwned() implies owner->notEmpty()" language="OCL"/>
+            </ownedRule>
+            <ownedAttribute xmi:id="GG.2" lower="0" upper="*" name="ownedElement" type="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element" isDerivedUnion="true" isComposite="true" isDerived="true" opposite="GG.3" association="GG.1"/>
+            <ownedAttribute xmi:id="GG.3" lower="0" name="owner" type="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element" isDerivedUnion="true" isDerived="true" opposite="GG.2" association="GG.1"/>
+            <ownedOperation xmi:id="S.058.0909.55.8" name="allOwnedElements" lower="0" upper="*" type="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="ownedElement->union(ownedElement->collect(e | e.allOwnedElements()))" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.9" name="mustBeOwned" type="Boolean">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="true" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Namespaces" name="namespaces">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Ownerships"/>
+          <ownedType xmi:type="Association" xmi:id="GG.4" memberEnd="GG.5 GG.6"/>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement" name="NamedElement" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element">
+            <ownedRule xmi:id="S.058.0909.55.14" name="no_name" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement">
+              <specification xmi:type="OpaqueExpression" body="self.name->isEmpty() or self.allNamespaces()->select(ns | ns.name->isEmpty())->notEmpty() implies self.qualifiedName->isEmpty()" language="OCL"/>
+            </ownedRule>
+            <ownedRule xmi:id="S.058.0909.55.15" name="qualified_name" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement">
+              <specification xmi:type="OpaqueExpression" body="(self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()) implies self.qualifiedName = self.allNamespaces()->iterate( ns : Namespace; result: String = self.name | ns.name->union(self.separator())->union(result))" language="OCL"/>
+            </ownedRule>
+            <ownedAttribute xmi:id="S.058.0909.55.12" lower="0" name="name" type="String"/>
+            <ownedAttribute xmi:id="S.058.0909.55.13" lower="0" name="qualifiedName" type="String" isDerived="true"/>
+            <ownedAttribute xmi:id="GG.6" lower="0" name="namespace" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_Namespace" isDerivedUnion="true" isDerived="true" subsettedProperty="GG.3" opposite="GG.5" association="GG.4"/>
+            <ownedOperation xmi:id="S.058.0909.55.16" name="allNamespaces" isOrdered="true" isUnique="false" lower="0" upper="*" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_Namespace">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="if self.namespace->isEmpty() then Sequence{} else self.namespace.allNamespaces()->prepend(self.namespace) endif" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.17" name="isDistinguishableFrom" type="Boolean">
+              <formalParameter xmi:id="XX.28.99.59.13" name="n" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement"/>
+              <formalParameter xmi:id="XX.28.99.59.14" name="ns" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_Namespace"/>
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="if self.oclIsKindOf(n.oclType) or n.oclIsKindOf(self.oclType) then ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->isEmpty() else true endif" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.18" name="separator" type="String">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="'::'" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.19" name="qualifiedName" lower="0" type="String">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="if self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty() then self.allNamespaces()->iterate( ns : Namespace; result: String = self.name | ns.name->union(self.separator())->union(result)) else Set{} endif" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Namespaces_Namespace" name="Namespace" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement">
+            <ownedRule xmi:id="S.058.0909.55.21" name="members_are_distinguishable" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Namespaces_Namespace">
+              <specification xmi:type="OpaqueExpression" body="membersAreDistinguishable()" language="OCL"/>
+            </ownedRule>
+            <ownedAttribute xmi:id="GG.5" lower="0" upper="*" name="ownedMember" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement" isDerivedUnion="true" isComposite="true" isDerived="true" subsettedProperty="GG.2 GG.8" opposite="GG.6" association="GG.4"/>
+            <ownedAttribute xmi:id="GG.8" lower="0" upper="*" name="member" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement" isDerivedUnion="true" isDerived="true"/>
+            <ownedOperation xmi:id="S.058.0909.55.22" name="getNamesOfMember" lower="0" upper="*" type="String">
+              <formalParameter xmi:id="XX.28.99.59.20" name="element" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement"/>
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="if member->includes(element) then Set{}->including(element.name) else Set{} endif" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.23" name="membersAreDistinguishable" type="Boolean">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Classifiers" name="classifiers">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Namespaces"/>
+          <ownedType xmi:type="Association" xmi:id="GG.10" memberEnd="GG.11 GG.12"/>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Classifiers_Classifier" name="Classifier" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Namespaces_Namespace">
+            <ownedAttribute xmi:id="GG.12" lower="0" upper="*" name="feature" type="_InfrastructureLibrary_Core_Abstractions_Classifiers_Feature" isDerivedUnion="true" isDerived="true" subsettedProperty="GG.8" opposite="GG.11" association="GG.10"/>
+            <ownedOperation xmi:id="S.058.0909.55.26" name="allFeatures" lower="0" upper="*" type="_InfrastructureLibrary_Core_Abstractions_Classifiers_Feature">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="member->select(oclIsKindOf(Feature))" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Classifiers_Feature" name="Feature" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement">
+            <ownedAttribute xmi:id="GG.11" upper="*" name="featuringClassifier" type="_InfrastructureLibrary_Core_Abstractions_Classifiers_Classifier" isDerivedUnion="true" isDerived="true" opposite="GG.12" association="GG.10"/>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Expressions" name="expressions">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Ownerships"/>
+          <ownedType xmi:type="Association" xmi:id="GG.13" memberEnd="GG.14 GG.15">
+            <ownedEnd xmi:id="GG.15" lower="0" name="expression" type="_InfrastructureLibrary_Core_Abstractions_Expressions_Expression" subsettedProperty="GG.3" association="GG.13"/>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Expressions_OpaqueExpression" name="OpaqueExpression" superClass="_InfrastructureLibrary_Core_Abstractions_Expressions_ValueSpecification">
+            <ownedAttribute xmi:id="S.058.0909.55.30" name="body" type="String"/>
+            <ownedAttribute xmi:id="S.058.0909.55.31" lower="0" name="language" type="String"/>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Expressions_ValueSpecification" name="ValueSpecification" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element">
+            <ownedOperation xmi:id="S.058.0909.55.33" name="isComputable" type="Boolean">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="false" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.34" name="integerValue" lower="0" type="Integer">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="Set{}" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.35" name="booleanValue" lower="0" type="Boolean">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="Set{}" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.36" name="stringValue" lower="0" type="String">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="Set{}" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.37" name="unlimitedValue" lower="0" type="UnlimitedNatural">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="Set{}" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.38" name="isNull" type="Boolean">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="false" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Expressions_Expression" name="Expression" superClass="_InfrastructureLibrary_Core_Abstractions_Expressions_ValueSpecification">
+            <ownedAttribute xmi:id="S.058.0909.55.40" name="symbol" type="String"/>
+            <ownedAttribute xmi:id="GG.14" isOrdered="true" lower="0" upper="*" name="operand" type="_InfrastructureLibrary_Core_Abstractions_Expressions_ValueSpecification" isComposite="true" subsettedProperty="GG.2" opposite="GG.15" association="GG.13"/>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_MultiplicityExpressions" name="multiplicityexpressions">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Multiplicities"/>
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Expressions"/>
+          <ownedType xmi:type="Association" xmi:id="GG.16" memberEnd="GG.17 GG.18">
+            <ownedEnd xmi:id="GG.18" lower="0" name="ownerUpper" type="_InfrastructureLibrary_Core_Abstractions_MultiplicityExpressions_MultiplicityElement" subsettedProperty="GG.3" association="GG.16"/>
+          </ownedType>
+          <ownedType xmi:type="Association" xmi:id="GG.19" memberEnd="GG.20 GG.21">
+            <ownedEnd xmi:id="GG.21" lower="0" name="ownerLower" type="_InfrastructureLibrary_Core_Abstractions_MultiplicityExpressions_MultiplicityElement" subsettedProperty="GG.3" association="GG.19"/>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_MultiplicityExpressions_MultiplicityElement" name="MultiplicityElement" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Multiplicities_MultiplicityElement _InfrastructureLibrary_Core_Abstractions_Ownerships_Element">
+            <ownedRule xmi:id="S.058.0909.55.45" name="lower_eq_lowerbound" constrainedElement="_InfrastructureLibrary_Core_Abstractions_MultiplicityExpressions_MultiplicityElement">
+              <specification xmi:type="OpaqueExpression" body="lower=lowerBound()" language="OCL"/>
+            </ownedRule>
+            <ownedRule xmi:id="S.058.0909.55.46" name="upper_eq_upperbound" constrainedElement="_InfrastructureLibrary_Core_Abstractions_MultiplicityExpressions_MultiplicityElement">
+              <specification xmi:type="OpaqueExpression" body="upper = upperBound()" language="OCL"/>
+            </ownedRule>
+            <ownedAttribute xmi:id="S.058.0909.55.43" lower="0" name="lower" type="Integer" isDerived="true" redefinedProperty="S.058.0909.55.136"/>
+            <ownedAttribute xmi:id="S.058.0909.55.44" lower="0" name="upper" type="UnlimitedNatural" isDerived="true" redefinedProperty="S.058.0909.55.137"/>
+            <ownedAttribute xmi:id="GG.17" lower="0" name="upperValue" type="_InfrastructureLibrary_Core_Abstractions_Expressions_ValueSpecification" isComposite="true" subsettedProperty="GG.2" opposite="GG.18" association="GG.16"/>
+            <ownedAttribute xmi:id="GG.20" lower="0" name="lowerValue" type="_InfrastructureLibrary_Core_Abstractions_Expressions_ValueSpecification" isComposite="true" subsettedProperty="GG.2" opposite="GG.21" association="GG.19"/>
+            <ownedOperation xmi:id="S.058.0909.55.47" name="lower" lower="0" type="Integer">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="lowerBound()" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.48" name="upper" lower="0" type="UnlimitedNatural">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="upperBound()" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.49" name="lowerBound" lower="0" type="Integer" redefinedOperation="S.058.0909.55.138">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="if lowerValue->isEmpty() then 1 else lowerValue.integerValue() endif" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.50" name="upperBound" lower="0" type="UnlimitedNatural" redefinedOperation="S.058.0909.55.139">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="if upperValue->isEmpty() then 1 else upperValue.unlimitedValue() endif" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_BehavioralFeatures" name="behavioralfeatures">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Classifiers"/>
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_TypedElements"/>
+          <ownedType xmi:type="Association" xmi:id="GG.22" memberEnd="GG.23 GG.24">
+            <ownedEnd xmi:id="GG.24" lower="0" type="_InfrastructureLibrary_Core_Abstractions_BehavioralFeatures_BehavioralFeature" association="GG.22"/>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_BehavioralFeatures_BehavioralFeature" name="BehavioralFeature" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Classifiers_Feature _InfrastructureLibrary_Core_Abstractions_Namespaces_Namespace">
+            <ownedAttribute xmi:id="GG.23" isOrdered="true" lower="0" upper="*" name="parameter" type="_InfrastructureLibrary_Core_Abstractions_BehavioralFeatures_Parameter" isDerivedUnion="true" isDerived="true" subsettedProperty="GG.8" opposite="GG.24" association="GG.22"/>
+            <ownedOperation xmi:id="S.058.0909.55.53" name="isDistinguishableFrom" type="Boolean" redefinedOperation="S.058.0909.55.17">
+              <formalParameter xmi:id="XX.28.910.0.43" name="n" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement"/>
+              <formalParameter xmi:id="XX.28.910.0.44" name="ns" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_Namespace"/>
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="if n.oclIsKindOf(BehavioralFeature) then if ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->notEmpty() then Set{}->including(self)->including(n)->isUnique( bf | bf.parameter->collect(type)) else true endif else true endif" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_BehavioralFeatures_Parameter" name="Parameter" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement _InfrastructureLibrary_Core_Abstractions_TypedElements_TypedElement"/>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Instances" name="instances">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Expressions"/>
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_StructuralFeatures"/>
+          <ownedType xmi:type="Association" xmi:id="GG.25" memberEnd="GG.26 GG.27"/>
+          <ownedType xmi:type="Association" xmi:id="GG.31" memberEnd="GG.32 GG.33">
+            <ownedEnd xmi:id="GG.33" lower="0" name="owningSlot" type="_InfrastructureLibrary_Core_Abstractions_Instances_Slot" subsettedProperty="GG.3" association="GG.31"/>
+          </ownedType>
+          <ownedType xmi:type="Association" xmi:id="GG.34" memberEnd="GG.35 GG.36">
+            <ownedEnd xmi:id="GG.36" lower="0" name="owningInstanceSpec" type="_InfrastructureLibrary_Core_Abstractions_Instances_InstanceSpecification" subsettedProperty="GG.3" association="GG.34"/>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Instances_InstanceSpecification" name="InstanceSpecification" superClass="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement">
+            <ownedRule xmi:id="S.058.0909.55.57" name="slots_are_defined" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Instances_InstanceSpecification">
+              <specification xmi:type="OpaqueExpression" body="slot->forAll(s | classifier->exists(c | c.allFeatures()->includes(s.definingFeature))" language="OCL"/>
+            </ownedRule>
+            <ownedRule xmi:id="S.058.0909.55.58" name="no_duplicate_slots" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Instances_InstanceSpecification">
+              <specification xmi:type="OpaqueExpression" body="classifier->forAll(c | (c.allFeatures()->forAll(f | slot->select(s | s.definingFeature = f)->size() &lt;= 1) )" language="OCL"/>
+            </ownedRule>
+            <ownedAttribute xmi:id="GG.26" lower="0" upper="*" name="slot" type="_InfrastructureLibrary_Core_Abstractions_Instances_Slot" isComposite="true" subsettedProperty="GG.2" opposite="GG.27" association="GG.25"/>
+            <ownedAttribute xmi:id="GG.29" upper="*" name="classifier" type="_InfrastructureLibrary_Core_Abstractions_Classifiers_Classifier"/>
+            <ownedAttribute xmi:id="GG.35" lower="0" name="specification" type="_InfrastructureLibrary_Core_Abstractions_Expressions_ValueSpecification" isComposite="true" subsettedProperty="GG.2" opposite="GG.36" association="GG.34"/>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Instances_Slot" name="Slot" superClass="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element">
+            <ownedAttribute xmi:id="GG.27" name="owningInstance" type="_InfrastructureLibrary_Core_Abstractions_Instances_InstanceSpecification" subsettedProperty="GG.3" opposite="GG.26" association="GG.25"/>
+            <ownedAttribute xmi:id="GG.32" isOrdered="true" lower="0" upper="*" name="value" type="_InfrastructureLibrary_Core_Abstractions_Expressions_ValueSpecification" isComposite="true" subsettedProperty="GG.2" opposite="GG.33" association="GG.31"/>
+            <ownedAttribute xmi:id="GG.41" name="definingFeature" type="_InfrastructureLibrary_Core_Abstractions_StructuralFeatures_StructuralFeature"/>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Instances_InstanceValue" name="InstanceValue" superClass="_InfrastructureLibrary_Core_Abstractions_Expressions_ValueSpecification">
+            <ownedAttribute xmi:id="GG.38" name="instance" type="_InfrastructureLibrary_Core_Abstractions_Instances_InstanceSpecification"/>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Redefinitions" name="redefinitions">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Super"/>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Redefinitions_RedefinableElement" name="RedefinableElement" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement">
+            <ownedRule xmi:id="S.058.0909.55.63" name="redefinition_context_valid" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Redefinitions_RedefinableElement">
+              <specification xmi:type="OpaqueExpression" body="self.redefinedElement->forAll(e | self.isRedefinitionContextValid(e))" language="OCL"/>
+            </ownedRule>
+            <ownedRule xmi:id="S.058.0909.55.64" name="redefinition_consistent" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Redefinitions_RedefinableElement">
+              <specification xmi:type="OpaqueExpression" body="self.redefinedElement->forAll(re | re.isConsistentWith(self))" language="OCL"/>
+            </ownedRule>
+            <ownedAttribute xmi:id="GG.44" lower="0" upper="*" name="redefinedElement" type="_InfrastructureLibrary_Core_Abstractions_Redefinitions_RedefinableElement" isDerivedUnion="true" isDerived="true"/>
+            <ownedAttribute xmi:id="GG.47" lower="0" upper="*" name="redefinitionContext" type="_InfrastructureLibrary_Core_Abstractions_Super_Classifier" isDerivedUnion="true" isDerived="true"/>
+            <ownedOperation xmi:id="S.058.0909.55.65" name="isConsistentWith" type="Boolean">
+              <formalParameter xmi:id="XX.28.910.1.56" name="redefinee" type="_InfrastructureLibrary_Core_Abstractions_Redefinitions_RedefinableElement"/>
+              <precondition xmi:id="XX.28.910.1.55" name="pre" constrainedElement="S.058.0909.55.65">
+                <specification xmi:type="OpaqueExpression" body="redefinee.isRedefinitionContextValid(self)" language="OCL"/>
+              </precondition>
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="false" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.66" name="isRedefinitionContextValid" type="Boolean">
+              <formalParameter xmi:id="XX.28.910.1.58" name="redefinable" type="_InfrastructureLibrary_Core_Abstractions_Redefinitions_RedefinableElement"/>
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="self.redefinitionContext->exists(c | redefinable.redefinitionContext->exists(r | c.allParents()->includes(r)))" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Generalizations" name="generalizations">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Super"/>
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Relationships"/>
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_TypedElements"/>
+          <ownedType xmi:type="Association" xmi:id="GG.49" memberEnd="GG.50 GG.51"/>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Generalizations_Generalization" name="Generalization" superClass="_InfrastructureLibrary_Core_Abstractions_Relationships_DirectedRelationship">
+            <ownedAttribute xmi:id="GG.51" name="specific" type="_InfrastructureLibrary_Core_Abstractions_Generalizations_Classifier" subsettedProperty="GG.68 GG.3" opposite="GG.50" association="GG.49"/>
+            <ownedAttribute xmi:id="GG.53" name="general" type="_InfrastructureLibrary_Core_Abstractions_Generalizations_Classifier" subsettedProperty="GG.71"/>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Generalizations_Classifier" name="Classifier" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Super_Classifier _InfrastructureLibrary_Core_Abstractions_TypedElements_Type">
+            <ownedRule xmi:id="S.058.0909.55.72" name="general_equals_parents" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Generalizations_Classifier">
+              <specification xmi:type="OpaqueExpression" body="general = self.parents()" language="OCL"/>
+            </ownedRule>
+            <ownedAttribute xmi:id="GG.50" lower="0" upper="*" name="generalization" type="_InfrastructureLibrary_Core_Abstractions_Generalizations_Generalization" isComposite="true" subsettedProperty="GG.2" opposite="GG.51" association="GG.49"/>
+            <ownedAttribute xmi:id="GG.56" lower="0" upper="*" name="general" type="_InfrastructureLibrary_Core_Abstractions_Generalizations_Classifier" isDerived="true" redefinedProperty="GG.89"/>
+            <ownedOperation xmi:id="S.058.0909.55.70" name="general" lower="0" upper="*" type="_InfrastructureLibrary_Core_Abstractions_Generalizations_Classifier">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="self.parents()" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.71" name="parents" lower="0" upper="*" type="_InfrastructureLibrary_Core_Abstractions_Generalizations_Classifier" redefinedOperation="S.058.0909.55.105">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="generalization.general" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.73" name="conformsTo" type="Boolean" redefinedOperation="S.058.0909.55.150">
+              <formalParameter xmi:id="XX.28.910.1.65" name="other" type="_InfrastructureLibrary_Core_Abstractions_Generalizations_Classifier"/>
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="(self=other) or (self.allParents()->includes(other))" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Comments" name="comments">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Ownerships"/>
+          <ownedType xmi:type="Association" xmi:id="GG.58" memberEnd="GG.59 GG.60">
+            <ownedEnd xmi:id="GG.60" lower="0" name="owningComment" type="_InfrastructureLibrary_Core_Abstractions_Comments_Element" subsettedProperty="GG.3" association="GG.58"/>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Comments_Comment" name="Comment" superClass="_InfrastructureLibrary_Core_Abstractions_Comments_Element">
+            <ownedAttribute xmi:id="S.058.0909.55.76" name="body" type="String"/>
+            <ownedAttribute xmi:id="GG.62" lower="0" upper="*" name="annotatedElement" type="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element"/>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Comments_Element" name="Element" superClass="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element">
+            <ownedAttribute xmi:id="GG.59" lower="0" upper="*" name="ownedComment" type="_InfrastructureLibrary_Core_Abstractions_Comments_Comment" isComposite="true" subsettedProperty="GG.2" opposite="GG.60" association="GG.58"/>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Relationships" name="relationships">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Ownerships"/>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Relationships_DirectedRelationship" name="DirectedRelationship" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Relationships_Relationship">
+            <ownedAttribute xmi:id="GG.68" upper="*" name="source" type="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element" isDerivedUnion="true" isDerived="true" subsettedProperty="GG.65"/>
+            <ownedAttribute xmi:id="GG.71" upper="*" name="target" type="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element" isDerivedUnion="true" isDerived="true" subsettedProperty="GG.65"/>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Relationships_Relationship" name="Relationship" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element">
+            <ownedAttribute xmi:id="GG.65" upper="*" name="relatedElement" type="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element" isDerivedUnion="true" isDerived="true"/>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Changeabilities" name="changeabilities">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_StructuralFeatures"/>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Changeabilities_StructuralFeature" name="StructuralFeature" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_StructuralFeatures_StructuralFeature">
+            <ownedAttribute xmi:id="S.058.0909.55.83" name="isReadOnly" type="Boolean" default="false"/>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_StructuralFeatures" name="structuralfeatures">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Classifiers"/>
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_TypedElements"/>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_StructuralFeatures_StructuralFeature" name="StructuralFeature" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Classifiers_Feature _InfrastructureLibrary_Core_Abstractions_TypedElements_TypedElement"/>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Constraints" name="constraints">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Expressions"/>
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Namespaces"/>
+          <ownedType xmi:type="Association" xmi:id="GG.73" memberEnd="GG.74 GG.75">
+            <ownedEnd xmi:id="GG.75" lower="0" upper="*" name="ownedConstraint" type="_InfrastructureLibrary_Core_Abstractions_Constraints_Constraint" association="GG.73"/>
+          </ownedType>
+          <ownedType xmi:type="Association" xmi:id="GG.76" memberEnd="GG.77 GG.78"/>
+          <ownedType xmi:type="Association" xmi:id="GG.79" memberEnd="GG.80 GG.81">
+            <ownedEnd xmi:id="GG.81" lower="0" name="owningConstraint" type="_InfrastructureLibrary_Core_Abstractions_Constraints_Constraint" subsettedProperty="GG.3" association="GG.79"/>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Constraints_Constraint" name="Constraint" superClass="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement">
+            <ownedRule xmi:id="S.058.0909.55.88" name="not_apply_to_self" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Constraints_Constraint">
+              <specification xmi:type="OpaqueExpression" body="not constrainedElement->includes(self)" language="OCL"/>
+            </ownedRule>
+            <ownedAttribute xmi:id="GG.74" lower="0" name="context" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_Namespace" isDerivedUnion="true" isDerived="true" opposite="GG.75" association="GG.73"/>
+            <ownedAttribute xmi:id="GG.78" lower="0" name="namespace" type="_InfrastructureLibrary_Core_Abstractions_Constraints_Namespace" redefinedProperty="GG.6" subsettedProperty="GG.74" opposite="GG.77" association="GG.76"/>
+            <ownedAttribute xmi:id="GG.80" name="specification" type="_InfrastructureLibrary_Core_Abstractions_Expressions_ValueSpecification" isComposite="true" subsettedProperty="GG.2" opposite="GG.81" association="GG.79"/>
+            <ownedAttribute xmi:id="GG.83" isOrdered="true" lower="0" upper="*" name="constrainedElement" type="_InfrastructureLibrary_Core_Abstractions_Ownerships_Element"/>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Constraints_Namespace" name="Namespace" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Namespaces_Namespace">
+            <ownedAttribute xmi:id="GG.77" lower="0" upper="*" name="ownedRule" type="_InfrastructureLibrary_Core_Abstractions_Constraints_Constraint" isComposite="true" subsettedProperty="GG.5" opposite="GG.78" association="GG.76"/>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Visibilities" name="visibilities">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Namespaces"/>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Visibilities_NamedElement" name="NamedElement" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement">
+            <ownedRule xmi:id="S.058.0909.55.97" name="visibility_needs_ownership" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Visibilities_NamedElement">
+              <specification xmi:type="OpaqueExpression" body="namespace->isEmpty() implies visibility->isEmpty()" language="OCL"/>
+            </ownedRule>
+            <ownedAttribute xmi:id="S.058.0909.55.96" lower="0" name="visibility" type="_InfrastructureLibrary_Core_Abstractions_Visibilities_VisibilityKind"/>
+          </ownedType>
+          <ownedType xmi:type="Enumeration" xmi:id="_InfrastructureLibrary_Core_Abstractions_Visibilities_VisibilityKind" name="VisibilityKind">
+            <ownedLiteral xmi:id="_InfrastructureLibrary_Core_Abstractions_Visibilities_VisibilityKind_public" name="public"/>
+            <ownedLiteral xmi:id="_InfrastructureLibrary_Core_Abstractions_Visibilities_VisibilityKind_private" name="private"/>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Super" name="super">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Classifiers"/>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Super_Classifier" name="Classifier" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Classifiers_Classifier">
+            <ownedRule xmi:id="S.058.0909.55.101" name="no_cycles_in_generalization" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Super_Classifier">
+              <specification xmi:type="OpaqueExpression" body="not self.allParents()->includes(self)" language="OCL"/>
+            </ownedRule>
+            <ownedRule xmi:id="S.058.0909.55.102" name="specialize_type" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Super_Classifier">
+              <specification xmi:type="OpaqueExpression" body="self.parents()->forAll(c | self.maySpecializeType(c))" language="OCL"/>
+            </ownedRule>
+            <ownedRule xmi:id="S.058.0909.55.103" name="inherited_member" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Super_Classifier">
+              <specification xmi:type="OpaqueExpression" body="self.inheritedMember->includesAll(self.inherit(self.parents()->collect(p | p.inheritableMembers(self)))" language="OCL"/>
+            </ownedRule>
+            <ownedAttribute xmi:id="S.058.0909.55.100" name="isAbstract" type="Boolean" default="false"/>
+            <ownedAttribute xmi:id="GG.87" lower="0" upper="*" name="inheritedMember" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement" isDerived="true" subsettedProperty="GG.8"/>
+            <ownedAttribute xmi:id="GG.89" lower="0" upper="*" name="general" type="_InfrastructureLibrary_Core_Abstractions_Super_Classifier"/>
+            <ownedOperation xmi:id="S.058.0909.55.104" name="inheritedMember" lower="0" upper="*" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="self.inherit(self.parents()->collect(p | p.inheritableMembers(self))" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.105" name="parents" lower="0" upper="*" type="_InfrastructureLibrary_Core_Abstractions_Super_Classifier">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="general" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.106" name="allParents" lower="0" upper="*" type="_InfrastructureLibrary_Core_Abstractions_Super_Classifier">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="self.parents()->union(self.parents()->collect(p | p.allParents())" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.107" name="inheritableMembers" lower="0" upper="*" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement">
+              <formalParameter xmi:id="XX.28.910.4.89" name="c" type="_InfrastructureLibrary_Core_Abstractions_Super_Classifier"/>
+              <precondition xmi:id="XX.28.910.3.88" name="pre" constrainedElement="S.058.0909.55.107">
+                <specification xmi:type="OpaqueExpression" body="c.allParents()->includes(self)" language="OCL"/>
+              </precondition>
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="member->select(m | c.hasVisibilityOf(m))" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.108" name="hasVisibilityOf" type="Boolean">
+              <formalParameter xmi:id="XX.28.910.4.92" name="n" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement"/>
+              <precondition xmi:id="XX.28.910.4.91" name="pre" constrainedElement="S.058.0909.55.108">
+                <specification xmi:type="OpaqueExpression" body="self.allParents()->collect(c | c.member)->includes(n)" language="OCL"/>
+              </precondition>
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="true" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <!--
+            <ownedOperation xmi:id="S.058.0909.55.109" name="inherit" lower="0" upper="*" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement">
+              <formalParameter xmi:id="XX.28.910.4.94" lower="0" upper="*" name="inhs" type="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement"/>
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="inhs" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            -->
+            <ownedOperation xmi:id="S.058.0909.55.110" name="maySpecializeType" type="Boolean">
+              <formalParameter xmi:id="XX.28.910.4.96" name="c" type="_InfrastructureLibrary_Core_Abstractions_Super_Classifier"/>
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="self.oclIsKindOf(c.oclType)" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Literals" name="literals">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Expressions"/>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Literals_LiteralBoolean" name="LiteralBoolean" superClass="_InfrastructureLibrary_Core_Abstractions_Literals_LiteralSpecification">
+            <ownedAttribute xmi:id="S.058.0909.55.113" name="value" type="Boolean"/>
+            <ownedOperation xmi:id="S.058.0909.55.114" name="isComputable" type="Boolean" redefinedOperation="S.058.0909.55.33">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="true" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.115" name="booleanValue" lower="0" type="Boolean" redefinedOperation="S.058.0909.55.35">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="value" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Literals_LiteralString" name="LiteralString" superClass="_InfrastructureLibrary_Core_Abstractions_Literals_LiteralSpecification">
+            <ownedAttribute xmi:id="S.058.0909.55.117" name="value" type="String"/>
+            <ownedOperation xmi:id="S.058.0909.55.118" name="isComputable" type="Boolean" redefinedOperation="S.058.0909.55.33">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="true" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.119" name="stringValue" lower="0" type="String" redefinedOperation="S.058.0909.55.36">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="value" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Literals_LiteralSpecification" name="LiteralSpecification" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Expressions_ValueSpecification"/>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Literals_LiteralNull" name="LiteralNull" superClass="_InfrastructureLibrary_Core_Abstractions_Literals_LiteralSpecification">
+            <ownedOperation xmi:id="S.058.0909.55.122" name="isComputable" type="Boolean" redefinedOperation="S.058.0909.55.33">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="true" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.123" name="isNull" type="Boolean" redefinedOperation="S.058.0909.55.38">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="true" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Literals_LiteralInteger" name="LiteralInteger" superClass="_InfrastructureLibrary_Core_Abstractions_Literals_LiteralSpecification">
+            <ownedAttribute xmi:id="S.058.0909.55.125" name="value" type="Integer"/>
+            <ownedOperation xmi:id="S.058.0909.55.126" name="isComputable" type="Boolean" redefinedOperation="S.058.0909.55.33">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="true" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.127" name="integerValue" lower="0" type="Integer" redefinedOperation="S.058.0909.55.34">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="value" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Literals_LiteralUnlimitedNatural" name="LiteralUnlimitedNatural" superClass="_InfrastructureLibrary_Core_Abstractions_Literals_LiteralSpecification">
+            <ownedAttribute xmi:id="S.058.0909.55.129" name="value" type="UnlimitedNatural"/>
+            <ownedOperation xmi:id="S.058.0909.55.130" name="isComputable" type="Boolean" redefinedOperation="S.058.0909.55.33">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="true" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.131" name="unlimitedValue" lower="0" type="UnlimitedNatural" redefinedOperation="S.058.0909.55.37">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="value" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Multiplicities" name="multiplicities">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Elements"/>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Multiplicities_MultiplicityElement" name="MultiplicityElement" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Elements_Element">
+            <ownedRule xmi:id="S.058.0909.55.143" name="upper_gt_0" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Multiplicities_MultiplicityElement">
+              <specification xmi:type="OpaqueExpression" body="upperBound()->notEmpty() implies upperBound() > 0" language="OCL"/>
+            </ownedRule>
+            <ownedRule xmi:id="S.058.0909.55.144" name="lower_ge_0" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Multiplicities_MultiplicityElement">
+              <specification xmi:type="OpaqueExpression" body="lowerBound()->notEmpty() implies lowerBound() >= 0" language="OCL"/>
+            </ownedRule>
+            <ownedRule xmi:id="S.058.0909.55.145" name="upper_ge_lower" constrainedElement="_InfrastructureLibrary_Core_Abstractions_Multiplicities_MultiplicityElement">
+              <specification xmi:type="OpaqueExpression" body="(upperBound()->notEmpty() and lowerBound()->notEmpty()) implies upperBound() >= lowerBound()" language="OCL"/>
+            </ownedRule>
+            <ownedAttribute xmi:id="S.058.0909.55.134" name="isOrdered" type="Boolean" default="false"/>
+            <ownedAttribute xmi:id="S.058.0909.55.135" name="isUnique" type="Boolean" default="true"/>
+            <ownedAttribute xmi:id="S.058.0909.55.136" lower="0" name="lower" type="Integer" default="1"/>
+            <ownedAttribute xmi:id="S.058.0909.55.137" lower="0" name="upper" type="UnlimitedNatural" default="1"/>
+            <ownedOperation xmi:id="S.058.0909.55.138" name="lowerBound" lower="0" type="Integer">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="if lower->notEmpty() then lower else 1 endif" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.139" name="upperBound" lower="0" type="UnlimitedNatural">
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="if upper->notEmpty() then upper else 1 endif" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.140" name="isMultivalued" type="Boolean">
+              <precondition xmi:id="XX.28.910.4.117" name="pre" constrainedElement="S.058.0909.55.140">
+                <specification xmi:type="OpaqueExpression" body="upperBound()->notEmpty()" language="OCL"/>
+              </precondition>
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="upperBound() > 1" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.141" name="includesCardinality" type="Boolean">
+              <formalParameter xmi:id="XX.28.910.4.120" name="C" type="Integer"/>
+              <precondition xmi:id="XX.28.910.4.119" name="pre" constrainedElement="S.058.0909.55.141">
+                <specification xmi:type="OpaqueExpression" body="upperBound()->notEmpty() and lowerBound()->notEmpty()" language="OCL"/>
+              </precondition>
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="(lowerBound() &lt;= C) and (upperBound() >= C) " language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+            <ownedOperation xmi:id="S.058.0909.55.142" name="includesMultiplicity" type="Boolean">
+              <formalParameter xmi:id="XX.28.910.4.123" name="M" type="_InfrastructureLibrary_Core_Abstractions_Multiplicities_MultiplicityElement"/>
+              <precondition xmi:id="XX.28.910.4.122" name="pre" constrainedElement="S.058.0909.55.142">
+                <specification xmi:type="OpaqueExpression" body="self.upperBound()->notEmpty() and self.lowerBound()->notEmpty() and M.upperBound()->notEmpty() and M.lowerBound()->notEmpty()" language="OCL"/>
+              </precondition>
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="(self.lowerBound() &lt;= M.lowerBound()) and (self.upperBound() >= M.upperBound())" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_Elements" name="elements">
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_Elements_Element" name="Element" isAbstract="true"/>
+        </nestedPackage>
+        <nestedPackage xmi:id="_InfrastructureLibrary_Core_Abstractions_TypedElements" name="typedelements">
+          <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Namespaces"/>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_TypedElements_Type" name="Type" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement">
+            <ownedOperation xmi:id="S.058.0909.55.150" name="conformsTo" type="Boolean">
+              <formalParameter xmi:id="XX.28.910.4.130" name="other" type="_InfrastructureLibrary_Core_Abstractions_TypedElements_Type"/>
+              <bodyCondition>
+                <specification xmi:type="OpaqueExpression" body="false" language="OCL"/>
+              </bodyCondition>
+            </ownedOperation>
+          </ownedType>
+          <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Abstractions_TypedElements_TypedElement" name="TypedElement" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Namespaces_NamedElement">
+            <ownedAttribute xmi:id="GG.92" lower="0" name="type" type="_InfrastructureLibrary_Core_Abstractions_TypedElements_Type"/>
+          </ownedType>
+        </nestedPackage>
+      </nestedPackage>
+      <nestedPackage xmi:id="_InfrastructureLibrary_Core_PrimitiveTypes" name="primitivetypes">
+        <ownedType xmi:type="PrimitiveType" xmi:id="Integer" name="Integer"/>
+        <ownedType xmi:type="PrimitiveType" xmi:id="Boolean" name="Boolean"/>
+        <ownedType xmi:type="PrimitiveType" xmi:id="String" name="String"/>
+        <ownedType xmi:type="PrimitiveType" xmi:id="UnlimitedNatural" name="UnlimitedNatural"/>
+      </nestedPackage>
+      <nestedPackage xmi:id="_InfrastructureLibrary_Core_Basic" name="basic">
+        <packageImport importedPackage="_InfrastructureLibrary_Core_PrimitiveTypes"/>
+        <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Elements"/>
+        <packageImport importedPackage="_InfrastructureLibrary_Core_Abstractions_Multiplicities"/>
+        <ownedType xmi:type="Association" xmi:id="GG.97" memberEnd="GG.98 GG.99"/>
+        <ownedType xmi:type="Association" xmi:id="GG.103" memberEnd="GG.104 GG.105"/>
+        <ownedType xmi:type="Association" xmi:id="GG.106" memberEnd="GG.107 GG.108"/>
+        <ownedType xmi:type="Association" xmi:id="GG.115" memberEnd="GG.116 GG.117"/>
+        <ownedType xmi:type="Association" xmi:id="GG.118" memberEnd="GG.119 GG.120"/>
+        <ownedType xmi:type="Association" xmi:id="GG.121" memberEnd="GG.122 GG.123"/>
+        <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Basic_Class" name="Class" superClass="_InfrastructureLibrary_Core_Basic_Type">
+          <ownedAttribute xmi:id="S.058.0909.55.159" name="isAbstract" type="Boolean" default="false"/>
+          <ownedAttribute xmi:id="GG.98" isOrdered="true" lower="0" upper="*" name="ownedAttribute" type="_InfrastructureLibrary_Core_Basic_Property" isComposite="true" opposite="GG.99" association="GG.97"/>
+          <ownedAttribute xmi:id="GG.107" isOrdered="true" lower="0" upper="*" name="ownedOperation" type="_InfrastructureLibrary_Core_Basic_Operation" isComposite="true" opposite="GG.108" association="GG.106"/>
+          <ownedAttribute xmi:id="GG.110" lower="0" upper="*" name="superClass" type="_InfrastructureLibrary_Core_Basic_Class"/>
+        </ownedType>
+        <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Basic_Operation" name="Operation" superClass="_InfrastructureLibrary_Core_Basic_TypedElement _InfrastructureLibrary_Core_Abstractions_Multiplicities_MultiplicityElement">
+          <ownedAttribute xmi:id="GG.95" lower="0" upper="*" name="raisedException" type="_InfrastructureLibrary_Core_Basic_Type"/>
+          <ownedAttribute xmi:id="GG.104" isOrdered="true" lower="0" upper="*" name="ownedParameter" type="_InfrastructureLibrary_Core_Basic_Parameter" isComposite="true" opposite="GG.105" association="GG.103"/>
+          <ownedAttribute xmi:id="GG.108" lower="0" name="class" type="_InfrastructureLibrary_Core_Basic_Class" opposite="GG.107" association="GG.106"/>
+        </ownedType>
+        <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Basic_Parameter" name="Parameter" superClass="_InfrastructureLibrary_Core_Basic_TypedElement _InfrastructureLibrary_Core_Abstractions_Multiplicities_MultiplicityElement">
+          <ownedAttribute xmi:id="GG.105" lower="0" name="operation" type="_InfrastructureLibrary_Core_Basic_Operation" opposite="GG.104" association="GG.103"/>
+        </ownedType>
+        <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Basic_Property" name="Property" superClass="_InfrastructureLibrary_Core_Basic_TypedElement _InfrastructureLibrary_Core_Abstractions_Multiplicities_MultiplicityElement">
+          <ownedAttribute xmi:id="S.058.0909.55.163" name="isReadOnly" type="Boolean" default="false"/>
+          <ownedAttribute xmi:id="S.058.0909.55.164" lower="0" name="default" type="String"/>
+          <ownedAttribute xmi:id="S.058.0909.55.165" name="isComposite" type="Boolean" default="false"/>
+          <ownedAttribute xmi:id="S.058.0909.55.166" name="isDerived" type="Boolean" default="false"/>
+          <ownedAttribute xmi:id="GG.99" lower="0" name="class" type="_InfrastructureLibrary_Core_Basic_Class" opposite="GG.98" association="GG.97"/>
+          <ownedAttribute xmi:id="GG.101" lower="0" name="opposite" type="_InfrastructureLibrary_Core_Basic_Property"/>
+        </ownedType>
+        <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Basic_Type" name="Type" isAbstract="true" superClass="_InfrastructureLibrary_Core_Basic_NamedElement">
+          <ownedAttribute xmi:id="GG.123" lower="0" name="package" type="_InfrastructureLibrary_Core_Basic_Package" opposite="GG.122" association="GG.121"/>
+        </ownedType>
+        <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Basic_NamedElement" name="NamedElement" isAbstract="true" superClass="_InfrastructureLibrary_Core_Abstractions_Elements_Element">
+          <ownedAttribute xmi:id="S.058.0909.55.169" lower="0" name="name" type="String"/>
+        </ownedType>
+        <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Basic_TypedElement" name="TypedElement" isAbstract="true" superClass="_InfrastructureLibrary_Core_Basic_NamedElement">
+          <!--<ownedAttribute xmi:id="GG.113" lower="0" name="type" type="_InfrastructureLibrary_Core_Basic_Type"/>-->
+        </ownedType>
+        <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Basic_Enumeration" name="Enumeration" superClass="_InfrastructureLibrary_Core_Basic_DataType">
+          <ownedAttribute xmi:id="GG.116" isOrdered="true" lower="0" upper="*" name="ownedLiteral" type="_InfrastructureLibrary_Core_Basic_EnumerationLiteral" isComposite="true" opposite="GG.117" association="GG.115"/>
+        </ownedType>
+        <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Basic_EnumerationLiteral" name="EnumerationLiteral" superClass="_InfrastructureLibrary_Core_Basic_NamedElement">
+          <ownedAttribute xmi:id="GG.117" lower="0" name="enumeration" type="_InfrastructureLibrary_Core_Basic_Enumeration" opposite="GG.116" association="GG.115"/>
+        </ownedType>
+        <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Basic_PrimitiveType" name="PrimitiveType" superClass="_InfrastructureLibrary_Core_Basic_DataType"/>
+        <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Basic_Package" name="Package" superClass="_InfrastructureLibrary_Core_Basic_NamedElement">
+          <ownedAttribute xmi:id="GG.119" lower="0" upper="*" name="nestedPackage" type="_InfrastructureLibrary_Core_Basic_Package" isComposite="true" opposite="GG.120" association="GG.118"/>
+          <ownedAttribute xmi:id="GG.120" lower="0" name="nestingPackage" type="_InfrastructureLibrary_Core_Basic_Package" opposite="GG.119" association="GG.118"/>
+          <ownedAttribute xmi:id="GG.122" lower="0" upper="*" name="ownedType" type="_InfrastructureLibrary_Core_Basic_Type" isComposite="true" opposite="GG.123" association="GG.121"/>
+        </ownedType>
+        <ownedType xmi:type="Class" xmi:id="_InfrastructureLibrary_Core_Basic_DataType" name="DataType" isAbstract="true" superClass="_InfrastructureLibrary_Core_Basic_Type"/>
+      </nestedPackage>
+    </cmof:Package>
+</XMI>

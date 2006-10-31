@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="XDoclet Generator" default="_xdoclet_generation_">
+<property file="xdoclet-build.properties"/>
+<property name="eclipse.home" value="C:/Programme/eclipse"/>
+<property name="xdoclet.basedir" value="${eclipse.home}/plugins/org.jboss.ide.eclipse.xdoclet.core_1.5.0.M3"/>
+<property name="jboss.net.version" value="4.0"/>
+<path id="project.classpath"><pathelement location="build"/>
+<pathelement location="resources/lib/ant.jar"/>
+<pathelement location="resources/lib/jdom.jar"/>
+<pathelement location="resources/lib/junit.jar"/>
+<pathelement location="resources/lib/mopa.jar"/>
+<pathelement location="resources/lib/xercesImpl.jar"/>
+<pathelement location="C:/Programme/jboss-4.0.3/client/jnp-client.jar"/>
+<pathelement location="C:/Programme/jboss-4.0.3/client/jbosssx-client.jar"/>
+<pathelement location="C:/Programme/jboss-4.0.3/client/jboss-j2ee.jar"/>
+<pathelement location="C:/Programme/jboss-4.0.3/client/jboss-transaction-client.jar"/>
+<pathelement location="C:/Programme/jboss-4.0.3/lib/commons-logging.jar"/>
+<pathelement location="C:/Programme/jboss-4.0.3/server/default/deploy/ejb3.deployer/jboss-ejb3.jar"/>
+<pathelement location="C:/Programme/jboss-4.0.3/server/default/deploy/ejb3.deployer/jboss-ejb3x.jar"/>
+<pathelement location="C:/Programme/jboss-4.0.3/server/default/deploy/ejb3.deployer/hibernate3.jar"/>
+<pathelement location="C:/Programme/jboss-4.0.3/server/default/deploy/ejb3.deployer/ejb3-persistence.jar"/>
+<pathelement location="C:/Programme/jboss-4.0.3/server/default/lib/jboss-remoting.jar"/>
+<pathelement location="C:/Programme/jboss-4.0.3/client/jbossall-client.jar"/>
+</path>
+<path id="xdoclet.classpath">
+<path refid="project.classpath"/>
+<fileset dir="${xdoclet.basedir}">
+<include name="*.jar"/>
+<exclude name="xdoclet-module-jboss-net-*.jar"/>
+</fileset>
+<fileset dir="${xdoclet.basedir}">
+<include name="xdoclet-module-jboss-net-${jboss.net.version}*.jar"/>
+</fileset>
+</path>
+<target name="_xdoclet_generation_" depends="N65540"/>
+<target name="N65540" description="EJB">
+<taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask" classpathref="xdoclet.classpath"/><ejbdoclet ejbSpec="2.0"  ejbClassNameSuffix=""  destDir="src" >
+
+
+
+
+
+
+
+
+<fileset dir="src"  includes="**/*Bean.java" >
+
+
+
+</fileset>
+<deploymentdescriptor destDir="src/META-INF" >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</deploymentdescriptor>
+<jboss Version="3.0"  destDir="src/META-INF" >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</jboss>
+<homeinterface>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</homeinterface>
+</ejbdoclet></target>
+</project>

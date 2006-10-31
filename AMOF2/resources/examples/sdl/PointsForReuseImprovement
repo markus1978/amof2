@@ -1,0 +1,55 @@
+General:
+  
+- (1) A hashed access of properties, preferably something concrete for instance
+  level access by classifier
+
+- (2) Somekind of abstract, e.g. forced implementation. When I define a feature at
+  a high abstraction level, I often want to leave its semantics unspecified and
+  want to force each concrete spezialisation to be forced to implement the
+  feature semantics.
+
+- (3) a way to create a metaInstance that is a specialisation of a real
+  metaInstanceClassifier
+
+- (4) changing parameter types. This might already exist but is not tested.
+
+- (5) createMeta..., deleteMeta... must work, even if they are just inherited
+
+- (6) there is no way to create a specific instance, or set a value to a
+  specific property from an abstract context.
+
+- lower values for many associations (mostly composits). When a value is
+  temporarely removed from its container, e.g. to transfer it to another
+  container, the accourding end must not be of lower=1
+
+- there is a general need for a garbage collection
+
++ Pattern
+    + Instanciation
+        + Classifier, Instance
+            - (6), i cannot implement instancitate, or initialize from this
+            abstract context, since I do not know how to intantiate or which
+            update to update
+        
+    + Evaluation
+        + Expression
+            + intantiate():Evaluation
+                - it depends on SDL (bad)
+                - it needs a mechanism to create the most special instance for a
+                  classifier            
+        + Evaluation
+            + getValue (2)
+
++ SDL
+    + SdlCompositeStateInstanceCustom
+        - it handles all actions on its own
+        + executeAction
+            - evaluation of expression is done multiple times in code
+            - no parameters for output, create
+            - no abstraction for output and create
+   + SdlInstance
+        - getContainingInstance (2)
+        - resolveSlot(v:SdlVariable) (1)
+        - initialisation of slots redoes what variable assignment already does
+   + SdlBehavioralFeature (aka ParameterizedElement) (5)
+        - parameters should be handeled just like variables, but 5

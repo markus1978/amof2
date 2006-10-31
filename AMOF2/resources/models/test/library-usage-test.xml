@@ -1,0 +1,826 @@
+<?xml version = '1.0' encoding = 'ISO-8859-1' ?>
+<!-- <!DOCTYPE XMI SYSTEM 'UMLX13-11.dtd' > -->
+<XMI xmi.version = '1.1' xmlns:UML='href://org.omg/UML/1.3' timestamp = 'Mon Sep 26 16:46:11 2005' >
+ <XMI.header>
+  <XMI.documentation>
+   <XMI.exporter>Unisys.JCR.1</XMI.exporter>
+   <XMI.exporterVersion>1.3.4</XMI.exporterVersion>
+  </XMI.documentation>
+  <XMI.metamodel xmi.name = 'UML' xmi.version = '1.3'/>
+ </XMI.header>
+<XMI.content>
+<!-- ==================== library-usage-test    [Model] ==================== -->
+<UML:Model xmi.id = 'G.0' 
+  name = 'library-usage-test' visibility = 'public' isSpecification = 'false' 
+  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+  <UML:Namespace.ownedElement>
+    <!-- ==================== library-usage-test::core    [Package] ==================== -->
+    <UML:Package xmi.id = 'S.268.1646.08.1' 
+      name = 'core' visibility = 'public' isSpecification = 'false' 
+      isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+      namespace = 'G.0' >
+      <UML:Namespace.ownedElement>
+        <UML:Stereotype xmi.id = 'S.268.1646.08.80' 
+          name = 'metamodel' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          icon = '' baseClass = 'Package' 
+          extendedElement = 'S.268.1646.08.1' />
+        <!-- ==================== library-usage-test::core::basic    [Package] ==================== -->
+        <UML:Package xmi.id = 'S.268.1646.08.2' 
+          name = 'basic' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          namespace = 'S.268.1646.08.1' >
+          <UML:Namespace.ownedElement>
+            <!-- ==================== library-usage-test::core::basic::Type    [Class] ==================== -->
+            <UML:Class xmi.id = 'S.268.1646.08.3' 
+              name = 'Type' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+              isActive = 'false' 
+              namespace = 'S.268.1646.08.2' />
+            <!-- ==================== library-usage-test::core::basic::Property    [Class] ==================== -->
+            <UML:Class xmi.id = 'S.268.1646.08.4' 
+              name = 'Property' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+              isActive = 'false' 
+              namespace = 'S.268.1646.08.2' />
+            <!-- ==================== library-usage-test::core::basic::NamedElement    [Class] ==================== -->
+            <UML:Class xmi.id = 'S.268.1646.08.5' 
+              name = 'NamedElement' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+              isActive = 'false' 
+              namespace = 'S.268.1646.08.2' />
+            <!-- ==================== library-usage-test::core::basic::DataType    [Class] ==================== -->
+            <UML:Class xmi.id = 'S.268.1646.08.6' 
+              name = 'DataType' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+              isActive = 'false' 
+              namespace = 'S.268.1646.08.2' />
+            <!-- ==================== library-usage-test::core::basic::Parameter    [Class] ==================== -->
+            <UML:Class xmi.id = 'S.268.1646.08.7' 
+              name = 'Parameter' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+              isActive = 'false' 
+              namespace = 'S.268.1646.08.2' />
+            <!-- ==================== library-usage-test::core::basic::TypedElement    [Class] ==================== -->
+            <UML:Class xmi.id = 'S.268.1646.08.8' 
+              name = 'TypedElement' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+              isActive = 'false' 
+              namespace = 'S.268.1646.08.2' />
+            <!-- ==================== library-usage-test::core::basic::Operation    [Class] ==================== -->
+            <UML:Class xmi.id = 'S.268.1646.08.9' 
+              name = 'Operation' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+              isActive = 'false' 
+              namespace = 'S.268.1646.08.2' />
+            <!-- ==================== library-usage-test::core::basic::Enumeration    [Class] ==================== -->
+            <UML:Class xmi.id = 'S.268.1646.08.10' 
+              name = 'Enumeration' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+              isActive = 'false' 
+              namespace = 'S.268.1646.08.2' />
+            <!-- ==================== library-usage-test::core::basic::PrimitiveType    [Class] ==================== -->
+            <UML:Class xmi.id = 'S.268.1646.08.11' 
+              name = 'PrimitiveType' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+              isActive = 'false' 
+              namespace = 'S.268.1646.08.2' />
+            <!-- ==================== library-usage-test::core::basic::EnumerationLiteral    [Class] ==================== -->
+            <UML:Class xmi.id = 'S.268.1646.08.12' 
+              name = 'EnumerationLiteral' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+              isActive = 'false' 
+              namespace = 'S.268.1646.08.2' />
+            <!-- ==================== library-usage-test::core::basic::Package    [Class] ==================== -->
+            <UML:Class xmi.id = 'S.268.1646.08.13' 
+              name = 'Package' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+              isActive = 'false' 
+              namespace = 'S.268.1646.08.2' />
+            <!-- ==================== library-usage-test::core::basic::Class    [Class] ==================== -->
+            <UML:Class xmi.id = 'S.268.1646.08.14' 
+              name = 'Class' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+              isActive = 'false' 
+              namespace = 'S.268.1646.08.2' />
+          </UML:Namespace.ownedElement>
+        </UML:Package>
+        <!-- ==================== library-usage-test::core::abstractions    [Package] ==================== -->
+        <UML:Package xmi.id = 'S.268.1646.08.15' 
+          name = 'abstractions' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          namespace = 'S.268.1646.08.1' >
+          <UML:Namespace.ownedElement>
+            <!-- ==================== library-usage-test::core::abstractions::changeabilities    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.16' 
+              name = 'changeabilities' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::changeabilities::StructuralFeature    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.17' 
+                  name = 'StructuralFeature' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.16' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::generalizations    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.18' 
+              name = 'generalizations' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::generalizations::Generalization    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.19' 
+                  name = 'Generalization' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.18' />
+                <!-- ==================== library-usage-test::core::abstractions::generalizations::Classifier    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.20' 
+                  name = 'Classifier' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.18' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::multiplicities    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.21' 
+              name = 'multiplicities' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::multiplicities::MultiplicityElement    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.22' 
+                  name = 'MultiplicityElement' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.21' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::behavioralfeatures    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.23' 
+              name = 'behavioralfeatures' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::behavioralfeatures::BehavioralFeature    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.24' 
+                  name = 'BehavioralFeature' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.23' />
+                <!-- ==================== library-usage-test::core::abstractions::behavioralfeatures::Parameter    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.25' 
+                  name = 'Parameter' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.23' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::comments    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.26' 
+              name = 'comments' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::comments::Comment    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.27' 
+                  name = 'Comment' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.26' />
+                <!-- ==================== library-usage-test::core::abstractions::comments::Element    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.28' 
+                  name = 'Element' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.26' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::multiplicityexpressions    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.29' 
+              name = 'multiplicityexpressions' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::multiplicityexpressions::MultiplicityElement    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.30' 
+                  name = 'MultiplicityElement' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.29' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::relationships    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.31' 
+              name = 'relationships' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::relationships::DirectedRelationship    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.32' 
+                  name = 'DirectedRelationship' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.31' />
+                <!-- ==================== library-usage-test::core::abstractions::relationships::Relationship    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.33' 
+                  name = 'Relationship' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.31' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::elements    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.34' 
+              name = 'elements' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::elements::Element    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.35' 
+                  name = 'Element' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.34' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::constraints    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.36' 
+              name = 'constraints' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::constraints::Namespace    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.37' 
+                  name = 'Namespace' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.36' />
+                <!-- ==================== library-usage-test::core::abstractions::constraints::Constraint    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.38' 
+                  name = 'Constraint' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.36' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::classifiers    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.39' 
+              name = 'classifiers' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::classifiers::Feature    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.40' 
+                  name = 'Feature' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.39' />
+                <!-- ==================== library-usage-test::core::abstractions::classifiers::Classifier    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.41' 
+                  name = 'Classifier' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.39' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::structuralfeatures    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.42' 
+              name = 'structuralfeatures' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::structuralfeatures::StructuralFeature    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.43' 
+                  name = 'StructuralFeature' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.42' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::expressions    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.44' 
+              name = 'expressions' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::expressions::OpaqueExpression    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.45' 
+                  name = 'OpaqueExpression' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.44' />
+                <!-- ==================== library-usage-test::core::abstractions::expressions::ValueSpecification    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.46' 
+                  name = 'ValueSpecification' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.44' />
+                <!-- ==================== library-usage-test::core::abstractions::expressions::Expression    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.47' 
+                  name = 'Expression' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.44' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::instances    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.48' 
+              name = 'instances' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::instances::InstanceSpecification    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.49' 
+                  name = 'InstanceSpecification' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.48' />
+                <!-- ==================== library-usage-test::core::abstractions::instances::Slot    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.50' 
+                  name = 'Slot' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.48' />
+                <!-- ==================== library-usage-test::core::abstractions::instances::InstanceValue    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.51' 
+                  name = 'InstanceValue' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.48' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::visibilities    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.52' 
+              name = 'visibilities' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::visibilities::NamedElement    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.53' 
+                  name = 'NamedElement' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.52' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::namespaces    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.54' 
+              name = 'namespaces' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::namespaces::NamedElement    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.55' 
+                  name = 'NamedElement' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'false' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.54' 
+                  specialization = 'G.9' />
+                <!-- ==================== library-usage-test::core::abstractions::namespaces::Namespace    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.56' 
+                  name = 'Namespace' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'false' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.54' 
+                  specialization = 'G.7' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::super    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.57' 
+              name = 'super' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::super::Classifier    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.58' 
+                  name = 'Classifier' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.57' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::ownerships    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.59' 
+              name = 'ownerships' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::ownerships::Element    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.60' 
+                  name = 'Element' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.59' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::literals    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.61' 
+              name = 'literals' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::literals::LiteralInteger    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.62' 
+                  name = 'LiteralInteger' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.61' />
+                <!-- ==================== library-usage-test::core::abstractions::literals::LiteralSpecification    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.63' 
+                  name = 'LiteralSpecification' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.61' />
+                <!-- ==================== library-usage-test::core::abstractions::literals::LiteralString    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.64' 
+                  name = 'LiteralString' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.61' />
+                <!-- ==================== library-usage-test::core::abstractions::literals::LiteralBoolean    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.65' 
+                  name = 'LiteralBoolean' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.61' />
+                <!-- ==================== library-usage-test::core::abstractions::literals::LiteralUnlimitedNatural    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.66' 
+                  name = 'LiteralUnlimitedNatural' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.61' />
+                <!-- ==================== library-usage-test::core::abstractions::literals::LiteralNull    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.67' 
+                  name = 'LiteralNull' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.61' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::typedelements    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.68' 
+              name = 'typedelements' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::typedelements::Type    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.69' 
+                  name = 'Type' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.68' />
+                <!-- ==================== library-usage-test::core::abstractions::typedelements::TypedElement    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.70' 
+                  name = 'TypedElement' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'false' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.68' 
+                  specialization = 'G.10' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+            <!-- ==================== library-usage-test::core::abstractions::redefinitions    [Package] ==================== -->
+            <UML:Package xmi.id = 'S.268.1646.08.71' 
+              name = 'redefinitions' visibility = 'public' isSpecification = 'false' 
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+              namespace = 'S.268.1646.08.15' >
+              <UML:Namespace.ownedElement>
+                <!-- ==================== library-usage-test::core::abstractions::redefinitions::RedefinableElement    [Class] ==================== -->
+                <UML:Class xmi.id = 'S.268.1646.08.72' 
+                  name = 'RedefinableElement' visibility = 'public' isSpecification = 'false' 
+                  isRoot = 'true' isLeaf = 'true' isAbstract = 'true' 
+                  isActive = 'false' 
+                  namespace = 'S.268.1646.08.71' />
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+          </UML:Namespace.ownedElement>
+        </UML:Package>
+        <!-- ==================== library-usage-test::core::primitivetypes    [Package] ==================== -->
+        <UML:Package xmi.id = 'S.268.1646.08.73' 
+          name = 'primitivetypes' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          namespace = 'S.268.1646.08.1' />
+      </UML:Namespace.ownedElement>
+    </UML:Package>
+    <!-- ==================== library-usage-test::test    [Package] ==================== -->
+    <UML:Package xmi.id = 'S.268.1646.08.74' 
+      name = 'test' visibility = 'public' isSpecification = 'false' 
+      isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+      namespace = 'G.0' >
+      <UML:Namespace.ownedElement>
+        <UML:Stereotype xmi.id = 'S.268.1646.08.81' 
+          name = 'metamodel' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          icon = '' baseClass = 'Package' 
+          extendedElement = 'S.268.1646.08.74' />
+        <!-- ==================== library-usage-test::test::Contains{4337F34B0254}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.1' 
+          name = 'Contains' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== library-usage-test::test::Contains{4337F34B0254}.ownedMember    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.2' 
+              name = 'ownedMember' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              constraint = 'S.268.1646.08.82' 
+              type = 'S.268.1646.08.76' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== library-usage-test::test::Contains{4337F34B0254}.namespace    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.3' 
+              name = 'namespace' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'composite' targetScope = 'instance' changeability = 'changeable' 
+              constraint = 'S.268.1646.08.83' 
+              type = 'S.268.1646.08.75' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== Constraint-S.268.1646.08.82    [Constraint] ==================== -->
+        <UML:Constraint xmi.id = 'S.268.1646.08.82' 
+          name = 'Constraint-S.268.1646.08.82' visibility = 'public' isSpecification = 'false' 
+          constrainedElement = 'G.2' >
+          <UML:Constraint.body>
+            <UML:BooleanExpression 
+              language = '' body = 'redefines ownedMember' />
+          </UML:Constraint.body>
+        </UML:Constraint>
+        <!-- ==================== Constraint-S.268.1646.08.83    [Constraint] ==================== -->
+        <UML:Constraint xmi.id = 'S.268.1646.08.83' 
+          name = 'Constraint-S.268.1646.08.83' visibility = 'public' isSpecification = 'false' 
+          constrainedElement = 'G.3' >
+          <UML:Constraint.body>
+            <UML:BooleanExpression 
+              language = '' body = 'redefines namespace' />
+          </UML:Constraint.body>
+        </UML:Constraint>
+        <!-- ==================== library-usage-test::test::TypeOf{433808E80123}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.4' 
+          name = 'TypeOf' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== library-usage-test::test::TypeOf{433808E80123}.type    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.5' 
+              name = 'type' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              constraint = 'S.268.1646.08.84' 
+              type = 'S.268.1646.08.69' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== library-usage-test::test::TypeOf{433808E80123}.typedElement    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.6' 
+              name = 'typedElement' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.268.1646.08.77' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== Constraint-S.268.1646.08.84    [Constraint] ==================== -->
+        <UML:Constraint xmi.id = 'S.268.1646.08.84' 
+          name = 'Constraint-S.268.1646.08.84' visibility = 'public' isSpecification = 'false' 
+          constrainedElement = 'G.5' >
+          <UML:Constraint.body>
+            <UML:BooleanExpression 
+              language = '' body = 'redefines type' />
+          </UML:Constraint.body>
+        </UML:Constraint>
+        <!-- ==================== library-usage-test::test::MyNamespace    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.268.1646.08.75' 
+          name = 'MyNamespace' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.268.1646.08.74' 
+          generalization = 'G.7 G.8' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.7' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.268.1646.08.75' parent = 'S.268.1646.08.56' />
+            <UML:Generalization xmi.id = 'G.8' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.268.1646.08.75' parent = 'S.268.1646.08.76' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== library-usage-test::test::MyNameElement    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.268.1646.08.76' 
+          name = 'MyNameElement' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.268.1646.08.74' 
+          generalization = 'G.9' specialization = 'G.8' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.9' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.268.1646.08.76' parent = 'S.268.1646.08.55' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== library-usage-test::test::MyTypedElement    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.268.1646.08.77' 
+          name = 'MyTypedElement' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.268.1646.08.74' 
+          generalization = 'G.10' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.10' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.268.1646.08.77' parent = 'S.268.1646.08.70' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+      </UML:Namespace.ownedElement>
+    </UML:Package>
+  </UML:Namespace.ownedElement>
+</UML:Model>
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.2' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.3' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.3' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.4' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.4' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.5' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.5' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.6' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.6' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.7' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.7' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.8' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.8' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.9' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.9' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.10' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.10' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.11' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.11' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.12' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.12' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.13' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.13' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.14' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.14' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.17' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.15' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.19' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.16' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.20' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.17' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.22' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.18' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.24' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.19' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.25' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.20' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.27' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.21' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.28' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.22' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.30' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.23' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.32' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.24' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.33' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.25' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.35' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.26' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.37' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.27' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.38' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.28' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.40' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.29' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.41' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.30' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.43' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.31' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.45' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.32' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.46' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.33' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.47' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.34' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.49' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.35' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.50' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.36' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.51' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.37' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.53' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.38' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.55' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.39' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.56' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.40' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.58' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.41' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.60' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.42' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.62' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.43' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.63' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.44' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.64' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.45' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.65' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.46' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.66' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.47' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.67' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.48' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.69' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.49' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.70' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.50' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.72' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.51' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.75' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.52' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.76' />
+<UML:TaggedValue xmi.id = 'XX.26.1646.8.53' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.268.1646.08.77' />
+</XMI.content>
+</XMI>

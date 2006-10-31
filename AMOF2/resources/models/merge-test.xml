@@ -1,0 +1,63 @@
+<XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:cmof="http://schema.omg.org/spec/mof/2.0/cmof.xmi">
+    <cmof:Package xmi:type='cmof:Package' xmi:id='_10_5_ec1033d_1139854943534_26243_391' name='MergeTest2' visibility='public'>
+        <ownedMember xmi:type='cmof:Package' xmi:id='_10_5_ec1033d_1139854605680_893875_16' name='B' visibility='public'>
+            <ownedMember xmi:type='cmof:Class' xmi:id='_10_5_ec1033d_1139854751030_983933_135' name='class' visibility='public'>
+                <ownedAttribute xmi:type='cmof:Property' xmi:id='_10_5_ec1033d_1139854763637_3576_180' name='attr1' visibility='public' association='_10_5_ec1033d_1139854763636_715821_179' type='_10_5_ec1033d_1139854755373_973877_156'/>
+                <ownedAttribute xmi:type='cmof:Property' xmi:id='_10_5_ec1033d_1139854844932_446418_229' name='attr2' visibility='public' association='_10_5_ec1033d_1139854844932_866978_228' type='_10_5_ec1033d_1139854755373_973877_156'/>
+            </ownedMember>
+            <ownedMember xmi:type='cmof:Class' xmi:id='_10_5_ec1033d_1139854755373_973877_156' name='type' visibility='public'/>
+            <ownedMember xmi:type='cmof:Association' xmi:id='_10_5_ec1033d_1139854763636_715821_179' name='association1' visibility='public'>
+                <memberEnd xmi:idref='_10_5_ec1033d_1139854763637_3576_180'/>
+                <memberEnd xmi:idref='_10_5_ec1033d_1139854763637_45708_181'/>
+                <ownedEnd xmi:type='cmof:Property' xmi:id='_10_5_ec1033d_1139854763637_45708_181' visibility='private' association='_10_5_ec1033d_1139854763636_715821_179' type='_10_5_ec1033d_1139854751030_983933_135'/>
+            </ownedMember>
+            <ownedMember xmi:type='cmof:Association' xmi:id='_10_5_ec1033d_1139854844932_866978_228' name='association2' visibility='public'>
+                <memberEnd xmi:idref='_10_5_ec1033d_1139854844932_446418_229'/>
+                <memberEnd xmi:idref='_10_5_ec1033d_1139854844933_496060_230'/>
+                <ownedEnd xmi:type='cmof:Property' xmi:id='_10_5_ec1033d_1139854844933_496060_230' visibility='private' association='_10_5_ec1033d_1139854844932_866978_228' type='_10_5_ec1033d_1139854751030_983933_135'/>
+            </ownedMember>
+        </ownedMember>
+        <ownedMember xmi:type='cmof:Package' xmi:id='_10_5_ec1033d_1139854600577_866867_5' name='A' visibility='public'>
+            <packageMerge xmi:type='cmof:PackageMerge' xmi:id='_10_5_ec1033d_1139854624723_901202_27' mergedPackage='_10_5_ec1033d_1139854605680_893875_16'/>
+            <ownedMember xmi:type='cmof:Class' xmi:id='_10_5_ec1033d_1139854662817_751331_38' name='class' visibility='public'>
+                <ownedAttribute xmi:type='cmof:Property' xmi:id='_10_5_ec1033d_1139854714122_609127_87' name='attr1' visibility='public' association='_10_5_ec1033d_1139854714122_578569_86' type='_10_5_ec1033d_1139854673488_737366_42'/>
+            </ownedMember>
+            <ownedMember xmi:type='cmof:Class' xmi:id='_10_5_ec1033d_1139854673488_737366_42' name='type' visibility='public'/>
+            <ownedMember xmi:type='cmof:Association' xmi:id='_10_5_ec1033d_1139854714122_578569_86' name='association1' visibility='public'>
+                <memberEnd xmi:idref='_10_5_ec1033d_1139854714122_609127_87'/>
+                <memberEnd xmi:idref='_10_5_ec1033d_1139854714123_774460_88'/>
+                <ownedEnd xmi:type='cmof:Property' xmi:id='_10_5_ec1033d_1139854714123_774460_88' visibility='private' association='_10_5_ec1033d_1139854714122_578569_86' type='_10_5_ec1033d_1139854662817_751331_38'/>
+            </ownedMember>
+        </ownedMember>
+        <ownedMember xmi:type='cmof:Package' xmi:id='_10_5_ec1033d_1139860160800_902442_392' name='Result' visibility='public'>
+            <ownedMember xmi:type='cmof:Class' xmi:id='_10_5_ec1033d_1139860160802_506808_393' name='class' visibility='public'>
+                <ownedAttribute xmi:type='cmof:Property' xmi:id='_10_5_ec1033d_1139860160819_880102_399' name='attr1' visibility='public' association='_10_5_ec1033d_1139860160807_159698_395' type='_10_5_ec1033d_1139860160805_790555_394'/>
+                <ownedAttribute xmi:type='cmof:Property' xmi:id='_10_5_ec1033d_1139860160820_779926_400' name='attr2' visibility='public' association='_10_5_ec1033d_1139860160816_668167_396' type='_10_5_ec1033d_1139860160805_790555_394'/>
+            </ownedMember>
+            <ownedMember xmi:type='cmof:Class' xmi:id='_10_5_ec1033d_1139860160805_790555_394' name='type' visibility='public'/>
+            <ownedMember xmi:type='cmof:Association' xmi:id='_10_5_ec1033d_1139860160807_159698_395' name='association1' visibility='public'>
+                <memberEnd xmi:idref='_10_5_ec1033d_1139860160819_880102_399'/>
+                <memberEnd xmi:idref='_10_5_ec1033d_1139860160821_483755_401'/>
+                <ownedEnd xmi:type='cmof:Property' xmi:id='_10_5_ec1033d_1139860160821_483755_401' visibility='private' association='_10_5_ec1033d_1139860160807_159698_395' type='_10_5_ec1033d_1139860160802_506808_393'/>
+            </ownedMember>
+            <ownedMember xmi:type='cmof:Association' xmi:id='_10_5_ec1033d_1139860160816_668167_396' name='association2' visibility='public'>
+                <memberEnd xmi:idref='_10_5_ec1033d_1139860160820_779926_400'/>
+                <memberEnd xmi:idref='_10_5_ec1033d_1139860160822_733845_402'/>
+                <ownedEnd xmi:type='cmof:Property' xmi:id='_10_5_ec1033d_1139860160822_733845_402' visibility='private' association='_10_5_ec1033d_1139860160816_668167_396' type='_10_5_ec1033d_1139860160802_506808_393'/>
+            </ownedMember>
+        </ownedMember>
+    </cmof:Package>
+    <cmof:Package xmi:type='cmof:Package' xmi:id='_10_5_ec1033d_1140018155396_554359_451' name='MergeTest1' visibility='public'>
+        <ownedMember xmi:type='cmof:Package' xmi:id='_10_5_ec1033d_1140018167428_387669_452' name='A' visibility='public'>
+            <packageMerge xmi:type='cmof:PackageMerge' xmi:id='_10_5_ec1033d_1140018210619_418528_473' mergedPackage='_10_5_ec1033d_1140018173559_229085_453'/>
+            <ownedMember xmi:type='cmof:Class' xmi:id='_10_5_ec1033d_1140018243878_595191_490' name='AClass' visibility='public'/>
+        </ownedMember>
+        <ownedMember xmi:type='cmof:Package' xmi:id='_10_5_ec1033d_1140018173559_229085_453' name='B' visibility='public'>
+            <ownedMember xmi:type='cmof:Class' xmi:id='_10_5_ec1033d_1140018235657_298768_486' name='BClass' visibility='public'/>
+        </ownedMember>
+        <ownedMember xmi:type='cmof:Package' xmi:id='_10_5_ec1033d_1140018219055_157537_484' name='Result' visibility='public'>
+            <ownedMember xmi:type='cmof:Class' xmi:id='_10_5_ec1033d_1140018262380_535441_494' name='AClass' visibility='public'/>
+            <ownedMember xmi:type='cmof:Class' xmi:id='_10_5_ec1033d_1140018268151_361531_495' name='BClass' visibility='public'/>
+        </ownedMember>
+    </cmof:Package>
+</XMI>

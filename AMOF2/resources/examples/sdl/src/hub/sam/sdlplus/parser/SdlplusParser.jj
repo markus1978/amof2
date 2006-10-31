@@ -1,0 +1,1942 @@
+/* vim:set fdm=marker: */
+
+options {
+  LOOKAHEAD = 1;
+  STATIC = false;
+  DEBUG_PARSER = false;
+  DEBUG_LOOKAHEAD = false;
+  DEBUG_TOKEN_MANAGER = false;
+  ERROR_REPORTING = true;
+  JAVA_UNICODE_ESCAPE = false;
+  UNICODE_INPUT = false;
+  IGNORE_CASE = false;
+  USER_TOKEN_MANAGER = false;
+  USER_CHAR_STREAM = false;
+  BUILD_PARSER = true;
+  BUILD_TOKEN_MANAGER = true;
+  SANITY_CHECK = false;
+  FORCE_LA_CHECK = true;
+}
+
+PARSER_BEGIN(SdlplusParser)
+package hub.sam.sdlplus.parser;
+
+import java.util.*;
+import cmof.reflection.*;
+import cmof.common.*;
+
+import hub.sam.mof.Repository;
+import hub.sam.sdlplus.SdlCompiler;
+
+import SDL.*;
+import SDL.ConcreteSyntax.*;
+import InfrastructureLibrary.Core.Abstractions.TypedElements.*;
+import InfrastructureLibrary.Core.Abstractions.Elements.*;
+import InfrastructureLibrary.Core.Abstractions.Namespaces.*;
+import InfrastructureLibrary.Core.Abstractions.Classifiers.*;
+import InfrastructureLibrary.Core.Abstractions.BehavioralFeatures.*;
+import Pattern.Instanciation.*;
+import Pattern.Evaluation.*;
+import Pattern.Communication.*;
+
+public class SdlplusParser {
+
+    private SdlGate createCsePlaceHolderForSdlGate(SdlIdentifier identifier) {
+        SdlGate placeHolder = sdl.createSdlGate();
+        placeHolder.setIdentifier(identifier);
+        return placeHolder;
+    }
+
+    private SdlState createCsePlaceHolderForSdlState(SdlIdentifier identifier) {
+        SdlState placeHolder = sdl.createSdlState();
+        placeHolder.setIdentifier(identifier);
+        return placeHolder;
+    }
+
+    private SdlVariable createCsePlaceHolderForSdlVariable(SdlIdentifier identifier) {
+        SdlVariable placeHolder = sdl.createSdlVariable();
+        placeHolder.setIdentifier(identifier);
+        return placeHolder;
+    }
+
+    private SdlSignal createCsePlaceHolderForSdlSignal(SdlIdentifier identifier) {
+        SdlSignal placeHolder = sdl.createSdlSignal();
+        placeHolder.setIdentifier(identifier);
+        return placeHolder;
+    }
+
+    private SdlTimer createCsePlaceHolderForSdlTimer(SdlIdentifier identifier) {
+        SdlTimer placeHolder = sdl.createSdlTimer();
+        placeHolder.setIdentifier(identifier);
+        return placeHolder;
+    }
+
+    private SdlProcedure createCsePlaceHolderForSdlProcedure(SdlIdentifier identifier) {
+        SdlProcedure placeHolder = sdl.createSdlProcedure();
+        placeHolder.setIdentifier(identifier);
+        return placeHolder;
+    }
+
+    private SdlOperation createCsePlaceHolderForSdlOperation(SdlIdentifier identifier) {
+        SdlOperation placeHolder = sdl.createSdlOperation();
+        placeHolder.setIdentifier(identifier);
+        return placeHolder;
+    }
+
+    private SdlAgent createCsePlaceHolderForSdlAgent(SdlIdentifier identifier) {
+        SdlAgent placeHolder = sdl.createSdlAgent();
+        placeHolder.setIdentifier(identifier);
+        return placeHolder;
+    }
+
+    private SdlDataType createCsePlaceHolderForSdlDataType(SdlIdentifier identifier) {
+        SdlDataType placeHolder = sdl.createSdlDataType();
+        placeHolder.setIdentifier(identifier);
+        return placeHolder;
+    }
+
+    private SdlAgentType createCsePlaceHolderForSdlAgentType(SdlIdentifier identifier) {
+        SdlAgentType placeHolder = sdl.createSdlAgentType();
+        placeHolder.setIdentifier(identifier);
+        return placeHolder;
+    }
+
+    private SdlStateType createCsePlaceHolderForSdlStateType(SdlIdentifier identifier) {
+        SdlStateType placeHolder = sdl.createSdlStateType();
+        placeHolder.setIdentifier(identifier);
+        return placeHolder;
+    }
+
+    private SdlLiteral createCsePlaceHolderForSdlLiteral(SdlIdentifier identifier) {
+        SdlLiteral placeHolder = sdl.createSdlLiteral();
+        placeHolder.setIdentifier(identifier);
+        return placeHolder;
+    }
+
+    private void addContextM1(cmof.reflection.Object aObject, Token theContext) {
+        try {
+            SdlCompiler.getCompiler().addContextM1(aObject, theContext.beginLine, theContext.beginColumn);
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+    }
+
+    private SdlQualifier copyQualifier(SdlQualifier qualifier) {
+        SdlQualifier result = cse.createSdlQualifier();
+        result.setLine(qualifier.getLine());
+        result.setColumn(qualifier.getColumn());
+        result.getPathItem().addAll(copyPathItems(qualifier.getPathItem()));
+        return result;
+    }
+
+    private List copyPathItems(ReflectiveCollection<? extends SdlPathItem> pathItems) {
+        List result = new Vector();
+        for (SdlPathItem orig: pathItems) {
+            SdlPathItem copy = cse.createSdlPathItem();
+            copy.setLine(orig.getLine());
+            copy.setColumn(orig.getColumn());
+            copy.setKind(orig.getKind());
+            copy.setName(orig.getName());
+            result.add(copy);
+        }
+        return result;
+    }
+
+    private SdlIdentifier copyIdentifier(SdlIdentifier identifier) {
+        SdlIdentifier result = cse.createSdlIdentifier();
+        result.setLine(identifier.getLine());
+        result.setColumn(identifier.getColumn());
+        result.setName(identifier.getName());
+        if (identifier.getQualifier() != null) {
+            result.setQualifier(copyQualifier(identifier.getQualifier()));
+        }
+        return result;
+    }
+
+    private void addContextM1(cmof.reflection.Object aObject) {
+        addContextM1(aObject, getToken(1));
+    }
+
+    private Map<SdlStateAutomaton, Stop> stopsForAutomata = new HashMap<SdlStateAutomaton, Stop>();
+	private Map<SdlStateAutomaton, Map<String, SdlState>> stateNamesForAutomata = new HashMap<SdlStateAutomaton, Map<String, SdlState>>();
+
+	private SdlState getStateForNameAndAutomaton(String stateName, SdlStateAutomaton automaton) {
+		Map<String, SdlState> statesOfAutomaton = stateNamesForAutomata.get(automaton);
+		if (statesOfAutomaton == null) {
+			statesOfAutomaton = new HashMap<String, SdlState>();
+			stateNamesForAutomata.put(automaton, statesOfAutomaton);
+		}
+		SdlState result = statesOfAutomaton.get(stateName);
+		if (result == null) {
+			result = sdl.createSdlState();
+			result.setName(stateName);
+			addContextM1((cmof.reflection.Object)result);
+			statesOfAutomaton.put(stateName, result);
+		}
+		return result;
+	}
+
+    private SDLFactory sdl = null;
+    private ConcreteSyntaxFactory cse = null;
+
+    /**
+     * Creates an SdlM2wcse extend and parses a input stream. Returns the
+     * filled extend or throws an exception if a parse error occurs.
+     */
+
+    public void parse(Repository repo, Extent m2, Extent m1) throws Exception {
+        sdl = (SDLFactory)repo.createFactory(m1, (cmof.Package)m2.query("Package:SDL"));
+        cse = (ConcreteSyntaxFactory)repo.createFactory(m1, (cmof.Package)m2.query("Package:SDL/Package:ConcreteSyntax"));
+        sdl_specification();
+    }
+}
+
+PARSER_END(SdlplusParser)
+
+//{{{ Tokens and stuff
+SKIP:
+{
+  < " " >
+| < "\t" >
+| < "\n" >
+| < "\r" >
+// | < "//" (~["\n"])* "\n" >
+| <"/*" (~["*"])* "*" (~["/"] (~["*"])* "*")* "/">
+//| < "#" ([" ","\t"])* (["0"-"9"])+
+//    (([" ","\t"])* "\"" (~["\""])+ "\""
+//           ([" ","\t"])* (["0"-"9"])* ([" ","\t"])* (["0"-"9"])*)? "\n" >
+}
+
+TOKEN:
+{
+    <TOK_full_stop: ".">
+|   <TOK_colon: ":">
+
+//{{{ Keywords
+|   <TOK_abstract: "ABSTRACT" | "abstract">
+|   <TOK_active: "ACTIVE" | "active">
+//|   <TOK_adding: "ADDING" | "adding">
+|   <TOK_aggregation: "AGGREGATION" | "aggregation">
+//|   <TOK_alternative: "ALTERNATIVE" | "alternative">
+//|   <TOK_and: "AND" | "and">
+|   <TOK_any: "ANY" | "any">
+//|   <TOK_as: "AS" | "as">
+//|   <TOK_association: "ASSOCIATION" | "association">
+//|   <TOK_atleast: "ATLEAST" | "atleast">
+|   <TOK_block: "BLOCK" | "block">
+//|   <TOK_break: "BREAK" | "break">
+|   <TOK_call: "CALL" | "call">
+|   <TOK_channel: "CHANNEL" | "channel">
+//|   <TOK_choice: "CHOICE" | "choice">
+//|   <TOK_comment: "COMMENT" | "comment">
+//|   <TOK_composition: "COMPOSITION" | "composition">
+//|   <TOK_connect: "CONNECT" | "connect">
+|   <TOK_connection: "CONNECTION" | "connection">
+//|   <TOK_constants: "CONSTANTS" | "constants">
+//|   <TOK_continue: "CONTINUE" | "continue">
+|   <TOK_create: "CREATE" | "create">
+|   <TOK_dcl: "DCL" | "dcl">
+|   <TOK_decision: "DECISION" | "decision">
+//|   <TOK_default: "DEFAULT" | "default">
+|   <TOK_else: "ELSE" | "else">
+|   <TOK_endalternative: "ENDALTERNATIVE" | "endalternative">
+|   <TOK_endblock: "ENDBLOCK" | "endblock">
+|   <TOK_endchannel: "ENDCHANNEL" | "endchannel">
+|   <TOK_endconnection: "ENDCONNECTION" | "endconnection">
+|   <TOK_enddecision: "ENDDECISION" | "enddecision">
+|   <TOK_endexceptionhandler: "ENDEXCEPTIONHANDLER" | "endexceptionhandler">
+//|   <TOK_endinterface: "ENDINTERFACE" | "endinterface">
+//|   <TOK_endmacro: "ENDMACRO" | "endmacro">
+//|   <TOK_endmethod: "ENDMETHOD" | "endmethod">
+//|   <TOK_endobject: "ENDOBJECT" | "endobject">
+|   <TOK_endoperator: "ENDOPERATOR" | "endoperator">
+|   <TOK_endpackage: "ENDPACKAGE" | "endpackage">
+|   <TOK_endprocedure: "ENDPROCEDURE" | "endprocedure">
+|   <TOK_endprocess: "ENDPROCESS" | "endprocess">
+//|   <TOK_endselect: "ENDSELECT" | "endselect">
+|   <TOK_endstate: "ENDSTATE" | "endstate">
+|   <TOK_endsubstructure: "ENDSUBSTRUCTURE" | "endsubstructure">
+//|   <TOK_endsyntype: "ENDSYNTYPE" | "endsyntype">
+|   <TOK_endsystem: "ENDSYSTEM" | "endsystem">
+|   <TOK_endvalue: "ENDVALUE" | "endvalue">
+|   <TOK_env: "ENV" | "env">
+//|   <TOK_exception: "EXCEPTION" | "exception">
+//|   <TOK_exceptionhandler: "EXCEPTIONHANDLER" | "exceptionhandler">
+//|   <TOK_export: "EXPORT" | "export">
+//|   <TOK_exported: "EXPORTED" | "exported">
+//|   <TOK_external: "EXTERNAL" | "external">
+//|   <TOK_fi: "FI" | "fi">
+//|   <TOK_finalized: "FINALIZED" | "finalized">
+//|   <TOK_for: "FOR" | "for">
+|   <TOK_from: "FROM" | "from">
+|   <TOK_gate: "GATE" | "gate">
+|   <TOK_fpar: "FPAR" | "fpar">
+//|   <TOK_handle: "HANDLE" | "handle">
+//|   <TOK_if: "IF" | "if">
+//|   <TOK_import: "IMPORT" | "import">
+|   <TOK_in: "IN" | "in">
+//|   <TOK_inherits: "INHERITS" | "inherits">
+|   <TOK_inout: "INOUT" | "inout">
+|   <TOK_input: "INPUT" | "input">
+//|   <TOK_interface: "INTERFACE" | "interface">
+|   <TOK_join: "JOIN" | "join">
+|   <TOK_literals: "LITERALS" | "literals">
+//|   <TOK_macro: "MACRO" | "macro">
+//|   <TOK_macrodefinition: "MACRODEFINITION" | "macrodefinition">
+//|   <TOK_macroid: "MACROID" | "macroid">
+//|   <TOK_method: "METHOD" | "method">
+//|   <TOK_methods: "METHODS" | "methods">
+//|   <TOK_mod: "MOD" | "mod">
+//|   <TOK_nameclass: "NAMECLASS" | "nameclass">
+|   <TOK_nextstate: "NEXTSTATE" | "nextstate">
+|   <TOK_nodelay: "NODELAY" | "nodelay">
+|   <TOK_none: "NONE" | "none">
+//|   <TOK_not: "NOT" | "not">
+|   <TOK_now: "NOW" | "now">
+//|   <TOK_object: "OBJECT" | "object">
+|   <TOK_offspring: "OFFSPRING" | "offspring">
+//|   <TOK_onexception: "ONEXCEPTION" | "onexception">
+|   <TOK_operator: "OPERATOR" | "operator">
+|   <TOK_operators: "OPERATORS" | "operators">
+//|   <TOK_optional: "OPTIONAL" | "optional">
+//|   <TOK_or: "OR" | "or">
+//|   <TOK_ordered: "ORDERED" | "ordered">
+|   <TOK_out: "OUT" | "out">
+|   <TOK_output: "OUTPUT" | "output">
+|   <TOK_package: "PACKAGE" | "package">
+|   <TOK_parent: "PARENT" | "parent">
+//|   <TOK_priority: "PRIORITY" | "priority">
+//|   <TOK_private: "PRIVATE" | "private">
+|   <TOK_procedure: "PROCEDURE" | "procedure">
+|   <TOK_process: "PROCESS" | "process">
+//|   <TOK_protected: "PROTECTED" | "protected">
+//|   <TOK_provided: "PROVIDED" | "provided">
+|   <TOK_public: "PUBLIC" | "public">
+//|   <TOK_raise: "RAISE" | "raise">
+//|   <TOK_redefined: "REDEFINED" | "redefined">
+|   <TOK_referenced: "REFERENCED" | "referenced">
+//|   <TOK_rem: "REM" | "rem">
+//|   <TOK_remote: "REMOTE" | "remote">
+|   <TOK_reset: "RESET" | "reset">
+|   <TOK_return: "RETURN" | "return">
+//|   <TOK_save: "SAVE" | "save">
+//|   <TOK_select: "SELECT" | "select">
+|   <TOK_self: "SELF" | "self">
+|   <TOK_sender: "SENDER" | "sender">
+|   <TOK_set: "SET" | "set">
+|   <TOK_signal: "SIGNAL" | "signal">
+|   <TOK_signallist: "SIGNALLIST" | "signallist">
+|   <TOK_signalset: "SIGNALSET" | "signalset">
+//|   <TOK_size: "SIZE" | "size">
+//|   <TOK_spelling: "SPELLING" | "spelling">
+|   <TOK_start: "START" | "start">
+|   <TOK_state: "STATE" | "state">
+|   <TOK_stop: "STOP" | "stop">
+//|   <TOK_struct: "STRUCT" | "struct">
+|   <TOK_substructure: "SUBSTRUCTURE" | "substructure">
+//|   <TOK_synonym: "SYNONYM" | "synonym">
+//|   <TOK_syntype: "SYNTYPE" | "syntype">
+|   <TOK_system: "SYSTEM" | "system">
+|   <TOK_task: "TASK" | "task">
+//|   <TOK_then: "THEN" | "then">
+|   <TOK_this: "THIS" | "this">
+|   <TOK_timer: "TIMER" | "timer">
+|   <TOK_to: "TO" | "to">
+//|   <TOK_try: "TRY" | "try">
+|   <TOK_type: "TYPE" | "type">
+//|   <TOK_use: "USE" | "use">
+|   <TOK_value: "VALUE" | "value">
+|   <TOK_via: "VIA" | "via">
+|   <TOK_virtual: "VIRTUAL" | "virtual">
+|   <TOK_with: "WITH" | "with">
+//|   <TOK_xor: "XOR" | "xor">
+//}}} end keywords
+
+|   <TOK_qualifier_begin_sign: "<<">
+|   <TOK_qualifier_end_sign: ">>">
+|   <TOK_composite_begin_sign: "(.">
+|   <TOK_composite_end_sign: ".)">
+|   <TOK_is_assigned_sign: ":=">
+|   <TOK_concatenation_sign: "//">
+|   <TOK_greater_than_or_equals_sign: ">=">
+|   <TOK_less_than_or_equals_sign: "<=">
+|   <TOK_history_dash_sign: "-*">
+|   <TOK_implies_sign: "=>">
+|   <TOK_not_equals_sign: "/=">
+|   <TOK_result_sign: "->">
+
+|   <TOK_end: ";">
+
+|   <TOK_TBD: "-!-EMPTY-!-">
+}
+
+TOKEN:
+{
+    <TCL_nat: (<TCL_decimaldigit>)+>
+|   <TCL_name: (("_")*(<TCL_word>)(("_")+<TCL_word>)*("_")*) | ((<TCL_decimaldigit>)+((<TOK_full_stop>)(<TCL_decimaldigit>)+)*)>
+|   <TCL_alphanumeric: ["a"-"z","A"-"Z","0"-"9","_"]>
+|   <TCL_decimaldigit: ["0"-"9"]>
+|   <TCL_word: (<TCL_alphanumeric>)+>
+|   <TCL_string_literal:
+        "\""
+        (   (~["\"","\\","\n","\r"])
+            | ("\\"
+                ( ["n","t","b","r","f","\\","'","\""]
+                | ["0"-"7"] ( ["0"-"7"] )?
+                | ["0"-"3"] ["0"-"7"] ["0"-"7"]
+                )
+            )
+        )*
+        "\""
+    >
+
+}
+//}}}
+
+//{{{ visibility rules, names and identifiers
+
+SdlIdentifier identifier():
+{
+    SdlIdentifier identifier = cse.createSdlIdentifier();
+    addContextM1((cmof.reflection.Object)identifier);
+    String name = null;
+    SdlQualifier qualifier = null;
+}
+{
+    [ qualifier=qualifier() ] name=aName()
+    {
+        identifier.setName(name);
+        if (qualifier != null) {
+            identifier.setQualifier(qualifier);
+        }
+        return identifier;
+    }
+}
+
+SdlIdentifier simple_identifier():
+{
+    SdlIdentifier identifier = cse.createSdlIdentifier();
+    addContextM1((cmof.reflection.Object)identifier);
+    String name = null;
+}
+{
+    name=aName()
+    {
+        identifier.setName(name);
+        return identifier;
+    }
+}
+
+SdlQualifier qualifier():
+{
+    SdlQualifier qualifier = cse.createSdlQualifier();
+    addContextM1((cmof.reflection.Object)qualifier);
+    SdlPathItem pathItem = null;
+}
+{
+    <TOK_qualifier_begin_sign> pathItem=path_item() { qualifier.getPathItem().add(pathItem); }
+    ( "/" pathItem=path_item() { qualifier.getPathItem().add(pathItem); } )* <TOK_qualifier_end_sign>
+    {
+        return qualifier;
+    }
+}
+
+SdlPathItem path_item():
+{
+    SdlPathItem pathItem = cse.createSdlPathItem();
+    addContextM1((cmof.reflection.Object)pathItem);
+    String name =  null;
+    SdlScopeUnitKind scopeUnitKind;
+}
+{
+    [ scopeUnitKind=scope_unit_kind() { pathItem.setKind(scopeUnitKind); } ] name=aName()
+    {
+        pathItem.setName(name);
+        return pathItem;
+    }
+}
+
+SdlScopeUnitKind scope_unit_kind():
+{
+    SdlScopeUnitKind sukKind = null;
+}
+{
+    (
+        <TOK_package> { sukKind = SdlScopeUnitKind.PACKAGE; }
+    |
+        (LOOKAHEAD(2)
+            <TOK_system> <TOK_type> { sukKind = SdlScopeUnitKind.SYSTEMTYPE; }
+        |
+            <TOK_system> { sukKind = SdlScopeUnitKind.SYSTEM; }
+        )
+    |
+        (LOOKAHEAD(2)
+            <TOK_block> <TOK_type> { sukKind = SdlScopeUnitKind.BLOCKTYPE; }
+        |
+            <TOK_block> { sukKind = SdlScopeUnitKind.BLOCK; }
+        )
+    |
+        (LOOKAHEAD(2)
+            <TOK_process> <TOK_type> { sukKind = SdlScopeUnitKind.PROCESSTYPE; }
+        |
+            <TOK_process> { sukKind = SdlScopeUnitKind.PROCESS; }
+        )
+    |   (LOOKAHEAD(2)
+            <TOK_state> <TOK_type> { sukKind = SdlScopeUnitKind.STATETYPE; }
+        |
+            <TOK_state> { sukKind = SdlScopeUnitKind.STATE; }
+        )
+    |
+        <TOK_procedure> { sukKind = SdlScopeUnitKind.PROCEDURE; }
+    |
+        <TOK_signal> { sukKind = SdlScopeUnitKind.SIGNAL; }
+    )
+    {
+        return sukKind;
+    }
+}
+//}}}
+
+//{{{ system and package
+Collection<Element> sdl_specification():
+{
+    Collection<Element> topLevelModelElements = new Vector<Element>();
+    Element element = null;
+}
+{
+    ((element=package_definition(null) | element=agent_definition(null)) { topLevelModelElements.add(element); })* <EOF>
+    {
+        return topLevelModelElements;
+    }
+}
+
+SdlPackage package_definition(SdlPackage container):
+{
+    SdlPackage packageDefinition = sdl.createSdlPackage();
+    addContextM1((cmof.reflection.Object)packageDefinition);
+}
+{
+    <TOK_package> name(packageDefinition) // package_heading
+    <TOK_end>
+    ( entity_in_package(packageDefinition) )*
+    <TOK_endpackage>
+    //[ <TCL_name> ]
+    <TOK_end>
+    {
+        if (container != null) {
+            container.getNestedPackage().add(packageDefinition);
+        }
+        return packageDefinition;
+    }
+}
+
+void entity_in_package(SdlPackage packageDefinition):
+{}
+{
+      package_definition(packageDefinition)
+    | agent_type_definition(packageDefinition)
+    | signal_definition(packageDefinition)
+    | data_definition(packageDefinition)
+    | procedure_definition(packageDefinition)
+    | composite_state_type_definition(packageDefinition)
+}
+
+SdlAgent agent_definition(SdlAgentType container):
+{
+    SdlAgent agent = sdl.createSdlAgent();
+    addContextM1((cmof.reflection.Object)agent);
+}
+{
+    typebased_agent_definition(agent)
+    {
+        if (container != null) {
+            container.getAgent().add(agent);
+        }
+        return agent;
+    }
+}
+//}}}
+
+//{{{ agent_types
+void agent_type_definition(SdlNamespace container):
+{
+    SdlAgentType agentType = sdl.createSdlAgentType();
+    addContextM1((cmof.reflection.Object)agentType);
+}
+{
+    ( system_type_definition(agentType)
+    | block_type_definition(agentType)
+    | process_type_definition(agentType)
+    )
+    {
+        container.getOwnedType().add(agentType);
+    }
+}
+
+void agent_type_structure(SdlAgentType agentType):
+{}
+{
+    (LOOKAHEAD(2) _agent_type_structure_wo_body(agentType) )*
+    [ _agent_type_structure_body(agentType) ]
+    // syntax constraint: if there is an agent_type_body, only entity_in_agent and gate_in_definition are allowed
+    // syntax constraint: if there is not state_partitioning then there must be a agent_type_body
+}
+
+void _agent_type_structure_body(SdlAgentType agentType):
+{}
+{//LOOKAHEAD(2)
+    //  agent_type_body() // nicht in abstrakter syntax->metamodell?
+    state_partitioning(agentType)
+}
+
+void _agent_type_structure_wo_body(SdlAgentType agentType):
+{}
+{LOOKAHEAD(2)
+      entity_in_agent(agentType)
+    | channel_definition(agentType)
+    | gate_in_definition(agentType)
+    | agent_definition(agentType)
+}
+
+void state_partitioning(SdlBehaviorElement bodiedElement):
+{}
+{
+    typebased_composite_state_definition(bodiedElement)
+}
+
+// not in abstract sdl+ syntax
+//void agent_type_body():
+//{}
+//{
+//    state_automaton()
+//}
+
+void entity_in_agent(SdlAgentType agentType):
+{}
+{
+      agent_type_definition(agentType)
+    | signal_definition(agentType)
+    | variable_definition(agentType)
+    | data_definition(agentType)
+    | timer_definition(agentType)
+    | procedure_definition(agentType)
+    | composite_state_type_definition(agentType)
+}
+
+void system_type_definition(SdlAgentType agentType):
+{}
+{
+    {
+        agentType.setKind(SdlAgentKind.SYSTEM);
+    }
+    <TOK_system> <TOK_type> name(agentType) // system type heading
+    <TOK_end>
+    agent_type_structure(agentType) <TOK_endsystem> <TOK_type>
+    // [ <TCL_name>]
+    <TOK_end>
+}
+
+void block_type_definition(SdlAgentType agentType):
+{}
+{
+    {
+        agentType.setKind(SdlAgentKind.BLOCK);
+    }
+    <TOK_block> <TOK_type> name(agentType) // block type heading
+    [ fpar(agentType) ( "," fpar(agentType) )* ]
+    <TOK_end>
+    agent_type_structure(agentType) <TOK_endblock> <TOK_type>
+    // [ <TCL_name>]
+    <TOK_end>
+}
+
+void process_type_definition(SdlAgentType agentType):
+{}
+{
+    {
+        agentType.setKind(SdlAgentKind.PROCESS);
+    }
+    <TOK_process> <TOK_type> name(agentType) // process type heading
+    [ fpar(agentType) ( "," fpar(agentType) )* ]
+    <TOK_end>
+    agent_type_structure(agentType) <TOK_endprocess> <TOK_type>
+    // [ <TCL_name>]
+    <TOK_end>
+}
+
+void composite_state_type_definition(SdlNamespace container):
+{
+    SdlStateType stateType = sdl.createSdlStateType();
+    addContextM1((cmof.reflection.Object)stateType);
+}
+{
+
+    <TOK_state> <TOK_type> name(stateType) // composite state type heading
+    <TOK_end>
+    <TOK_substructure>
+    (
+    //not in abstract sdl+ syntax
+        entity_in_composite_state(stateType) 
+        // no gates in at states | gate_in_definition(stateType)
+    )*
+    composite_state_body(stateType)
+    <TOK_endsubstructure> <TOK_state> <TOK_type>
+    // [ <TCL_name> ]
+    <TOK_end>
+    {
+        container.getOwnedType().add(stateType);
+    }
+}
+
+void composite_state_body(SdlStateType stateType):
+{
+    SdlStateAutomaton automaton = sdl.createSdlStateAutomaton();
+    addContextM1((cmof.reflection.Object)automaton);
+    stateType.setStateAutomaton(automaton);
+}
+{
+    state_automaton(automaton)
+}
+
+void entity_in_composite_state(SdlStateType stateType):
+{}
+{
+      procedure_definition(stateType)
+    | variable_definition(stateType)
+    | data_definition(stateType)
+}
+//}}}
+
+//{{{ types
+void type_expression(TypedElement typedElement):
+{
+    SdlIdentifier identifier = null;
+}
+{
+    identifier=identifier()
+    {
+        if (typedElement != null) {
+            if (typedElement instanceof SdlAgent) {
+                typedElement.setType(createCsePlaceHolderForSdlAgentType(identifier));
+            } else if (typedElement instanceof SdlCompositeState) {
+                typedElement.setType(createCsePlaceHolderForSdlStateType(identifier));
+            } else {
+                throw new RuntimeException("assert");
+            }
+        }
+    }
+}
+
+void typebased_agent_definition(SdlAgent agent):
+{}
+{
+    ( typebased_system_definition(agent)
+    | typebased_block_definition(agent)
+    | typebased_process_definition(agent)
+    )
+}
+
+void typebased_system_definition(SdlAgent agent):
+{}
+{
+    <TOK_system> name(agent) <TOK_colon> type_expression(agent) <TOK_end>
+    {
+        agent.setLower(1);
+    }
+}
+
+void typebased_block_definition(SdlAgent agent):
+{}
+{
+    <TOK_block> name(agent) [ number_of_instances(agent) ] <TOK_colon> type_expression(agent) <TOK_end>
+}
+
+void typebased_process_definition(SdlAgent agent):
+{}
+{
+    <TOK_process> name(agent) [ number_of_instances(agent) ] <TOK_colon> type_expression(agent) <TOK_end>
+}
+
+void number_of_instances(SdlAgent agent):
+{
+    int initialNumber = 0;
+}
+{
+    "(" [ initialNumber=integer() ] [ "," [ integer() ] ] ")"
+    {
+        agent.setLower(initialNumber);
+        agent.setUpper(-1);
+    }
+}
+
+void typebased_composite_state_definition(SdlBehaviorElement bodiedElement):
+{
+    SdlCompositeState stateMachine = sdl.createSdlCompositeState();
+    addContextM1((cmof.reflection.Object)stateMachine);
+    bodiedElement.setBehavior(stateMachine);
+}
+{
+    <TOK_state> <TOK_aggregation> name(stateMachine) <TOK_colon> type_expression(stateMachine) <TOK_end>
+}
+//}}}
+
+//{{{ gates
+void gate_in_definition(SdlAgentType container):
+{
+    SdlGate gate = sdl.createSdlGate();
+    addContextM1((cmof.reflection.Object)gate);
+}
+{
+    <TOK_gate> name(gate) gate_constraint(gate) <TOK_end> [ gate_constraint(gate) <TOK_end> ]
+    {
+        container.getGate().add(gate);
+    }
+}
+
+void gate_constraint(SdlGate gate):
+{
+    Collection<SdlIdentifier> signals = new Vector<SdlIdentifier>();
+    boolean in = false;
+}
+{
+    ( <TOK_out> | <TOK_in> { in = true; } ) [ <TOK_with> signal_list(signals) ]
+    {
+        ReflectiveCollection addSignalsTo = null;
+        if (in) {
+            addSignalsTo = gate.getReceive();
+            for (SdlIdentifier signal: signals) {
+                addSignalsTo.add(createCsePlaceHolderForSdlSignal(signal));
+            }
+        } else {
+            addSignalsTo = gate.getSend();
+            for (SdlIdentifier signal: signals) {
+                addSignalsTo.add(createCsePlaceHolderForSdlSignal(signal));
+            }
+        }
+    }
+}
+//}}}
+
+//{{{ procedure
+void procedure_definition(SdlNamespace container):
+{
+    SdlProcedure procedure = sdl.createSdlProcedure();
+    addContextM1((cmof.reflection.Object)procedure);
+}
+{
+    <TOK_procedure> name(procedure) [ procedure_formal_parameters(procedure) ] [ result(procedure) ]  // heading
+    <TOK_end>
+    (LOOKAHEAD(2) entity_in_procedure(procedure) )*
+    [ procedure_body(procedure) ]
+    <TOK_endprocedure>
+    // [ <TCL_name> ]
+    <TOK_end>
+    {
+        if (container instanceof SdlClassifier) {        
+            ((SdlClassifier)container).getProcedure().add(procedure);
+        } else {
+            container.getOwnedType().add(procedure);
+        }
+    }
+}
+
+void entity_in_procedure(SdlProcedure procedure):
+{}
+{
+      procedure_definition(procedure)
+    | composite_state_type_definition(procedure)
+    | variable_definition(procedure)
+    | data_definition(procedure)
+}
+
+void procedure_body(SdlProcedure procedure):
+{
+    SdlStateAutomaton automaton = sdl.createSdlStateAutomaton();
+    addContextM1((cmof.reflection.Object)automaton);
+    procedure.setProcedureStateAutomaton(automaton);
+}
+{
+    state_automaton(automaton)
+}
+
+void procedure_formal_parameters(SdlProcedure procedure):
+{}
+{
+    "(" formal_variable_parameter(procedure) ( "," formal_variable_parameter(procedure) )* ")"
+}
+
+void formal_variable_parameter(BehavioralFeature parameterized):
+{
+    SdlParameter parameter = sdl.createSdlParameter();
+    addContextM1((cmof.reflection.Object)parameter);
+}
+{
+    parameter_kind(parameter) parameter_of_sort(parameter)
+    {
+        parameterized.getParameter().add(parameter);
+    }
+}
+
+void parameter_kind(SdlParameter parameter):
+{}
+{
+      <TOK_in> { parameter.setKind(SdlParameterKind.IN); }
+    | <TOK_out> { parameter.setKind(SdlParameterKind.OUT); } //??
+    | <TOK_inout> { parameter.setKind(SdlParameterKind.INOUT); }
+}
+
+void parameter_of_sort(SdlParameter parameter):
+{}
+{
+    name(parameter)
+    //( "," name(parameter) )*
+    sort_reference(parameter)
+}
+
+void result(TypedElement element):
+{}
+{
+    <TOK_result_sign>
+    //[LOOKAHEAD(2) aName() ]
+    sort_reference(element)
+}
+//}}}
+
+//{{{ communication
+void channel_definition(SdlAgentType container):
+{
+    SdlChannel channel = sdl.createSdlChannel();
+    addContextM1((cmof.reflection.Object)channel);
+}
+{
+    <TOK_channel> name(channel) [ <TOK_nodelay> ] channel_path(channel) [ channel_path(channel) ]
+    <TOK_endchannel>
+    // [ <TCL_name> ]
+    <TOK_end>
+    {
+        container.getChannel().add(channel);
+    }
+}
+
+void channel_path(SdlChannel channel):
+{
+    Collection<SdlIdentifier> signals = new Vector<SdlIdentifier>();
+    SdlChannelPath path = sdl.createSdlChannelPath();
+    addContextM1((cmof.reflection.Object)path);
+}
+{
+    <TOK_from> channel_endpoint(path, true)
+    <TOK_to> channel_endpoint(path, false)
+    // this is optional in real SDL-2000
+    <TOK_with> signal_list(signals)
+    <TOK_end>
+    {
+        for (SdlIdentifier identifier: signals) {
+            // A Connection is a special Media with send = receive.
+            path.getSignal().add(createCsePlaceHolderForSdlSignal(identifier));
+        }
+        channel.getPath().add(path);
+    }
+}
+
+void channel_endpoint(SdlChannelPath path, boolean orig):
+{
+    SdlIdentifier agentIdentifier = null;
+    SdlIdentifier gateIdentifier = null;
+    SdlChannelEnd end = sdl.createSdlChannelEnd();
+    if (orig) {
+        path.getSource().add(end);
+    } else {
+        path.getTarget().add(end);
+    }
+}
+{
+    ( agentIdentifier=identifier() | <TOK_this> )
+    {
+        if (agentIdentifier != null) {
+            end.setAgent(createCsePlaceHolderForSdlAgent(agentIdentifier));            
+        } 
+    }
+    (
+        <TOK_via> gateIdentifier=identifier()
+        {
+            end.setGate(createCsePlaceHolderForSdlGate(gateIdentifier));
+        }
+    )?
+}
+
+void signal_list(Collection<SdlIdentifier> list):
+{}
+{
+    signal_list_item(list) [ "," signal_list(list) ]
+}
+
+void signal_list_item(Collection<SdlIdentifier> list):
+{
+    SdlIdentifier identifier = null;
+}
+{
+    ( identifier=identifier()
+    | "(" identifier=identifier() ")"
+    )
+    {
+        list.add(identifier);
+    }
+}
+
+void signal_definition(SdlNamespace container):
+{}
+{
+    <TOK_signal> signal_definition_item(container) ( "," signal_definition_item(container) )* <TOK_end>
+}
+
+void signal_definition_item(SdlNamespace container):
+{
+    SdlSignal signal = sdl.createSdlSignal();
+    addContextM1((cmof.reflection.Object)signal);
+    container.getOwnedType().add(signal);
+}
+{
+    name(signal) [ "(" sort_reference_list(signal) ")" ]
+}
+
+void sort_reference_list(BehavioralFeature signatured):
+{
+    SdlIdentifier sortReference;
+    Parameter typeReference;
+}
+{
+    {
+        typeReference = sdl.createSdlParameter();
+        addContextM1((cmof.reflection.Object)typeReference);
+    }
+    sortReference=aSort_reference()
+    {
+        typeReference.setType(createCsePlaceHolderForSdlDataType(sortReference));
+        signatured.getParameter().add(typeReference);
+    }
+    (","
+        {
+            typeReference = sdl.createSdlParameter();
+            addContextM1((cmof.reflection.Object)typeReference);
+        }
+        sortReference=aSort_reference()
+        {
+            typeReference.setType(createCsePlaceHolderForSdlDataType(sortReference));
+            signatured.getParameter().add(typeReference);
+        }
+    )*
+}
+//}}}
+
+//{{{ state automaton
+void state_automaton(SdlStateAutomaton automaton):
+{}
+{
+    [ start(automaton) ]
+    (
+        state_node(automaton)
+    |
+        free_action(automaton)
+    )*
+}
+
+void free_action(SdlStateAutomaton automaton):
+{
+    Connector state = sdl.createConnector();
+    addContextM1((cmof.reflection.Object)state);
+    automaton.getNamedState().add(state);
+    SdlImidiate imidiate = sdl.createSdlImidiate();
+    addContextM1((cmof.reflection.Object)imidiate);
+    state.getTrigger().add(imidiate);
+}
+{
+    <TOK_connection> name(state) transition(automaton, imidiate) [ <TOK_endconnection> <TOK_end> ]
+}
+
+void start(SdlStateAutomaton automaton):
+{
+    Start state = sdl.createStart();
+    addContextM1((cmof.reflection.Object)state);
+    automaton.getState().add(state);
+    SdlImidiate imidiate = sdl.createSdlImidiate();
+    addContextM1((cmof.reflection.Object)imidiate);
+    state.getTrigger().add(imidiate);
+}
+{
+    <TOK_start> <TOK_end> transition(automaton, imidiate)
+}
+
+void state_node(SdlStateAutomaton automaton):
+{}
+{
+    basic_state(automaton)
+}
+
+void basic_state(SdlStateAutomaton automaton):
+{
+    Collection<SdlState> states = new Vector<SdlState>();
+    SdlStateNode stateNode = sdl.createSdlStateNode();
+    automaton.getState().add(stateNode);
+}
+{
+    <TOK_state> state_list(states, automaton) <TOK_end> input_part(automaton, stateNode) <TOK_endstate>
+    <TOK_end>
+    {
+        stateNode.getState().addAll(states);
+		for (SdlState state: states) {
+			if (!automaton.getNamedState().contains(state)) {
+				automaton.getNamedState().add(state);
+			}
+		}
+    }
+}
+
+void state_list(Collection<SdlState> states, SdlStateAutomaton automaton):
+{}
+{
+    state(states, automaton) ( "," state(states, automaton) )*
+}
+
+void state(Collection<SdlState> states, SdlStateAutomaton automaton):
+{
+	String stateName = null;
+}
+{
+	stateName=aName()
+	{
+		SdlState state = getStateForNameAndAutomaton(stateName, automaton);
+		states.add(state);
+	}
+}
+
+void input_part(SdlStateAutomaton automaton, SdlStateNode state):
+{
+    SdlInput input = sdl.createSdlInput();
+    addContextM1((cmof.reflection.Object)input);
+    state.getTrigger().add(input);
+}
+{
+    <TOK_input> ( <TOK_none> | input_list(input) ) <TOK_end> transition(automaton, input)
+}
+
+void input_list(SdlInput input):
+{}
+{
+    stimulus(input)
+}
+
+void stimulus(SdlInput input):
+{
+    SdlIdentifier signal;
+}
+{
+    signal=identifier() [ input_parameters(input) ]
+    {
+        input.setType(createCsePlaceHolderForSdlSignal(signal));
+    }
+}
+
+void input_parameters(SdlInput element):
+{
+    SdlIdentifier expression;
+}
+{
+    "(" [ expression=identifier()
+        {
+            element.getParameter().add(createCsePlaceHolderForSdlVariable(expression));
+        }
+    ( "," expression=identifier()
+        {
+            element.getParameter().add(createCsePlaceHolderForSdlVariable(expression));
+        }
+    )* ] ")"
+}
+
+void transition(SdlStateAutomaton automaton, SdlTrigger selector):
+{
+    SdlTransition transition = sdl.createSdlTransition();
+    addContextM1((cmof.reflection.Object)transition);
+    selector.setTransition(transition);
+}
+{
+    ( action_statement(automaton, transition) )* [ terminator_statement(automaton, transition) ]
+}
+
+void action_statement(SdlStateAutomaton automaton, SdlTransition transition):
+{}
+{
+    task(transition)
+|
+    output(transition)
+|
+    create_request(transition)
+|
+    decision(automaton, transition)
+|
+    set(transition)
+|
+    reset(transition)
+|
+    procedure_call(transition)
+}
+
+void terminator_statement(SdlStateAutomaton automaton, SdlTransition transition):
+{}
+{
+    (
+        return_terminator(automaton, transition)
+    |
+        nextstate(transition, automaton)
+    |
+        join(transition, automaton)
+    |
+        stop(automaton, transition)
+    ) <TOK_end>
+}
+
+void task(SdlTransition transition):
+{
+    SdlAssignment assignment = sdl.createSdlAssignment();
+    addContextM1((cmof.reflection.Object)assignment, getToken(2));
+}
+{
+    <TOK_task> assignment(assignment) <TOK_end>
+    {
+        transition.getAction().add(assignment);
+    }
+}
+
+void create_request(SdlTransition transition):
+{
+    SdlCreate create = sdl.createSdlCreate();
+    addContextM1((cmof.reflection.Object)create);
+    SdlIdentifier identifier;
+    transition.getAction().add(create);
+}
+{
+    <TOK_create> identifier=identifier() [ actual_parameters(create) ]<TOK_end>
+    {
+        create.setAgent(createCsePlaceHolderForSdlAgent(identifier));
+    }
+}
+
+void procedure_call(SdlTransition transition):
+{
+    SdlProcedureCall call = sdl.createSdlProcedureCall();
+    addContextM1((cmof.reflection.Object)call);
+    SdlIdentifier procedure;
+    transition.getAction().add(call);
+}
+{
+    <TOK_call> procedure=identifier() [ actual_parameters(call) ] <TOK_end>
+    {
+        call.setProcedure(createCsePlaceHolderForSdlProcedure(procedure));
+    }
+}
+
+void actual_parameters(BehavioralFeatureAccess element):
+{
+    Expression expression;
+}
+{
+    "(" [ expression=expression()
+        {
+            element.getArgument().add(expression);
+        }
+    ( "," expression=expression()
+        {
+            element.getArgument().add(expression);
+        }
+    )* ] ")"
+}
+
+void output(SdlTransition transition):
+{
+    SdlIdentifier gate = null;
+    Expression to = null;
+    List<SdlOutput> outputs = new Vector<SdlOutput>();
+}
+{
+    <TOK_output> output_item(outputs) ( "," output_item(outputs) )*
+    [ to=communication_constraints_to() ] [ gate=communication_constraints_gate() ] <TOK_end>
+    {
+        for(SdlOutput output: outputs) {
+            if (to != null) {
+                output.setTo(to);
+            }
+            if (gate != null) {
+                output.setVia(createCsePlaceHolderForSdlGate(gate));
+            }
+            transition.getAction().add(output);
+        }
+    }
+}
+
+void output_item(List<SdlOutput> outputs):
+{
+    SdlOutput output = sdl.createSdlOutput();
+    addContextM1((cmof.reflection.Object)output);
+    SdlIdentifier signal;
+}
+{
+    signal=identifier() [ actual_parameters(output) ]
+    {
+        output.setClassifier(createCsePlaceHolderForSdlSignal(signal));
+        outputs.add(output);
+    }
+}
+
+Expression communication_constraints_to():
+{
+    Expression to;
+}
+{
+    <TOK_to> to=expression()
+    {
+        return to;
+    }
+}
+
+SdlIdentifier communication_constraints_gate():
+{
+    SdlIdentifier gate;
+}
+{
+    <TOK_via> gate=identifier()
+    {
+        return gate;
+    }
+}
+
+void decision(SdlStateAutomaton automaton, SdlTransition transition):
+{
+    SdlSplit decisionNode;
+    Expression expr = null;
+}
+{
+    <TOK_decision>
+    (
+        {
+            decisionNode = sdl.createSdlSplit();
+            addContextM1((cmof.reflection.Object)decisionNode, getToken(0));
+        }
+        (
+            expr=expression() { 
+                decisionNode.setQuestion(expr);
+            } 
+            |
+            <TOK_any>
+        )
+        <TOK_end> ( (answer_part(automaton, decisionNode))+ [ else_part(automaton, decisionNode) ] ) <TOK_enddecision><TOK_end>
+    )
+    {
+        transition.setTarget(decisionNode);
+        automaton.getState().add(decisionNode);
+    }
+}
+
+void answer_part(SdlStateAutomaton automaton, SdlSplit decisionNode):
+{
+    SdlChoice answer = sdl.createSdlChoice();
+    addContextM1((cmof.reflection.Object)answer);
+    decisionNode.getAnswer().add(answer);
+}
+{
+    "(" [ range_condition(answer) ] ")" <TOK_colon> [ transition(automaton, answer) ]
+}
+
+void else_part(SdlStateAutomaton automaton, SdlSplit decisionNode):
+{
+    SdlElse answer = sdl.createSdlElse();
+    addContextM1((cmof.reflection.Object)answer);
+    decisionNode.getAnswer().add(answer);
+}
+{
+    <TOK_else> <TOK_colon> [ transition(automaton, answer) ]
+}
+
+void nextstate(SdlTransition transition, SdlStateAutomaton automaton):
+{
+    SdlIdentifier nextState;
+}
+{
+    <TOK_nextstate> (
+        nextState=simple_identifier()
+        {
+            transition.setTarget(createCsePlaceHolderForSdlState(nextState));
+        }
+        |
+        "-"
+        {
+            SdlStateNode stateNode = sdl.createSdlStateNode();
+            automaton.getState().add(stateNode);
+            transition.setTarget(stateNode);
+        }
+    )
+}
+
+void join(SdlTransition transition, SdlStateAutomaton automaton):
+{}
+{
+    <TOK_join> nextstate(transition, automaton) //connector name
+}
+
+void stop(SdlStateAutomaton automaton, SdlTransition transition):
+{}
+{
+    <TOK_stop>
+    {
+        Stop stop = stopsForAutomata.get(automaton);
+        if (stop == null) {
+            stop = sdl.createStop();
+            addContextM1((cmof.reflection.Object)stop, getToken(0));
+            automaton.getState().add(stop);
+            stopsForAutomata.put(automaton, stop);
+        }
+        transition.setTarget(stop);
+    }
+}
+
+void return_terminator(SdlStateAutomaton automaton, SdlTransition transition):
+{
+    Return returnNode = sdl.createReturn();
+    addContextM1((cmof.reflection.Object)returnNode);
+    Expression expr;
+}
+{
+    <TOK_return> [ expr=expression() { returnNode.setExpression(expr); } ]
+    {
+        transition.setTarget(returnNode);
+        automaton.getState().add(returnNode);
+    }
+}
+// }}}
+
+//{{{ expressions & statements
+void set(SdlTransition transition):
+{}
+{
+    <TOK_set> set_clause(transition) ( "," set_clause(transition) )* <TOK_end>
+}
+
+void set_clause(SdlTransition transition):
+{
+    SdlSet set = sdl.createSdlSet();
+    addContextM1((cmof.reflection.Object)set);
+    SdlIdentifier timer;
+    Expression timeExpr;
+}
+{
+    "(" timeExpr=expression() "," timer=identifier() [ actual_parameters(set) ] ")"
+    {
+        set.setExpression(timeExpr);
+        set.setClassifier(createCsePlaceHolderForSdlTimer(timer));
+        transition.getAction().add(set);
+    }
+}
+
+void reset(SdlTransition transition):
+{}
+{
+    <TOK_reset> "(" reset_clause(transition) ( "," reset_clause(transition) )* ")" <TOK_end>
+}
+
+void reset_clause(SdlTransition transition):
+{
+    SdlReset reset = sdl.createSdlReset();
+    addContextM1((cmof.reflection.Object)reset);
+    SdlIdentifier timer;
+}
+{
+    timer=identifier() [ actual_parameters(reset) ]
+    {
+        reset.setClassifier(createCsePlaceHolderForSdlTimer(timer));
+        transition.getAction().add(reset);
+    }
+}
+
+void assignment(SdlAssignment assignment):
+{
+    SdlIdentifier variable = null;
+    Expression expression;
+}
+{
+    variable=identifier() <TOK_is_assigned_sign> expression=expression()
+    {
+        assignment.setVariable(createCsePlaceHolderForSdlVariable(variable));
+        assignment.setExpression(expression);
+    }
+}
+
+void range_condition(SdlChoice answer):
+{
+    SdlRange singleCondition;
+}
+{
+    singleCondition=range() { answer.getCondition().add(singleCondition); }
+    ( "," range() { answer.getCondition().add(singleCondition); } )*
+}
+
+SdlRange range():
+{
+    SdlRange singleCondition;
+}
+{
+    (LOOKAHEAD(closed_range())
+        singleCondition=closed_range()
+    |
+        singleCondition=open_range()
+    )
+    {
+        return singleCondition;
+    }
+}
+
+SdlClosedRange closed_range():
+{
+    SdlClosedRange range = sdl.createSdlClosedRange();
+    addContextM1((cmof.reflection.Object)range);
+    SdlOpenRange range1, range2;
+}
+{
+    range1=open_range() <TOK_colon> range2=open_range()
+    {
+        range.setUpper(range2);
+        range.setLower(range1);
+        return range;
+    }
+}
+
+SdlOpenRange open_range():
+{
+    SdlIdentifier op;
+    Expression expr;
+    SdlOpenRange range = sdl.createSdlOpenRange();
+    addContextM1((cmof.reflection.Object)range);
+}
+{
+    op=identifier() // operation (e.g. >=, <)
+    expr=expression()
+    {
+        range.setOperation(createCsePlaceHolderForSdlOperation(op));
+        range.setExpression(expr);
+        return range;
+    }
+}
+//}}}
+
+//{{{ expressions
+Expression expression():
+{
+    Expression expression;
+}
+{
+    (LOOKAHEAD(operation_application())
+        expression = operation_application()
+    |
+        expression = literal()
+    |
+        expression = variable_access()
+    |
+        "(" expression=expression() ")"
+    |
+        expression=imperative_expression()
+    |
+        expression=value_returning_call_node()
+    )
+    {
+        return expression;
+    }
+}
+
+Expression operation_application():
+{
+    SdlOperationCall opApp = sdl.createSdlOperationCall();
+    addContextM1((cmof.reflection.Object)opApp);
+    SdlIdentifier operation = null;
+}
+{
+    operation=identifier() actual_parameters(opApp)
+    {
+        opApp.setFeature(createCsePlaceHolderForSdlOperation(operation));
+        return opApp;
+    }
+}
+
+Expression variable_access():
+{
+    SdlVariableAccess expression = sdl.createSdlVariableAccess();
+    addContextM1((cmof.reflection.Object)expression);
+    SdlIdentifier identifier;
+}
+{
+    identifier=identifier()
+    {
+        expression.setFeature(createCsePlaceHolderForSdlVariable(identifier));
+        return expression;
+    }
+}
+
+SdlLiteralExpression literal():
+{
+    SdlLiteralExpression expression = sdl.createSdlLiteralExpression();
+    addContextM1((cmof.reflection.Object)expression);
+    SdlQualifier qualifier = null;
+}
+{
+    {
+        String name;
+    }
+    [ qualifier=qualifier() ] name=aStringName()
+    {
+        expression.setValue(name);
+        SdlIdentifier identifier = cse.createSdlIdentifier();
+        if (qualifier != null) {
+            identifier.setQualifier(qualifier);
+        }
+        identifier.setName(name);
+        addContextM1((cmof.reflection.Object)identifier);
+        expression.setLiteral(createCsePlaceHolderForSdlLiteral(identifier));
+        return expression;
+    }
+}
+
+Expression imperative_expression():
+{
+    Expression expr;
+}
+{
+    (
+        expr=now_expression()
+    |
+        expr=pid_expression()
+    |
+        expr=timer_active_expression()
+    )
+    {
+        return expr;
+    }
+}
+
+Expression now_expression():
+{
+    SdlNowExpression expr = sdl.createSdlNowExpression();
+    addContextM1((cmof.reflection.Object)expr);
+}
+{
+    <TOK_now>
+    {
+        return expr;
+    }
+}
+
+SdlPidExpression pid_expression():
+{
+    SdlPidExpression expr = sdl.createSdlPidExpression();
+}
+{
+    <TOK_self>
+    {
+        expr.setKind(SdlPidExpressionKind.SELF);
+        addContextM1((cmof.reflection.Object)expr);
+        return expr;
+    }
+|
+    <TOK_sender>
+    {
+        expr.setKind(SdlPidExpressionKind.SENDER);
+        addContextM1((cmof.reflection.Object)expr);
+        return expr;
+    }
+|
+    <TOK_parent>
+    {
+        expr.setKind(SdlPidExpressionKind.PARENT);
+        addContextM1((cmof.reflection.Object)expr);
+        return expr;
+    }
+|
+    <TOK_offspring>
+    {
+        expr.setKind(SdlPidExpressionKind.OFFSPRING);
+        addContextM1((cmof.reflection.Object)expr);
+        return expr;
+    }
+}
+
+Expression timer_active_expression():
+{
+    SdlTimerActiveExpression expr = sdl.createSdlTimerActiveExpression();
+    addContextM1((cmof.reflection.Object)expr);
+    SdlIdentifier timer;
+}
+{
+    <TOK_active> "(" timer=identifier() [ actual_parameters(expr) ] ")"
+    {
+        expr.setFeature(createCsePlaceHolderForSdlTimer(timer));
+        return expr;
+    }
+}
+
+Expression value_returning_call_node():
+{
+    SdlProcedureCall expr = sdl.createSdlProcedureCall();
+    addContextM1((cmof.reflection.Object)expr);
+    SdlIdentifier procedure;
+}
+{
+    <TOK_call> procedure=identifier() [ actual_parameters(expr) ]
+    {
+        expr.setProcedure(createCsePlaceHolderForSdlProcedure(procedure));
+        return expr;
+    }
+}
+//}}}
+
+//{{{ data definition
+void variable_definition(SdlClassifier namespace):
+{}
+{
+    <TOK_dcl> variables_of_sort(namespace) ( "," variables_of_sort(namespace) )* <TOK_end>
+}
+
+void variables_of_sort(SdlClassifier namespace):
+{
+    SdlIdentifier sortReference;
+    Collection<String> names = new Vector<String>();
+    String name;
+    Expression expr=null;
+    Token context;
+}
+{
+    {
+        context = getToken(1);
+    }
+    name=aName() { names.add(name); }
+    // ( "," name=aName() { names.add(name); )* multiple vars in one declaration disabled until the TBDs are done
+    sortReference=aSort_reference()
+    [ <TOK_is_assigned_sign> expr=expression() ]
+    {
+        boolean first = true;
+        for (String varName: names) {
+            SdlVariable variable = null;
+            if (first) {
+                if (expr != null) {
+                    SdlVariable variableWithInit = sdl.createSdlVariable();
+                    variableWithInit.setInitExpression(expr);
+                    variable = variableWithInit;
+                } else {
+                    variable = sdl.createSdlVariable();
+                }
+                addContextM1((cmof.reflection.Object)variable, context);
+                variable.setName(varName);
+                variable.setType(createCsePlaceHolderForSdlDataType(sortReference));
+                first = false;
+            } else {
+                //TBD set a COPY of expr
+                //TBD bind with a COPY of sortReference
+            }
+            namespace.getVariable().add(variable);
+        }
+    }
+}
+
+void timer_definition(SdlNamespace namespace):
+{}
+{
+    <TOK_timer> timer_definition_item(namespace) ( "," timer_definition_item(namespace) )* <TOK_end>
+}
+
+void timer_definition_item(SdlNamespace namespace):
+{
+    Expression expr;
+    SdlTimer timer = sdl.createSdlTimer();
+    addContextM1((cmof.reflection.Object)timer);
+    namespace.getOwnedType().add(timer);
+}
+{
+    name(timer)
+    [ "(" sort_reference_list(timer) ")" ]
+}
+
+void data_definition(SdlNamespace namespace):
+{}
+{
+    data_type_definition(namespace)
+}
+
+void data_type_definition(SdlNamespace namespace):
+{
+    SdlDataType dataType = sdl.createSdlDataType();
+    addContextM1((cmof.reflection.Object)dataType);
+    namespace.getOwnedType().add(dataType);
+}
+{
+    <TOK_value> <TOK_type> name(dataType) <TOK_end>
+    [ data_type_constructor(dataType) ] [ operations(dataType) ]
+    <TOK_endvalue> <TOK_type> /* [ aName() ] */ <TOK_end>
+}
+
+void operations(SdlDataType namespace):
+{}
+{
+    operation_signatures(namespace)
+    // no operation definitions, all operations are definied external implicitly
+}
+
+void operation_signatures(SdlDataType namespace):
+{}
+{
+    <TOK_operators> operation_signature(namespace) <TOK_end> ( operation_signature(namespace) <TOK_end>)*
+}
+
+void operation_signature(SdlDataType namespace):
+{
+    SdlOperation operation = sdl.createSdlOperation();
+    addContextM1((cmof.reflection.Object)operation);
+    namespace.getOperation().add(operation);
+    String name;
+}
+{
+    (
+        name=aName()
+    |
+        name=aStringName()
+    )
+    [ "(" formal_parameter(operation) ( "," formal_parameter(operation) )* ")" ]
+    [ result(operation) ]
+    {
+        operation.setName(name);
+    }
+}
+
+
+void fpar(BehavioralFeature signatured):
+{
+    SdlParameter typeReference = sdl.createSdlParameter();
+    addContextM1((cmof.reflection.Object)typeReference);
+    String name = null;
+}
+{
+    /*typeReference_kind(typeReference)*/ <TOK_fpar> name=aName() sort_reference(typeReference)
+    {
+        signatured.getParameter().add(typeReference);
+        typeReference.setName(name);
+    }
+}
+
+void formal_parameter(BehavioralFeature signatured):
+{
+    SdlParameter typeReference = sdl.createSdlParameter();
+    addContextM1((cmof.reflection.Object)typeReference);
+}
+{
+    /*typeReference_kind(typeReference)*/ <TOK_in> sort_reference(typeReference)
+    {
+        signatured.getParameter().add(typeReference);
+    }
+}
+
+void data_type_constructor(SdlDataType dataType):
+{}
+{
+    literal_list(dataType)
+}
+
+void literal_list(SdlDataType dataType):
+{}
+{
+    <TOK_literals> literal_signature(dataType) ( "," literal_signature(dataType) )* <TOK_end>
+}
+
+void literal_signature(SdlDataType dataType):
+{
+    SdlLiteral literal = sdl.createSdlLiteral();
+    addContextM1((cmof.reflection.Object)literal);
+    dataType.getLiteral().add(literal);
+    String name;
+}
+{
+    (
+//        name=aName()
+//    |
+        name=aStringName()
+    )
+    {
+        literal.setName(name);
+    }
+}
+
+//}}}
+
+//{{{ name & identifier & references
+void name(NamedElement element):
+{
+    String name = null;
+}
+{
+    name=aName()
+    {
+        element.setName(name);
+    }
+}
+
+String aStringName():
+{
+    Token name;
+}
+{
+    name=<TCL_string_literal>
+    {
+        String stringName = (String)name.image;
+        stringName = stringName.substring(1, stringName.length() - 1);
+        return stringName;
+    }
+}
+
+String aName():
+{
+    Token name;
+}
+{
+    name=<TCL_name>
+    {
+        return name.image;
+    }
+}
+
+int integer():
+{
+    Token integer;
+}
+{
+    integer=<TCL_nat>
+    {
+        return new Integer(integer.image).intValue();
+    }
+}
+
+
+void sort_reference(TypedElement typedReference):
+{
+    SdlIdentifier identifier = null;
+}
+{
+    identifier=identifier()
+    {
+        typedReference.setType(createCsePlaceHolderForSdlDataType(identifier));
+    }
+}
+
+SdlIdentifier aSort_reference():
+{
+    SdlIdentifier identifier = null;
+}
+{
+    identifier=identifier()
+    {
+        return identifier;
+    }
+}
+//}}}

@@ -1,0 +1,29 @@
+<?xml version="1.0"  encoding="windows-1252"?>
+<XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XMI" xmlns:cmof="http://schema.omg.org/spec/mof/2.0/cmof.xmi">
+    <cmof:Package name="propertyNotificationTest">
+        <packageImport importedPackage="primitivetypes"/>
+        <ownedType xmi:id="Element" xsi:type="Class" name="Element">
+            <ownedAttribute name="identifier" type="String"/>
+            <ownedAttribute xmi:id="container" name="container" type="Container" opposite="content" association="Contains" lower="0"/>
+            <ownedAttribute xmi:id="orderedContainer" name="orderedContainer" type="Container" opposite="orderedContent" association="ContainsOrdered" lower="0"/>
+        </ownedType>
+        <ownedType xmi:id="Container" xsi:type="Class" name="Container">
+            <ownedAttribute xmi:id="content" name="content" type="Element" upper="-1" lower="0" opposite="container" association="Contains"/>
+            <ownedAttribute xmi:id="orderedContent" name="orderedContent" type="Element" upper="-1" lower="0" opposite="container" association="ContainsOrdered" isOrdered="true"/>
+        </ownedType>
+        <ownedType xmi:id="Contains" xsi:type="Association" name="Contains"/>
+        <ownedType xmi:id="ContainsOrdered" xsi:type="Association" name="ContainsOrdered"/>
+        <ownedType xsi:type="Enumeration" xmi:id="VisibilityKind" name="VisibilityKind">
+          <ownedLiteral name="public"/>
+          <ownedLiteral name="private"/>
+        </ownedType>
+    </cmof:Package>
+    <cmof:Package name="core">
+      <nestedPackage xmi:id="primitivetypes" name="primitivetypes">
+        <ownedType xsi:type="PrimitiveType" xmi:id="Integer" name="Integer"/>
+        <ownedType xsi:type="PrimitiveType" xmi:id="Boolean" name="Boolean"/>
+        <ownedType xsi:type="PrimitiveType" xmi:id="String" name="String"/>
+        <ownedType xsi:type="PrimitiveType" xmi:id="UnlimitedNatural" name="UnlimitedNatural"/>
+      </nestedPackage>
+    </cmof:Package>
+</XMI>

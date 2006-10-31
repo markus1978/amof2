@@ -1,0 +1,18 @@
+The licence for this software product can be found in:
+
+   LICENCE
+
+Please note that software binaries contained in resources/lib fall under
+different licences. These software is licensed by its original developers. The
+originating projects for these software are:
+    
+    oslo.jar    - The OSLO Ocl-tools (http://oslo-project.berlios.de)
+    javacc      - The Java Compiler Compiler (https://javacc.dev.java.net)
+    jdom.jar    - Java DOM (http://www.jdom.org/)
+    ant.jar     - Apache ant (http://ant.apache.org)
+    junit.jar   - JUNIT (http://www.junit.org/)
+    mopa.jar    - Model Pattern (http://www.informatik.hu-berlin.de/sam/meta-tools/)
+
+To build simply run:
+
+   ant dist

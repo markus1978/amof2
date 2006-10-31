@@ -1,0 +1,150 @@
+PACKAGE predefined;
+    VALUE TYPE Duration;
+        LITERALS "1.1", "2.2";
+        OPERATORS 
+            add(in Duration, in Duration)->Duration;
+    ENDVALUE TYPE;
+
+    VALUE TYPE Time;
+        LITERALS "1.1", "2.2";
+        OPERATORS 
+            add(in Time, in Duration)->Time;
+    ENDVALUE TYPE;
+
+    VALUE TYPE Pid;
+    ENDVALUE TYPE;
+
+    VALUE TYPE Boolean;
+        LITERALS "false", "true";
+        OPERATORS
+            and(in Boolean, in Boolean)->Boolean;
+            or(in Boolean, in Boolean)->Boolean;
+            not(in Boolean)->Boolean;
+            equal(in Boolean, in Boolean)->Boolean;
+    ENDVALUE TYPE;
+ENDPACKAGE;
+
+PACKAGE TestPackage ;
+    SYSTEM TYPE AClosedSystemType;
+        BLOCK blockInstance1:TestBlockType;
+        BLOCK blockInstance2:TestBlockType;
+
+        CHANNEL connect1To2
+             FROM blockInstance1 VIA OutGate
+             TO blockInstance2 VIA InGate WITH << TestPackage / AClosedSystemType / TestBlockType>> simpleSignal ;
+        ENDCHANNEL;
+        CHANNEL connect2To1
+             FROM blockInstance2 VIA OutGate
+             TO blockInstance1 VIA InGate WITH << TestPackage / AClosedSystemType / TestBlockType>> simpleSignal ;
+        ENDCHANNEL;
+    
+        BLOCK TYPE TestBlockType;
+            SIGNAL simpleSignal;
+            SIGNAL complexSignal(<< TestPackage / AClosedSystemType / TestBlockType >> Boolean, Boolean);
+            GATE OutGate OUT WITH simpleSignal;
+            GATE InGate IN WITH simpleSignal;
+
+            PROCESS testProcess:TestProcessType;
+
+            CHANNEL selfConnect
+                 FROM testProcess VIA InOutGate
+                 TO testProcess VIA InOutGate WITH complexSignal;
+            ENDCHANNEL;
+            CHANNEL inConnect
+                 FROM THIS VIA InGate
+                 TO testProcess VIA InOutGate WITH simpleSignal;
+            ENDCHANNEL;
+            CHANNEL outConnect
+                 FROM testProcess VIA InOutGate
+                 TO THIS VIA OutGate WITH simpleSignal;
+            ENDCHANNEL;
+
+            VALUE TYPE Boolean;
+                LITERALS "false", "true";
+                OPERATORS
+                    and(in Boolean, in Boolean)->Boolean;
+                    or(in Boolean, in Boolean)->Boolean;
+                    not(in Boolean)->Boolean;
+                    equal(in Boolean, in Boolean)->Boolean;
+            ENDVALUE TYPE;
+
+            VALUE TYPE Integer;
+                LITERALS "0", "1", "2", "3", "-1", "-2", "-3";
+                OPERATORS
+                    add(in Integer, in Integer)->Integer;
+                    mul(in Integer, in Integer)->Integer;
+                    neg(in Integer)->Integer;
+                    equal(in Integer, in Integer)-> Boolean;
+                    greater(in Integer, in Integer)-><< predefined>> Boolean;
+                    less(in Integer, in Integer)-><< predefined>>Boolean;
+            ENDVALUE TYPE;
+
+            dcl outerVar Boolean;
+
+            PROCESS TYPE TestProcessType ;
+
+                timer complexTimer(Boolean, Integer);
+
+                PROCEDURE complexProcedure(in a Boolean, in b Boolean) -> Boolean;
+                    START;
+                    RETURN a;
+                ENDPROCEDURE;
+
+                PROCEDURE simpleProcedure;
+                    START;
+                    RETURN;
+                ENDPROCEDURE;
+
+                GATE InOutGate
+                    IN WITH simpleSignal, complexSignal;
+                    OUT WITH simpleSignal, complexSignal;
+
+                STATE TYPE automaton; SUBSTRUCTURE
+                    dcl innerVar Boolean;
+                    dcl intVar Integer;
+                    dcl trueBool << predefined >> Boolean;
+                    dcl assignmentVar Boolean := "true";
+                    dcl aDuration << predefined >> Duration;
+                    dcl aTime << predefined >> Time;
+
+                    GATE STInOutGate
+                        IN WITH simpleSignal;
+                        OUT WITH simpleSignal;
+
+                    START;
+                        TASK aTime := NOW;
+                        SET (NOW, complexTimer("true", "1")), 
+                                (<< predefined / Time >> add(NOW, aDuration), complexTimer("true", "2"));
+                        CREATE testProcess;
+                        NEXTSTATE state1;
+
+                    STATE state1;
+                        INPUT simpleSignal;
+                        OUTPUT simpleSignal VIA InOutGate;
+                        TASK innerVar := outerVar;
+                        TASK innerVar := and("true", equal("true", equal(add("1", neg("-1")), mul("1", add("0","1")))));
+                        RESET (complexTimer("true", "1"));
+                        CALL simpleProcedure();
+                        TASK innerVar := CALL complexProcedure("true", "true");
+                        NEXTSTATE state2;
+                    ENDSTATE;
+
+                    STATE state2;
+                        INPUT complexTimer(innerVar, intVar);
+                        TASK trueBool := ACTIVE(complexTimer(innerVar, intVar));
+                        DECISION intVar ;
+                            (greater "1") : STOP;
+                            (greater "-1": less "1"): NEXTSTATE  state1;
+                            ELSE: NEXTSTATE state1;
+                        ENDDECISION;
+                    ENDSTATE;
+                ENDSUBSTRUCTURE STATE TYPE;
+                STATE AGGREGATION theState:automaton;
+            ENDPROCESS TYPE;
+        ENDBLOCK TYPE;
+    ENDSYSTEM TYPE;
+ENDPACKAGE;
+
+SYSTEM aSystem: << TestPackage >> AClosedSystemType;
+
+

@@ -1,0 +1,56 @@
+<project name = "SDL" default="compile" basedir=".">
+	<description>
+        SDL
+	</description>
+	<property name="build-dir" value="${basedir}/build"/>
+    <property name="javacc-home" location="${basedir}/../../lib/javacc"/>
+	<path id="classpath">
+		<pathelement path="${build/dir}"/>
+        <pathelement path="${basedir}/../../../build"/>
+        <fileset dir="${basedir}/../../../resources/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+    </path>
+
+	<path id="sourcepath">
+		<pathelement path="${basedir}/src"/>
+		<pathelement path="${basedir}/generated-src"/>
+	</path>
+
+    <target name="init" depends="precompile" >
+	   	<mkdir dir="./generated-src"/>
+        <mkdir dir="./build"/>
+        <mkdir dir="${basedir}/generated-src/hub/sam/sdlplus/parser"/>
+        <taskdef name="mofgencode" classname="hub.sam.mof.ant.GenerateCode" classpathref="classpath"/>
+    </target>
+
+	<target name="prepare" depends="init">
+    	<mofgencode src="${basedir}/resources/models/sdl.mdxml" destdir="${basedir}/generated-src" staticmodel="SDL.SdlModel" md="true" instances="true" ocl="true"/>
+        <mofgencode src="${basedir}/resources/models/trace.mdxml" destdir="${basedir}/generated-src" staticmodel="trace.TraceModel" md="true" instances="false"/>
+    </target>
+
+    <target name="precompile">
+        <ant antfile="${basedir}/../../../build.xml" dir="${basedir}/../../../" inheritAll="false" target="compile" />
+    </target>
+
+    <target name="gen-parser" depends="init">
+        <javacc
+                target="${basedir}/src/hub/sam/sdlplus/parser/SdlplusParser.jj"
+                outputdirectory="${basedir}/generated-src/hub/sam/sdlplus/parser/"
+                javacchome="${javacc-home}"
+                />
+    </target>
+
+    <target name="compile" depends="gen-parser, prepare, init">
+		<javac debug="on" destdir="${build-dir}" source="1.5" nowarn="yes" memorymaximumsize="100m" fork="true">
+			<src refid="sourcepath"/>
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+
+    <target name="clean">
+		<delete dir="${build-dir}"/>
+		<delete dir="${basedir}/generated-src"/>
+        <delete file="${basedir}/resources/models/sdl.xml"/>
+    </target>
+</project>

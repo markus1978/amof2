@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:automaton="http://www.foo.org/automaton">
+  <automaton:System xmi:id="MySystem" name="MySystem">
+    <signal xmi:id="Sig_a" name="a" xsi:type="Signal" />
+    <signal xmi:id="Sig_b" name="b" xsi:type="Signal" />
+    <automaton xmi:id="Clients" system="MySystem" xsi:type="Automaton" start="ClientStartState" initial="0">
+      <state xmi:id="ClientStartState"/>
+			<state xmi:id="ClientRunState"/>
+			<port xmi:id = "ClientIn" name="ClientIn" direction="outbound"/>
+			<port xmi:id = "ClientOut" name="ClientOut" direction="inbound"/>
+			<transition targetState="ClientRunState" sourceState="ClientStartState">
+					<input type="Sig_a"/>
+					<action xsi:type="Output" type="Sig_b" via="ClientOut"/>
+			</transition>
+			<transition targetState="ClientRunState" sourceState="ClientStartState">
+					<input type="Sig_b"/>
+					<action xsi:type="Output" type="Sig_a" via="ClientOut"/>
+			</transition>
+		</automaton>
+		<automaton xmi:id="Manager" start="ManagerStartState" initial="1">
+			<state xmi:id="ManagerStartState"/>
+			<port xmi:id = "ManagerIn" name="ManagerIn" direction="outbound"/>
+			<port xmi:id = "ManagerOut" name="ManagerOut" direction="inbound"/>
+			<transition sourceState="ManagerStartState" targetState="ManagerStartState">
+				<input type="Sig_a"/>
+				<action xsi:type="Create" automaton="Clients"/>
+				<action xsi:type="Output" type="Sig_a" via="ManagerOut">
+					<receiver xsi:type="Offspring"/>
+		  	    </action>
+			</transition>
+			<transition sourceState="ManagerStartState" targetState="ManagerStartState">
+				<input type="Sig_b"/>
+				<action xsi:type="Create" automaton="Clients"/>
+				<action xsi:type="Output" type="Sig_b" via="ManagerOut">
+					<receiver xsi:type="Offspring"/>
+		  	    </action>
+			</transition>
+		</automaton>
+		<port name="EnvIn" xmi:id="EnvIn" direction="inbound"/>
+		<port name="EnvOut" xmi:id="EnvOut" direction="outbound"/>
+		<channel xmi:id="EnvManager" targetPort="ManagerIn" sourcePort="EnvIn"/>
+		<channel xmi:id="ManagerClient" targetPort="ClientIn" sourcePort="ManagerOut"/>
+		<channel xmi:id="ClientEnv" targetPort="EnvOut" sourcePort="ClientOut"/>
+  </automaton:System>
+</xmi:XMI>
+

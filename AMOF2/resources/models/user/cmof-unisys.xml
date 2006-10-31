@@ -1,0 +1,333 @@
+<?xml version = '1.0' encoding = 'ISO-8859-1' ?>
+<!-- <!DOCTYPE XMI SYSTEM 'UMLX13-11.dtd' > -->
+<XMI xmi.version = '1.1' xmlns:UML='href://org.omg/UML/1.3' timestamp = 'Wed Jun 29 16:01:20 2005' >
+ <XMI.header>
+  <XMI.documentation>
+  <XMI.exporter>Unisys.JCR.1</XMI.exporter>
+  <XMI.exporterVersion>1.3.4</XMI.exporterVersion>
+  </XMI.documentation>
+  <XMI.metamodel xmi.name = 'UML' xmi.version = '1.3'/>
+ </XMI.header>
+<XMI.content>
+<!-- ==================== test    [Model] ==================== -->
+<UML:Model xmi.id = 'G.0' 
+  name = 'test' visibility = 'public' isSpecification = 'false' 
+  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+  <UML:Namespace.ownedElement>
+<UML:Package xmi.id='0' name = 'core' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Package xmi.id='1' name = 'primitivetypes' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='2' name = 'abstractions' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Package xmi.id='3' name = 'instances' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.instances.InstanceSpecification' name = 'InstanceSpecification' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='4' supertype = 'core.abstractions.namespaces.NamedElement' subtype = 'core.abstractions.instances.InstanceSpecification' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.instances.Slot' name = 'Slot' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='5' supertype = 'core.abstractions.ownerships.Element' subtype = 'core.abstractions.instances.Slot' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.instances.InstanceValue' name = 'InstanceValue' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='6' supertype = 'core.abstractions.expressions.ValueSpecification' subtype = 'core.abstractions.instances.InstanceValue' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='7' name = 'typedelements' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.typedelements.Type' name = 'Type' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='8' supertype = 'core.abstractions.namespaces.NamedElement' subtype = 'core.abstractions.typedelements.Type' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.typedelements.TypedElement' name = 'TypedElement' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='9' supertype = 'core.abstractions.namespaces.NamedElement' subtype = 'core.abstractions.typedelements.TypedElement' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='10' name = 'constraints' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.constraints.Constraint' name = 'Constraint' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='11' supertype = 'core.abstractions.namespaces.NamedElement' subtype = 'core.abstractions.constraints.Constraint' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.constraints.Namespace' name = 'Namespace' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='12' supertype = 'core.abstractions.namespaces.Namespace' subtype = 'core.abstractions.constraints.Namespace' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='13' name = 'behavioralfeatures' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.behavioralfeatures.Parameter' name = 'Parameter' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='14' supertype = 'core.abstractions.namespaces.NamedElement' subtype = 'core.abstractions.behavioralfeatures.Parameter' visibility = 'public'/>
+<UML:Generalization xmi.id='15' supertype = 'core.abstractions.typedelements.TypedElement' subtype = 'core.abstractions.behavioralfeatures.Parameter' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.behavioralfeatures.BehavioralFeature' name = 'BehavioralFeature' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='16' supertype = 'core.abstractions.classifiers.Feature' subtype = 'core.abstractions.behavioralfeatures.BehavioralFeature' visibility = 'public'/>
+<UML:Generalization xmi.id='17' supertype = 'core.abstractions.namespaces.Namespace' subtype = 'core.abstractions.behavioralfeatures.BehavioralFeature' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='18' name = 'super' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.super.Classifier' name = 'Classifier' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='19' supertype = 'core.abstractions.classifiers.Classifier' subtype = 'core.abstractions.super.Classifier' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='20' name = 'ownerships' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.ownerships.Element' name = 'Element' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='21' supertype = 'core.abstractions.elements.Element' subtype = 'core.abstractions.ownerships.Element' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='22' name = 'classifiers' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.classifiers.Classifier' name = 'Classifier' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='23' supertype = 'core.abstractions.namespaces.Namespace' subtype = 'core.abstractions.classifiers.Classifier' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.classifiers.Feature' name = 'Feature' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='24' supertype = 'core.abstractions.namespaces.NamedElement' subtype = 'core.abstractions.classifiers.Feature' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='25' name = 'generalizations' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.generalizations.Classifier' name = 'Classifier' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='26' supertype = 'core.abstractions.super.Classifier' subtype = 'core.abstractions.generalizations.Classifier' visibility = 'public'/>
+<UML:Generalization xmi.id='27' supertype = 'core.abstractions.typedelements.Type' subtype = 'core.abstractions.generalizations.Classifier' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.generalizations.Generalization' name = 'Generalization' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='28' supertype = 'core.abstractions.relationships.DirectedRelationship' subtype = 'core.abstractions.generalizations.Generalization' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='29' name = 'namespaces' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.namespaces.Namespace' name = 'Namespace' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='30' supertype = 'core.abstractions.namespaces.NamedElement' subtype = 'core.abstractions.namespaces.Namespace' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.namespaces.NamedElement' name = 'NamedElement' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='31' supertype = 'core.abstractions.ownerships.Element' subtype = 'core.abstractions.namespaces.NamedElement' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='32' name = 'expressions' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.expressions.Expression' name = 'Expression' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='33' supertype = 'core.abstractions.expressions.ValueSpecification' subtype = 'core.abstractions.expressions.Expression' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.expressions.OpaqueExpression' name = 'OpaqueExpression' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='34' supertype = 'core.abstractions.expressions.ValueSpecification' subtype = 'core.abstractions.expressions.OpaqueExpression' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.expressions.ValueSpecification' name = 'ValueSpecification' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='35' supertype = 'core.abstractions.ownerships.Element' subtype = 'core.abstractions.expressions.ValueSpecification' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='36' name = 'visibilities' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.visibilities.NamedElement' name = 'NamedElement' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='37' supertype = 'core.abstractions.namespaces.NamedElement' subtype = 'core.abstractions.visibilities.NamedElement' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='38' name = 'multiplicityexpressions' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.multiplicityexpressions.MultiplicityElement' name = 'MultiplicityElement' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='39' supertype = 'core.abstractions.multiplicities.MultiplicityElement' subtype = 'core.abstractions.multiplicityexpressions.MultiplicityElement' visibility = 'public'/>
+<UML:Generalization xmi.id='40' supertype = 'core.abstractions.ownerships.Element' subtype = 'core.abstractions.multiplicityexpressions.MultiplicityElement' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='41' name = 'relationships' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.relationships.Relationship' name = 'Relationship' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='42' supertype = 'core.abstractions.ownerships.Element' subtype = 'core.abstractions.relationships.Relationship' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.relationships.DirectedRelationship' name = 'DirectedRelationship' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='43' supertype = 'core.abstractions.relationships.Relationship' subtype = 'core.abstractions.relationships.DirectedRelationship' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='44' name = 'structuralfeatures' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.structuralfeatures.StructuralFeature' name = 'StructuralFeature' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='45' supertype = 'core.abstractions.classifiers.Feature' subtype = 'core.abstractions.structuralfeatures.StructuralFeature' visibility = 'public'/>
+<UML:Generalization xmi.id='46' supertype = 'core.abstractions.typedelements.TypedElement' subtype = 'core.abstractions.structuralfeatures.StructuralFeature' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='47' name = 'comments' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.comments.Element' name = 'Element' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='48' supertype = 'core.abstractions.ownerships.Element' subtype = 'core.abstractions.comments.Element' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.comments.Comment' name = 'Comment' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='49' supertype = 'core.abstractions.comments.Element' subtype = 'core.abstractions.comments.Comment' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='50' name = 'changeabilities' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.changeabilities.StructuralFeature' name = 'StructuralFeature' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='51' supertype = 'core.abstractions.structuralfeatures.StructuralFeature' subtype = 'core.abstractions.changeabilities.StructuralFeature' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='52' name = 'multiplicities' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.multiplicities.MultiplicityElement' name = 'MultiplicityElement' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='53' supertype = 'core.abstractions.elements.Element' subtype = 'core.abstractions.multiplicities.MultiplicityElement' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='54' name = 'elements' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.elements.Element' name = 'Element' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'true' isLeaf = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='55' name = 'redefinitions' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.redefinitions.RedefinableElement' name = 'RedefinableElement' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='56' supertype = 'core.abstractions.namespaces.NamedElement' subtype = 'core.abstractions.redefinitions.RedefinableElement' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='57' name = 'literals' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.abstractions.literals.LiteralNull' name = 'LiteralNull' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='58' supertype = 'core.abstractions.literals.LiteralSpecification' subtype = 'core.abstractions.literals.LiteralNull' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.literals.LiteralInteger' name = 'LiteralInteger' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='59' supertype = 'core.abstractions.literals.LiteralSpecification' subtype = 'core.abstractions.literals.LiteralInteger' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.literals.LiteralString' name = 'LiteralString' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='60' supertype = 'core.abstractions.literals.LiteralSpecification' subtype = 'core.abstractions.literals.LiteralString' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.literals.LiteralBoolean' name = 'LiteralBoolean' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='61' supertype = 'core.abstractions.literals.LiteralSpecification' subtype = 'core.abstractions.literals.LiteralBoolean' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.literals.LiteralUnlimitedNatural' name = 'LiteralUnlimitedNatural' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='62' supertype = 'core.abstractions.literals.LiteralSpecification' subtype = 'core.abstractions.literals.LiteralUnlimitedNatural' visibility = 'public'/>
+<UML:Class xmi.id='core.abstractions.literals.LiteralSpecification' name = 'LiteralSpecification' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='63' supertype = 'core.abstractions.expressions.ValueSpecification' subtype = 'core.abstractions.literals.LiteralSpecification' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='64' name = 'basic' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='core.basic.Operation' name = 'Operation' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='65' supertype = 'core.basic.TypedElement' subtype = 'core.basic.Operation' visibility = 'public'/>
+<UML:Generalization xmi.id='66' supertype = 'core.abstractions.multiplicities.MultiplicityElement' subtype = 'core.basic.Operation' visibility = 'public'/>
+<UML:Class xmi.id='core.basic.PrimitiveType' name = 'PrimitiveType' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='67' supertype = 'core.basic.DataType' subtype = 'core.basic.PrimitiveType' visibility = 'public'/>
+<UML:Class xmi.id='core.basic.EnumerationLiteral' name = 'EnumerationLiteral' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='68' supertype = 'core.basic.NamedElement' subtype = 'core.basic.EnumerationLiteral' visibility = 'public'/>
+<UML:Class xmi.id='core.basic.TypedElement' name = 'TypedElement' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='69' supertype = 'core.basic.NamedElement' subtype = 'core.basic.TypedElement' visibility = 'public'/>
+<UML:Class xmi.id='core.basic.Type' name = 'Type' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='70' supertype = 'core.basic.NamedElement' subtype = 'core.basic.Type' visibility = 'public'/>
+<UML:Class xmi.id='core.basic.Enumeration' name = 'Enumeration' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='71' supertype = 'core.basic.DataType' subtype = 'core.basic.Enumeration' visibility = 'public'/>
+<UML:Class xmi.id='core.basic.Class' name = 'Class' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='72' supertype = 'core.basic.Type' subtype = 'core.basic.Class' visibility = 'public'/>
+<UML:Class xmi.id='core.basic.Property' name = 'Property' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='73' supertype = 'core.basic.TypedElement' subtype = 'core.basic.Property' visibility = 'public'/>
+<UML:Generalization xmi.id='74' supertype = 'core.abstractions.multiplicities.MultiplicityElement' subtype = 'core.basic.Property' visibility = 'public'/>
+<UML:Class xmi.id='core.basic.Package' name = 'Package' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='75' supertype = 'core.basic.NamedElement' subtype = 'core.basic.Package' visibility = 'public'/>
+<UML:Class xmi.id='core.basic.Parameter' name = 'Parameter' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='76' supertype = 'core.basic.TypedElement' subtype = 'core.basic.Parameter' visibility = 'public'/>
+<UML:Generalization xmi.id='77' supertype = 'core.abstractions.multiplicities.MultiplicityElement' subtype = 'core.basic.Parameter' visibility = 'public'/>
+<UML:Class xmi.id='core.basic.DataType' name = 'DataType' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='78' supertype = 'core.basic.Type' subtype = 'core.basic.DataType' visibility = 'public'/>
+<UML:Class xmi.id='core.basic.NamedElement' name = 'NamedElement' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='79' supertype = 'core.abstractions.elements.Element' subtype = 'core.basic.NamedElement' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package xmi.id='80' name = 'cmof' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='cmof.Classifier' name = 'Classifier' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='81' supertype = 'cmof.Namespace' subtype = 'cmof.Classifier' visibility = 'public'/>
+<UML:Generalization xmi.id='82' supertype = 'core.abstractions.super.Classifier' subtype = 'cmof.Classifier' visibility = 'public'/>
+<UML:Generalization xmi.id='83' supertype = 'cmof.Type' subtype = 'cmof.Classifier' visibility = 'public'/>
+<UML:Class xmi.id='cmof.Constraint' name = 'Constraint' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='84' supertype = 'core.abstractions.constraints.Constraint' subtype = 'cmof.Constraint' visibility = 'public'/>
+<UML:Generalization xmi.id='85' supertype = 'cmof.PackageableElement' subtype = 'cmof.Constraint' visibility = 'public'/>
+<UML:Class xmi.id='cmof.NamedElement' name = 'NamedElement' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='86' supertype = 'cmof.Element' subtype = 'cmof.NamedElement' visibility = 'public'/>
+<UML:Generalization xmi.id='87' supertype = 'core.abstractions.visibilities.NamedElement' subtype = 'cmof.NamedElement' visibility = 'public'/>
+<UML:Generalization xmi.id='88' supertype = 'core.basic.NamedElement' subtype = 'cmof.NamedElement' visibility = 'public'/>
+<UML:Class xmi.id='cmof.Type' name = 'Type' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='89' supertype = 'core.basic.Type' subtype = 'cmof.Type' visibility = 'public'/>
+<UML:Generalization xmi.id='90' supertype = 'core.abstractions.typedelements.Type' subtype = 'cmof.Type' visibility = 'public'/>
+<UML:Generalization xmi.id='91' supertype = 'cmof.NamedElement' subtype = 'cmof.Type' visibility = 'public'/>
+<UML:Generalization xmi.id='92' supertype = 'cmof.PackageableElement' subtype = 'cmof.Type' visibility = 'public'/>
+<UML:Class xmi.id='cmof.Relationship' name = 'Relationship' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='93' supertype = 'cmof.Element' subtype = 'cmof.Relationship' visibility = 'public'/>
+<UML:Generalization xmi.id='94' supertype = 'core.abstractions.relationships.Relationship' subtype = 'cmof.Relationship' visibility = 'public'/>
+<UML:Class xmi.id='cmof.Association' name = 'Association' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='95' supertype = 'cmof.Classifier' subtype = 'cmof.Association' visibility = 'public'/>
+<UML:Generalization xmi.id='96' supertype = 'cmof.Relationship' subtype = 'cmof.Association' visibility = 'public'/>
+<UML:Class xmi.id='cmof.ElementImport' name = 'ElementImport' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='97' supertype = 'cmof.DirectedRelationship' subtype = 'cmof.ElementImport' visibility = 'public'/>
+<UML:Class xmi.id='cmof.TypedElement' name = 'TypedElement' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='98' supertype = 'core.basic.TypedElement' subtype = 'cmof.TypedElement' visibility = 'public'/>
+<UML:Generalization xmi.id='99' supertype = 'core.abstractions.typedelements.TypedElement' subtype = 'cmof.TypedElement' visibility = 'public'/>
+<UML:Generalization xmi.id='100' supertype = 'cmof.NamedElement' subtype = 'cmof.TypedElement' visibility = 'public'/>
+<UML:Class xmi.id='cmof.Parameter' name = 'Parameter' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='101' supertype = 'core.basic.Parameter' subtype = 'cmof.Parameter' visibility = 'public'/>
+<UML:Generalization xmi.id='102' supertype = 'core.abstractions.behavioralfeatures.Parameter' subtype = 'cmof.Parameter' visibility = 'public'/>
+<UML:Generalization xmi.id='103' supertype = 'cmof.TypedElement' subtype = 'cmof.Parameter' visibility = 'public'/>
+<UML:Generalization xmi.id='104' supertype = 'cmof.MultiplicityElement' subtype = 'cmof.Parameter' visibility = 'public'/>
+<UML:Class xmi.id='cmof.PrimitiveType' name = 'PrimitiveType' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='105' supertype = 'core.basic.PrimitiveType' subtype = 'cmof.PrimitiveType' visibility = 'public'/>
+<UML:Generalization xmi.id='106' supertype = 'cmof.DataType' subtype = 'cmof.PrimitiveType' visibility = 'public'/>
+<UML:Class xmi.id='cmof.Namespace' name = 'Namespace' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='107' supertype = 'core.abstractions.constraints.Namespace' subtype = 'cmof.Namespace' visibility = 'public'/>
+<UML:Generalization xmi.id='108' supertype = 'cmof.NamedElement' subtype = 'cmof.Namespace' visibility = 'public'/>
+<UML:Class xmi.id='cmof.PackageImport' name = 'PackageImport' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='109' supertype = 'cmof.DirectedRelationship' subtype = 'cmof.PackageImport' visibility = 'public'/>
+<UML:Class xmi.id='cmof.MultiplicityElement' name = 'MultiplicityElement' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='110' supertype = 'cmof.Element' subtype = 'cmof.MultiplicityElement' visibility = 'public'/>
+<UML:Generalization xmi.id='111' supertype = 'core.abstractions.multiplicities.MultiplicityElement' subtype = 'cmof.MultiplicityElement' visibility = 'public'/>
+<UML:Class xmi.id='cmof.StructuralFeature' name = 'StructuralFeature' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='112' supertype = 'cmof.Feature' subtype = 'cmof.StructuralFeature' visibility = 'public'/>
+<UML:Generalization xmi.id='113' supertype = 'core.abstractions.changeabilities.StructuralFeature' subtype = 'cmof.StructuralFeature' visibility = 'public'/>
+<UML:Generalization xmi.id='114' supertype = 'cmof.TypedElement' subtype = 'cmof.StructuralFeature' visibility = 'public'/>
+<UML:Generalization xmi.id='115' supertype = 'cmof.MultiplicityElement' subtype = 'cmof.StructuralFeature' visibility = 'public'/>
+<UML:Class xmi.id='cmof.Property' name = 'Property' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='116' supertype = 'cmof.StructuralFeature' subtype = 'cmof.Property' visibility = 'public'/>
+<UML:Generalization xmi.id='117' supertype = 'core.basic.Property' subtype = 'cmof.Property' visibility = 'public'/>
+<UML:Class xmi.id='cmof.Enumeration' name = 'Enumeration' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='118' supertype = 'cmof.DataType' subtype = 'cmof.Enumeration' visibility = 'public'/>
+<UML:Generalization xmi.id='119' supertype = 'core.basic.Enumeration' subtype = 'cmof.Enumeration' visibility = 'public'/>
+<UML:Class xmi.id='cmof.Package' name = 'Package' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='120' supertype = 'cmof.PackageableElement' subtype = 'cmof.Package' visibility = 'public'/>
+<UML:Generalization xmi.id='121' supertype = 'cmof.Namespace' subtype = 'cmof.Package' visibility = 'public'/>
+<UML:Generalization xmi.id='122' supertype = 'core.basic.Package' subtype = 'cmof.Package' visibility = 'public'/>
+<UML:Package xmi.id='123' name = 'extension' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class xmi.id='cmof.extension.Tag' name = 'Tag' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='124' supertype = 'cmof.Element' subtype = 'cmof.extension.Tag' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Class xmi.id='cmof.Feature' name = 'Feature' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='125' supertype = 'core.abstractions.classifiers.Feature' subtype = 'cmof.Feature' visibility = 'public'/>
+<UML:Generalization xmi.id='126' supertype = 'cmof.RedefinableElement' subtype = 'cmof.Feature' visibility = 'public'/>
+<UML:Class xmi.id='cmof.BehavioralFeature' name = 'BehavioralFeature' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='127' supertype = 'core.abstractions.behavioralfeatures.BehavioralFeature' subtype = 'cmof.BehavioralFeature' visibility = 'public'/>
+<UML:Generalization xmi.id='128' supertype = 'cmof.Feature' subtype = 'cmof.BehavioralFeature' visibility = 'public'/>
+<UML:Generalization xmi.id='129' supertype = 'cmof.Namespace' subtype = 'cmof.BehavioralFeature' visibility = 'public'/>
+<UML:Class xmi.id='cmof.ValueSpecification' name = 'ValueSpecification' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='130' supertype = 'core.abstractions.expressions.ValueSpecification' subtype = 'cmof.ValueSpecification' visibility = 'public'/>
+<UML:Generalization xmi.id='131' supertype = 'cmof.TypedElement' subtype = 'cmof.ValueSpecification' visibility = 'public'/>
+<UML:Class xmi.id='cmof.Comment' name = 'Comment' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='132' supertype = 'core.abstractions.comments.Comment' subtype = 'cmof.Comment' visibility = 'public'/>
+<UML:Generalization xmi.id='133' supertype = 'cmof.Element' subtype = 'cmof.Comment' visibility = 'public'/>
+<UML:Class xmi.id='cmof.Operation' name = 'Operation' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='134' supertype = 'core.basic.Operation' subtype = 'cmof.Operation' visibility = 'public'/>
+<UML:Generalization xmi.id='135' supertype = 'cmof.BehavioralFeature' subtype = 'cmof.Operation' visibility = 'public'/>
+<UML:Class xmi.id='cmof.EnumerationLiteral' name = 'EnumerationLiteral' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='136' supertype = 'core.basic.EnumerationLiteral' subtype = 'cmof.EnumerationLiteral' visibility = 'public'/>
+<UML:Generalization xmi.id='137' supertype = 'cmof.NamedElement' subtype = 'cmof.EnumerationLiteral' visibility = 'public'/>
+<UML:Class xmi.id='cmof.Element' name = 'Element' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='138' supertype = 'core.abstractions.comments.Element' subtype = 'cmof.Element' visibility = 'public'/>
+<UML:Class xmi.id='cmof.DirectedRelationship' name = 'DirectedRelationship' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='139' supertype = 'cmof.Relationship' subtype = 'cmof.DirectedRelationship' visibility = 'public'/>
+<UML:Generalization xmi.id='140' supertype = 'core.abstractions.relationships.DirectedRelationship' subtype = 'cmof.DirectedRelationship' visibility = 'public'/>
+<UML:Class xmi.id='cmof.DataType' name = 'DataType' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='141' supertype = 'core.basic.DataType' subtype = 'cmof.DataType' visibility = 'public'/>
+<UML:Generalization xmi.id='142' supertype = 'cmof.Classifier' subtype = 'cmof.DataType' visibility = 'public'/>
+<UML:Class xmi.id='cmof.OpaqueExpression' name = 'OpaqueExpression' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='143' supertype = 'cmof.ValueSpecification' subtype = 'cmof.OpaqueExpression' visibility = 'public'/>
+<UML:Generalization xmi.id='144' supertype = 'core.abstractions.expressions.OpaqueExpression' subtype = 'cmof.OpaqueExpression' visibility = 'public'/>
+<UML:Class xmi.id='cmof.PackageableElement' name = 'PackageableElement' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='145' supertype = 'cmof.NamedElement' subtype = 'cmof.PackageableElement' visibility = 'public'/>
+<UML:Class xmi.id='cmof.Class' name = 'Class' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='146' supertype = 'cmof.Classifier' subtype = 'cmof.Class' visibility = 'public'/>
+<UML:Generalization xmi.id='147' supertype = 'core.basic.Class' subtype = 'cmof.Class' visibility = 'public'/>
+<UML:Class xmi.id='cmof.Expression' name = 'Expression' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='148' supertype = 'cmof.ValueSpecification' subtype = 'cmof.Expression' visibility = 'public'/>
+<UML:Generalization xmi.id='149' supertype = 'core.abstractions.expressions.Expression' subtype = 'cmof.Expression' visibility = 'public'/>
+<UML:Class xmi.id='cmof.RedefinableElement' name = 'RedefinableElement' visibility = 'public' isSpecification = 'false' isAbstract = 'true' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='150' supertype = 'core.abstractions.redefinitions.RedefinableElement' subtype = 'cmof.RedefinableElement' visibility = 'public'/>
+<UML:Generalization xmi.id='151' supertype = 'cmof.NamedElement' subtype = 'cmof.RedefinableElement' visibility = 'public'/>
+<UML:Class xmi.id='cmof.PackageMerge' name = 'PackageMerge' visibility = 'public' isSpecification = 'false' isAbstract = 'false' isActive = 'false' isRoot = 'false' isLeaf = 'false'/>
+<UML:Generalization xmi.id='152' supertype = 'cmof.DirectedRelationship' subtype = 'cmof.PackageMerge' visibility = 'public'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+  </UML:Namespace.ownedElement>
+</UML:Model>
+</XMI.content>
+</XMI>

@@ -1,0 +1,604 @@
+/* vim:set fdm=marker: */
+
+options {
+  LOOKAHEAD = 1;
+  STATIC = false;
+  DEBUG_PARSER = false;
+  DEBUG_LOOKAHEAD = false;
+  DEBUG_TOKEN_MANAGER = false;
+  ERROR_REPORTING = true;
+  JAVA_UNICODE_ESCAPE = false;
+  UNICODE_INPUT = false;
+  IGNORE_CASE = false;
+  USER_TOKEN_MANAGER = false;
+  USER_CHAR_STREAM = false;
+  BUILD_PARSER = true;
+  BUILD_TOKEN_MANAGER = true;
+  SANITY_CHECK = false;
+  FORCE_LA_CHECK = true;
+}
+
+PARSER_BEGIN(ActionSemanticsParser)
+package hub.sam.mof.as.parser;
+
+import java.util.*;
+import cmof.common.*;
+import as.*;
+import hub.sam.mof.as.*;
+import hub.sam.mof.util.*;
+
+public class ActionSemanticsParser {
+    private asFactory factory = null;
+    private int unique = 0;
+    private Collection<AsSemanticException> errors = new Vector<AsSemanticException>();
+
+    public String getUniqueName() {
+        return "__unique_name_" + unique++;
+    }
+
+    public void setFactory(asFactory factory) {
+        this.factory = factory;
+    }
+
+    public Collection<AsSemanticException> getErrors() {
+        return errors;
+    }
+}
+
+PARSER_END(ActionSemanticsParser)
+
+//{{{ Tokens and stuff
+SKIP:
+{
+  < " " >
+| < "\t" >
+| < "\n" >
+| < "\r" >
+| < "//" (~["\n"])* "\n" >
+| <"/*" (~["*"])* "*" (~["/"] (~["*"])* "*")* "/">
+}
+
+TOKEN:
+{
+    <TOK_full_stop: ".">
+|   <TOK_colon: ":">
+|   <TOK_obc: "{">
+|   <TOK_cbc: "}">
+|   <TOK_sep: "::">
+|   <TOK_stop: ";">
+|   <TOK_obb: "<">
+|   <TOK_cbb: ">">
+|   <TOK_ob: "(">
+|   <TOK_cb: ")">
+|   <TOK_activity: "activity">
+|   <TOK_query: "query">
+|   <TOK_as: "as">
+|   <TOK_context: "context">
+|   <TOK_decision: "decision">
+|   <TOK_while: "while">
+|   <TOK_do: "do">
+|   <TOK_start: "start">
+|   <TOK_end: "end">
+|   <TOK_else: "[else]">
+|   <TOK_new: "new">
+}
+
+TOKEN:
+{
+    <TCL_name: (("_")*(<TCL_word>)(("_")+<TCL_word>)*("_")*)>
+|   <TCL_alphanumeric: ["a"-"z","A"-"Z","0"-"9","_"]>
+|   <TCL_decimaldigit: ["0"-"9"]>
+|   <TCL_word: (<TCL_alphanumeric>)+>
+|   <TCL_string_literal:
+        "\""
+        (   (~["\"","\\","\n","\r"])
+            | ("\\"
+                ( ["n","t","b","r","f","\\","'","\""]
+                | ["0"-"7"] ( ["0"-"7"] )?
+                | ["0"-"3"] ["0"-"7"] ["0"-"7"]
+                )
+            )
+        )*
+        "\""
+    >
+|   <TCL_ocl_expression: "[" (~["["])* "]">
+}
+//}}}
+
+void behavior_declaration(Collection<AsBehavior> dcls):
+{
+    ActivityEdge out = null;
+    Activity actActivity = null;
+    Collection<String> context = null;
+    AsBehavior behaviour = null;
+    String expr;
+    Map<String, ValueNode> objects = null;
+}
+{
+    (
+        {
+            context = new Vector<String>();
+            objects = new HashMap<String, ValueNode>();
+        }
+        qualified_name(context)
+        (
+            (
+                {
+                    actActivity = factory.createActivity();
+                }
+                "activity" "{" out=activity(null, actActivity, objects) "}"
+                {
+                    actActivity.getEdge().remove(out);
+                    ((cmof.reflection.Object)out).delete();
+                    behaviour = new AsActivity(context, actActivity);
+                    dcls.add(behaviour);
+                }
+            )
+            |
+            (
+                "query" "{" expr=ocl_expression() "}"
+                {
+                    behaviour = new AsQuery(context, expr);
+                    dcls.add(behaviour);
+                }
+            )
+        )
+    )+ <EOF>
+}
+
+ActivityEdge activity(ActivityEdge root, Activity activity, Map<String,ValueNode> objects):
+{}
+{
+    (
+        (
+            root=action(root, activity, objects)
+        )
+        |
+        (
+            root=decision(root, activity, objects)
+        )
+        |
+        (
+            root=loop(root, activity, objects)
+        )
+    )*
+    {
+        return root;
+    }
+}
+
+ActivityEdge action(ActivityEdge root, Activity activity, Map<String,ValueNode> objects):
+{}
+{
+    root=simple_action(root, activity, objects) ";"
+    {
+        return root;
+    }
+}
+
+ActivityEdge simple_action(ActivityEdge root, Activity activity, Map<String,ValueNode> objects):
+{
+    ActivityNode node = null;
+}
+{
+    (
+        (
+            node=action_name(activity) ( ":" action_expressions((OpaqueAction)node))? (
+                root=parameter(root, activity, objects, node) ( "," root=parameter(root, activity, objects, node) )*
+            )?
+        )
+        |
+        (
+            node=start_name(activity) (
+                root=parameter(root, activity, objects, node) ( "," root=parameter(root, activity, objects, node) )*
+            )?
+        )
+        |
+        (
+            node=stop_name(activity) (
+                root=parameter(root, activity, objects, node) ( "," root=parameter(root, activity, objects, node) )*
+            )?
+        )
+    )
+    {
+        if (root != null) {
+           root.setTarget(node);
+        }
+        ActivityEdge out = factory.createControlFlow();
+        activity.getEdge().add(out);
+        out.setSource(node);
+        return out;
+    }
+}
+
+ActivityNode action_name(Activity activity):
+{
+    Token name = null;
+    ActivityNode node = null;
+}
+{
+    (
+        name=<TCL_name>
+        {
+            OpaqueAction action = factory.createOpaqueAction();
+            activity.getNode().add(action);
+            action.getBody().add((String)name.image);
+            return action;
+        }
+    )
+}
+
+ActivityNode start_name(Activity activity):
+{
+    ActivityNode node = null;
+}
+{
+    (
+        "start"
+        {
+            node = factory.createInitialNode();
+            activity.getNode().add(node);
+            return node;
+        }
+    )
+}
+
+ActivityNode stop_name(Activity activity):
+{
+    ActivityNode node = null;
+}
+{
+    (
+        "end"
+        {
+            node = factory.createFinalNode();
+            activity.getNode().add(node);
+            return node;
+        }
+    )
+}
+
+ActivityEdge parameter(ActivityEdge root, Activity activity, Map<String,ValueNode> objects, ActivityNode node):
+{}
+{
+    (
+        "<" root=in_parameter(root, activity, objects, node) |
+        ">" out_parameter(activity, objects, node)
+    )
+    {
+        return root;
+    }
+}
+
+ActivityEdge in_parameter(ActivityEdge root, Activity activity, Map<String,ValueNode> objects, Object node):
+{
+    Token name = null;
+    Token extension = null;
+    InputPin pin = null;
+    ValueNode object = null;
+    Collection<String> qualifiedName = new Vector<String>();
+    OutputPin implicitOutputPin = null;
+    ObjectFlow implicitObjectFlow = null;
+}
+{
+    (
+        (
+            name=<TCL_name>
+            {
+                object = objects.get((String)name.image);
+            }
+        )
+        |
+        (
+            {
+                object = factory.createValueNode();
+                activity.getNode().add(object);
+                object.setName(getUniqueName());
+                objects.put(object.getName(), object);
+            }
+            root=sub_action(root, activity, objects) ":" qualified_name(qualifiedName)
+            {
+            	TypeString type = factory.createTypeString();
+    	        //activity.getOwnedElement().add(type); // TODO
+	            type.getQualifiedTypeName().addAll(qualifiedName);
+            	object.setType(type);
+
+                implicitOutputPin = factory.createOutputPin();
+                ((Action)root.getSource()).getOutput().add(0, implicitOutputPin);
+                implicitObjectFlow = factory.createObjectFlow();
+                activity.getEdge().add(implicitObjectFlow);
+                implicitObjectFlow.setSource(implicitOutputPin);
+                implicitObjectFlow.setTarget(object);
+            }
+        )
+    )
+    (
+        "as"
+        (
+            (
+                "context"
+                {
+                    pin = factory.createContextPin();
+                }
+            )
+            |
+            (
+                extension=<TCL_name>
+                {
+                    pin = factory.createContextExtensionPin();
+                    ((ContextExtensionPin)pin).setExtensionName((String)extension.image);
+                }
+            )
+        )
+    )?
+    {
+        if (object == null) {
+            errors.add(new AsSemanticException("The object with name " + name.image + " does not exisit."));
+            return root;
+        }
+        if (pin == null) {
+            if (node instanceof Action) {
+                pin = factory.createInputPin();
+            } else if (node instanceof GuardSpecification) {
+                pin = factory.createContextPin();
+            } else {
+                errors.add(new AsSemanticException("An input parameter is not allowed for a " + node.getClass().getName() + "."));
+                return root;
+            }
+        }
+        ActivityEdge flow = factory.createObjectFlow();
+        activity.getEdge().add(flow);
+        flow.setSource(object);
+        flow.setTarget(pin);
+        if (node instanceof Action) {
+            ((Action)node).getInput().add(pin);
+        } else if (node instanceof GuardSpecification) {
+            ((GuardSpecification)node).setInput((ContextPin)pin);
+        } else {
+            errors.add(new AsSemanticException("This kind of input parameter is not allowed for a " + node.getClass().getName() + "."));
+            return root;
+        }
+        return root;
+    }
+}
+
+void out_parameter(Activity activity, Map<String,ValueNode> objects, ActivityNode node):
+{
+    Token name = null;
+    Collection<String> qualifiedName = new Vector<String>();
+    ValueNode object = null;
+}
+{
+    (
+        name=<TCL_name>
+        {
+            object = objects.get((String)name.image);
+        }
+    )
+    |
+    (
+        "new" name=<TCL_name> ":" qualified_name(qualifiedName)
+        {
+            object = factory.createValueNode();
+            activity.getNode().add(object);
+            TypeString type = factory.createTypeString();
+            //activity.getOwnedElement().add(type); // TODO
+            type.getQualifiedTypeName().addAll(qualifiedName);
+            object.setName((String)name.image);
+            object.setType(type);
+            objects.put(object.getName(), object);
+        }
+    )
+    {
+        if (object == null) {
+            errors.add(new AsSemanticException("The object with name " + name.image + " does not exisit."));
+            return;
+        }
+        if (node instanceof Action) {
+            OutputPin pin = factory.createOutputPin();
+            ((Action)node).getOutput().add(pin);
+            ActivityEdge flow = factory.createObjectFlow();
+            flow.setSource(pin);
+            flow.setTarget(object);
+        } else if (node instanceof InitialNode) {
+            activity.getArgument().add(object);
+        } else {
+            errors.add(new AsSemanticException("Output parameter is not allowed for a " + node.getClass().getName() + "."));
+            return;
+        }
+    }
+}
+
+ActivityEdge sub_action(ActivityEdge root, Activity activity, Map<String,ValueNode> objects):
+{}
+{
+    "{" root=simple_action(root, activity, objects) "}"
+    {
+        return root;
+    }
+}
+
+void action_expressions(OpaqueAction action):
+{}
+{
+    action_expression(action) ( "," action_expression(action))*
+}
+
+void action_expression(OpaqueAction action):
+{
+    String expr = null;
+    Iterable<String> fexpr = null;
+    Token token = null;
+}
+{
+    (
+        expr=ocl_expression()
+        {
+            action.getBody().add(expr);
+        }
+    )
+|
+    (
+        fexpr=feature_expression()
+        {
+            action.getBody().addAll(fexpr);
+        }
+    )
+|
+    (
+        token=<TCL_string_literal>
+        {
+            action.getBody().add((String)token.image);
+        }
+    )
+}
+
+Iterable<String> feature_expression():
+{
+    Collection<String> qualifiedName = new Vector<String>();
+}
+{
+   qualified_name(qualifiedName)
+   {
+        return qualifiedName;
+   }
+}
+
+ActivityEdge decision(ActivityEdge root, Activity activity, Map<String,ValueNode> objects):
+{
+    GuardSpecification guardSpec = null;
+
+    ActivityEdge branch = null;
+    ActivityEdge edge = null;
+
+    ActivityEdge out = factory.createControlFlow();
+    activity.getEdge().add(out);
+
+    DecisionNode decisionNode = factory.createDecisionNode();
+    activity.getNode().add(decisionNode);
+    MergeNode merge = factory.createMergeNode();
+    activity.getNode().add(merge);
+    out.setSource(merge);
+}
+{
+    "decision"
+    (
+        {
+            edge = factory.createControlFlow();
+            activity.getEdge().add(edge);
+            edge.setSource(decisionNode);
+            guardSpec = factory.createGuardSpecification();
+        }
+        root=condition(root, guardSpec, activity, objects) "{" branch=activity(edge, activity, objects) "}"
+        {
+            root.setTarget(decisionNode);
+            edge.setGuardSpecification(guardSpec);
+            branch.setTarget(merge);
+        }
+    )+
+    {
+        return out;
+    }
+}
+
+ActivityEdge condition(ActivityEdge root, GuardSpecification guardSpec, Activity activity, Map<String,ValueNode> objects):
+{}
+{
+    decision_expression(guardSpec)  ( "<" root=in_parameter(root, activity, objects, guardSpec) )?
+    {
+        return root;
+    }
+}
+
+void decision_expression(GuardSpecification guardSpec):
+{
+    String expr = null;
+}
+{
+    (
+        expr=ocl_expression()
+        {
+            guardSpec.setBody(expr);
+        }
+    )
+    |
+    (
+        "[else]"
+        {
+            guardSpec.setBody("else");
+        }
+    )
+}
+
+ActivityEdge loop(ActivityEdge root, Activity activity, Map<String,ValueNode> objects):
+{
+    DecisionNode decisionNode = factory.createDecisionNode();
+    activity.getNode().add(decisionNode);
+    MergeNode merge = factory.createMergeNode();
+    activity.getNode().add(merge);
+    GuardSpecification elseSpec = factory.createGuardSpecification();
+    elseSpec.setBody("else");
+    ActivityEdge elseBranch = factory.createControlFlow();
+    activity.getEdge().add(elseBranch);
+    elseBranch.setSource(decisionNode);
+    elseBranch.setTarget(merge);
+    ActivityEdge out = factory.createControlFlow();
+    activity.getEdge().add(out);
+
+    ActivityEdge branch = null;
+    ActivityEdge edge = factory.createControlFlow();
+    activity.getEdge().add(edge);
+
+    GuardSpecification guardSpec = factory.createGuardSpecification();
+}
+{
+    (
+        (
+            "while" root=condition(root, guardSpec, activity, objects) "{" branch=activity(edge, activity, objects) "}"
+            {
+                root.setTarget(decisionNode);
+                edge.setSource(decisionNode);
+                edge.setGuardSpecification(guardSpec);
+                elseBranch.setGuardSpecification(elseSpec);
+                branch.setTarget(merge);
+                out.setSource(merge);
+            }
+        )
+        |
+        (
+            "do" "{" branch=activity(edge, activity, objects) "}" "while" branch=condition(branch, guardSpec, activity, objects)
+            {
+                root.setTarget(merge);
+                edge.setSource(merge);
+                branch.setTarget(decisionNode);
+                out.setSource(decisionNode);
+                out.setGuardSpecification(elseSpec);
+                elseBranch.setGuardSpecification(guardSpec);
+            }
+        )
+    )
+    {
+        return out;
+    }
+}
+
+String ocl_expression():
+{
+    Token expression = null;
+}
+{
+	expression=<TCL_ocl_expression>
+    {
+        return (String)expression.image;
+    }
+}
+
+void qualified_name(Collection<String> qualifiedName):
+{
+    Token name = null;
+}
+{LOOKAHEAD(2)
+    name=<TCL_name> { qualifiedName.add((String)name.image); } "::" qualified_name(qualifiedName)
+|
+    name=<TCL_name> { qualifiedName.add((String)name.image); }
+}
