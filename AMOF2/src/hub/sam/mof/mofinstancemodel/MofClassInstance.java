@@ -29,11 +29,17 @@ import hub.sam.mof.instancemodel.ClassInstance;
 import hub.sam.mof.instancemodel.StructureSlot;
 import hub.sam.mof.instancemodel.ValueSpecificationImpl;
 import hub.sam.mof.instancemodel.ValueSpecification;
+import hub.sam.mof.mofinstancemodel.events.InsertEvent;
+import hub.sam.mof.mofinstancemodel.events.PropertyChangeEventListener;
+import hub.sam.mof.mofinstancemodel.events.PropertyChangeEvent;
+import hub.sam.mof.mofinstancemodel.events.RemoveEvent;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 public class MofClassInstance extends ClassInstance<UmlClass,Property,java.lang.Object> {
     protected MofClassInstance(UmlClass classifier, MofInstanceModel model) {
@@ -42,14 +48,16 @@ public class MofClassInstance extends ClassInstance<UmlClass,Property,java.lang.
 
     private MofClassInstance(MofClassSemantics instanceClassifier, MofInstanceModel model) {
         super(hub.sam.util.Unique.getUnique().toString(), instanceClassifier.getClassifier(), model);
+        eventListener = new Vector<PropertyChangeEventListener>();
         instanceClass = instanceClassifier;
         if (instanceClassifier != null) {
             initialize();
-        }
+        }        
     }
 
     private MofClassSemantics instanceClass;
     private Map<Property, MofStructureSlot> slotForProperty = new HashMap<Property, MofStructureSlot>();
+    private List<PropertyChangeEventListener> eventListener;
 
     @Override
 	protected Map<Property, StructureSlot<UmlClass,Property,java.lang.Object>> createSlots() {
@@ -82,6 +90,16 @@ public class MofClassInstance extends ClassInstance<UmlClass,Property,java.lang.
         }
     }
 
+    protected void firePropertyChange(PropertyChangeEvent event) {    	
+    	for (PropertyChangeEventListener listener: eventListener) {
+			if (event instanceof InsertEvent) {
+				listener.insert((InsertEvent)event);
+			} else if (event instanceof RemoveEvent) {
+				listener.remove((RemoveEvent)event);
+			}
+    	}
+    }
+    
     protected MofStructureSlot createSlot(Property property) {
         return new MofStructureSlot(this, property);
     }
@@ -101,6 +119,14 @@ public class MofClassInstance extends ClassInstance<UmlClass,Property,java.lang.
         }
     }
 
+    public void addPropertyChangeListener(PropertyChangeEventListener listener) {
+    	eventListener.add(listener);
+    }
+    
+    public void removePropertyChangeListener(PropertyChangeEventListener listener) {
+    	eventListener.remove(listener);
+    }
+    
     @Override
 	public UmlClass getClassifier() {
         return super.getClassifier();
@@ -193,5 +219,6 @@ public class MofClassInstance extends ClassInstance<UmlClass,Property,java.lang.
         	slotForProperty.clear();
         	slotForProperty = null;
         }
+        eventListener = null;
     }
 }

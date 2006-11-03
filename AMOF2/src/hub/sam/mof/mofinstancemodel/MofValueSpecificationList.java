@@ -26,6 +26,11 @@ import cmof.exception.MultiplicityViolation;
 import hub.sam.mof.instancemodel.InstanceValue;
 import hub.sam.mof.instancemodel.ValueSpecification;
 import hub.sam.mof.instancemodel.ValueSpecificationList;
+import hub.sam.mof.mofinstancemodel.events.InsertEvent;
+import hub.sam.mof.mofinstancemodel.events.PropertyChangeEventListener;
+import hub.sam.mof.mofinstancemodel.events.PropertyChangeEvent;
+import hub.sam.mof.mofinstancemodel.events.RemoveEvent;
+import hub.sam.mof.mofinstancemodel.events.SetEvent;
 import hub.sam.mof.util.ListImpl;
 import hub.sam.mof.util.SetImpl;
 import hub.sam.util.Identity;
@@ -37,6 +42,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Vector;
+
+import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
 /** A wrapper arround lists of ValueSpecifications. It ensures:
  *  correct multiplicity (including lower, upper, unique and ordering),
@@ -71,8 +78,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
 	protected MofStructureSlot slot;
     private Nodes nodes;
     private final ValueSpecification<UmlClass,Property,Object> qualifier;
-
-
+  
     /**
      * Is only used by {@link MofStructureSlot}. Creates a new empty list of value
      * specifications for a concrete slot and for a concrete element instance.
@@ -109,13 +115,16 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         this.qualifier = parent.qualifier;
     }
 
-        private void checkReadOnly() {
+    private void checkReadOnly() {
         if (property.isReadOnly()) {
             throw new cmof.exception.IllegalArgumentException("A readonly property can not be changed: " + property.getQualifiedName());
         }
     }
 
-
+    private void firePropertyChanged(PropertyChangeEvent event) {
+    	owner.firePropertyChange(event);    	
+    }
+    
 	@Override
 	protected List<ValueSpecification<UmlClass,Property,java.lang.Object>> createList() {
 		return new Vector<ValueSpecification<UmlClass,Property,java.lang.Object>>();
@@ -208,7 +217,11 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         checkReadOnly();
         checkDerived();
     	ValueSpecification<UmlClass,Property,java.lang.Object> value = (ValueSpecification<UmlClass,Property,java.lang.Object>)o;
-        return new UpdateGraphCreation().add(this, qualifier, value).primaryAdd();
+        boolean result = new UpdateGraphCreation().add(this, qualifier, value).primaryAdd();
+        if (result) {
+        	firePropertyChanged(new InsertEvent(getProperty(), size() - 1, value));
+        }
+        return result;
     }
 
     @SuppressWarnings("unchecked")
@@ -225,6 +238,9 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
             }
             removed = true;
             index = values.indexOf(value);
+        }
+        if (removed) {
+        	firePropertyChanged(new RemoveEvent(getProperty(), index, value));
         }
         return removed;
     }
@@ -245,6 +261,8 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         	}
         }
         performingSet = false;
+        firePropertyChanged(new SetEvent(getProperty(), index,  (ValueSpecification<UmlClass,Property,java.lang.Object>)o, 
+        		removedObject));
         return removedObject;
     }
 
@@ -255,6 +273,9 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         checkDerived();
         ValueSpecification<UmlClass,Property,java.lang.Object> value = (ValueSpecification<UmlClass,Property,java.lang.Object>)o;
         new UpdateGraphCreation().add(this, qualifier, value).primaryAdd(index);
+        if (!performingSet) {
+        	firePropertyChanged(new InsertEvent(getProperty(), index,  (ValueSpecification<UmlClass,Property,java.lang.Object>)o));
+        }
     }
 
     @Override
@@ -268,6 +289,9 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
             removed = true;
         }
         if (removed) {
+        	if (!performingSet) {
+        		firePropertyChanged(new RemoveEvent(getProperty(), index,  removedObject));
+        	}
             return removedObject;
         }
         return null;

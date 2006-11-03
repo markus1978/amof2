@@ -53,35 +53,20 @@ public class TypeWrapperListImpl<E> extends TypeWrapperSetImpl<E> implements Ref
     }
 
     public E set(int index, Object element) {
-        Object replacedElement = untypedList.set(index, element); 
-        if (objectImpl != null && objectImpl.hasListeners()) {
-            objectImpl.firePropertyChange(propertyName, null, null);
-        }
-        return (E) replacedElement;
+        return (E) untypedList.set(index, element);         
     }
 
     public void add(int index, Object element) {
-        untypedList.add(index, element);
-        if (objectImpl != null && objectImpl.hasListeners()) {
-            objectImpl.firePropertyChange(propertyName, null, null);
-        }
+        untypedList.add(index, element);        
     }
 
     @SuppressWarnings("unchecked")
 	public boolean addAll(int index, Iterable<? extends Object> elements) {
-        boolean result = untypedList.addAll(index, elements);
-   		if (result && objectImpl != null && objectImpl.hasListeners()) {
-   			objectImpl.firePropertyChange(propertyName, null, null);
-   		}
-        return result;
+        return untypedList.addAll(index, elements);
     }
 
     public E remove(int index) {
-        Object removedElement = untypedList.remove(index);
-   		if (objectImpl != null && objectImpl.hasListeners()) {
-   			objectImpl.firePropertyChange(propertyName, null, null);
-   		}
-        return (E) removedElement;
+        return (E) untypedList.remove(index);   	
     }
 
     @SuppressWarnings("unchecked")

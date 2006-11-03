@@ -40,7 +40,12 @@ import hub.sam.mof.instancemodel.StructureSlot;
 import hub.sam.mof.instancemodel.ValueSpecification;
 import hub.sam.mof.instancemodel.ValueSpecificationImpl;
 import hub.sam.mof.instancemodel.ValueSpecificationList;
+import hub.sam.mof.mofinstancemodel.MofClassInstance;
 import hub.sam.mof.mofinstancemodel.MofClassifierSemantics;
+import hub.sam.mof.mofinstancemodel.events.InsertEvent;
+import hub.sam.mof.mofinstancemodel.events.PropertyChangeEventListener;
+import hub.sam.mof.mofinstancemodel.events.RemoveEvent;
+import hub.sam.mof.mofinstancemodel.events.SetEvent;
 import hub.sam.mof.ocl.MofEvaluationAdaptor;
 import hub.sam.mof.util.AssertionException;
 import hub.sam.mof.util.SetImpl;
@@ -66,6 +71,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     private ExtentImpl extent;
     private Implementations implementation = null;
     private List<ObjectEventHandler> handler = null;
+    private final PropertyChangeEventListener fPropertyChangeListener;
 
     protected ObjectImpl(ClassInstance<UmlClass, Property, java.lang.Object> instance, ExtentImpl extent) {
         super();
@@ -78,6 +84,27 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         this.isStatic = false;
         if (instance instanceof hub.sam.mof.mofinstancemodel.MofClassInstance) {
             this.semantics = ((hub.sam.mof.mofinstancemodel.MofClassInstance)instance).getInstanceClassifier(); //TODO
+            fPropertyChangeListener = new PropertyChangeEventListener() {
+				@Override
+				public void insert(InsertEvent event) {
+					firePropertyChange(event.getProperty().getName(), null, null);
+				}
+				@Override
+				public void remove(RemoveEvent event) {
+					firePropertyChange(event.getProperty().getName(), null, null);
+				}
+				@Override
+				public void set(SetEvent event) {
+					if (event.getProperty().getUpper() == 1) {
+						firePropertyChange(event.getProperty().getName(), event.getOldValue(), event.getNewValue());
+					} else {
+						firePropertyChange(event.getProperty().getName(), null, null);
+					}
+				}           			
+    		};
+            ((hub.sam.mof.mofinstancemodel.MofClassInstance)instance).addPropertyChangeListener(fPropertyChangeListener);            	
+        }  else {
+        	fPropertyChangeListener = null;
         }
     }
 
@@ -651,6 +678,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         this.delegateClassNames = delegateClassNames;
         this.extent = extent;
         instance = null;
+        fPropertyChangeListener = null;
         this.id = id;
         this.metaId = metaId;
         this.implementingClassName = implementingClassName;
@@ -878,9 +906,13 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     }
 
     protected void myFinalize() {
-        instance = null;
+    	if (instance != null && instance instanceof MofClassInstance) {
+        	((MofClassInstance)instance).removePropertyChangeListener(fPropertyChangeListener);
+        }
+    	instance = null;
         semantics = null;
         extent = null;
+        handler = null;        
     }
 
     /* This is super dirty, I am really sorry. Ocl allows additional property,value-pairs added temporarely to
@@ -934,11 +966,9 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     	propertyChangeListeners.removePropertyChangeListener(listener);
     }
 
-    public boolean hasListeners() {
-    	return propertyChangeListeners.hasListeners(null);
-    }
+    
 
-    public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
+    private void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
     	propertyChangeListeners.firePropertyChange(propertyName, oldValue, newValue);
     }
 

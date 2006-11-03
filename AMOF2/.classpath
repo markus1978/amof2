@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="resources/test/generated-src"/>
 	<classpathentry kind="src" path="resources/repository/generated-src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.5.0_06"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="resources/lib/oslo.jar"/>
 	<classpathentry kind="lib" path="resources/lib/jdom.jar"/>
 	<classpathentry kind="lib" path="resources/lib/ant.jar"/>
@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="resources/lib/ejb-api.jar"/>
 	<classpathentry kind="lib" path="resources/lib/jbossall-client.jar"/>
 	<classpathentry kind="lib" path="resources/lib/junit.jar"/>
+	<classpathentry kind="lib" path="/export/home/scheidge/local/java/jdk1.5.0_06/lib/tools.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>
