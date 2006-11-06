@@ -10,6 +10,7 @@ public class ItemDlg extends hub.sam.mof.reflection.ObjectDlg implements Item
         this.self = (Item)self;
     }
 
+
     public int getWeight() {
         return self.getWeight();
     }
@@ -46,6 +47,14 @@ public class ItemDlg extends hub.sam.mof.reflection.ObjectDlg implements Item
         self.setIdentifier(value);
     }
 
+    public java.lang.String getFoo() {
+        return self.getFoo();
+    }
+
+    public void setFoo(java.lang.String value) {
+        self.setFoo(value);
+    }
+
     public java.lang.String getPosition() {
         return self.getPosition();
     }
@@ -64,6 +73,10 @@ public class ItemDlg extends hub.sam.mof.reflection.ObjectDlg implements Item
 
     public void test()  {
         self.test();
+    }
+
+    public void fooOperation()  {
+        self.fooOperation();
     }
 
 }

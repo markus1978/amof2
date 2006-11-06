@@ -5,6 +5,7 @@ import cmof.Parameter;
 import cmof.ParameterDirectionKind;
 import cmof.Property;
 import cmof.exception.IllegalArgumentException;
+import hub.sam.mof.codegeneration.wrapper.OperationWrapper;
 import hub.sam.mof.instancemodel.ClassifierSemantics;
 import hub.sam.mof.javamapping.JavaMapping;
 
@@ -103,8 +104,8 @@ public class ImplementationsImpl implements Implementations {
                         }
                     }
                     // TODO actually check parameter types, not only their numbers
-                    if (method.getName().equals(JavaMapping.mapping.getJavaMethodNameForOperation(op)) &&
-                            method.getParameterTypes().length == parametersSize) {
+                    String javaMethodName = new OperationWrapper(op).getName();
+                    if (method.getName().equals(javaMethodName) && method.getParameterTypes().length == parametersSize) {
                         resultMethod = method;
                         break methodLoop;
                     }

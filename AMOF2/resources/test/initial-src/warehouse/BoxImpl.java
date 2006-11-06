@@ -10,6 +10,8 @@ public class BoxImpl extends hub.sam.mof.reflection.ObjectImpl implements Box
         super(id, extent, metaId, implementationClassName, delegateClassNames);
     }
 
+
+
     public cmof.common.ReflectiveCollection<? extends warehouse.Item> getItem() {
         java.lang.Object value = get("item");
         if (value == null) {
@@ -54,6 +56,19 @@ public class BoxImpl extends hub.sam.mof.reflection.ObjectImpl implements Box
         set("identifier", value);
     }
 
+    public java.lang.String getFoo() {
+        java.lang.Object value = get("foo");
+        if (value == null) {
+           return null;
+        } else {
+            return (java.lang.String)value;
+        }
+    }
+
+    public void setFoo(java.lang.String value) {
+        set("foo", value);
+    }
+
     public java.lang.String getPosition() {
         java.lang.Object value = get("position");
         if (value == null) {
@@ -82,6 +97,10 @@ public class BoxImpl extends hub.sam.mof.reflection.ObjectImpl implements Box
 
     public void test()  {
         invokeOperation("test", new java.lang.Object[] {  });
+    }
+
+    public void fooOperation()  {
+        invokeOperation("foo", new java.lang.Object[] {  });
     }
 
 }

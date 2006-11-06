@@ -4,8 +4,9 @@ package warehouse;
 /**
  * <b>Item</b>, superClass = {warehouse.Element}
  */
-public interface Item extends warehouse.Element
+public interface Item extends cmof.reflection.Object, warehouse.Element
 {
+
 
     /**
      * <b>weight</b>, multiplicity=(1,1)

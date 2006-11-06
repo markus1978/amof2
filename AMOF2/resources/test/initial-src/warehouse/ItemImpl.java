@@ -10,6 +10,7 @@ public class ItemImpl extends hub.sam.mof.reflection.ObjectImpl implements Item
         super(id, extent, metaId, implementationClassName, delegateClassNames);
     }
 
+
     public int getWeight() {
         java.lang.Object value = get("weight");
         if (value == null) {
@@ -71,6 +72,19 @@ public class ItemImpl extends hub.sam.mof.reflection.ObjectImpl implements Item
         set("identifier", value);
     }
 
+    public java.lang.String getFoo() {
+        java.lang.Object value = get("foo");
+        if (value == null) {
+           return null;
+        } else {
+            return (java.lang.String)value;
+        }
+    }
+
+    public void setFoo(java.lang.String value) {
+        set("foo", value);
+    }
+
     public java.lang.String getPosition() {
         java.lang.Object value = get("position");
         if (value == null) {
@@ -99,6 +113,10 @@ public class ItemImpl extends hub.sam.mof.reflection.ObjectImpl implements Item
 
     public void test()  {
         invokeOperation("test", new java.lang.Object[] {  });
+    }
+
+    public void fooOperation()  {
+        invokeOperation("foo", new java.lang.Object[] {  });
     }
 
 }

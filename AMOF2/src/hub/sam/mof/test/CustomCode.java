@@ -55,6 +55,14 @@ public class CustomCode extends AbstractRepository {
         Item i = factory.createItem();
         i.test();
     }
+    
+    public void testRenaming() {
+    	try {
+    		factory.createBox().fooOperation();
+    	} catch (Exception e) {
+    		assertTrue(false);
+    	}
+    }
 
     /* TODO not yet possible
     public void testHierarchy() {

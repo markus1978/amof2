@@ -4,9 +4,11 @@
         <packageImport importedPackage="primitivetypes"/>
         <ownedType xmi:id="Element" xsi:type="Class" name="Element" isAbstract="true">
             <ownedAttribute name="identifier" type="String"/>
+            <ownedAttribute name="foo" type="String"/>
             <ownedAttribute name="position" type="String" isDerived="true"/>
             <ownedAttribute xmi:id="container" name="container" type="Container" opposite="content" association="Contains" lower="0"/>
             <ownedOperation name="test"/>
+            <ownedOperation name="foo"/>
         </ownedType>
         <ownedType xmi:id="Container" xsi:type="Class" name="Container" isAbstract="true" superClass="Element">
             <ownedAttribute xmi:id="content" name="content" type="Element" upper="-1" lower="0" opposite="container" association="Contains" isComposite="true" />

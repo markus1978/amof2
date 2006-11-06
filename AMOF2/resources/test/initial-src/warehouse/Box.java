@@ -4,8 +4,10 @@ package warehouse;
 /**
  * <b>Box</b>, superClass = {warehouse.Container}
  */
-public interface Box extends warehouse.Container
+public interface Box extends cmof.reflection.Object, warehouse.Container
 {
+
+
 
     /**
      * <b>item</b>, multiplicity=(0,*), isComposite, isUnique, subsettedProperty = {warehouse.Container.content}

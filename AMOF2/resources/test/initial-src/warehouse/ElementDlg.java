@@ -18,6 +18,14 @@ public class ElementDlg extends hub.sam.mof.reflection.ObjectDlg implements Elem
         self.setIdentifier(value);
     }
 
+    public java.lang.String getFoo() {
+        return self.getFoo();
+    }
+
+    public void setFoo(java.lang.String value) {
+        self.setFoo(value);
+    }
+
     public java.lang.String getPosition() {
         return self.getPosition();
     }
@@ -36,6 +44,10 @@ public class ElementDlg extends hub.sam.mof.reflection.ObjectDlg implements Elem
 
     public void test()  {
         self.test();
+    }
+
+    public void fooOperation()  {
+        self.fooOperation();
     }
 
 }

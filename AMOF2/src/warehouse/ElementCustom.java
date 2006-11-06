@@ -35,4 +35,9 @@ public class ElementCustom extends ElementDlg {
 	public void test() {
         System.out.println("Hello World");
     }
+    
+    @Override
+    public void fooOperation() {
+    	// empty;
+    }
 }

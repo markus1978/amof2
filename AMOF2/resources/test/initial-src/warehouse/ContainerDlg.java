@@ -10,6 +10,7 @@ public class ContainerDlg extends hub.sam.mof.reflection.ObjectDlg implements Co
         this.self = (Container)self;
     }
 
+
     public cmof.common.ReflectiveCollection<? extends warehouse.Element> getContent() {
         return (cmof.common.ReflectiveCollection<? extends warehouse.Element>)(java.lang.Object)self.getContent();
     }
@@ -20,6 +21,14 @@ public class ContainerDlg extends hub.sam.mof.reflection.ObjectDlg implements Co
 
     public void setIdentifier(java.lang.String value) {
         self.setIdentifier(value);
+    }
+
+    public java.lang.String getFoo() {
+        return self.getFoo();
+    }
+
+    public void setFoo(java.lang.String value) {
+        self.setFoo(value);
     }
 
     public java.lang.String getPosition() {
@@ -40,6 +49,10 @@ public class ContainerDlg extends hub.sam.mof.reflection.ObjectDlg implements Co
 
     public void test()  {
         self.test();
+    }
+
+    public void fooOperation()  {
+        self.fooOperation();
     }
 
 }

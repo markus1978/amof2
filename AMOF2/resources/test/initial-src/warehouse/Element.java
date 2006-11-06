@@ -4,7 +4,7 @@ package warehouse;
 /**
  * <b>Element</b>, isAbstract
  */
-public interface Element 
+public interface Element extends cmof.reflection.Object
 {
 
     /**
@@ -13,6 +13,13 @@ public interface Element
     public java.lang.String getIdentifier();
 
     public void setIdentifier(java.lang.String value);
+
+    /**
+     * <b>foo</b>, multiplicity=(1,1)
+     */
+    public java.lang.String getFoo();
+
+    public void setFoo(java.lang.String value);
 
     /**
      * <b>position</b>, multiplicity=(1,1), isDerived
@@ -32,6 +39,11 @@ public interface Element
      * <b>test</b>, multiplicity=(1,1)
      */
     public void test() ;
+
+    /**
+     * <b>foo</b>, multiplicity=(1,1)
+     */
+    public void fooOperation() ;
 
 }
 
