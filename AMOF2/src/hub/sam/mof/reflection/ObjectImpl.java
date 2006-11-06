@@ -71,7 +71,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     private ExtentImpl extent;
     private Implementations implementation = null;
     private List<ObjectEventHandler> handler = null;
-    private final PropertyChangeEventListener fPropertyChangeListener;
+    private PropertyChangeEventListener fPropertyChangeListener;
 
     protected ObjectImpl(ClassInstance<UmlClass, Property, java.lang.Object> instance, ExtentImpl extent) {
         super();
@@ -385,6 +385,10 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         }
         for (cmof.reflection.Object component : getComponents()) {
             component.delete();
+        }
+        if (fPropertyChangeListener != null) {
+        	((MofClassInstance)instance).removePropertyChangeListener(fPropertyChangeListener);
+        	fPropertyChangeListener = null;
         }
         extent.removeObject(this, getClassInstance());
     }

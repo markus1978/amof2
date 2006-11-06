@@ -582,7 +582,10 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         if (origOccurences != null) {
             ReflectiveCollection<MofValueSpecificationList> occurences = new SetImpl<MofValueSpecificationList>(instanceOccurences.get(instance));
             for (MofValueSpecificationList list: occurences) {
-                list.forceRemove(new InstanceValue(instance));
+            	ValueSpecification<UmlClass, Property, Object> value = new InstanceValue<UmlClass, Property, Object>(instance);
+            	int index = list.values.indexOf(value);
+                list.forceRemove(value);
+                list.firePropertyChanged(new RemoveEvent(list.getProperty(), index, value));
             }
             if (origOccurences.size() != 0) {
                 throw new RuntimeException("assert");
