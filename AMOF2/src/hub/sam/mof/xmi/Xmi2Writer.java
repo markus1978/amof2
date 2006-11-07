@@ -19,6 +19,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.xmi;
 
+import cmof.DataType;
 import cmof.Property;
 import cmof.UmlClass;
 import cmof.reflection.Extent;
@@ -136,7 +137,7 @@ public class Xmi2Writer {
     	for (Object o: extent.getObject()) {
     		if (o instanceof Property) {
     			Property p = (Property)o;
-    			if (p.getAssociation() == null && p.getUmlClass() != null) {
+    			if (p.getAssociation() == null && p.getUmlClass() != null && (p.getType() instanceof DataType)) {    				
     				p.setIsComposite(true);
     			}
     		}
