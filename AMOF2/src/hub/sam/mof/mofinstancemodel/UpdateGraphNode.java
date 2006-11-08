@@ -85,7 +85,7 @@ public class UpdateGraphNode {
         if (o instanceof ValueSpecification) {
             return o.equals(value);
         } else if (o instanceof UpdateGraphNode) {
-            return o.equals(this);
+            return o == this;
         } else {
             return false;
         }

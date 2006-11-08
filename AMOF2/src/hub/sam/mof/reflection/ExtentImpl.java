@@ -163,7 +163,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
 
 
         public java.lang.Object remove(int index) {
-            return valueForSpecification(valueSpecs.get(index));
+            return valueForSpecification(valueSpecs.remove(index));
         }
 
 

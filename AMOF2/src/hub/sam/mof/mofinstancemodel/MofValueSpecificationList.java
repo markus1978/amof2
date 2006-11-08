@@ -115,10 +115,16 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         this.qualifier = parent.qualifier;
     }
 
+    private void checkConsistency() {
+    	if (values.size() != nodes.size()) {
+    		throw new RuntimeException("ValueList of " + owner + "#" + property.getName() + " is inconsited.");
+    	}
+    }
+    
     private void checkReadOnly() {
         if (property.isReadOnly()) {
             throw new cmof.exception.IllegalArgumentException("A readonly property can not be changed: " + property.getQualifiedName());
-        }
+        } 
     }
 
     private void firePropertyChanged(PropertyChangeEvent event) {
@@ -291,9 +297,9 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         if (removed) {
         	if (!performingSet) {
         		firePropertyChanged(new RemoveEvent(getProperty(), index,  removedObject));
-        	}
+        	}        	
             return removedObject;
-        }
+        }        
         return null;
     }
 
@@ -408,7 +414,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
     class Nodes {
         private final Vector<Collection<UpdateGraphNode>> nodes = new Vector<Collection<UpdateGraphNode>>();
 
-        Collection<UpdateGraphNode> get(int index) {
+        Collection<UpdateGraphNode> get(final int index) {
             if (index > (nodes.size() - 1)) {
                 nodes.setSize((index+10)*2);
             }
@@ -421,10 +427,37 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         }
 
         @SuppressWarnings("boxing")
-        void addNode(int index, UpdateGraphNode node) {
-        	node.setPosition(index);
-            get(index).add(node);
-        }
+        void addNode(int index, UpdateGraphNode node, boolean force) {        	
+        	if (performingSet) {
+        		node.setPosition(index);
+            	// remove all nodes for index
+            	Collection<UpdateGraphNode> toDelete = new Vector<UpdateGraphNode>(get(index).size());
+            	for (UpdateGraphNode oldNode: get(index)) {
+            		toDelete.add(oldNode);
+            	}
+            	for (UpdateGraphNode oldNode: toDelete) {
+            		removeNode(index, oldNode);
+            	}        		
+        		get(index).add(node);
+        	} else {
+        		node.setPosition(index);
+        		if (force) {
+	        		// shift and add
+	        		nodes.add(index, new HashSet<UpdateGraphNode>());
+	        		// recalculate positions
+	                loop: for (int i = index + 1; i < nodes.size(); i++) {
+	                	Collection<UpdateGraphNode> wrongIdextedNodes = nodes.get(i);
+	                	if (wrongIdextedNodes == null) {
+	                		break loop;
+	                	}
+	                	for (UpdateGraphNode wrongIndexedNode: wrongIdextedNodes) {
+	                		wrongIndexedNode.setPosition(wrongIndexedNode.getPosition() + 1);
+	                	}
+	                }
+                }
+        		get(index).add(node);
+        	}        	
+        }            
 
         void removeNode(int index, UpdateGraphNode node) {
             get(index).remove(node);
@@ -464,6 +497,20 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
             	}
             }
         }
+        
+        private int size() {
+        	int i = 0;
+        	boolean hasBucket = false;
+        	int lastBucketAt = 0;
+        	for (Collection<UpdateGraphNode> bucket: nodes) {
+        		if (bucket != null) {
+        			hasBucket = true;
+        			lastBucketAt = i;
+        		}
+        		i++;
+        	}
+        	return (hasBucket) ? lastBucketAt + 1 : 0;
+        }
 
         Nodes copy() {
             Nodes result = new Nodes();
@@ -485,13 +532,13 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
     public boolean primaryAdd(UpdateGraphNode node) {
         boolean added = addPlain(node.getValue());
         int index = values.lastIndexOf(node.getValue());
-        nodes.addNode(index, node);
+        nodes.addNode(index, node, added);
         return added;
     }
 
     public void primaryAdd(int index, UpdateGraphNode node) {
         addPlain(index, node.getValue());
-        nodes.addNode(index, node);
+        nodes.addNode(index, node, true);
     }
 
     public void primaryRemove(UpdateGraphNode node) {
