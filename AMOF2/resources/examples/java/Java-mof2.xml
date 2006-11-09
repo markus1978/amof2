@@ -1,133 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:cmof="http://www.foo.org/cmof" xmi:version="2.1">
-  <cmof:Package xmi:id="2126" visibility="public" tag="2125" name="Java">
-    <ownedType xmi:id="2128" metaClassifier="2163" visibility="public" isAbstract="false" name="Object" package="2126" xsi:type="Class">
-      <ownedAttribute xmi:id="2129" visibility="public" isDerived="false" type="2132" class="2128" association="2160" isComposite="false" isDerivedUnion="false" opposite="2159" upper="-1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="memberVariable" xsi:type="Property" />
-      <ownedAttribute xmi:id="2205" isDerived="false" type="2163" class="2128" association="2206" isComposite="false" isDerivedUnion="false" opposite="2204" upper="1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="metaClassifierClass" xsi:type="Property" />
-      <ownedOperation xmi:id="2210" isQuery="false" upper="1" lower="1" class="2128" isOrdered="false" isUnique="true" name="metaDelete" xsi:type="Operation" />
-    </ownedType>
-    <ownedType xmi:id="2169" metaClassifier="2170" visibility="public" isDerived="false" memberEnd="2167" isAbstract="false" name="LocalSlots" package="2126" xsi:type="Association">
-      <ownedEnd xmi:id="2168" owningAssociation="2169" isDerivedUnion="false" upper="1" opposite="2167" visibility="private" isDerived="false" lower="1" type="2166" isReadOnly="false" isUnique="true" isOrdered="false" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2175" visibility="public" isDerived="false" memberEnd="2173" isAbstract="false" name="CallingFrame" package="2126" xsi:type="Association">
-      <ownedEnd xmi:id="2174" owningAssociation="2175" isDerivedUnion="false" upper="1" opposite="2173" visibility="private" isDerived="false" lower="1" type="2166" isReadOnly="false" isUnique="true" isOrdered="false" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2166" metaClassifier="2165" visibility="public" isAbstract="false" name="CallFrame" package="2126" xsi:type="Class">
-      <ownedAttribute xmi:id="2167" visibility="public" isDerived="false" type="2132" class="2166" association="2169" isComposite="false" isDerivedUnion="false" opposite="2168" upper="-1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="localVariable" xsi:type="Property" />
-      <ownedAttribute xmi:id="2173" visibility="public" isDerived="false" type="2166" class="2166" association="2175" isComposite="false" isDerivedUnion="false" opposite="2174" upper="1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="callingFrame" xsi:type="Property" />
-      <ownedAttribute xmi:id="2176" visibility="public" isDerived="false" type="2128" class="2166" association="2178" isComposite="false" isDerivedUnion="false" opposite="2177" upper="1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="this" xsi:type="Property" />
-      <ownedAttribute xmi:id="2179" isDerived="false" type="2165" class="2166" association="2181" isComposite="false" isDerivedUnion="false" opposite="2180" upper="1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="metaClassifierMethod" xsi:type="Property" />
-      <ownedOperation xmi:id="2182" isQuery="false" upper="1" visibility="public" lower="1" class="2166" isOrdered="false" isUnique="true" name="slotForVariable" xsi:type="Operation">
-        <formalParameter xmi:id="2183" visibility="public" upper="1" lower="1" direction="in" type="2143" isUnique="true" isOrdered="false" name="var" operation="2182" xsi:type="Parameter" />
-        <formalParameter xmi:id="2186" visibility="public" upper="1" lower="1" direction="return" type="2132" isUnique="true" isOrdered="false" operation="2182" xsi:type="Parameter" />
-      </ownedOperation>
-      <ownedOperation xmi:id="2187" isQuery="false" upper="1" lower="1" class="2166" isOrdered="false" isUnique="true" name="metaDelete" xsi:type="Operation" />
-    </ownedType>
-    <ownedType xmi:id="2160" metaClassifier="2161" visibility="public" isDerived="false" memberEnd="2129" isAbstract="false" name="MemberSlots" package="2126" xsi:type="Association">
-      <ownedEnd xmi:id="2159" owningAssociation="2160" isDerivedUnion="false" upper="1" opposite="2129" visibility="private" isDerived="false" lower="1" type="2128" isReadOnly="false" isUnique="true" isOrdered="false" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2132" metaClassifier="2143" visibility="public" isAbstract="false" name="Slot" package="2126" xsi:type="Class">
-      <ownedAttribute xmi:id="2133" visibility="public" isDerived="false" type="2128" class="2132" association="2136" isComposite="false" isDerivedUnion="false" opposite="2135" upper="1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="value" xsi:type="Property" />
-      <ownedAttribute xmi:id="2142" isDerived="false" type="2143" class="2132" association="2155" isComposite="false" isDerivedUnion="false" opposite="2154" upper="1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="metaClassifierVariable" xsi:type="Property" />
-      <ownedOperation xmi:id="2158" isQuery="false" upper="1" lower="1" class="2132" isOrdered="false" isUnique="true" name="metaDelete" xsi:type="Operation" />
-    </ownedType>
-    <ownedType xmi:id="2136" visibility="public" isDerived="false" memberEnd="2133" isAbstract="false" name="Contents" package="2126" xsi:type="Association">
-      <ownedEnd xmi:id="2135" owningAssociation="2136" isDerivedUnion="false" upper="-1" opposite="2133" visibility="private" isDerived="false" lower="0" type="2132" isReadOnly="false" isUnique="true" isOrdered="false" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2178" visibility="public" isDerived="false" memberEnd="2176" isAbstract="false" name="ThisPointer" package="2126" xsi:type="Association">
-      <ownedEnd xmi:id="2177" owningAssociation="2178" isDerivedUnion="false" upper="1" opposite="2176" visibility="private" isDerived="false" lower="1" type="2166" isReadOnly="false" isUnique="true" isOrdered="false" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2170" metaInstances="2169" visibility="public" isDerived="false" memberEnd="2171" isAbstract="false" name="LocalVariableDefinitions" package="2126" xsi:type="Association">
-      <ownedEnd xmi:id="2172" owningAssociation="2170" isDerivedUnion="false" upper="1" opposite="2171" visibility="private" isDerived="false" lower="1" type="2165" isReadOnly="false" isUnique="true" isOrdered="false" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2143" metaInstances="2132" visibility="public" isAbstract="false" name="Variable" package="2126" xsi:type="Class">
-      <ownedAttribute xmi:id="2145" isDerivedUnion="false" upper="1" visibility="public" isDerived="false" lower="1" type="2146" class="2143" isReadOnly="false" isUnique="true" isOrdered="false" name="scope" isComposite="true" xsi:type="Property" />
-      <ownedAttribute xmi:id="2150" isDerivedUnion="false" upper="1" visibility="public" isDerived="false" lower="1" type="2151" class="2143" isReadOnly="false" isUnique="true" isOrdered="false" name="name" isComposite="true" xsi:type="Property" />
-      <ownedAttribute xmi:id="2154" isDerived="false" type="2132" class="2143" association="2155" isComposite="false" isDerivedUnion="false" opposite="2142" upper="-1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="metaInstanceSlot" xsi:type="Property" />
-      <ownedOperation xmi:id="2156" isQuery="false" upper="1" lower="1" type="2132" class="2143" isOrdered="false" isUnique="true" name="metaCreateSlot" xsi:type="Operation" />
-    </ownedType>
-    <ownedType xmi:id="2211" visibility="public" isDerived="false" memberEnd="2212" isAbstract="false" name="CalledAt" package="2126" xsi:type="Association">
-      <ownedEnd xmi:id="2221" owningAssociation="2211" isDerivedUnion="false" upper="1" opposite="2212" visibility="private" isDerived="false" lower="1" type="2213" isReadOnly="false" isUnique="true" isOrdered="false" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2217" visibility="public" isAbstract="true" name="Expression" package="2126" xsi:type="Class">
-      <ownedOperation xmi:id="2218" isQuery="false" upper="1" visibility="public" lower="1" class="2217" isOrdered="false" isUnique="true" name="evaluate" xsi:type="Operation">
-        <formalParameter xmi:id="2219" visibility="public" upper="1" lower="1" direction="return" type="2128" isUnique="true" isOrdered="false" operation="2218" xsi:type="Parameter" />
-        <formalParameter xmi:id="2220" visibility="public" upper="1" lower="1" direction="in" type="2166" isUnique="true" isOrdered="false" name="context" operation="2218" xsi:type="Parameter" />
-      </ownedOperation>
-    </ownedType>
-    <ownedType xmi:id="2222" visibility="public" isAbstract="false" name="ReadVariable" package="2126" superClass="2217" xsi:type="Class">
-      <ownedAttribute xmi:id="2223" visibility="public" isDerived="false" type="2143" class="2222" association="2225" isComposite="false" isDerivedUnion="false" opposite="2224" upper="1" lower="1" isReadOnly="false" isOrdered="false" isUnique="true" name="variable" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2226" visibility="public" isAbstract="false" name="Assignment" package="2126" superClass="2189" xsi:type="Class">
-      <ownedAttribute xmi:id="2227" visibility="public" isDerived="false" type="2143" class="2226" association="2229" isComposite="false" isDerivedUnion="false" opposite="2228" upper="1" lower="1" isReadOnly="false" isOrdered="false" isUnique="true" name="assignTo" xsi:type="Property" />
-      <ownedAttribute xmi:id="2230" visibility="public" isDerived="false" type="2217" class="2226" association="2232" isComposite="true" isDerivedUnion="false" opposite="2231" upper="1" lower="1" isReadOnly="false" isOrdered="false" isUnique="true" name="assignWith" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2189" visibility="public" isAbstract="true" name="Statement" package="2126" xsi:type="Class">
-      <ownedAttribute xmi:id="2190" visibility="public" isDerived="false" type="2165" class="2189" association="2191" isComposite="false" isDerivedUnion="false" opposite="2188" upper="1" lower="1" isReadOnly="false" isOrdered="false" isUnique="true" name="context" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2232" visibility="public" isDerived="false" memberEnd="2230" isAbstract="false" name="AssignedValue" package="2126" xsi:type="Association">
-      <ownedEnd xmi:id="2231" owningAssociation="2232" isDerivedUnion="false" upper="1" opposite="2230" visibility="private" isDerived="false" lower="1" type="2226" isReadOnly="false" isUnique="true" isOrdered="false" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2191" visibility="public" isDerived="false" memberEnd="2188 2190" isAbstract="false" name="BodyOfMethed" package="2126" xsi:type="Association" />
-    <ownedType xmi:id="2194" visibility="public" isDerived="false" memberEnd="2164 2193" isAbstract="false" name="MethodDefinitions" package="2126" xsi:type="Association" />
-    <ownedType xmi:id="2213" visibility="public" isAbstract="false" name="MethodCall" package="2126" superClass="2189" xsi:type="Class">
-      <ownedAttribute xmi:id="2212" visibility="public" isDerived="false" type="2217" class="2213" association="2211" isComposite="true" isDerivedUnion="false" opposite="2221" upper="1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="target" xsi:type="Property" />
-      <ownedAttribute xmi:id="2214" visibility="public" isDerived="false" type="2165" class="2213" association="2216" isComposite="false" isDerivedUnion="false" opposite="2215" upper="1" lower="1" isReadOnly="false" isOrdered="false" isUnique="true" name="calledMethod" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2233" visibility="public" isAbstract="false" name="New" package="2126" superClass="2217" xsi:type="Class">
-      <ownedAttribute xmi:id="2234" visibility="public" isDerived="false" type="2163" class="2233" association="2236" isComposite="false" isDerivedUnion="false" opposite="2235" upper="1" lower="1" isReadOnly="false" isOrdered="false" isUnique="true" name="class" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2146" visibility="public" isAbstract="false" name="Scope" package="2126" xsi:type="Enumeration">
-      <ownedLiteral xmi:id="2147" visibility="public" enumeration="2146" name="MEMBER" xsi:type="EnumerationLiteral" />
-      <ownedLiteral xmi:id="2149" visibility="public" enumeration="2146" name="CLASS" xsi:type="EnumerationLiteral" />
-    </ownedType>
-    <ownedType xmi:id="2161" metaInstances="2202 2160" visibility="public" isDerived="false" memberEnd="2162" isAbstract="false" name="VariableDefinitions" package="2126" xsi:type="Association">
-      <ownedEnd xmi:id="2209" owningAssociation="2161" isDerivedUnion="false" upper="1" opposite="2162" visibility="private" isDerived="false" lower="1" type="2163" isReadOnly="false" isUnique="true" isOrdered="false" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2165" metaInstances="2166" visibility="public" isAbstract="false" name="Method" package="2126" xsi:type="Class">
-      <ownedAttribute xmi:id="2188" visibility="public" isDerived="false" type="2189" class="2165" association="2191" isComposite="true" isDerivedUnion="false" opposite="2190" upper="-1" lower="0" isReadOnly="false" isOrdered="true" isUnique="true" name="body" xsi:type="Property" />
-      <ownedAttribute xmi:id="2192" isDerivedUnion="false" upper="1" visibility="public" isDerived="false" lower="1" type="2146" class="2165" isReadOnly="false" isUnique="true" isOrdered="false" name="scope" isComposite="true" xsi:type="Property" />
-      <ownedAttribute xmi:id="2171" visibility="public" isDerived="false" type="2143" class="2165" association="2170" isComposite="true" isDerivedUnion="false" opposite="2172" upper="-1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="variable" xsi:type="Property" />
-      <ownedAttribute xmi:id="2193" visibility="public" isDerived="false" type="2163" class="2165" association="2194" isComposite="false" isDerivedUnion="false" opposite="2164" upper="1" lower="1" isReadOnly="false" isOrdered="false" isUnique="true" name="context" xsi:type="Property" />
-      <ownedAttribute xmi:id="2195" isDerivedUnion="false" upper="1" visibility="public" isDerived="false" lower="1" type="2151" class="2165" isReadOnly="false" isUnique="true" isOrdered="false" name="name" isComposite="true" xsi:type="Property" />
-      <ownedAttribute xmi:id="2180" isDerived="false" type="2166" class="2165" association="2181" isComposite="false" isDerivedUnion="false" opposite="2179" upper="-1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="metaInstanceCallFrame" xsi:type="Property" />
-      <ownedOperation xmi:id="2196" isQuery="false" upper="1" visibility="public" lower="1" class="2165" isOrdered="false" isUnique="true" name="run" xsi:type="Operation">
-        <formalParameter xmi:id="2197" visibility="public" upper="1" lower="1" direction="in" type="2128" isUnique="true" isOrdered="false" name="thisPointer" operation="2196" xsi:type="Parameter" />
-        <formalParameter xmi:id="2198" visibility="public" upper="1" lower="1" direction="in" type="2166" isUnique="true" isOrdered="false" name="callFrame" operation="2196" xsi:type="Parameter" />
-      </ownedOperation>
-      <ownedOperation xmi:id="2199" isQuery="false" upper="1" lower="1" type="2166" class="2165" isOrdered="false" isUnique="true" name="metaCreateCallFrame" xsi:type="Operation" />
-    </ownedType>
-    <ownedType xmi:id="2229" visibility="public" isDerived="false" memberEnd="2227" isAbstract="false" name="AssignTo" package="2126" xsi:type="Association">
-      <ownedEnd xmi:id="2228" owningAssociation="2229" isDerivedUnion="false" upper="-1" opposite="2227" visibility="private" isDerived="false" lower="0" type="2226" isReadOnly="false" isUnique="true" isOrdered="false" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2225" visibility="public" isDerived="false" memberEnd="2223" isAbstract="false" name="VariableRead" package="2126" xsi:type="Association">
-      <ownedEnd xmi:id="2224" owningAssociation="2225" isDerivedUnion="false" upper="-1" opposite="2223" visibility="private" isDerived="false" lower="0" type="2222" isReadOnly="false" isUnique="true" isOrdered="false" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2236" visibility="public" isDerived="false" memberEnd="2234" isAbstract="false" name="ClassToCreate" package="2126" xsi:type="Association">
-      <ownedEnd xmi:id="2235" owningAssociation="2236" isDerivedUnion="false" upper="-1" opposite="2234" visibility="private" isDerived="false" lower="0" type="2233" isReadOnly="false" isUnique="true" isOrdered="false" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2202" metaClassifier="2161" visibility="public" isDerived="false" memberEnd="2200" isAbstract="false" package="2126" xsi:type="Association">
-      <ownedEnd xmi:id="2201" owningAssociation="2202" isDerivedUnion="false" upper="1" opposite="2200" visibility="private" isDerived="false" lower="1" type="2163" isReadOnly="false" isUnique="true" isOrdered="false" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2163" metaInstances="2128" visibility="public" isAbstract="false" name="Class" package="2126" xsi:type="Class">
-      <ownedAttribute xmi:id="2162" visibility="public" isDerived="false" type="2143" class="2163" association="2161" isComposite="true" isDerivedUnion="false" opposite="2209" upper="-1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="variable" xsi:type="Property" />
-      <ownedAttribute xmi:id="2164" visibility="public" isDerived="false" type="2165" class="2163" association="2194" isComposite="true" isDerivedUnion="false" opposite="2193" upper="-1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="method" xsi:type="Property" />
-      <ownedAttribute xmi:id="2200" visibility="public" isDerived="false" type="2132" class="2163" association="2202" isComposite="false" isDerivedUnion="false" opposite="2201" upper="-1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="classVariable" xsi:type="Property" />
-      <ownedAttribute xmi:id="2203" isDerivedUnion="false" upper="1" visibility="public" isDerived="false" lower="1" type="2151" class="2163" isReadOnly="false" isUnique="true" isOrdered="false" name="name" isComposite="true" xsi:type="Property" />
-      <ownedAttribute xmi:id="2204" isDerived="false" type="2128" class="2163" association="2206" isComposite="false" isDerivedUnion="false" opposite="2205" upper="-1" lower="0" isReadOnly="false" isOrdered="false" isUnique="true" name="metaInstanceObject" xsi:type="Property" />
-      <ownedOperation xmi:id="2207" isQuery="false" upper="1" visibility="public" lower="1" class="2163" isOrdered="false" isUnique="true" name="runMain" xsi:type="Operation" />
-      <ownedOperation xmi:id="2208" isQuery="false" upper="1" lower="1" type="2128" class="2163" isOrdered="false" isUnique="true" name="metaCreateObject" xsi:type="Operation" />
-    </ownedType>
-    <ownedType xmi:id="2216" visibility="public" isDerived="false" memberEnd="2214" isAbstract="false" package="2126" xsi:type="Association">
-      <ownedEnd xmi:id="2215" owningAssociation="2216" isDerivedUnion="false" upper="-1" opposite="2214" visibility="private" isDerived="false" lower="0" type="2213" isReadOnly="false" isUnique="true" isOrdered="false" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="2206" isDerived="false" memberEnd="2204 2205" isAbstract="false" name="ObjectInstanceOf" package="2126" xsi:type="Association" />
-    <ownedType xmi:id="2181" isDerived="false" memberEnd="2180 2179" isAbstract="false" name="CallFrameInstanceOf" package="2126" xsi:type="Association" />
-    <ownedType xmi:id="2155" isDerived="false" memberEnd="2154 2142" isAbstract="false" name="SlotInstanceOf" package="2126" xsi:type="Association" />
+  <cmof:Package xmi:id="2224" visibility="public" name="PrimitiveTypes">
+    <ownedType xmi:id="2223" visibility="public" isAbstract="false" name="String" package="2224" xsi:type="PrimitiveType" />
   </cmof:Package>
-  <cmof:Tag xmi:id="2125" element="2126" value="Java" name="org.omg.xmi.nsPrefix" />
-  <cmof:Package xmi:id="2152" visibility="public" name="PrimitiveTypes">
-    <ownedType xmi:id="2151" visibility="public" isAbstract="false" name="String" package="2152" xsi:type="PrimitiveType" />
+  <cmof:Tag xmi:id="2315" element="2199" value="Java" name="org.omg.xmi.nsPrefix" />
+  <cmof:Package xmi:id="2199" visibility="public" tag="2315" name="Java">
+    <ownedType xmi:id="2200" metaClassifier="2240" visibility="public" isAbstract="false" name="Object" package="2199" xsi:type="Class">
+      <ownedAttribute xmi:id="2201" visibility="public" isDerived="false" type="2205" class="2200" association="2236" isComposite="false" isDerivedUnion="false" upper="-1" opposite="2235" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="memberVariable" xsi:type="Property" />
+      <ownedAttribute xmi:id="2281" isDerived="false" type="2240" class="2200" association="2282" isComposite="false" isDerivedUnion="false" upper="1" opposite="2280" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="metaClassifierClass" xsi:type="Property" />
+      <ownedOperation xmi:id="2288" isQuery="false" upper="1" lower="1" class="2200" isOrdered="false" isUnique="true" concurrency="sequential" name="metaDelete" xsi:type="Operation" />
+    </ownedType>
+    <ownedType xmi:id="2248" metaClassifier="2249" visibility="public" memberEnd="2246" isDerived="false" isAbstract="false" name="LocalSlots" package="2199" xsi:type="Association">
+      <ownedEnd xmi:id="2247" owningAssociation="2248" isDerivedUnion="false" opposite="2246" visibility="private" upper="1" lower="1" isDerived="false" type="2245" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2254" visibility="public" memberEnd="2252" isDerived="false" isAbstract="false" name="CallingFrame" package="2199" xsi:type="Association">
+      <ownedEnd xmi:id="2253" owningAssociation="2254" isDerivedUnion="false" opposite="2252" visibility="private" upper="1" lower="1" isDerived="false" type="2245" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2245" metaClassifier="2244" visibility="public" isAbstract="false" name="CallFrame" package="2199" xsi:type="Class">
+      <ownedAttribute xmi:id="2246" visibility="public" isDerived="false" type="2205" class="2245" association="2248" isComposite="false" isDerivedUnion="false" upper="-1" opposite="2247" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="localVariable" xsi:type="Property" />
+      <ownedAttribute xmi:id="2252" visibility="public" isDerived="false" type="2245" class="2245" association="2254" isComposite="false" isDerivedUnion="false" upper="1" opposite="2253" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="callingFrame" xsi:type="Property" />
+      <ownedAttribute xmi:id="2255" visibility="public" isDerived="false" type="2200" class="2245" association="2257" isComposite="false" isDerivedUnion="false" upper="1" opposite="2256" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="this" xsi:type="Property" />
+      <ownedAttribute xmi:id="2258" isDerived="false" type="2244" class="2245" association="2260" isComposite="false" isDerivedUnion="false" upper="1" opposite="2259" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="metaClassifierMethod" xsi:type="Property" />
+      <ownedOperation xmi:id="2261" isQuery="false" upper="1" visibility="public" lower="1" class="2245" isOrdered="false" isUnique="true" concurrency="sequential" name="slotForVariable" xsi:type="Operation">
+        <formalParameter xmi:id="2262" visibility="public" upper="1" lower="1" direction="in" type="2215" isOrdered="false" isUnique="true" name="var" operation="2261" xsi:type="Parameter" />
+        <formalParameter xmi:id="2263" visibility="public" upper="1" lower="1" direction="return" type="2205" isOrdered="false" isUnique="true" operation="2261" xsi:type="Parameter" />
+      </ownedOperation>
+      <ownedOperation xmi:id="2264" isQuery="false" upper="1" lower="1" class="2245" isOrdered="false" isUnique="true" concurrency="sequential" name="metaDelete" xsi:type="Operation" />
+    </ownedType>
+    <ownedType xmi:id="2236" metaClassifier="2237" visibility="public" memberEnd="2201" isDerived="false" isAbstract="false" name="MemberSlots" package="2199" xsi:type="Association">
+      <ownedEnd xmi:id="2235" owningAssociation="2236" isDerivedUnion="false" opposite="2201" visibility="private" upper="1" lower="1" isDerived="false" type="2200" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2205" metaClassifier="2215" visibility="public" isAbstract="false" name="Slot" package="2199" xsi:type="Class">
+      <ownedAttribute xmi:id="2206" visibility="public" isDerived="false" type="2200" class="2205" association="2210" isComposite="false" isDerivedUnion="false" upper="1" opposite="2208" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="value" xsi:type="Property" />
+      <ownedAttribute xmi:id="2214" isDerived="false" type="2215" class="2205" association="2227" isComposite="false" isDerivedUnion="false" upper="1" opposite="2226" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="metaClassifierVariable" xsi:type="Property" />
+      <ownedOperation xmi:id="2234" isQuery="false" upper="1" lower="1" class="2205" isOrdered="false" isUnique="true" concurrency="sequential" name="metaDelete" xsi:type="Operation" />
+    </ownedType>
+    <ownedType xmi:id="2210" visibility="public" memberEnd="2206" isDerived="false" isAbstract="false" name="Contents" package="2199" xsi:type="Association">
+      <ownedEnd xmi:id="2208" owningAssociation="2210" isDerivedUnion="false" opposite="2206" visibility="private" upper="-1" lower="0" isDerived="false" type="2205" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2257" visibility="public" memberEnd="2255" isDerived="false" isAbstract="false" name="ThisPointer" package="2199" xsi:type="Association">
+      <ownedEnd xmi:id="2256" owningAssociation="2257" isDerivedUnion="false" opposite="2255" visibility="private" upper="1" lower="1" isDerived="false" type="2245" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2249" metaInstances="2248" visibility="public" memberEnd="2250" isDerived="false" isAbstract="false" name="LocalVariableDefinitions" package="2199" xsi:type="Association">
+      <ownedEnd xmi:id="2251" owningAssociation="2249" isDerivedUnion="false" opposite="2250" visibility="private" upper="1" lower="1" isDerived="false" type="2244" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2215" metaInstances="2205" visibility="public" isAbstract="false" name="Variable" package="2199" xsi:type="Class">
+      <ownedAttribute xmi:id="2217" isDerivedUnion="false" visibility="public" upper="1" lower="1" isDerived="false" type="2218" class="2215" isReadOnly="false" isOrdered="false" isUnique="true" name="scope" isComposite="true" xsi:type="Property" />
+      <ownedAttribute xmi:id="2222" isDerivedUnion="false" visibility="public" upper="1" lower="1" isDerived="false" type="2223" class="2215" isReadOnly="false" isOrdered="false" isUnique="true" name="name" isComposite="true" xsi:type="Property" />
+      <ownedAttribute xmi:id="2226" isDerived="false" type="2205" class="2215" association="2227" isComposite="false" isDerivedUnion="false" upper="-1" opposite="2214" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="metaInstanceSlot" xsi:type="Property" />
+      <ownedOperation xmi:id="2228" isQuery="false" upper="1" lower="1" type="2205" class="2215" isOrdered="false" isUnique="true" concurrency="sequential" name="metaCreateSlot" xsi:type="Operation" />
+      <ownedOperation xmi:id="2230" isQuery="false" upper="1" lower="1" type="2205" class="2215" isOrdered="false" isUnique="true" concurrency="sequential" name="metaGCreateSlot" xsi:type="Operation">
+        <formalParameter xmi:id="2231" upper="1" lower="1" direction="in" type="2223" isOrdered="false" isUnique="true" name="className" operation="2230" xsi:type="Parameter" />
+      </ownedOperation>
+    </ownedType>
+    <ownedType xmi:id="2289" visibility="public" memberEnd="2290" isDerived="false" isAbstract="false" name="CalledAt" package="2199" xsi:type="Association">
+      <ownedEnd xmi:id="2299" owningAssociation="2289" isDerivedUnion="false" opposite="2290" visibility="private" upper="1" lower="1" isDerived="false" type="2295" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2291" visibility="public" isAbstract="true" name="Expression" package="2199" xsi:type="Class">
+      <ownedOperation xmi:id="2292" isQuery="false" upper="1" visibility="public" lower="1" class="2291" isOrdered="false" isUnique="true" concurrency="sequential" name="evaluate" xsi:type="Operation">
+        <formalParameter xmi:id="2293" visibility="public" upper="1" lower="1" direction="return" type="2200" isOrdered="false" isUnique="true" operation="2292" xsi:type="Parameter" />
+        <formalParameter xmi:id="2294" visibility="public" upper="1" lower="1" direction="in" type="2245" isOrdered="false" isUnique="true" name="context" operation="2292" xsi:type="Parameter" />
+      </ownedOperation>
+    </ownedType>
+    <ownedType xmi:id="2300" visibility="public" isAbstract="false" name="ReadVariable" package="2199" superClass="2291" xsi:type="Class">
+      <ownedAttribute xmi:id="2301" visibility="public" isDerived="false" type="2215" class="2300" association="2303" isComposite="false" isDerivedUnion="false" upper="1" opposite="2302" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="variable" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2304" visibility="public" isAbstract="false" name="Assignment" package="2199" superClass="2266" xsi:type="Class">
+      <ownedAttribute xmi:id="2305" visibility="public" isDerived="false" type="2215" class="2304" association="2307" isComposite="false" isDerivedUnion="false" upper="1" opposite="2306" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="assignTo" xsi:type="Property" />
+      <ownedAttribute xmi:id="2308" visibility="public" isDerived="false" type="2291" class="2304" association="2310" isComposite="true" isDerivedUnion="false" upper="1" opposite="2309" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="assignWith" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2266" visibility="public" isAbstract="true" name="Statement" package="2199" xsi:type="Class">
+      <ownedAttribute xmi:id="2267" visibility="public" isDerived="false" type="2244" class="2266" association="2268" isComposite="false" isDerivedUnion="false" upper="1" opposite="2265" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="context" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2310" visibility="public" memberEnd="2308" isDerived="false" isAbstract="false" name="AssignedValue" package="2199" xsi:type="Association">
+      <ownedEnd xmi:id="2309" owningAssociation="2310" isDerivedUnion="false" opposite="2308" visibility="private" upper="1" lower="1" isDerived="false" type="2304" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2268" visibility="public" memberEnd="2265 2267" isDerived="false" isAbstract="false" name="BodyOfMethed" package="2199" xsi:type="Association" />
+    <ownedType xmi:id="2271" visibility="public" memberEnd="2243 2270" isDerived="false" isAbstract="false" name="MethodDefinitions" package="2199" xsi:type="Association" />
+    <ownedType xmi:id="2295" visibility="public" isAbstract="false" name="MethodCall" package="2199" superClass="2266" xsi:type="Class">
+      <ownedAttribute xmi:id="2290" visibility="public" isDerived="false" type="2291" class="2295" association="2289" isComposite="true" isDerivedUnion="false" upper="1" opposite="2299" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="target" xsi:type="Property" />
+      <ownedAttribute xmi:id="2296" visibility="public" isDerived="false" type="2244" class="2295" association="2298" isComposite="false" isDerivedUnion="false" upper="1" opposite="2297" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="calledMethod" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2311" visibility="public" isAbstract="false" name="New" package="2199" superClass="2291" xsi:type="Class">
+      <ownedAttribute xmi:id="2312" visibility="public" isDerived="false" type="2240" class="2311" association="2314" isComposite="false" isDerivedUnion="false" upper="1" opposite="2313" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="class" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2218" visibility="public" isAbstract="false" name="Scope" package="2199" xsi:type="Enumeration">
+      <ownedLiteral xmi:id="2219" visibility="public" enumeration="2218" name="MEMBER" xsi:type="EnumerationLiteral" />
+      <ownedLiteral xmi:id="2221" visibility="public" enumeration="2218" name="CLASS" xsi:type="EnumerationLiteral" />
+    </ownedType>
+    <ownedType xmi:id="2237" metaInstances="2238 2236" visibility="public" memberEnd="2241" isDerived="false" isAbstract="false" name="VariableDefinitions" package="2199" xsi:type="Association">
+      <ownedEnd xmi:id="2242" owningAssociation="2237" isDerivedUnion="false" opposite="2241" visibility="private" upper="1" lower="1" isDerived="false" type="2240" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2244" metaInstances="2245" visibility="public" isAbstract="false" name="Method" package="2199" xsi:type="Class">
+      <ownedAttribute xmi:id="2265" visibility="public" isDerived="false" type="2266" class="2244" association="2268" isComposite="true" isDerivedUnion="false" upper="-1" opposite="2267" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="body" xsi:type="Property" />
+      <ownedAttribute xmi:id="2269" isDerivedUnion="false" visibility="public" upper="1" lower="1" isDerived="false" type="2218" class="2244" isReadOnly="false" isOrdered="false" isUnique="true" name="scope" isComposite="true" xsi:type="Property" />
+      <ownedAttribute xmi:id="2250" visibility="public" isDerived="false" type="2215" class="2244" association="2249" isComposite="true" isDerivedUnion="false" upper="-1" opposite="2251" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="variable" xsi:type="Property" />
+      <ownedAttribute xmi:id="2270" visibility="public" isDerived="false" type="2240" class="2244" association="2271" isComposite="false" isDerivedUnion="false" upper="1" opposite="2243" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="context" xsi:type="Property" />
+      <ownedAttribute xmi:id="2272" isDerivedUnion="false" visibility="public" upper="1" lower="1" isDerived="false" type="2223" class="2244" isReadOnly="false" isOrdered="false" isUnique="true" name="name" isComposite="true" xsi:type="Property" />
+      <ownedAttribute xmi:id="2259" isDerived="false" type="2245" class="2244" association="2260" isComposite="false" isDerivedUnion="false" upper="-1" opposite="2258" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="metaInstanceCallFrame" xsi:type="Property" />
+      <ownedOperation xmi:id="2273" isQuery="false" upper="1" visibility="public" lower="1" class="2244" isOrdered="false" isUnique="true" concurrency="sequential" name="run" xsi:type="Operation">
+        <formalParameter xmi:id="2274" visibility="public" upper="1" lower="1" direction="in" type="2200" isOrdered="false" isUnique="true" name="thisPointer" operation="2273" xsi:type="Parameter" />
+        <formalParameter xmi:id="2275" visibility="public" upper="1" lower="1" direction="in" type="2245" isOrdered="false" isUnique="true" name="callFrame" operation="2273" xsi:type="Parameter" />
+      </ownedOperation>
+      <ownedOperation xmi:id="2276" isQuery="false" upper="1" lower="1" type="2245" class="2244" isOrdered="false" isUnique="true" concurrency="sequential" name="metaCreateCallFrame" xsi:type="Operation" />
+      <ownedOperation xmi:id="2277" isQuery="false" upper="1" lower="1" type="2245" class="2244" isOrdered="false" isUnique="true" concurrency="sequential" name="metaGCreateCallFrame" xsi:type="Operation">
+        <formalParameter xmi:id="2278" upper="1" lower="1" direction="in" type="2223" isOrdered="false" isUnique="true" name="className" operation="2277" xsi:type="Parameter" />
+      </ownedOperation>
+    </ownedType>
+    <ownedType xmi:id="2307" visibility="public" memberEnd="2305" isDerived="false" isAbstract="false" name="AssignTo" package="2199" xsi:type="Association">
+      <ownedEnd xmi:id="2306" owningAssociation="2307" isDerivedUnion="false" opposite="2305" visibility="private" upper="-1" lower="0" isDerived="false" type="2304" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2303" visibility="public" memberEnd="2301" isDerived="false" isAbstract="false" name="VariableRead" package="2199" xsi:type="Association">
+      <ownedEnd xmi:id="2302" owningAssociation="2303" isDerivedUnion="false" opposite="2301" visibility="private" upper="-1" lower="0" isDerived="false" type="2300" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2314" visibility="public" memberEnd="2312" isDerived="false" isAbstract="false" name="ClassToCreate" package="2199" xsi:type="Association">
+      <ownedEnd xmi:id="2313" owningAssociation="2314" isDerivedUnion="false" opposite="2312" visibility="private" upper="-1" lower="0" isDerived="false" type="2311" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2238" metaClassifier="2237" visibility="public" memberEnd="2239" isDerived="false" isAbstract="false" package="2199" xsi:type="Association">
+      <ownedEnd xmi:id="2287" owningAssociation="2238" isDerivedUnion="false" opposite="2239" visibility="private" upper="1" lower="1" isDerived="false" type="2240" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2240" metaInstances="2200" visibility="public" isAbstract="false" name="Class" package="2199" xsi:type="Class">
+      <ownedAttribute xmi:id="2241" visibility="public" isDerived="false" type="2215" class="2240" association="2237" isComposite="true" isDerivedUnion="false" upper="-1" opposite="2242" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="variable" xsi:type="Property" />
+      <ownedAttribute xmi:id="2243" visibility="public" isDerived="false" type="2244" class="2240" association="2271" isComposite="true" isDerivedUnion="false" upper="-1" opposite="2270" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="method" xsi:type="Property" />
+      <ownedAttribute xmi:id="2239" visibility="public" isDerived="false" type="2205" class="2240" association="2238" isComposite="false" isDerivedUnion="false" upper="-1" opposite="2287" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="classVariable" xsi:type="Property" />
+      <ownedAttribute xmi:id="2279" isDerivedUnion="false" visibility="public" upper="1" lower="1" isDerived="false" type="2223" class="2240" isReadOnly="false" isOrdered="false" isUnique="true" name="name" isComposite="true" xsi:type="Property" />
+      <ownedAttribute xmi:id="2280" isDerived="false" type="2200" class="2240" association="2282" isComposite="false" isDerivedUnion="false" upper="-1" opposite="2281" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="metaInstanceObject" xsi:type="Property" />
+      <ownedOperation xmi:id="2283" isQuery="false" upper="1" visibility="public" lower="1" class="2240" isOrdered="false" isUnique="true" concurrency="sequential" name="runMain" xsi:type="Operation" />
+      <ownedOperation xmi:id="2284" isQuery="false" upper="1" lower="1" type="2200" class="2240" isOrdered="false" isUnique="true" concurrency="sequential" name="metaCreateObject" xsi:type="Operation" />
+      <ownedOperation xmi:id="2285" isQuery="false" upper="1" lower="1" type="2200" class="2240" isOrdered="false" isUnique="true" concurrency="sequential" name="metaGCreateObject" xsi:type="Operation">
+        <formalParameter xmi:id="2286" upper="1" lower="1" direction="in" type="2223" isOrdered="false" isUnique="true" name="className" operation="2285" xsi:type="Parameter" />
+      </ownedOperation>
+    </ownedType>
+    <ownedType xmi:id="2298" visibility="public" memberEnd="2296" isDerived="false" isAbstract="false" package="2199" xsi:type="Association">
+      <ownedEnd xmi:id="2297" owningAssociation="2298" isDerivedUnion="false" opposite="2296" visibility="private" upper="-1" lower="0" isDerived="false" type="2295" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="2282" memberEnd="2280 2281" isDerived="false" isAbstract="false" name="ObjectInstanceOf" package="2199" xsi:type="Association" />
+    <ownedType xmi:id="2260" memberEnd="2259 2258" isDerived="false" isAbstract="false" name="CallFrameInstanceOf" package="2199" xsi:type="Association" />
+    <ownedType xmi:id="2227" memberEnd="2226 2214" isDerived="false" isAbstract="false" name="SlotInstanceOf" package="2199" xsi:type="Association" />
   </cmof:Package>
 </xmi:XMI>
 

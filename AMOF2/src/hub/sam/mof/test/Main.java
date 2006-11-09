@@ -19,6 +19,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.test;
 
+import hub.sam.mof.test.bugs.ReflectiveSequenceExtension;
 import hub.sam.mof.test.bugs.ReflectiveSequenceTest;
 import hub.sam.mof.test.lib.abstractions.behavioralfeatures.TestIsDistinguishAbleFrom;
 import hub.sam.mof.test.lib.abstractions.classifier.TestAllFeatures;

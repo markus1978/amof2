@@ -1,9 +1,11 @@
-package hub.sam.mof.test;
+package hub.sam.mof.test.propertynotification;
 
 import propertyNotificationTest.*;
 import cmof.Package;
 import cmof.cmofFactory;
 import cmof.reflection.Extent;
+
+import hub.sam.mof.test.AbstractRepository;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

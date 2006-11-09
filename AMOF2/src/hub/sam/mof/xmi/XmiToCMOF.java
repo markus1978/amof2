@@ -29,6 +29,7 @@ import cmof.Type;
 import cmof.UmlClass;
 import cmof.reflection.Extent;
 import cmof.reflection.Factory;
+import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.ClassInstance;
 import hub.sam.mof.instancemodel.MetaModelException;
 import hub.sam.mof.instancemodel.StructureSlot;
@@ -205,8 +206,8 @@ public class XmiToCMOF
             String property, UmlClass classifier, ValueSpecificationImpl<UmlClass, Property, Object> value)
             throws MetaModelException {
         Property result = getProperty(property, classifier);
-        Property closestProperty = result;
-        if (value.asInstanceValue() != null && result.isDerivedUnion()) {
+        Property closestProperty = result;        
+        if (Repository.getConfiguration().allowsMutuableDerivedUnions() && value.asInstanceValue() != null && result.isDerivedUnion()) {
             Type type = value.asInstanceValue().getInstance().getClassifier();
             for (Property supersettedProperty : MofClassifierSemantics.createClassClassifierForUmlClass(
                     classifier).getSupersettedProperties(result)) {

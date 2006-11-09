@@ -3,6 +3,7 @@ package hub.sam.mof.merge;
 import cmof.Property;
 import cmof.common.ReflectiveCollection;
 import core.abstractions.ownerships.Element;
+import hub.sam.mof.Repository;
 import hub.sam.mof.mofinstancemodel.MofClassSemantics;
 import hub.sam.mof.mofinstancemodel.MofValueSpecificationList;
 import hub.sam.util.MultiMap;
@@ -98,7 +99,8 @@ final class Merge {
      * Removes all values from all properties that are considerd for merge.
      */
     void clearMergingElement() {
-        MofValueSpecificationList.checkLower = false;
+    	boolean checkLower = Repository.getConfiguration().allowLowerMulitplicityViolations();        
+        Repository.getConfiguration().setAllowLowerMulitplicityViolations(false);
         for (Property property : semantics.getFinalProperties()) {
             if (propertyIsConsideredForMerge(property)) {
                 if (semantics.isCollectionProperty(property)) {
@@ -108,7 +110,7 @@ final class Merge {
                 }
             }
         }
-        MofValueSpecificationList.checkLower = true;
+        Repository.getConfiguration().setAllowLowerMulitplicityViolations(checkLower);        
     }
 
     /**

@@ -1,5 +1,6 @@
 package hub.sam.util;
 
+import hub.sam.mof.Repository;
 import hub.sam.mof.util.AssertionException;
 
 import java.util.*;
@@ -7,7 +8,6 @@ import java.util.*;
 import cmof.reflection.Extent;
 
 public class Identity {
-	private static final boolean ejb = false;
 	
 	private final Object id;		
 	private Identity baseId = null;
@@ -18,7 +18,7 @@ public class Identity {
 	private static Map<Object, Object> externalIds = new HashMap<Object, Object>();
 				
 	public Identity(Object id) {
-		if (ejb) {
+		if (Repository.getConfiguration().isIdentificationEnabled()) {
 			childIds = new HashMap<Object, Identity>();
 		}
 		if (id != null) {
@@ -80,7 +80,7 @@ public class Identity {
 					throw new AssertionException();
 				}
 				this.parentId = parent;
-				if (ejb) {
+				if (Repository.getConfiguration().isIdentificationEnabled()) {
 					parent.childIds.put(id, this);
 				}
 			}
@@ -118,7 +118,7 @@ public class Identity {
 	
 	public final Identity resolveId(Object id) {
 		Identity result = null;
-		if (ejb) {
+		if (Repository.getConfiguration().isIdentificationEnabled()) {
 			result = childIds.get(id);
 		}
 		if (result == null) {

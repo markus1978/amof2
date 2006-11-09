@@ -1,8 +1,10 @@
-package hub.sam.mof.test;
+package hub.sam.mof.test.bugs;
 
 import propertyNotificationTest.*;
 import cmof.Package;
 import cmof.reflection.Extent;
+import hub.sam.mof.test.AbstractRepository;
+
 import java.util.*;
 
 public class ReflectiveSequenceExtension extends AbstractRepository {

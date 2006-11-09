@@ -59,7 +59,7 @@ public abstract class AbstractImplementationsManager<ClassifierType> implements 
                 }
             }
             result = createImplementations(delegates, metaClass);
-            if (!Repository.threadsafe) {
+            if (!Repository.getConfiguration().threadSafe()) {
                 implementations.put(metaClass, result);
             }
         }

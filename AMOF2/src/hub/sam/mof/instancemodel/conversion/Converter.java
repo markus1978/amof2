@@ -60,7 +60,7 @@ public class Converter <Co,Po,DataValueo,Ci,Pi,T,D,DataValuei> {
             try {
                 convertInstance(instance.asInstanceValue().getInstance());
             } catch (MetaModelException e) {
-                if (Repository.generous) {
+                if (Repository.getConfiguration().generousXMI()) {
                     System.out.println("Warning: " + e.getMessage());
                 } else {
                     throw e;
@@ -108,7 +108,7 @@ public class Converter <Co,Po,DataValueo,Ci,Pi,T,D,DataValuei> {
                 try {
                     convertValue(value, slot, instance, targetInstance);
                 } catch (MetaModelException e) {
-                    if (Repository.generous) {
+                    if (Repository.getConfiguration().generousXMI()) {
                         System.out.println("Warning: " + e.getMessage());
                     } else {
                         throw e;
@@ -121,7 +121,7 @@ public class Converter <Co,Po,DataValueo,Ci,Pi,T,D,DataValuei> {
             try {
                 targetInstance.setComposite(convertInstance(instance.getComposite()));
             } catch (MetaModelException e) {
-                if (Repository.generous) {
+                if (Repository.getConfiguration().generousXMI()) {
                     System.out.println("Warning: " + e.getMessage());
                 } else {
                     throw e;

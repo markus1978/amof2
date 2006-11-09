@@ -61,18 +61,13 @@ import java.util.Map;
  */
 public class Repository extends hub.sam.util.Identity {
 
+	private static Configuration configuration = new Configuration();
+	
     /**
      * Extreeem dirty. This is needed for AS applications to communitcate the actual m2 boolean primitiv type to
      * {@link hub.sam.mof.as.actions.AsGuardExpression}.
      */
     public static PrimitiveType booleanType = null;
-
-    public static boolean generous = true;
-
-    /**
-     * In order to be thread safe some caches have to be disabled.
-     */
-    public static boolean threadsafe = true;
 
     @SuppressWarnings("unchecked")
     private static Context getInitialContext(String providerUrl) throws NamingException {
@@ -384,6 +379,14 @@ public class Repository extends hub.sam.util.Identity {
         ExtentImpl.writeStaticModel(fileName, packageName, className, extent);
     }
 
+    public static Configuration getConfiguration() {
+    	return configuration;
+    }
+    
+    public static void setConfiguration(Configuration configuration) {
+    	Repository.configuration = configuration;
+    }
+    
     /**
      * Generates repository code for a meta-model kept in a XMI file.
      *

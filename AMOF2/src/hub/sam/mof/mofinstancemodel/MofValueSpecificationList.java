@@ -19,15 +19,17 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.mofinstancemodel;
 
+import cmof.Classifier;
 import cmof.Property;
+import cmof.Type;
 import cmof.UmlClass;
 import cmof.common.ReflectiveCollection;
 import cmof.exception.MultiplicityViolation;
+import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.InstanceValue;
 import hub.sam.mof.instancemodel.ValueSpecification;
 import hub.sam.mof.instancemodel.ValueSpecificationList;
 import hub.sam.mof.mofinstancemodel.events.InsertEvent;
-import hub.sam.mof.mofinstancemodel.events.PropertyChangeEventListener;
 import hub.sam.mof.mofinstancemodel.events.PropertyChangeEvent;
 import hub.sam.mof.mofinstancemodel.events.RemoveEvent;
 import hub.sam.mof.mofinstancemodel.events.SetEvent;
@@ -42,8 +44,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Vector;
-
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
 /** A wrapper arround lists of ValueSpecifications. It ensures:
  *  correct multiplicity (including lower, upper, unique and ordering),
@@ -61,10 +61,8 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         implements ValueSpecificationList<UmlClass,Property,java.lang.Object> {
 
     private static boolean performingSet = false;
-    public static boolean checkLower = true;
 
-    private static final java.util.Map<MofClassInstance, ReflectiveCollection<MofValueSpecificationList>>
-            instanceOccurences;
+    private static final java.util.Map<MofClassInstance, ReflectiveCollection<MofValueSpecificationList>> instanceOccurences;
     static {
         instanceOccurences = new HashMap<MofClassInstance, ReflectiveCollection<MofValueSpecificationList>>();
     }
@@ -127,6 +125,20 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         } 
     }
 
+    private Property getSubsettedPropertyForValue(ValueSpecification<UmlClass, Property, Object> value) {
+    	Type type = value.asInstanceValue().getInstance().getClassifier();
+    	Property closestProperty = property;
+	    for (Property supersettedProperty : MofClassifierSemantics.createClassClassifierForUmlClass(
+	            owner.getClassifier()).getSupersettedProperties(property)) {
+	        if (!supersettedProperty.isDerived() && type.conformsTo(supersettedProperty.getType())) {
+	            if (((Classifier)supersettedProperty.getType()).allParents().contains(closestProperty.getType())) {
+	                closestProperty = supersettedProperty;
+	            }
+	        }
+	    }
+	    return closestProperty;
+    }
+    
     private void firePropertyChanged(PropertyChangeEvent event) {
     	owner.firePropertyChange(event);    	
     }
@@ -137,9 +149,8 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
 	}
 
     private void checkDerived() {
-    	if (property.isDerived() || property.isDerivedUnion()) {
-    		System.out.println("WARNING: " + "A derived property can not be changed: " + property.getQualifiedName());
-        	//throw new cmof.exception.IllegalArgumentException("A derived property can not be changed: " + property.getQualifiedName());
+    	if (property.isDerived() &&  !property.isDerivedUnion()) {    		
+        	throw new cmof.exception.IllegalArgumentException("A derived property can not be changed: " + property.getQualifiedName());
         }
     }
 
@@ -152,7 +163,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
 
     private void checkLowerMultiplicity() {
 		int lower = property.getLower();
-		if (lower > 0 && size() < lower && !performingSet && checkLower) {
+		if (lower > 0 && size() < lower && !performingSet && Repository.getConfiguration().allowLowerMulitplicityViolations()) {
 			throw new MultiplicityViolation(slot);
 		}
 	}
@@ -220,6 +231,14 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
     @SuppressWarnings({"unchecked","synthetic-access"})
 	@Override
 	public boolean add(Object o) {
+    	if (property.isDerivedUnion()) {
+    		if (Repository.getConfiguration().allowsMutuableDerivedUnions() && o instanceof ValueSpecification) {
+    			return owner.getValuesOfFeature(getSubsettedPropertyForValue((ValueSpecification<UmlClass, Property, Object>)o), qualifier).
+    				add(o);
+    		} else {
+    			throw new cmof.exception.IllegalArgumentException("A derived property can not be changed: " + property.getQualifiedName());
+    		}
+    	}
         checkReadOnly();
         checkDerived();
     	ValueSpecification<UmlClass,Property,java.lang.Object> value = (ValueSpecification<UmlClass,Property,java.lang.Object>)o;
@@ -233,6 +252,15 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
     @SuppressWarnings("unchecked")
 	@Override
 	public boolean remove(Object o) {
+    	if (property.isDerivedUnion()) {
+    		if (Repository.getConfiguration().allowsMutuableDerivedUnions() && o instanceof ValueSpecification) {
+    			return owner.getValuesOfFeature(getSubsettedPropertyForValue((ValueSpecification<UmlClass, Property, Object>)o), qualifier).
+    				remove(o);
+    			
+    		} else {
+    			throw new cmof.exception.IllegalArgumentException("A derived property can not be changed: " + property.getQualifiedName());
+    		}
+    	}
         checkReadOnly();
         checkDerived();
         ValueSpecification<UmlClass,Property,java.lang.Object> value = (ValueSpecification<UmlClass,Property,java.lang.Object>)o;
@@ -254,6 +282,14 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
     @SuppressWarnings("unchecked")
 	@Override
 	public synchronized ValueSpecification<UmlClass,Property,java.lang.Object> set(int index, Object o) {
+    	if (property.isDerivedUnion()) {
+    		if (Repository.getConfiguration().allowsMutuableDerivedUnions() && o instanceof ValueSpecification) {
+    			return owner.getValuesOfFeature(getSubsettedPropertyForValue((ValueSpecification<UmlClass, Property, Object>)o), qualifier).
+    				set(index, o);
+    		} else {
+    			throw new cmof.exception.IllegalArgumentException("A derived property can not be changed: " + property.getQualifiedName());
+    		}
+    	}
         checkReadOnly();
         checkDerived();
         performingSet = true;
@@ -275,6 +311,15 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
     @SuppressWarnings({"unchecked","synthetic-access"})
 	@Override
 	public void add(int index, Object o) {
+    	if (property.isDerivedUnion()) {
+    		if (Repository.getConfiguration().allowsMutuableDerivedUnions() && o instanceof ValueSpecification) {
+    			owner.getValuesOfFeature(getSubsettedPropertyForValue((ValueSpecification<UmlClass, Property, Object>)o), qualifier).
+    				add(index, o);
+    			return;
+    		} else {
+    			throw new cmof.exception.IllegalArgumentException("A derived property can not be changed: " + property.getQualifiedName());
+    		}
+    	}
         checkReadOnly();
         checkDerived();
         ValueSpecification<UmlClass,Property,java.lang.Object> value = (ValueSpecification<UmlClass,Property,java.lang.Object>)o;
