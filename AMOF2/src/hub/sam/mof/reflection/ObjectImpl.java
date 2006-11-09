@@ -298,7 +298,9 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
                 } else {
                     values.set(0, extent.specificationForValue(value));
                 }
-
+                if (propertyChangeListeners.hasListeners(null)) {
+                    propertyChangeListeners.firePropertyChange(property.getName(), oldValue, value);
+                }
             } else {
                 throw new IllegalArgumentException(property);
             }

@@ -37,6 +37,8 @@ import org.jdom.Document;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,7 +71,7 @@ public class Xmi2Writer {
         rootElement.setAttribute("version", "2.1", xmi);
     }
 
-    private void write(InstanceModel<XmiClassifier,String,String> model, java.io.File file) throws XmiException, java.io.IOException {
+    private void write(InstanceModel<XmiClassifier,String,String> model, OutputStream out) throws XmiException, java.io.IOException {
         for (ValueSpecification<XmiClassifier,String,String> instance: model.getOutermostComposites()) {
             org.jdom.Element element = jdom.element(instance.asInstanceValue().getInstance().getClassifier().getName());
             rootElement.addContent(element);
@@ -84,7 +86,7 @@ public class Xmi2Writer {
             write(instance.asInstanceValue().getInstance(), element);
         }
 
-        new XMLOutputter(Format.getPrettyFormat()).output(document, new java.io.FileOutputStream(file));
+        new XMLOutputter(Format.getPrettyFormat()).output(document, out);
     }
 
     private void addValueToBuffer(StringBuffer values, String value) {
@@ -129,10 +131,14 @@ public class Xmi2Writer {
         }
     }
 
+    public static void writeMofXmi(java.io.File file, Extent extent, cmof.Package m2, XmiKind xmiKind) throws java.io.IOException, XmiException, MetaModelException {
+    	writeMofXmi(new FileOutputStream(file), extent, m2, xmiKind);
+    }
+    
     /**
      * Writes XMI with a m1 model of the given m2 into a xmi file. The extent must be based on a MofInstanceModel.
      */
-    public static void writeMofXmi(java.io.File file, Extent extent, cmof.Package m2, XmiKind xmiKind) throws java.io.IOException, XmiException, MetaModelException {
+    public static void writeMofXmi(OutputStream out, Extent extent, cmof.Package m2, XmiKind xmiKind) throws java.io.IOException, XmiException, MetaModelException {
     	// check attriutes for is composite == false
     	for (Object o: extent.getObject()) {
     		if (o instanceof Property) {
@@ -164,6 +170,6 @@ public class Xmi2Writer {
         }
 
         Xmi2Writer writer = new Xmi2Writer((xmiKind == XmiKind.md)?"xmi":"xsi");
-        writer.write(xmiModel, file);
+        writer.write(xmiModel, out);
     }
 }

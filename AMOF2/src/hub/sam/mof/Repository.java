@@ -48,6 +48,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.FileInputStream;
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -306,6 +307,11 @@ public class Repository extends hub.sam.util.Identity {
             throws java.io.IOException, hub.sam.mof.instancemodel.MetaModelException, hub.sam.mof.xmi.XmiException,
             org.jdom.JDOMException {
         hub.sam.mof.xmi.Xmi2Writer.writeMofXmi(new java.io.File(xmiFileName), model, metamodel, XmiKind.mof);
+    }
+    
+    public void writeExtentToXmi(OutputStream out, cmof.Package metamodel, Extent model)
+    		throws java.io.IOException, hub.sam.mof.instancemodel.MetaModelException, hub.sam.mof.xmi.XmiException, org.jdom.JDOMException {
+    	hub.sam.mof.xmi.Xmi2Writer.writeMofXmi(out, model, metamodel, XmiKind.mof);
     }
 
     public void writeExtentToMagicDrawXmi(String xmiFileName, cmof.Package metamodel, Extent model)
