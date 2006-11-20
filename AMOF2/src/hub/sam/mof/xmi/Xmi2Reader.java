@@ -24,6 +24,7 @@ import cmof.Property;
 import cmof.Type;
 import cmof.UmlClass;
 import cmof.reflection.Extent;
+import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.ClassInstance;
 import hub.sam.mof.instancemodel.InstanceModel;
 import hub.sam.mof.instancemodel.InstanceValue;
@@ -119,9 +120,11 @@ public class Xmi2Reader {
                 xsiNamespace = namespace;
             }
         }
-        if (xsiNamespace == null) {
-            xsiNamespace = xmiNamespace; // TODO
+        
+        if (xsiNamespace == null || Repository.getConfiguration().getXmlNSPrefixForXsiType().equals("xmi")) {
+        	xsiNamespace = xmiNamespace;
         }
+        
         if (xmiNamespace == null) {
             xmiNamespace = Namespace.NO_NAMESPACE;
         }

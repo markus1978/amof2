@@ -100,7 +100,7 @@ final class Merge {
      */
     void clearMergingElement() {
     	boolean checkLower = Repository.getConfiguration().allowLowerMulitplicityViolations();        
-        Repository.getConfiguration().setAllowLowerMulitplicityViolations(false);
+        Repository.getConfiguration().setAllowLowerMulitplicityViolations(true);
         for (Property property : semantics.getFinalProperties()) {
             if (propertyIsConsideredForMerge(property)) {
                 if (semantics.isCollectionProperty(property)) {

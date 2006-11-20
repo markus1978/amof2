@@ -11,6 +11,7 @@ public class Configuration {
 	private boolean enableIdentification = false;
 	private boolean generousXMI = true;
 	private boolean threadSafe = false;
+	private String xmlNamespacePrefixForXsiType = "xsi";
 	
 	public boolean allowsMutuableDerivedUnions() {
 		return allowMutuableDerivedUnions;
@@ -58,6 +59,12 @@ public class Configuration {
 		this.primitiveValueSerializeConfiguration = primitiveValueSerializeConfiguration;
 	}
 	
+	public void setXmlNSPrefixForXsiType(String prefix) {
+		xmlNamespacePrefixForXsiType = prefix;
+	}
 	
+	public String getXmlNSPrefixForXsiType() {
+		return xmlNamespacePrefixForXsiType;
+	}
 	
 }

@@ -401,14 +401,16 @@ public class Repository extends hub.sam.util.Identity {
      *             the second value
      */
     public static void main(String[] args) throws Exception {
-        if (args.length != 2) {
+        if (args.length != 1) {
             System.err.println("Wrong args");
         } else {
             Repository repository = new Repository();
-            cmof.Package m3Model = (cmof.Package)repository.getExtent(CMOF_EXTENT_NAME).query("Package:CMOF");
+            getConfiguration().setAllowMutuableDerivedUnions(true);
+            getConfiguration().setXmlNSPrefixForXsiType("xmi");
+            cmof.Package m3Model = (cmof.Package)repository.getExtent(CMOF_EXTENT_NAME).query("Package:cmof");
             Extent theExtent = repository.createExtent("theExtent");
             repository.loadXmiIntoExtent(theExtent, m3Model, args[0]);
-            repository.generateCode(theExtent, args[1], false);
+            //repository.generateCode(theExtent, args[1], false);
         }
     }
 

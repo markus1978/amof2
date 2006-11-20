@@ -24,6 +24,7 @@ import cmof.Property;
 import cmof.Type;
 import cmof.UmlClass;
 import cmof.common.ReflectiveCollection;
+import cmof.exception.ModelException;
 import cmof.exception.MultiplicityViolation;
 import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.InstanceValue;
@@ -136,6 +137,10 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
 	            }
 	        }
 	    }
+	    if (closestProperty.equals(property)) {
+	    	throw new cmof.exception.IllegalArgumentException("Attempt to set a derived union, but there is no subset for the given value type. Union: " + 
+	    			property + ", value type: " + type);
+	    }
 	    return closestProperty;
     }
     
@@ -163,7 +168,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
 
     private void checkLowerMultiplicity() {
 		int lower = property.getLower();
-		if (lower > 0 && size() < lower && !performingSet && Repository.getConfiguration().allowLowerMulitplicityViolations()) {
+		if (lower > 0 && size() < lower && !performingSet && !Repository.getConfiguration().allowLowerMulitplicityViolations()) {
 			throw new MultiplicityViolation(slot);
 		}
 	}
