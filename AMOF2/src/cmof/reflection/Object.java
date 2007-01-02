@@ -246,6 +246,10 @@ public interface Object {
     public OclModelElement ocl();
 
     public void addListener(PropertyChangeListener listener);
+    
+    public void addListener(String propertyName, PropertyChangeListener listener);
 
     public void removeListener(PropertyChangeListener listener);
+    
+    public void removeListener(String propertyName, PropertyChangeListener listener);
 }

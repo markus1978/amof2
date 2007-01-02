@@ -286,4 +286,14 @@ public class ClientObjectImpl extends AbstractBridge implements ClientObject {
         return null;
     }
 
+    public void addListener(String propertyName, PropertyChangeListener listener) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void removeListener(String propertyName, PropertyChangeListener listener) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

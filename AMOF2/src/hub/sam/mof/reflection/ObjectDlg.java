@@ -148,8 +148,16 @@ public class ObjectDlg implements Object {
         reflectionself.addListener(listener);
     }
 
+    public void addListener(String propertyName, PropertyChangeListener listener) {
+        reflectionself.addListener(propertyName, listener);
+    }
+
     public void removeListener(PropertyChangeListener listener) {
         reflectionself.removeListener(listener);
+    }
+
+    public void removeListener(String propertyName, PropertyChangeListener listener) {
+        reflectionself.removeListener(propertyName, listener);
     }
 
     public OclModelElement ocl() {

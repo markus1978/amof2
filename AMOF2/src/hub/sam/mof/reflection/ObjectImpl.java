@@ -965,11 +965,17 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     	propertyChangeListeners.addPropertyChangeListener(listener);
     }
 
+    public void addListener(String propertyName, PropertyChangeListener listener) {
+        propertyChangeListeners.addPropertyChangeListener(propertyName, listener);
+    }
+
     public void removeListener(PropertyChangeListener listener) {
     	propertyChangeListeners.removePropertyChangeListener(listener);
     }
 
-    
+    public void removeListener(String propertyName, PropertyChangeListener listener) {
+        propertyChangeListeners.removePropertyChangeListener(propertyName, listener);
+    }
 
     private void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
     	propertyChangeListeners.firePropertyChange(propertyName, oldValue, newValue);
