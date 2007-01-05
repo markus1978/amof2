@@ -124,7 +124,7 @@ public class InstanceModel<C,P,DataValue> extends hub.sam.util.Identity {
         if (instance.getComposite() == null) {
             removeOutermostComposite(instance);
         }
-        instanceForId.remove(instance.getId());
+        instanceForId.remove(instance.getId());       
     }
 
     @SuppressWarnings("unchecked")
@@ -134,6 +134,7 @@ public class InstanceModel<C,P,DataValue> extends hub.sam.util.Identity {
         }
         instanceForId.clear();
         outermostComposites.clear();
+        super.myFinalize();
     }
 }
 

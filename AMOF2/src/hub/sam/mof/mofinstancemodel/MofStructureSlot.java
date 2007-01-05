@@ -93,12 +93,12 @@ public class MofStructureSlot extends StructureSlot<UmlClass,Property,java.lang.
     }
 
     @Override
-    protected void myFinalize() {
-        super.myFinalize();
+    protected void myFinalize() {        
         values.myFinalize();
         for(MofValueSpecificationList values: qualifiedValues.values()) {
             values.myFinalize();
         }
+        super.myFinalize();
     }
 
     private boolean hasQualifier() {

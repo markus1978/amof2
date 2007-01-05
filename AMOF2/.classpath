@@ -12,6 +12,6 @@
 	<classpathentry kind="lib" path="resources/lib/ejb-api.jar"/>
 	<classpathentry kind="lib" path="resources/lib/jbossall-client.jar"/>
 	<classpathentry kind="lib" path="resources/lib/junit.jar"/>
-	<classpathentry kind="lib" path="/export/home/scheidge/local/java/jdk1.5.0_06/lib/tools.jar"/>
+	<classpathentry kind="lib" path="C:/Programme/Java/jdk1.5.0_09/lib/tools.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>

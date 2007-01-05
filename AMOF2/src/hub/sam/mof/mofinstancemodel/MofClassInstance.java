@@ -90,13 +90,15 @@ public class MofClassInstance extends ClassInstance<UmlClass,Property,java.lang.
         }
     }
 
-    protected void firePropertyChange(PropertyChangeEvent event) {    	
-    	for (PropertyChangeEventListener listener: eventListener) {
-			if (event instanceof InsertEvent) {
-				listener.insert((InsertEvent)event);
-			} else if (event instanceof RemoveEvent) {
-				listener.remove((RemoveEvent)event);
-			}
+    protected void firePropertyChange(PropertyChangeEvent event) {  
+    	if (eventListener != null) {
+	    	for (PropertyChangeEventListener listener: eventListener) {
+				if (event instanceof InsertEvent) {
+					listener.insert((InsertEvent)event);
+				} else if (event instanceof RemoveEvent) {
+					listener.remove((RemoveEvent)event);
+				}
+	    	}
     	}
     }
     
@@ -124,7 +126,9 @@ public class MofClassInstance extends ClassInstance<UmlClass,Property,java.lang.
     }
     
     public void removePropertyChangeListener(PropertyChangeEventListener listener) {
-    	eventListener.remove(listener);
+    	if (eventListener != null) {
+    		eventListener.remove(listener);
+    	}
     }
     
     @Override

@@ -245,10 +245,11 @@ public class Xmi1Reader {
                 TypedElement typedElement = (TypedElement)obj;
                 if (typedElement.getType() != null) {
                 	String qualifiedName = null;
-                	if (typedElement.getType().getName().equals(Integer.class.getSimpleName()) ||
-                			typedElement.getType().getName().equals(core.primitivetypes.String.class.getSimpleName()) ||
-                			typedElement.getType().getName().equals(core.primitivetypes.String.class.getSimpleName()) ||
-                			typedElement.getType().getName().equals(core.primitivetypes.String.class.getSimpleName())) {
+                	String typeName = typedElement.getType().getName();
+                	if (typeName != null && (typeName.equals(Integer.class.getSimpleName()) ||
+                			typeName.equals(core.primitivetypes.String.class.getSimpleName()) ||
+                			typeName.equals(core.primitivetypes.String.class.getSimpleName()) ||
+                			typeName.equals(core.primitivetypes.String.class.getSimpleName()))) {
                      	qualifiedName = "core.primitivetypes." + typedElement.getType().getName();
                     } else {
                     	qualifiedName = typedElement.getType().getQualifiedName();

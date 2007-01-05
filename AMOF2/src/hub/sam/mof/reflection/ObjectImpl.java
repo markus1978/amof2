@@ -62,6 +62,8 @@ import java.util.Vector;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import org.apache.tools.ant.taskdefs.WaitFor;
+
 public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection.Object {
     protected boolean isStatic; //TODO
 
@@ -390,6 +392,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         	fPropertyChangeListener = null;
         }
         extent.removeObject(this, getClassInstance());
+        myFinalize();
     }
 
     class ConcurrentOperationInvoker extends Thread {
@@ -407,7 +410,9 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
 
         @Override
         public void run() {
-            self.firstHold();
+        	System.out.println("before fh" + self.hashCode());
+            self.firstHold();            
+            System.out.println("signature " + self.hashCode());            
             self.invokeCustomImplementation(operation, arguments);
         }
     }
@@ -421,12 +426,16 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     private static boolean firstSpawn = true;
 
     public synchronized void hold() {
+    	for (int i = 0; i < 10000000; i++); // I hate threadssss
         if (!oracle.isEmpty()) {
             Integer nextSeed = oracle.keySet().iterator().next();
             cmof.reflection.Object nextObject = oracle.get(nextSeed);
             oracle.remove(nextSeed);
             scheduledObjects.remove(nextObject);
+            System.out.println("nextobject " + nextObject.hashCode() );
             ((ObjectImpl)nextObject).synchronizedNotify();
+        } else {
+        	System.out.println("oracle empty");
         }
         try {
             wait();
@@ -445,7 +454,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
             firstSpawn = false;
         } else {
             try {
-                schedule(this);
+                schedule(this);                
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -479,8 +488,8 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
             throw new IllegalArgumentException("wrong op"); // TODO
         }
         if (implementation.hasImplementationFor(op, semantics)) {
-            if (op.getConcurrency() == CallConcurrencyKind.CONCURRENT) {
-                new ConcurrentOperationInvoker(this, op, args).start();
+            if (op.getConcurrency() == CallConcurrencyKind.CONCURRENT) {            	
+                new ConcurrentOperationInvoker(this, op, args).start();                       
                 return null;
             } else {
                 return invokeCustomImplementation(op, args);
@@ -915,7 +924,8 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     	instance = null;
         semantics = null;
         extent = null;
-        handler = null;        
+        handler = null;  
+        super.myFinalize();
     }
 
     /* This is super dirty, I am really sorry. Ocl allows additional property,value-pairs added temporarely to

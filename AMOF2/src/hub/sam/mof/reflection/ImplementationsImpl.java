@@ -1,13 +1,7 @@
 package hub.sam.mof.reflection;
 
-import cmof.Operation;
-import cmof.Parameter;
-import cmof.ParameterDirectionKind;
-import cmof.Property;
-import cmof.exception.IllegalArgumentException;
 import hub.sam.mof.codegeneration.wrapper.OperationWrapper;
 import hub.sam.mof.instancemodel.ClassifierSemantics;
-import hub.sam.mof.javamapping.JavaMapping;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -15,6 +9,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import cmof.Operation;
+import cmof.Parameter;
+import cmof.ParameterDirectionKind;
+import cmof.Property;
+import cmof.exception.IllegalArgumentException;
 
 public class ImplementationsImpl implements Implementations {
 

@@ -3,21 +3,25 @@ package hub.sam.util;
 import hub.sam.mof.Repository;
 import hub.sam.mof.util.AssertionException;
 
-import java.util.*;
-
-import cmof.reflection.Extent;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Identity {
 	
 	private final Object id;		
+	private Object externalId = null;
 	private Identity baseId = null;
 	private Identity parentId = null;
 	private Identity basedIds = null;
 	
 	private Map<Object, Identity> childIds = null;
 	private static Map<Object, Object> externalIds = new HashMap<Object, Object>();
+	private static MultiMap<Object, Identity> externalIdenities = new MultiMap<Object, Identity>();
 				
-	public Identity(Object id) {
+	public Identity(Object id) {	
 		if (Repository.getConfiguration().isIdentificationEnabled()) {
 			childIds = new HashMap<Object, Identity>();
 		}
@@ -25,11 +29,31 @@ public class Identity {
 			if (id instanceof Identity) {
 				this.id = ((Identity)id).getId();
 			} else {
-				this.id = getIdForExternalId(id);
+				if (id.equals("AValueList")) { // TODO
+					this.id = id;
+				} else {
+					externalId = id;
+					this.id = getIdForExternalId(id);
+					externalIdenities.put(id, this);
+				}
 			}
 		} else {
 			this.id = Unique.getUnique();
 		}
+	}
+	
+	protected void myFinalize() {
+		if (externalId != null) {
+			Collection<Identity> identitiesForExternalId = externalIdenities.get(externalId);
+			identitiesForExternalId.remove(this);
+			if (identitiesForExternalId.size() == 0) {
+				externalIdenities.removeKey(externalId);
+				externalIds.remove(externalId);
+			}			
+		}
+		baseId = null;
+		parentId = null;
+		basedIds = null;
 	}
 	
 	private static Object getIdForExternalId(Object externalId) {
@@ -37,7 +61,7 @@ public class Identity {
 		if (id == null) {
 			id = Unique.getUnique();
 			externalIds.put(externalId, id);
-		}
+		}		
 		return id;
 	}
 	

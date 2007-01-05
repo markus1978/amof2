@@ -55,8 +55,9 @@ public class SdlCompiler {
      * These are two M2 extents and two M1 extents; one for the normal sdl model the other for the "sdl with concrete
      * syntax extensions.
      */
-    private void initializeRepository() throws Exception {
+    private void initializeRepository() throws Exception {    	
         repository = Repository.getLocalRepository();
+        repository.getConfiguration().setThreadSafe(true);
         sdlMetaExtent = SDL.SdlModel.createModel();
         sdlPackage = (cmof.Package)sdlMetaExtent.query("Package:SDL");
         sdlModelExtent = repository.createExtent("sdl-model-extent");

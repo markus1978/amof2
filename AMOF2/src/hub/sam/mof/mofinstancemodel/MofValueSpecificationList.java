@@ -738,12 +738,12 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         }
     }
 
-    public void myFinalize() {
+    public void myFinalize() {    	
     	subsettedPropertys.clear();
         property = null;
         owner = null;
         slot = null;
-        nodes.clear();
+        nodes.clear();        
     }
 
     @SuppressWarnings("unused")

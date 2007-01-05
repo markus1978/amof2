@@ -66,5 +66,6 @@ public class StructureSlot<C,P,DataValue> extends hub.sam.util.Identity {
         	values.clear();
         }
         property = null;
+        super.myFinalize();
     }
 }

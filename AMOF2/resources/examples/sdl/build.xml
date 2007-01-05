@@ -25,8 +25,8 @@
     </target>
 
 	<target name="prepare" depends="init">
-    	<mofgencode src="${basedir}/resources/models/sdl.mdxml" destdir="${basedir}/generated-src" staticmodel="SDL.SdlModel" md="true" instances="true" ocl="true"/>
-        <mofgencode src="${basedir}/resources/models/trace.mdxml" destdir="${basedir}/generated-src" staticmodel="trace.TraceModel" md="true" instances="false"/>
+    	<mofgencode src="${basedir}/resources/models/sdl.mdxml" destdir="${basedir}/generated-src" staticmodel="SDL.SdlModel" md="true" instances="true" ocl="true" force="true"/>
+        <mofgencode src="${basedir}/resources/models/trace.mdxml" destdir="${basedir}/generated-src" staticmodel="trace.TraceModel" md="true" instances="false" force="true"/>
     </target>
 
     <target name="precompile">
@@ -53,4 +53,10 @@
 		<delete dir="${basedir}/generated-src"/>
         <delete file="${basedir}/resources/models/sdl.xml"/>
     </target>
+	
+	<target name="run">
+		<java classname="hub.sam.sdlplus.SdlCompiler" args="resources/examples/DaemonGame.pr">
+			<classpath refid="classpath"/>		
+		</java>
+	</target>
 </project>

@@ -404,6 +404,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         }
         objects.clear();
         model.myFinalize();
+        super.myFinalize();
     }
 
     @SuppressWarnings({"unchecked"})

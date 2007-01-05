@@ -137,6 +137,7 @@ public class ClassInstance<C,P,DataValue> extends hub.sam.util.Identity {
         valid = false;
         setComposite(null);
         model.deleteInstance(this);
+        myFinalize();
     }
 
     public boolean isValid() {
@@ -151,8 +152,11 @@ public class ClassInstance<C,P,DataValue> extends hub.sam.util.Identity {
             }
             slots.clear();
         }
-        components.clear();
-        components = null;
+        if (components != null) {
+	        components.clear();
+	        components = null;
+        }
         model = null;
+        super.myFinalize();
     }
 }

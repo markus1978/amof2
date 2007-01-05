@@ -22,6 +22,7 @@ public class ProxyInstanceModel extends MofInstanceModel {
             } else if (context.isProxyClassClass(classifier)) {
                 ProxyClassInstance result = classes.get(classifier);
                 if (result == null) {
+                	ProxyClassInstance.nextClassifier = classifier;
                     result = new ProxyClassInstance(classifier, context);
                     classes.put(classifier, result);
                 }
