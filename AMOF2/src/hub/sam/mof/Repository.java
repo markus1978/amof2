@@ -407,16 +407,19 @@ public class Repository extends hub.sam.util.Identity {
         getConfiguration().setAllowMutuableDerivedUnions(true);
         getConfiguration().setXmlNSPrefixForXsiType("xmi");
         cmof.Package m3Model = (cmof.Package)repository.getExtent(CMOF_EXTENT_NAME).query("Package:cmof");
-        Extent theExtent = repository.createExtent("theExtent");
-        cmofFactory theFactory = (cmofFactory)repository.createFactory(theExtent, m3Model);
+        
         int i = 0;
         while(true) {
+        	Extent theExtent = repository.createExtent("theExtent");
+            cmofFactory theFactory = (cmofFactory)repository.createFactory(theExtent, m3Model);
         	Package myPackage = theFactory.createPackage();
         	UmlClass classOne = theFactory.createUmlClass();
         	UmlClass classTwo = theFactory.createUmlClass();
         	myPackage.getOwnedType().add(classOne);
         	myPackage.getOwnedType().add(classTwo);
-        	myPackage.delete();
+        	classTwo.getPackage().getOwnedType();
+        	
+        	repository.deleteExtent("theExtent");        	
         	System.out.println(i++);
         }
     }

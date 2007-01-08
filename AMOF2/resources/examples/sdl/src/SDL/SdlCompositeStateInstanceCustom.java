@@ -158,7 +158,10 @@ public class SdlCompositeStateInstanceCustom extends SdlCompositeStateInstanceDl
             if (toExpression != null) {
                 SdlEvaluation toEval = (SdlEvaluation)toExpression.instantiate();
                 toEval.updateContext(self);
-                signal.setReceiver(((PidValue)toEval.getValue()).getValue());
+                PidValue pid = (PidValue)toEval.getValue();
+                signal.setReceiver(pid.getValue());                
+                toEval.metaDelete();
+                pid.metaDelete();
             }
 
             self.getOwningInstance().dispatchSignal(signal, output.getVia());
@@ -176,8 +179,9 @@ public class SdlCompositeStateInstanceCustom extends SdlCompositeStateInstanceDl
             ReflectiveSequence<SdlVariableSlot> slots = new ListImpl<SdlVariableSlot>();
             SdlVariableSlot slot = self.resolveSlot(variable);
             SdlEvaluation expr = (SdlEvaluation)assignment.getExpression().instantiate();
-            expr.updateContext(self);
+            expr.updateContext(self);            
             SdlDataValue value = (SdlDataValue)expr.getValue();
+            expr.metaDelete();
             slot.updateValue(value);
             /*
             slots.addAll(self.getVariable());
@@ -282,6 +286,7 @@ public class SdlCompositeStateInstanceCustom extends SdlCompositeStateInstanceDl
                 choosen = elseChoice;
             }
         }
+        questionEvaluation.metaDelete();
         executeTransition(choosen.getTransition(), self);
     }
 
@@ -290,8 +295,15 @@ public class SdlCompositeStateInstanceCustom extends SdlCompositeStateInstanceDl
         // TODO, use the actual condition operator
         SdlEvaluation choiceEvaluation = (SdlEvaluation)condition.getExpression().instantiate();
         choiceEvaluation.updateContext(self);
-        return ((SdlGeneralValue)questionEvaluation.getValue()).getValue().equals(
-                ((SdlGeneralValue)choiceEvaluation.getValue()).getValue());
+        
+        SdlGeneralValue questionValue = (SdlGeneralValue)questionEvaluation.getValue();
+        SdlGeneralValue choiceValue = (SdlGeneralValue)choiceEvaluation.getValue();
+        boolean result = (questionValue).getValue().equals(
+                (choiceValue).getValue());
+        questionValue.metaDelete();
+        choiceValue.metaDelete();
+        choiceEvaluation.metaDelete();
+        return result;
     }
 
     private static void nextstate(SdlCompositeStateInstance self, SdlAbstractState target) {

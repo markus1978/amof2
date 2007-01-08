@@ -68,6 +68,7 @@ public class Trace {
 
     public synchronized void addCommunication(SdlCompositeStateInstance source, SdlCompositeStateInstance target,
                                  SdlSignalInstance signal) {
+    	/*
         ProcessNode sourceNode = addProcessNode(source);
         ProcessNode targetNode = addProcessNode(target);
 
@@ -85,6 +86,7 @@ public class Trace {
             }
         }
         behavior.getCommunication().add(interaction);
+        */
     }
 
     public Graph getGraph() {

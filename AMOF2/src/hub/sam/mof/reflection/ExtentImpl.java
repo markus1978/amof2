@@ -397,7 +397,11 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
     }
 
     public void myFinalize() {
+    	for (cmof.reflection.Object outermostComposites: outermostComposites()) {
+    		outermostComposites.delete();
+    	}
         for (cmof.reflection.Object obj: objects) {
+        	System.out.println("WARNING: objects in deleted extend remain!");
             if (obj instanceof ObjectImpl) {
                 ((ObjectImpl)obj).myFinalize();
             }

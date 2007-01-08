@@ -14,7 +14,8 @@ public class PidSet extends ReflectiveDataValue {
     }
 
     public Boolean contains(PidValue value) {
-        return (pidSet.contains(value)) ? Boolean.TRUE : Boolean.FALSE;
+        Boolean result = (pidSet.contains(value)) ? Boolean.TRUE : Boolean.FALSE;
+        return result;
     }
 
     public PidSet incl(PidValue value) {

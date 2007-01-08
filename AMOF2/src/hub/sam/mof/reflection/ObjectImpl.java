@@ -19,27 +19,14 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.reflection;
 
-import cmof.Operation;
-import cmof.Parameter;
-import cmof.ParameterDirectionKind;
-import cmof.Property;
-import cmof.UmlClass;
-import cmof.PrimitiveType;
-import cmof.Type;
-import cmof.CallConcurrencyKind;
-import cmof.reflection.ObjectEventHandler;
-import cmof.reflection.Argument;
-import cmof.reflection.Extent;
-import cmof.common.ReflectiveCollection;
-import cmof.common.ReflectiveSequence;
-import cmof.exception.IllegalArgumentException;
-import cmof.exception.MetaModelException;
 import hub.sam.mof.instancemodel.ClassInstance;
 import hub.sam.mof.instancemodel.ClassifierSemantics;
 import hub.sam.mof.instancemodel.StructureSlot;
 import hub.sam.mof.instancemodel.ValueSpecification;
 import hub.sam.mof.instancemodel.ValueSpecificationImpl;
 import hub.sam.mof.instancemodel.ValueSpecificationList;
+import hub.sam.mof.javamapping.JavaMapping;
+import hub.sam.mof.jocl.standardlib.OclModelElement;
 import hub.sam.mof.mofinstancemodel.MofClassInstance;
 import hub.sam.mof.mofinstancemodel.MofClassifierSemantics;
 import hub.sam.mof.mofinstancemodel.events.InsertEvent;
@@ -50,19 +37,31 @@ import hub.sam.mof.ocl.MofEvaluationAdaptor;
 import hub.sam.mof.util.AssertionException;
 import hub.sam.mof.util.SetImpl;
 import hub.sam.mof.xmi.CMOFToXmi;
-import hub.sam.mof.javamapping.JavaMapping;
-import hub.sam.mof.jocl.standardlib.OclModelElement;
 import hub.sam.util.AbstractFluxBox;
 import hub.sam.util.Identity;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
-import org.apache.tools.ant.taskdefs.WaitFor;
+import cmof.CallConcurrencyKind;
+import cmof.Operation;
+import cmof.Parameter;
+import cmof.ParameterDirectionKind;
+import cmof.PrimitiveType;
+import cmof.Property;
+import cmof.Type;
+import cmof.UmlClass;
+import cmof.common.ReflectiveCollection;
+import cmof.common.ReflectiveSequence;
+import cmof.exception.IllegalArgumentException;
+import cmof.exception.MetaModelException;
+import cmof.reflection.Argument;
+import cmof.reflection.Extent;
+import cmof.reflection.ObjectEventHandler;
 
 public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection.Object {
     protected boolean isStatic; //TODO
@@ -410,9 +409,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
 
         @Override
         public void run() {
-        	System.out.println("before fh" + self.hashCode());
-            self.firstHold();            
-            System.out.println("signature " + self.hashCode());            
+            self.firstHold();          
             self.invokeCustomImplementation(operation, arguments);
         }
     }
@@ -426,16 +423,14 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     private static boolean firstSpawn = true;
 
     public synchronized void hold() {
-    	for (int i = 0; i < 10000000; i++); // I hate threadssss
+    	for (int i = 0; i < 20000000; i++); // I hate threadssss
         if (!oracle.isEmpty()) {
             Integer nextSeed = oracle.keySet().iterator().next();
             cmof.reflection.Object nextObject = oracle.get(nextSeed);
             oracle.remove(nextSeed);
             scheduledObjects.remove(nextObject);
-            System.out.println("nextobject " + nextObject.hashCode() );
             ((ObjectImpl)nextObject).synchronizedNotify();
         } else {
-        	System.out.println("oracle empty");
         }
         try {
             wait();

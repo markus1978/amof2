@@ -45,19 +45,6 @@ public class MofLink {
     private final MofLinkSlot slotOne;
     private final MofLinkSlot slotTwo;
 
-    /** For all owned association ends (properties) a preuso structure slot is created
-     * and bound to the instance value. Thus a navigable end is faked, and all those
-     * owned association ends can be handled like ends that are owned by classes.
-     *
-     * To bound those fakeSlots to instances a map from instances to slots per association
-     * is used.
-     */
-    public static final Map<Association, Map<InstanceValue<UmlClass,Property,java.lang.Object>, MofStructureSlot>> fakeSlotsForAssociation;
-
-    static {
-        fakeSlotsForAssociation = new HashMap<Association, Map<InstanceValue<UmlClass,Property,java.lang.Object>, MofStructureSlot>>();
-    }
-
     public static void createLink(Association association, InstanceValue<UmlClass,Property,java.lang.Object> one,
             InstanceValue<UmlClass,Property,java.lang.Object> two) {
         MofStructureSlot slotOne = findStructureSlotForEnd(association.getMemberEnd().get(1), one);
@@ -99,18 +86,7 @@ public class MofLink {
             value) {
         MofStructureSlot result = null;
         if (property.getOwner() instanceof Association) {
-            Map<InstanceValue<UmlClass,Property,java.lang.Object>, MofStructureSlot> fakeSlots =
-                fakeSlotsForAssociation.get(property.getOwningAssociation());
-            if (fakeSlots == null) {
-                fakeSlots = new HashMap<InstanceValue<UmlClass,Property,java.lang.Object>, MofStructureSlot>();
-                fakeSlotsForAssociation.put(property.getOwningAssociation(), fakeSlots);
-            }
-            MofStructureSlot slot = fakeSlots.get(value);
-            if (slot == null) {
-                slot = new MofStructureSlot((MofClassInstance)value.getInstance(), property);
-                fakeSlots.put(value, slot);
-            }
-            result = slot;
+            result = ((MofClassInstance)value.getInstance()).get(property.getOwningAssociation(), property);
         } else {
             result = ((MofClassInstance)value.getInstance()).get(property);
         }

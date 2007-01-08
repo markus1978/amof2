@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry path="src" kind="src"/>
-	<classpathentry path="resources/test/generated-src" kind="src"/>
-	<classpathentry path="resources/repository/generated-src" kind="src"/>
-	<classpathentry path="org.eclipse.jdt.launching.JRE_CONTAINER" kind="con"/>
-	<classpathentry path="resources/lib/oslo.jar" kind="lib"/>
-	<classpathentry path="resources/lib/jdom.jar" kind="lib"/>
-	<classpathentry path="resources/lib/ant.jar" kind="lib"/>
-	<classpathentry path="resources/lib/mopa.jar" kind="lib"/>
-	<classpathentry path="resources/lib/javacc/bin/lib/javacc.jar" kind="lib"/>
-	<classpathentry path="resources/lib/ejb-api.jar" kind="lib"/>
-	<classpathentry path="resources/lib/jbossall-client.jar" kind="lib"/>
-	<classpathentry path="resources/lib/junit.jar" kind="lib"/>
-	<classpathentry path="C:/Programme/Java/jdk1.6.0/lib/tools.jar" kind="lib"/>
-	<classpathentry path="build" kind="output"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="resources/test/generated-src"/>
+	<classpathentry kind="src" path="resources/repository/generated-src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="resources/lib/oslo.jar"/>
+	<classpathentry kind="lib" path="resources/lib/jdom.jar"/>
+	<classpathentry kind="lib" path="resources/lib/ant.jar"/>
+	<classpathentry kind="lib" path="resources/lib/mopa.jar"/>
+	<classpathentry kind="lib" path="resources/lib/javacc/bin/lib/javacc.jar"/>
+	<classpathentry kind="lib" path="resources/lib/ejb-api.jar"/>
+	<classpathentry kind="lib" path="resources/lib/jbossall-client.jar"/>
+	<classpathentry kind="lib" path="resources/lib/junit.jar"/>
+	<classpathentry kind="lib" path="C:/Programme/Java/jdk1.5.0_09/lib/tools.jar"/>
+	<classpathentry kind="output" path="build"/>
 </classpath>

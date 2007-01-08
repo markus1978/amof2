@@ -25,6 +25,7 @@ public class CreateCustom extends CreateDlg {
             Evaluation eval = argument.instantiate();
             eval.updateContext(context);
             Value value = eval.getValue();
+            eval.metaDelete();
             result.getSlot((StructuralFeature)parameter).updateValue(value);            
         }
 

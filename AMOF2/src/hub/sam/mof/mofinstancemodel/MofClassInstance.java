@@ -19,6 +19,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.mofinstancemodel;
 
+import cmof.Association;
 import cmof.DataType;
 import cmof.Property;
 import cmof.Type;
@@ -26,6 +27,7 @@ import cmof.UmlClass;
 import cmof.exception.IllegalArgumentException;
 import cmof.exception.IllegalAccessException;
 import hub.sam.mof.instancemodel.ClassInstance;
+import hub.sam.mof.instancemodel.InstanceValue;
 import hub.sam.mof.instancemodel.StructureSlot;
 import hub.sam.mof.instancemodel.ValueSpecificationImpl;
 import hub.sam.mof.instancemodel.ValueSpecification;
@@ -42,6 +44,7 @@ import java.util.Map;
 import java.util.Vector;
 
 public class MofClassInstance extends ClassInstance<UmlClass,Property,java.lang.Object> {
+	
     protected MofClassInstance(UmlClass classifier, MofInstanceModel model) {
         this(MofClassifierSemantics.createClassClassifierForUmlClass(classifier), model);
     }
@@ -57,6 +60,7 @@ public class MofClassInstance extends ClassInstance<UmlClass,Property,java.lang.
 
     private MofClassSemantics instanceClass;
     private Map<Property, MofStructureSlot> slotForProperty = new HashMap<Property, MofStructureSlot>();
+    private Map<Association, MofStructureSlot> slotsForAssociation = new HashMap<Association, MofStructureSlot>();    
     private List<PropertyChangeEventListener> eventListener;
 
     @Override
@@ -149,6 +153,14 @@ public class MofClassInstance extends ClassInstance<UmlClass,Property,java.lang.
         checkValid();
         return slotForProperty.get(instanceClass.getFinalProperty(definingFeature));
     }
+    
+    public MofStructureSlot get(Association association, Property property) {
+    	MofStructureSlot result = slotsForAssociation.get(association);
+    	if (result == null) {
+    		result = new MofStructureSlot(this, property);
+    	}
+    	return result;
+    }
 
     /** Returns the values for the feature that is the final redefining feature for the given feature and the metaclass of
      * this instance.
@@ -223,6 +235,10 @@ public class MofClassInstance extends ClassInstance<UmlClass,Property,java.lang.
         	slotForProperty.clear();
         	slotForProperty = null;
         }
-        eventListener = null;
-    }
+        if (slotsForAssociation != null) {
+        	slotsForAssociation.clear();
+        	slotsForAssociation = null;
+        }
+        eventListener = null;     
+    }  
 }

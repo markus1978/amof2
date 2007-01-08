@@ -20,6 +20,7 @@ public class SdlInstanceCustom extends SdlInstanceDlg {
                 eval.updateContext(self);
                 SdlDataValue value = (SdlDataValue)eval.getValue();
                 slot.updateValue(value);
+                eval.metaDelete();
             }
         }
     }

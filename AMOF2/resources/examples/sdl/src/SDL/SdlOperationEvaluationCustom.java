@@ -11,7 +11,9 @@ public class SdlOperationEvaluationCustom extends SdlOperationEvaluationDlg {
 
     private static Object getValue(Value value) {
         if (value instanceof SdlGeneralValue) {
-            return ((SdlGeneralValue)value).getValue();
+            Object result = ((SdlGeneralValue)value).getValue();
+            value.metaDelete();
+            return result;
         } else {
             return value;
         }
@@ -38,14 +40,13 @@ public class SdlOperationEvaluationCustom extends SdlOperationEvaluationDlg {
         Collection<Value> toDelete = new Vector<Value>();
         for(Object arg: arguments) {
             if (arg instanceof Value) {
-                if (result != arg) {
-                    toDelete.add((Value)arg);
-                }
+            	toDelete.add((Value)arg);
             }
         }
         for(Value value: toDelete) {
             value.metaDelete();
         }
+        operand.metaDelete();
 
         if (result instanceof SdlDataValue) {
             return (SdlDataValue)result;
