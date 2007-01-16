@@ -19,6 +19,8 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.instancemodel.conversion;
 
+import java.util.Collection;
+
 import cmof.ValueSpecification;
 import hub.sam.mof.instancemodel.ClassInstance;
 import hub.sam.mof.instancemodel.MetaModelException;
@@ -35,6 +37,8 @@ public interface Conversion<Co,Po,DataValueo,Ci,Pi,T,D,DataValuei> {
     
     public T getPropertyType(Pi property) throws MetaModelException;
    
+    public Collection<DataValueo> splitDataValue(D type, DataValueo multipleValues) throws MetaModelException;
+    
     public DataValuei createFromString(D type, DataValueo stringRepresentation) throws MetaModelException;                
     
     public D asDataType(T type);

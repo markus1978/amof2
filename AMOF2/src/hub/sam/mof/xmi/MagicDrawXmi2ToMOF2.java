@@ -168,10 +168,10 @@ public class MagicDrawXmi2ToMOF2 extends PatternClass implements XmiTransformato
         l.delete();
     }
 
-    //p=Property.Parameter(u=upperValue:LiteralString.LiteralInteger)
+    //p=Property.Parameter(u=upperValue:LiteralString.LiteralInteger.LiteralUnlimitedNatural)
     @PatternList( order = 94, value = {
         @Pattern( atype = "Property.Parameter", variable = "p", children = "value"),
-        @Pattern( atype = "LiteralString.LiteralInteger", property = "upperValue", variable = "u", name = "value")})
+        @Pattern( atype = "LiteralString.LiteralInteger.LiteralUnlimitedNatural", property = "upperValue", variable = "u", name = "value")})
     public void upperValue(
             @Name("p")  ClassInstance<XmiClassifier,String,String> p,
             @Name("u") ClassInstance<XmiClassifier,String,String> u) throws XmiException {

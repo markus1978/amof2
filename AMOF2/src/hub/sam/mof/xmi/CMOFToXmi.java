@@ -34,6 +34,7 @@ import hub.sam.mof.mofinstancemodel.MofClassInstance;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 public class CMOFToXmi implements Conversion<UmlClass, Property, java.lang.Object, XmiClassifier, String, String, String, String> {
 
@@ -150,4 +151,11 @@ public class CMOFToXmi implements Conversion<UmlClass, Property, java.lang.Objec
     public String getProperty(Property property, XmiClassifier classifier, ValueSpecificationImpl<XmiClassifier, String, String> value) throws MetaModelException {
 		return getProperty(property, classifier);
 	}
+
+	public Collection<Object> splitDataValue(String type, Object multipleValues) throws MetaModelException {
+		Collection<Object> result = new Vector<Object>();
+		result.add(multipleValues);
+		return result;
+	}
+    
 }

@@ -39,8 +39,10 @@ import hub.sam.mof.mofinstancemodel.MofClassifierSemantics;
 import hub.sam.mof.util.SetImpl;
 import org.jdom.Namespace;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 public class XmiToCMOF
         implements Conversion<XmiClassifier, String, String, UmlClass, Property, Type, DataType, java.lang.Object> {
@@ -248,4 +250,17 @@ public class XmiToCMOF
             StructureSlot<XmiClassifier, String, String> slot, ClassInstance<XmiClassifier, String, String> instance) {
         return true;
     }
+
+	public Collection<String> splitDataValue(DataType type, String multipleValues) throws MetaModelException {
+		Collection<String> result = new Vector<String>();
+		if (!"String".equals(type.getName())) {
+			for (String singleValue: multipleValues.split(" ")) {
+				result.add(singleValue);
+			}
+		} else {
+			result.add(multipleValues);
+		}
+		return result;
+	}
+      
 }

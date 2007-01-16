@@ -19,6 +19,9 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.xmi;
 
+import java.util.Collection;
+import java.util.Vector;
+
 import hub.sam.mof.instancemodel.*;
 import hub.sam.mof.instancemodel.conversion.*;
 
@@ -45,7 +48,13 @@ public abstract class AbstractXmiConversion<Ci,Pi,T,D,DataValuei> implements Con
         }
     }
 
-    public boolean doConvert(ValueSpecificationImpl<XmiClassifier, String, String> value, StructureSlot<XmiClassifier, String, String> slot, ClassInstance<XmiClassifier, String, String> instance) {
+    public Collection<String> splitDataValue(D type, String multipleValues) throws MetaModelException {
+    	Collection<String> result = new Vector<String>();
+    	result.add(multipleValues);
+    	return result;
+	}
+
+	public boolean doConvert(ValueSpecificationImpl<XmiClassifier, String, String> value, StructureSlot<XmiClassifier, String, String> slot, ClassInstance<XmiClassifier, String, String> instance) {
         return true;
     }              
 }

@@ -138,51 +138,67 @@ public class Converter <Co,Po,DataValueo,Ci,Pi,T,D,DataValuei> {
         if (!conversion.doConvert(value, slot, instance)) {
             return;
         }
-        ValueSpecificationImpl<Ci,Pi,DataValuei> targetValue;
-        if (value.asInstanceValue() != null) {
-            targetValue = targetModel.createInstanceValue(convertInstance(value.asInstanceValue().getInstance()));
-        } else if (value.asDataValue() != null) {
-            T type = conversion.getPropertyType(conversion.getProperty(
+        if (value.asDataValue() != null) {
+        	T type = conversion.getPropertyType(conversion.getProperty(
                     slot.getProperty(),conversion.getClassifier(instance.getClassifier())));
             D dataType = conversion.asDataType(type);
             if (dataType == null) {
                 throw new MetaModelException("Type \"" + type + "\" is expected to be a data type, but it is not.");
-            }
-            targetValue = targetModel.createPrimitiveValue(
-                    conversion.createFromString(dataType, value.asDataValue().getValue()));
-        } else if (value.asUnspecifiedValue() != null) {
-            T type = conversion.getPropertyType(conversion.getProperty(
-                    slot.getProperty(),conversion.getClassifier(instance.getClassifier())));
-            D dataType = conversion.asDataType(type);
-            if (dataType == null) {
-                // it must be a reference
-                Iterable<? extends ValueSpecificationImpl<Co,Po,DataValueo>> references;
-                if (value.asUnspecifiedValue().getParameter() != null) {
-                    references = sourceModel.createReferences((String)value.asUnspecifiedValue().getUnspecifiedData(),
-                            (String)value.asUnspecifiedValue().getParameter());
-                } else {
-                    references = sourceModel.createReferences((String)value.asUnspecifiedValue().getUnspecifiedData());
-                }
-                for (ValueSpecificationImpl<Co,Po,DataValueo> aValue: references) {
-                    value = aValue;
-                    if (value.asInstanceValue().getInstance().isValid()) {
-                        convertValue(value, slot, instance, targetInstance);
-                    }
-                }
-                return;
-            } else {
-                // it is a DataValue
-                value = sourceModel.createPrimitiveValue((DataValueo)value.asUnspecifiedValue().getUnspecifiedData());
-                convertValue(value, slot, instance, targetInstance);
-                return;
+            }            
+        	Collection<DataValueo> mulitpleValues = conversion.splitDataValue(dataType, value.asDataValue().getValue());
+            for(DataValueo singleValue: mulitpleValues) {
+	        	ValueSpecificationImpl<Ci,Pi,DataValuei> targetValue;
+	            targetValue = targetModel.createPrimitiveValue(
+	                    conversion.createFromString(dataType, singleValue));
+	            targetInstance.addValue(conversion.getProperty(slot.getProperty(), targetInstance.getClassifier(), targetValue), targetValue, null);
             }
         } else {
-            throw new RuntimeException("unreachable");
-        }
-        try {
-            targetInstance.addValue(conversion.getProperty(slot.getProperty(), targetInstance.getClassifier(), targetValue), targetValue, null);
-        } catch (cmof.exception.CompositeViolation ex) {
-            throw ex;
+	        ValueSpecificationImpl<Ci,Pi,DataValuei> targetValue;
+	        if (value.asInstanceValue() != null) {
+	            targetValue = targetModel.createInstanceValue(convertInstance(value.asInstanceValue().getInstance()));
+	        //} else if (value.asDataValue() != null) {
+	        //    T type = conversion.getPropertyType(conversion.getProperty(
+	        //            slot.getProperty(),conversion.getClassifier(instance.getClassifier())));
+	        //    D dataType = conversion.asDataType(type);
+	        //    if (dataType == null) {
+	        //        throw new MetaModelException("Type \"" + type + "\" is expected to be a data type, but it is not.");
+	        //    }
+	        //    targetValue = targetModel.createPrimitiveValue(
+	        //            conversion.createFromString(dataType, value.asDataValue().getValue()));
+	        } else if (value.asUnspecifiedValue() != null) {
+	            T type = conversion.getPropertyType(conversion.getProperty(
+	                    slot.getProperty(),conversion.getClassifier(instance.getClassifier())));
+	            D dataType = conversion.asDataType(type);
+	            if (dataType == null) {
+	                // it must be a reference
+	                Iterable<? extends ValueSpecificationImpl<Co,Po,DataValueo>> references;
+	                if (value.asUnspecifiedValue().getParameter() != null) {
+	                    references = sourceModel.createReferences((String)value.asUnspecifiedValue().getUnspecifiedData(),
+	                            (String)value.asUnspecifiedValue().getParameter());
+	                } else {
+	                    references = sourceModel.createReferences((String)value.asUnspecifiedValue().getUnspecifiedData());
+	                }
+	                for (ValueSpecificationImpl<Co,Po,DataValueo> aValue: references) {
+	                    value = aValue;
+	                    if (value.asInstanceValue().getInstance().isValid()) {
+	                        convertValue(value, slot, instance, targetInstance);
+	                    }
+	                }
+	                return;
+	            } else {
+	                // it is a DataValue
+	                value = sourceModel.createPrimitiveValue((DataValueo)value.asUnspecifiedValue().getUnspecifiedData());
+	                convertValue(value, slot, instance, targetInstance);
+	                return;
+	            }
+	        } else {
+	            throw new RuntimeException("unreachable");
+	        }
+	        try {
+	            targetInstance.addValue(conversion.getProperty(slot.getProperty(), targetInstance.getClassifier(), targetValue), targetValue, null);
+	        } catch (cmof.exception.CompositeViolation ex) {
+	            throw ex;
+	        }
         }
     }
 }
