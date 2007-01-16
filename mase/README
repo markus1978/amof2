@@ -1,0 +1,11 @@
+The licence for this software product can be found in:
+
+   LICENCE
+
+Please note that software binaries contained in resources/lib fall under
+different licences. These software is licensed by its original developers. The
+originating projects for these software are:
+    
+    aMOF2.0forJava.jar - A MOF 2 for Java (http://developer.berlios.de/projects/amof2/)
+    junit.jar - JUNIT (http://www.junit.org/)
+    log4j_1.2.14.jar - Log4j (http://logging.apache.org/log4j/docs/index.html)

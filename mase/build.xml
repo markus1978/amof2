@@ -1,0 +1,42 @@
+<project name="Mase" basedir="." default="generate-repository">
+
+	<property name="doc-dir" value="${basedir}/resources/doc/javadoc"/>
+    <property name="src-dir" value="${basedir}/src"/>
+    <property name="gen-src-dir" value="${basedir}/generated-src"/>
+    <property name="bin-dir" value="${basedir}/bin"/>
+
+	<path id="classpath">
+		<pathelement path="${bin-dir}"/>
+		<fileset dir="${basedir}/resources/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+	<target name="init">
+		<mkdir dir="${bin-dir}"/>
+		<mkdir dir="${gen-src-dir}"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="${bin-dir}"/>
+		<delete dir="${gen-src-dir}"/>
+	    <delete dir="${doc-dir}"/>
+	</target>
+
+	<target name="generate-repository" depends="clean,init">
+		<javac debug="on" destdir="${bin-dir}" source="1.5" nowarn="yes" srcdir="src/hub/sam/mase/metagen">
+			<classpath refid="classpath"/>
+	    </javac>
+		<java classname="hub.sam.mase.metagen.GenerateRepository" fork="false">
+			<classpath refid="classpath"/>
+	    </java>
+	</target>
+
+	<target name="javadoc">
+		<delete dir="${basedir}/resources/doc/javadoc"/>
+		<javadoc windowtitle="Mase" source="1.5" destdir="${doc-dir}" sourcepath="{$src-dir}" packagenames="hub.sam.mase.*">
+			<classpath refid="classpath"/>
+		</javadoc>
+	</target>
+	
+</project>
