@@ -58,7 +58,7 @@ class OpaqueActionBodyFigure extends RoundedRectangle implements EditableFigure 
         actionKindView.put(ActionKind.PRINT, "print");
         actionKindView.put(ActionKind.PRINT_EXPRESSION, "print eval");
         actionKindView.put(ActionKind.REMOVE_STRUCTURAL_FEATURE_VALUE, "remove");
-        actionKindView.put(ActionKind.WRITE_STRUCTURAL_FEATURE, "write");
+        actionKindView.put(ActionKind.WRITE_STRUCTURAL_FEATURE, "set");
         actionKindView.put(ActionKind.WRITE_STRUCTURAL_FEATURE_VALUE, "add");
     }
     
@@ -68,8 +68,9 @@ class OpaqueActionBodyFigure extends RoundedRectangle implements EditableFigure 
         // layout manager which handles position and size of our children
         XYLayout layout = new XYLayout();
         setLayoutManager(layout);
-
         setOpaque(true);
+        int cornerSize = MaseEditDomain.getCachedInt("roundedRectangle.cornerDimension.size");
+        setCornerDimensions(new Dimension(cornerSize,cornerSize));
 
         flowPage = new FlowPage();
         

@@ -28,6 +28,7 @@ import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.FreeformLayout;
@@ -35,7 +36,6 @@ import org.eclipse.draw2d.FreeformViewport;
 import org.eclipse.draw2d.ScrollPane;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.Label;
-import org.eclipse.swt.graphics.Color;
 
 public class ExpansionRegionBodyFigure extends RoundedRectangle {
     
@@ -48,6 +48,9 @@ public class ExpansionRegionBodyFigure extends RoundedRectangle {
         XYLayout layout = new XYLayout();
         setLayoutManager(layout);
         setOpaque(true);
+        setLineStyle(Graphics.LINE_DASH);
+        int cornerSize = MaseEditDomain.getCachedInt("roundedRectangle.cornerDimension.size");
+        setCornerDimensions(new Dimension(cornerSize,cornerSize));
                 
         bodyLabel = new Label();
         add(bodyLabel, new Rectangle(xOffset, yOffset, -1, -1));
@@ -60,9 +63,6 @@ public class ExpansionRegionBodyFigure extends RoundedRectangle {
             bodyLabel.setBackgroundColor(ColorConstants.yellow);
             bodyLabel.setOpaque(true);
             setBackgroundColor(ColorConstants.green);
-        }
-        else {
-            setBackgroundColor(new Color(null, 255, 255, 130));
         }
     }
     
