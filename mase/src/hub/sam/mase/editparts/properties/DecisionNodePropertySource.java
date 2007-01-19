@@ -20,39 +20,26 @@
 
 package hub.sam.mase.editparts.properties;
 
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
-import org.eclipse.ui.views.properties.IPropertySource;
+import java.util.Set;
+
 import org.eclipse.ui.views.properties.*;
 
 import hub.sam.mase.m2model.DecisionNode;
 
-public class DecisionNodePropertySource implements IPropertySource {
+public class DecisionNodePropertySource extends CommentedNodePropertySource {
 
     private final DecisionNode model;
-    private static IPropertyDescriptor[] descriptors;
     private enum PROPERTY_ID {BODY};
     
     public DecisionNodePropertySource(DecisionNode model) {
+        super(model);
         this.model = model;
     }
     
-    public Object getEditableValue() {
-        return model;
-    }
-
-    public boolean isPropertySet(Object id) {
-        return true;
-    }
-    
-    public void resetPropertyValue(Object id) {
-    }
-
-    public IPropertyDescriptor[] getPropertyDescriptors() {
-        if (descriptors == null) {
-            descriptors = new IPropertyDescriptor[1];
-            descriptors[0] = new TextPropertyDescriptor(PROPERTY_ID.BODY, "body");
-        }
-        return descriptors;
+    protected Set<IPropertyDescriptor> getRawPropertyDescriptors() {
+        Set<IPropertyDescriptor> rawDescriptors = super.getRawPropertyDescriptors();
+        rawDescriptors.add( new TextPropertyDescriptor(PROPERTY_ID.BODY, "body") );
+        return rawDescriptors;
     }
     
     public void setPropertyValue(Object id, Object val) throws IllegalArgumentException {
@@ -62,6 +49,9 @@ public class DecisionNodePropertySource implements IPropertySource {
                 model.setBody(val.toString());
                 break;
             }
+        }
+        else {
+            super.setPropertyValue(id, val);
         }
     }
 
@@ -76,7 +66,10 @@ public class DecisionNodePropertySource implements IPropertySource {
                 return new String("");
             }
         }
+        else {
+            return super.getPropertyValue(id);
+        }
         return null;
-    }    
+    }
     
 }

@@ -20,6 +20,8 @@
 
 package hub.sam.mase.editparts.properties;
 
+import java.util.Set;
+
 import org.eclipse.ui.views.properties.*;
 
 import hub.sam.mase.m2model.OutputPin;
@@ -31,35 +33,21 @@ import hub.sam.mase.m2model.TypeString;
  * @author Andreas Blunk
  * @deprecated
  */
-public class OutputPinPropertySource implements IPropertySource {
+public class OutputPinPropertySource extends AbstractPropertySource {
 
     private final OutputPin model;
     private final MaseRepository repository;
-    private static IPropertyDescriptor[] descriptors;
     private enum PROPERTY_ID {TYPE};
     
     public OutputPinPropertySource(OutputPin model, MaseRepository repository) {
         this.model = model;
         this.repository = repository;
     }
-    
-    public Object getEditableValue() {
-        return model;
-    }
 
-    public boolean isPropertySet(Object id) {
-        return true;
-    }
-    
-    public void resetPropertyValue(Object id) {
-    }
-
-    public IPropertyDescriptor[] getPropertyDescriptors() {
-        if (descriptors == null) {
-            descriptors = new IPropertyDescriptor[1];
-            descriptors[0] = new TextPropertyDescriptor(PROPERTY_ID.TYPE, "type");
-        }
-        return descriptors;
+    protected Set<IPropertyDescriptor> getRawPropertyDescriptors() {
+        Set<IPropertyDescriptor> rawDescriptors = super.getRawPropertyDescriptors();
+        rawDescriptors.add( new TextPropertyDescriptor(PROPERTY_ID.TYPE, "type") );
+        return rawDescriptors;
     }
     
     public void setPropertyValue(Object id, Object val) throws IllegalArgumentException {

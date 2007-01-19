@@ -20,49 +20,43 @@
 
 package hub.sam.mase.editparts.properties;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.eclipse.ui.views.properties.*;
 
-import hub.sam.mase.m2model.ValueNode;
+public abstract class AbstractPropertySource implements IPropertySource {
 
-public class ValueNodePropertySource extends AbstractPropertySource {
-
-    private final ValueNode model;
-    private enum PROPERTY_ID {NAME};
+    protected Set<IPropertyDescriptor> rawDescriptors;
     
-    public ValueNodePropertySource(ValueNode model) {
-        this.model = model;
+    public AbstractPropertySource() {
     }
 
+    public IPropertyDescriptor[] getPropertyDescriptors() {
+        return getRawPropertyDescriptors().toArray(new IPropertyDescriptor[] {});
+    }
+    
     protected Set<IPropertyDescriptor> getRawPropertyDescriptors() {
-        Set<IPropertyDescriptor> rawDescriptors = super.getRawPropertyDescriptors();
-        rawDescriptors.add( new TextPropertyDescriptor(PROPERTY_ID.NAME, "name") );
+        if (rawDescriptors == null) {
+            rawDescriptors = new LinkedHashSet<IPropertyDescriptor>();
+        }
         return rawDescriptors;
     }
     
-    public void setPropertyValue(Object id, Object val) throws IllegalArgumentException {
-        if (id instanceof PROPERTY_ID) {
-            switch((PROPERTY_ID) id) {
-            case NAME:
-                model.setName(val.toString());
-                break;
-            }
-        }
+    protected Set<IPropertyDescriptor> getRawDescriptors() {
+        return rawDescriptors;
     }
-
-    public Object getPropertyValue(Object id) {
-        if (id instanceof PROPERTY_ID) {
-            switch((PROPERTY_ID) id) {
-            case NAME:
-                String name = model.getName();
-                if (name != null) {
-                    return name;
-                }
-                return new String("");
-            }
-        }
+    
+    public Object getEditableValue() {
         return null;
-    }    
+    }
+    
+    public boolean isPropertySet(Object id) {
+        return false;
+    }
+    
+    public void resetPropertyValue(Object id) {
+        // empty
+    }
     
 }

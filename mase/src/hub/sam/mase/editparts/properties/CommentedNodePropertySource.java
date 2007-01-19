@@ -24,61 +24,47 @@ import java.util.Set;
 
 import org.eclipse.ui.views.properties.*;
 
-import hub.sam.mase.m2model.ExpansionRegion;
-import hub.sam.mase.m2model.ExpansionKind;
+import hub.sam.mase.m2model.CommentedNode;
 
-public class ExpansionRegionPropertySource extends CommentedNodePropertySource {
+public class CommentedNodePropertySource extends AbstractPropertySource {
 
-    private final ExpansionRegion model;
-    private enum PROPERTY_ID {MODE};
-    
-    public ExpansionRegionPropertySource(ExpansionRegion model) {
-        super(model);
+    private final CommentedNode model;
+    private enum PROPERTY_ID {COMMENT};
+
+    public CommentedNodePropertySource(CommentedNode model) {
         this.model = model;
     }
 
     protected Set<IPropertyDescriptor> getRawPropertyDescriptors() {
-        if (rawDescriptors == null) {
+        if (getRawDescriptors() == null) {
             Set<IPropertyDescriptor> rawDescriptors = super.getRawPropertyDescriptors();
-    
-            String[] comboBoxLabels= new String[ExpansionKind.values().length];
-            for(ExpansionKind kind: ExpansionKind.values()) {
-                comboBoxLabels[kind.ordinal()] = kind.toString();
-            }
-            rawDescriptors.add( new ComboBoxPropertyDescriptor(PROPERTY_ID.MODE, "mode", comboBoxLabels) );
+            rawDescriptors.add( new TextPropertyDescriptor(PROPERTY_ID.COMMENT, "comment") );
         }
-        return rawDescriptors;
+        return getRawDescriptors();
     }
     
     public void setPropertyValue(Object id, Object val) throws IllegalArgumentException {
         if (id instanceof PROPERTY_ID) {
             switch((PROPERTY_ID) id) {
-            case MODE:
-                if(val instanceof Integer) {
-                    model.setMode(ExpansionKind.values()[(Integer) val]);
-                }
-                else {
-                    throw new java.lang.IllegalArgumentException("val must be an Integer if used in a ComboBox");
-                }
+            case COMMENT:
+                model.setComment(val.toString());
                 break;
             }
-        }
-        else {
-            super.setPropertyValue(id, val);
         }
     }
 
     public Object getPropertyValue(Object id) {
         if (id instanceof PROPERTY_ID) {
             switch((PROPERTY_ID) id) {
-            case MODE:
-                return model.getMode().ordinal();
+            case COMMENT:
+                String name = model.getComment();
+                if (name != null) {
+                    return name;
+                }
+                return new String("");
             }
         }
-        else {
-            return super.getPropertyValue(id);
-        }
         return null;
-    }    
+    }
     
 }

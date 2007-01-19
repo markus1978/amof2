@@ -20,45 +20,36 @@
 
 package hub.sam.mase.editparts.properties;
 
+import java.util.Set;
+
 import org.eclipse.ui.views.properties.*;
+
 import hub.sam.mase.m2model.OpaqueAction;
 import hub.sam.mase.m2model.ActionKind;
 
-public class OpaqueActionPropertySource implements IPropertySource {
+public class OpaqueActionPropertySource extends CommentedNodePropertySource {
 
     private final OpaqueAction model;
-    private static IPropertyDescriptor[] descriptors;
     private enum PROPERTY_ID {ACTION_BODY, ACTION_KIND};
     
     public OpaqueActionPropertySource(OpaqueAction model) {
+        super(model);
         this.model = model;
     }
     
-    public Object getEditableValue() {
-        return model;
-    }
+    protected Set<IPropertyDescriptor> getRawPropertyDescriptors() {
+        Set<IPropertyDescriptor> rawDescriptors = super.getRawPropertyDescriptors();
+        
+        rawDescriptors.add( new TextPropertyDescriptor(PROPERTY_ID.ACTION_BODY, "body") );
 
-    public boolean isPropertySet(Object id) {
-        return true;
-    }
-    
-    public void resetPropertyValue(Object id) {
-    }
-
-    public IPropertyDescriptor[] getPropertyDescriptors() {
-        if (descriptors == null) {
-            descriptors = new IPropertyDescriptor[2];
-            descriptors[0] = new TextPropertyDescriptor(PROPERTY_ID.ACTION_BODY, "action body");
-            
-            String[] cbLabels= new String[ActionKind.values().length+1];
-            cbLabels[0] = "<none>";
-            for(ActionKind kind: ActionKind.values()) {
-                cbLabels[kind.ordinal()+1] = kind.toString();
-            }
-            descriptors[1] = new ComboBoxPropertyDescriptor(PROPERTY_ID.ACTION_KIND, "action kind", cbLabels);
-            
+        String[] comboBoxLabels= new String[ActionKind.values().length+1];
+        comboBoxLabels[0] = "<none>";
+        for(ActionKind kind: ActionKind.values()) {
+            comboBoxLabels[kind.ordinal()+1] = kind.toString();
         }
-        return descriptors;
+        rawDescriptors.add( new ComboBoxPropertyDescriptor(PROPERTY_ID.ACTION_KIND, "kind", comboBoxLabels) );
+        
+        return rawDescriptors;
     }
     
     public void setPropertyValue(Object id, Object val) throws IllegalArgumentException {
@@ -82,6 +73,9 @@ public class OpaqueActionPropertySource implements IPropertySource {
                 break;
             }
         }
+        else {
+            super.setPropertyValue(id, val);
+        }
     }
 
     public Object getPropertyValue(Object id) {
@@ -101,6 +95,9 @@ public class OpaqueActionPropertySource implements IPropertySource {
                     return 0;
                 }
             }
+        }
+        else {
+            return super.getPropertyValue(id);
         }
         return null;
     }

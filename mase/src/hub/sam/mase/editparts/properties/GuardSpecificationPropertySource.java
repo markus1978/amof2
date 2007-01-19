@@ -20,39 +20,25 @@
 
 package hub.sam.mase.editparts.properties;
 
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
-import org.eclipse.ui.views.properties.IPropertySource;
+import java.util.Set;
+
 import org.eclipse.ui.views.properties.*;
 
 import hub.sam.mase.m2model.GuardSpecification;;
 
-public class GuardSpecificationPropertySource implements IPropertySource {
+public class GuardSpecificationPropertySource extends AbstractPropertySource {
 
     private final GuardSpecification model;
-    private static IPropertyDescriptor[] descriptors;
     private enum PROPERTY_ID {BODY};
     
     public GuardSpecificationPropertySource(GuardSpecification model) {
         this.model = model;
     }
     
-    public Object getEditableValue() {
-        return model;
-    }
-
-    public boolean isPropertySet(Object id) {
-        return true;
-    }
-    
-    public void resetPropertyValue(Object id) {
-    }
-
-    public IPropertyDescriptor[] getPropertyDescriptors() {
-        if (descriptors == null) {
-            descriptors = new IPropertyDescriptor[1];
-            descriptors[0] = new TextPropertyDescriptor(PROPERTY_ID.BODY, "body");
-        }
-        return descriptors;
+    protected Set<IPropertyDescriptor> getRawPropertyDescriptors() {
+        Set<IPropertyDescriptor> rawDescriptors = super.getRawPropertyDescriptors();
+        rawDescriptors.add( new TextPropertyDescriptor(PROPERTY_ID.BODY, "body") );
+        return rawDescriptors;
     }
     
     public void setPropertyValue(Object id, Object val) throws IllegalArgumentException {

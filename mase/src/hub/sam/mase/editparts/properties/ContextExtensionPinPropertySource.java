@@ -20,41 +20,27 @@
 
 package hub.sam.mase.editparts.properties;
 
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
-import org.eclipse.ui.views.properties.IPropertySource;
+import java.util.Set;
+
 import org.eclipse.ui.views.properties.*;
 
 import hub.sam.mase.m2model.ContextExtensionPin;
 
-public class ContextExtensionPinPropertySource implements IPropertySource {
+public class ContextExtensionPinPropertySource extends AbstractPropertySource {
 
     private final ContextExtensionPin model;
-    private static IPropertyDescriptor[] descriptors;
     private enum PROPERTY_ID {EXTENSION_NAME};
     
     public ContextExtensionPinPropertySource(ContextExtensionPin model) {
         this.model = model;
     }
     
-    public Object getEditableValue() {
-        return model;
+    protected Set<IPropertyDescriptor> getRawPropertyDescriptors() {
+        Set<IPropertyDescriptor> rawDescriptors = super.getRawPropertyDescriptors();
+        rawDescriptors.add( new TextPropertyDescriptor(PROPERTY_ID.EXTENSION_NAME, "extension name") );
+        return rawDescriptors;
     }
 
-    public boolean isPropertySet(Object id) {
-        return true;
-    }
-    
-    public void resetPropertyValue(Object id) {
-    }
-
-    public IPropertyDescriptor[] getPropertyDescriptors() {
-        if (descriptors == null) {
-            descriptors = new IPropertyDescriptor[1];
-            descriptors[0] = new TextPropertyDescriptor(PROPERTY_ID.EXTENSION_NAME, "extension name");
-        }
-        return descriptors;
-    }
-    
     public void setPropertyValue(Object id, Object val) throws IllegalArgumentException {
         if (id instanceof PROPERTY_ID) {
             switch((PROPERTY_ID) id) {
