@@ -20,6 +20,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 package hub.sam.mof.bootstrap;
 
 import java.util.*;
+
 import hub.sam.mof.xmi.*;
 import hub.sam.mof.instancemodel.*;
 import hub.sam.mof.instancemodel.conversion.*;
@@ -78,4 +79,11 @@ public class SelfClassification implements Conversion<ClassInstance<XmiClassifie
 	public ClassInstance<ClassInstance, ClassInstance, Object> getProperty(ClassInstance<XmiClassifier, String, String> property, ClassInstance<ClassInstance, ClassInstance, Object> classifier, ValueSpecificationImpl<ClassInstance<ClassInstance, ClassInstance, Object>, ClassInstance<ClassInstance, ClassInstance, Object>, Object> value) throws MetaModelException {
 		return getProperty(property, classifier);
 	}
+
+	public Collection<Object> splitDataValue(ClassInstance<ClassInstance, ClassInstance, Object> type, Object multipleValues) throws MetaModelException {
+		Collection<Object> result = new Vector<Object>();
+		result.add(multipleValues);
+		return result;
+	}	
+	
 }
