@@ -38,6 +38,7 @@ public abstract class ActivityNodeEditPart extends PropertyAwareGraphicalEditPar
         implements org.eclipse.gef.NodeEditPart {
     
     protected ConnectionAnchor anchor;
+    protected ActivityNodeGraphicalNodeEditPolicy graphicalNodeEditPolicy;
     
     public ActivityNode getModel() {
         return (ActivityNode) super.getModel();
@@ -85,8 +86,31 @@ public abstract class ActivityNodeEditPart extends PropertyAwareGraphicalEditPar
 
     @Override
     protected void createEditPolicies() {
-        installEditPolicy(EditPolicy.NODE_ROLE, new ActivityNodeGraphicalNodeEditPolicy());
+        graphicalNodeEditPolicy = new ActivityNodeGraphicalNodeEditPolicy();
+        installEditPolicy(EditPolicy.NODE_ROLE, graphicalNodeEditPolicy);
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new ActivityNodeComponentEditPolicy());
+    }
+    
+    /**
+     * Limits the number of ActivityEdges that can be connected to this ActivityNode,
+     * if the ActivityNode is the source of the connection.
+     * @param upper
+     */
+    protected void setSourceUpperLimit(int upper) {
+        if (graphicalNodeEditPolicy != null) {
+            graphicalNodeEditPolicy.setSourceUpperLimit(upper);
+        }
+    }
+    
+    /**
+     * Limits the number of ActivityEdges that can be connected to this ActivityNode,
+     * if the ActivityNode is the target of the connection.
+     * @param upper
+     */
+    protected void setTargetUpperLimit(int upper) {
+        if (graphicalNodeEditPolicy != null) {
+            graphicalNodeEditPolicy.setTargetUpperLimit(upper);
+        }
     }
     
     /**

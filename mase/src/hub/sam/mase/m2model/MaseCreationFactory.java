@@ -170,6 +170,18 @@ public class MaseCreationFactory implements CreationFactory {
         return newObject;
     }
     
+    public ForkNode createForkNode() {
+        ForkNode newObject = getRepository().getFactory().createForkNode();
+        ModelGarbageCollector.getInstance().mark(newObject);
+        return newObject;
+    }
+    
+    public JoinNode createJoinNode() {
+        JoinNode newObject = getRepository().getFactory().createJoinNode();
+        ModelGarbageCollector.getInstance().mark(newObject);
+        return newObject;
+    }
+    
     public ExpansionRegion createExpansionRegion() {
         ExpansionRegion newObject = getRepository().getFactory().createExpansionRegion();
         

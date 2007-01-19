@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="generated-src"/>
-	<classpathentry exported="true" kind="lib" path="resources/lib/aMOF2.0forJava.jar"/>
+	<classpathentry exported="true" kind="lib" path="resources/lib/aMOF2.0forJava.jar" sourcepath="/SimpleMOF2/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="lib" path="resources/lib/junit.jar"/>

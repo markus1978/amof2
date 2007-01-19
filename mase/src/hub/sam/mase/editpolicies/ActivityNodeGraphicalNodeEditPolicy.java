@@ -47,6 +47,9 @@ import hub.sam.mase.m2model.ObjectNode;
  */
 public class ActivityNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
     
+    private int sourceUpperLimit = -1;
+    private int targetUpperLimit = -1;
+    
     protected ActivityEditPart getActivityEditPart() {
         return (ActivityEditPart) getHost().getRoot().getContents();
     }
@@ -65,11 +68,13 @@ public class ActivityNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy
         if (command instanceof ActivityEdgeCreateCommand) {
             ActivityNode sourceNode = ((ActivityEdgeCreateCommand) command).getSourceNode();
             ActivityNode targetNode = getHostEditPart().getModel();
-
-            if (sourceNode instanceof ObjectNode && targetNode instanceof ObjectNode
-                    || !(sourceNode instanceof ObjectNode) && !(targetNode instanceof ObjectNode) ) {
-                ((ActivityEdgeCreateCommand) command).setTargetNode(targetNode);
-                return command;
+            
+            if (targetUpperLimit == -1 || targetNode.getIncoming().size() < targetUpperLimit) {
+                if (sourceNode instanceof ObjectNode && targetNode instanceof ObjectNode
+                        || !(sourceNode instanceof ObjectNode) && !(targetNode instanceof ObjectNode) ) {
+                    ((ActivityEdgeCreateCommand) command).setTargetNode(targetNode);
+                    return command;
+                }
             }
         }
         return null;
@@ -79,13 +84,16 @@ public class ActivityNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy
     protected Command getConnectionCreateCommand(CreateConnectionRequest request) {
         Object newObject = request.getNewObject();
         if (newObject != null && newObject instanceof ActivityEdge) {
-            Command command = new ActivityEdgeCreateCommand(
-                    getHostEditPart().getRoot(),
-                    getActivityEditPart().getModel(),
-                    getHostEditPart().getModel(),
-                    (ActivityEdge) newObject);
-            request.setStartCommand(command);
-            return command;
+            ActivityNode sourceNode = getHostEditPart().getModel();
+            if (sourceUpperLimit == -1 || sourceNode.getOutgoing().size() < sourceUpperLimit) {
+                Command command = new ActivityEdgeCreateCommand(
+                        getHostEditPart().getRoot(),
+                        getActivityEditPart().getModel(),
+                        sourceNode,
+                        (ActivityEdge) newObject);
+                request.setStartCommand(command);
+                return command;
+            }
         }
         return null;
     }
@@ -120,6 +128,22 @@ public class ActivityNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy
                     (ActivityNode) targetEditPart.getModel());
         }
         return null;
+    }
+
+    public int getSourceUpperLimit() {
+        return sourceUpperLimit;
+    }
+
+    public void setSourceUpperLimit(int sourceUpperLimit) {
+        this.sourceUpperLimit = sourceUpperLimit;
+    }
+
+    public int getTargetUpperLimit() {
+        return targetUpperLimit;
+    }
+
+    public void setTargetUpperLimit(int targetUpperLimit) {
+        this.targetUpperLimit = targetUpperLimit;
     }
 
 }

@@ -39,8 +39,10 @@ import hub.sam.mase.m2model.OpaqueAction;
 import hub.sam.mase.m2model.ValueNode;
 import hub.sam.mase.m2model.ExpansionRegion;
 import hub.sam.mase.m2model.ControlNode;
+import hub.sam.mase.editparts.ForkNodeEditPart;
 import hub.sam.mase.editparts.InitialNodeEditPart;
 import hub.sam.mase.editparts.FinalNodeEditPart;
+import hub.sam.mase.editparts.JoinNodeEditPart;
 
 /**
  * EditPolicy for creating concrete ActivityNodes and ActivityGroups and moving ConstrainedNodes.
@@ -61,8 +63,8 @@ public class ActivityXYLayoutEditPolicy extends XYLayoutEditPolicy {
     }
     
     protected EditPolicy createChildEditPolicy(EditPart child) {
-        if (child.getClass().equals(InitialNodeEditPart.class) ||
-                child.getClass().equals(FinalNodeEditPart.class)) {
+        if (child instanceof InitialNodeEditPart || child instanceof FinalNodeEditPart
+                || child instanceof JoinNodeEditPart || child instanceof ForkNodeEditPart) {
             // these parts are not resizable
             return new NonResizableEditPolicy();
         }

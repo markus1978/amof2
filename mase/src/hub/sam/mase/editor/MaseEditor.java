@@ -27,9 +27,11 @@ import hub.sam.mase.m2model.ControlFlow;
 import hub.sam.mase.m2model.DecisionNode;
 import hub.sam.mase.m2model.ExpansionRegion;
 import hub.sam.mase.m2model.FinalNode;
+import hub.sam.mase.m2model.ForkNode;
 import hub.sam.mase.m2model.InExpansionNode;
 import hub.sam.mase.m2model.InitialNode;
 import hub.sam.mase.m2model.InputPin;
+import hub.sam.mase.m2model.JoinNode;
 import hub.sam.mase.m2model.MaseRepository;
 import hub.sam.mase.m2model.ModelGarbageCollector;
 import hub.sam.mase.m2model.MaseCreationFactory;
@@ -156,6 +158,20 @@ public class MaseEditor extends GraphicalEditorWithPalette {
         entry = new CreationToolEntry("DecisionNode",
                 "new DecisionNode",
                 new MaseCreationFactory(editDomain, DecisionNode.class),
+                MasePlugin.getImageDescriptor("icons/alt_window_16.gif"),
+                MasePlugin.getImageDescriptor("icons/alt_window_16.gif"));
+        group.add(entry);
+
+        entry = new CreationToolEntry("ForkNode",
+                "new ForkNode",
+                new MaseCreationFactory(editDomain, ForkNode.class),
+                MasePlugin.getImageDescriptor("icons/alt_window_16.gif"),
+                MasePlugin.getImageDescriptor("icons/alt_window_16.gif"));
+        group.add(entry);
+
+        entry = new CreationToolEntry("JoinNode",
+                "new JoinNode",
+                new MaseCreationFactory(editDomain, JoinNode.class),
                 MasePlugin.getImageDescriptor("icons/alt_window_16.gif"),
                 MasePlugin.getImageDescriptor("icons/alt_window_16.gif"));
         group.add(entry);

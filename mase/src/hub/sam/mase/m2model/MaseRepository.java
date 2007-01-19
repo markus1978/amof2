@@ -75,7 +75,7 @@ public class MaseRepository {
     
             try {
                 repository.loadXmiIntoExtent(m2Extent, cmofPackage, m2InputStream);
-                m2Package = (Package) m2Extent.query("Package:hub/Package:sam/Package:mase/Package:m2model");
+                m2Package = (Package) m2Extent.query("Package:masgraphics");
                 
                 cmof.Tag tag = cmofFactory.createTag();
                 tag.setValue("Mase");

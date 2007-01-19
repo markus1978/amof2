@@ -21,8 +21,10 @@
 package hub.sam.mase.metagen;
 
 import hub.sam.mof.Repository;
+import hub.sam.mof.javamapping.JavaMapping;
 import hub.sam.mof.merge.MergeContext;
 import cmof.Package;
+import cmof.Tag;
 import cmof.cmofFactory;
 import cmof.reflection.Extent;
 
@@ -38,15 +40,24 @@ public class GenerateRepository {
         cmofFactory m3Factory = (cmofFactory) repository.createFactory(m2Extent, cmofPackage);
 
         try {
-            //repository.loadXmiIntoExtent(m2Extent, cmofPackage, "resources/models/bootstrap.xml");
-            repository.loadMagicDrawXmiIntoExtent(m2Extent, cmofPackage, "resources/models/bootstrap_united.mdxml");
-            Package m2Package = (Package) m2Extent.query("Package:hub/Package:sam/Package:mase/Package:m2model");
-            Package asPackage = (Package) m2Extent.query("Package:as");
+            repository.loadMagicDrawXmiIntoExtent(m2Extent, cmofPackage, "resources/models/mas.mdxml");
 
-            // merge as into hub.sam.mase.m2model
-            MergeContext.mergePackages(m2Package, m3Factory, null);
+            Package masgraphics = (Package) m2Extent.query("Package:masgraphics");
+            MergeContext.mergePackages(masgraphics, m3Factory, null);
+            
+            Tag nsPrefix = m3Factory.createTag();
+            nsPrefix.setName(JavaMapping.PackagePrefixTagName);
+            nsPrefix.setValue("hub.sam.mase");
+            ((Package) m2Extent.query("Package:masgraphics")).getTag().add(nsPrefix);
 
-            ((cmof.reflection.Object) asPackage).delete();
+            Tag nsSubstitute = m3Factory.createTag();
+            nsSubstitute.setName(JavaMapping.SubstituteNameTagName);
+            nsSubstitute.setValue("m2model");
+            ((Package) m2Extent.query("Package:masgraphics")).getTag().add(nsSubstitute);
+            
+            ((Package) m2Extent.query("Package:massemantics")).delete();
+            ((Package) m2Extent.query("Package:petrinets")).delete();
+
             repository.generateCode(m2Extent, "generated-src/");
             //repository.generateStaticModel(m2Extent, "hub.sam.mase.StaticM2Model", "generated-src/");
             repository.writeExtentToXmi("resources/models/bootstrap_merged.xml", cmofPackage, m2Extent);
