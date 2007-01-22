@@ -72,7 +72,8 @@ public class DecisionNodeEditPart extends ActivityNodeEditPart {
     }
     
     public void propertyChange(PropertyChangeEvent ev) {
-        if (ev.getPropertyName().equals("body") || ev.getPropertyName().equals("rectangle")) {
+        if (ev.getPropertyName().equals("body") || ev.getPropertyName().equals("rectangle")
+                || ev.getPropertyName().equals("comment")) {
             refreshVisuals();
         }
         else if (ev.getPropertyName().equals("context")) {
@@ -87,7 +88,9 @@ public class DecisionNodeEditPart extends ActivityNodeEditPart {
     protected void refreshVisuals() {
         DecisionNode model = getModel();
         DecisionNodeFigure figure = getFigure();
+        
         figure.setText(model.getBody());
+        figure.setComment(model.getComment());
         
         Rectangle rectangleCopy = (Rectangle) model.getRectangle().getCopy();
         if (rectangleCopy.width == -1) {

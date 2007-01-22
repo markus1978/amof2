@@ -54,5 +54,9 @@ public class OpaqueActionFigure extends NodeAttachedFigure implements EditableFi
     public String getText() {
         return ((EditableFigure) body).getText();
     }
+    
+    public void setComment(String text) {
+        ((OpaqueActionBodyFigure) body).setComment(text);
+    }
 
 }

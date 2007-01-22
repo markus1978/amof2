@@ -88,5 +88,17 @@ public class MaseEditDomain extends DefaultEditDomain {
     public static boolean isDebugMode() {
         return (Boolean) getCachedProperty(CachedType.BOOLEAN, "debugMode");
     }
+    
+    public static String getDefaultFontName() {
+        return getCachedString("font.name");
+    }
+
+    public static int getDefaultFontSize() {
+        return getCachedInt("font.size");
+    }
+    
+    public static int getDefaultCornerSize() {
+        return getCachedInt("roundedRectangle.cornerDimension.size");
+    }
 
 }

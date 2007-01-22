@@ -18,24 +18,28 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mase.editparts.properties;
+package hub.sam.mase.editparts.properties.handlers;
 
-import hub.sam.mase.editparts.properties.handlers.CommentedNodeHandler;
-import hub.sam.mase.editparts.properties.handlers.ExpansionRegionHandler;
-import hub.sam.mase.m2model.ExpansionRegion;
+import hub.sam.mase.m2model.ContextExtensionPin;;
 
-public class ExpansionRegionPropertySource extends AbstractPropertySource {
+public class ContextExtensionPinHandler extends StringAttributeHandler {
 
-    private final ExpansionRegion model;
-    
-    public ExpansionRegionPropertySource(ExpansionRegion model) {
+    private final ContextExtensionPin model;
+
+    public ContextExtensionPinHandler(ContextExtensionPin model) {
+        super("CONTEXT_EXTENSION_PIN_NAME", "extension name");
         this.model = model;
     }
 
     @Override
-    protected void createPropertyHandlers() {
-        installPropertyHandler(new ExpansionRegionHandler(model));
-        installPropertyHandler(new CommentedNodeHandler(model));
+    protected String getString() {
+        return model.getExtensionName();
     }
 
+    @Override
+    protected void setString(String value) {
+        model.setExtensionName(value);
+    }
+    
+    
 }

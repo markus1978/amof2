@@ -20,49 +20,20 @@
 
 package hub.sam.mase.editparts.properties;
 
-import java.util.Set;
-
-import org.eclipse.ui.views.properties.*;
-
+import hub.sam.mase.editparts.properties.handlers.ContextExtensionPinHandler;
 import hub.sam.mase.m2model.ContextExtensionPin;
 
 public class ContextExtensionPinPropertySource extends AbstractPropertySource {
 
     private final ContextExtensionPin model;
-    private enum PROPERTY_ID {EXTENSION_NAME};
     
     public ContextExtensionPinPropertySource(ContextExtensionPin model) {
         this.model = model;
     }
     
-    protected Set<IPropertyDescriptor> getRawPropertyDescriptors() {
-        Set<IPropertyDescriptor> rawDescriptors = super.getRawPropertyDescriptors();
-        rawDescriptors.add( new TextPropertyDescriptor(PROPERTY_ID.EXTENSION_NAME, "extension name") );
-        return rawDescriptors;
+    @Override
+    protected void createPropertyHandlers() {
+        installPropertyHandler(new ContextExtensionPinHandler(model));
     }
-
-    public void setPropertyValue(Object id, Object val) throws IllegalArgumentException {
-        if (id instanceof PROPERTY_ID) {
-            switch((PROPERTY_ID) id) {
-            case EXTENSION_NAME:
-                model.setExtensionName(val.toString());
-                break;
-            }
-        }
-    }
-
-    public Object getPropertyValue(Object id) {
-        if (id instanceof PROPERTY_ID) {
-            switch((PROPERTY_ID) id) {
-            case EXTENSION_NAME:
-                String extensionName = model.getExtensionName();
-                if (extensionName != null) {
-                    return extensionName;
-                }
-                return new String("");
-            }
-        }
-        return null;
-    }    
-    
+   
 }

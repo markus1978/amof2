@@ -25,9 +25,11 @@ import hub.sam.mase.m2model.ActionKind;
 
 import org.apache.log4j.Logger;
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.RoundedRectangle;
+import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -43,11 +45,8 @@ import java.util.*;
 class OpaqueActionBodyFigure extends RoundedRectangle implements EditableFigure {
     
     private static Logger logger = Logger.getLogger(OpaqueActionBodyFigure.class.getName());
-    private static Font ACTION_KIND_FONT = new Font(null, "", 8, SWT.BOLD);
     private final int margin;
-    private final TextFlow actionBodyText;
-    private final TextFlow actionKindText;
-    private final FlowPage flowPage;
+    private final TextArrangementFigure textArrangement;
     
     private final static Map<ActionKind, String> actionKindView = new HashMap<ActionKind, String>();
     
@@ -62,6 +61,61 @@ class OpaqueActionBodyFigure extends RoundedRectangle implements EditableFigure 
         actionKindView.put(ActionKind.WRITE_STRUCTURAL_FEATURE_VALUE, "add");
     }
     
+    private class TextArrangementFigure extends Figure {
+        
+        private final FlowPage mainPage;
+        private final TextFlow bodyText;
+        private final TextFlow kindText;
+        
+        private final CommentFigure comment;
+
+        public TextArrangementFigure() {
+            ToolbarLayout layout = new ToolbarLayout(ToolbarLayout.VERTICAL);
+            setLayoutManager(layout);
+            layout.setStretchMinorAxis(false);
+            layout.setSpacing(0);
+            layout.setMinorAlignment(ToolbarLayout.ALIGN_CENTER);
+            
+            mainPage = new FlowPage();
+            add(mainPage);
+            
+            kindText = new TextFlow();
+            kindText.setFont(new Font(null, MaseEditDomain.getDefaultFontName(),
+                    MaseEditDomain.getDefaultFontSize(), SWT.BOLD));
+            mainPage.add(kindText);
+            
+            bodyText = new TextFlow();
+            bodyText.setFont(new Font(null, MaseEditDomain.getDefaultFontName(),
+                    MaseEditDomain.getDefaultFontSize(), SWT.NORMAL));
+            bodyText.setLayoutManager(new ParagraphTextLayout(bodyText,
+                    ParagraphTextLayout.WORD_WRAP_SOFT));
+            mainPage.add(bodyText);
+            
+            comment = new CommentFigure(true);
+            add(comment);
+
+            setOpaque(true);
+            if (MaseEditDomain.isDebugMode()) {
+                setBackgroundColor(ColorConstants.red);
+                mainPage.setOpaque(true);
+                mainPage.setBackgroundColor(ColorConstants.yellow);
+            }
+        }
+
+        public TextFlow getBodyText() {
+            return bodyText;
+        }
+
+        public void setComment(String text) {
+            comment.setComment(text);
+        }
+
+        public TextFlow getKindText() {
+            return kindText;
+        }
+        
+    }
+    
     public OpaqueActionBodyFigure(int margin, ActionKind actionKind) {
         this.margin = margin;
         
@@ -71,26 +125,13 @@ class OpaqueActionBodyFigure extends RoundedRectangle implements EditableFigure 
         setOpaque(true);
         int cornerSize = MaseEditDomain.getCachedInt("roundedRectangle.cornerDimension.size");
         setCornerDimensions(new Dimension(cornerSize,cornerSize));
-
-        flowPage = new FlowPage();
         
-        actionKindText = new TextFlow();
-        actionKindText.setFont(ACTION_KIND_FONT);
-        flowPage.add(actionKindText);
-        
-        actionBodyText = new TextFlow();
-        actionBodyText.setLayoutManager(new ParagraphTextLayout(actionBodyText,
-                ParagraphTextLayout.WORD_WRAP_SOFT));
-        flowPage.add(actionBodyText);
-        
-        add(flowPage);
-        
-        layout.setConstraint(flowPage, new Rectangle(margin, margin, -1, -1));
+        textArrangement = new TextArrangementFigure();
+        add(textArrangement);
+        layout.setConstraint(textArrangement, new Rectangle(margin, margin, -1, -1));
 
         if (MaseEditDomain.isDebugMode()) {
             setBackgroundColor(ColorConstants.green);
-            flowPage.setOpaque(true);
-            flowPage.setBackgroundColor(ColorConstants.yellow);
         }
         else {
             setBackgroundColor(new Color(null, 255, 255, 130));
@@ -100,7 +141,7 @@ class OpaqueActionBodyFigure extends RoundedRectangle implements EditableFigure 
     public void validate() {
         logger.debug("validating ...");
         LayoutManager layout = getLayoutManager();
-        layout.setConstraint(flowPage, new Rectangle(margin, margin, getSize().width - 2*margin, getSize().height - 2*margin));
+        layout.setConstraint(textArrangement, new Rectangle(margin, margin, getSize().width - 2*margin, getSize().height - 2*margin));
         super.validate();
     }
     
@@ -110,7 +151,7 @@ class OpaqueActionBodyFigure extends RoundedRectangle implements EditableFigure 
     
     public Dimension getPreferredSize(int wHint, int hHint) {
         Dimension dim = new Dimension();
-        dim.expand(flowPage.getPreferredSize(wHint-2*margin, hHint-2*margin));
+        dim.expand(textArrangement.getPreferredSize(wHint-2*margin, hHint-2*margin));
         dim.expand(2*margin, 2*margin);
         logger.debug("getPreferredSize: " + dim);
         return dim;
@@ -118,10 +159,10 @@ class OpaqueActionBodyFigure extends RoundedRectangle implements EditableFigure 
     
     public void setActionKind(ActionKind actionKind) {
         if (actionKind != null) {
-            actionKindText.setText(actionKindView.get(actionKind) + ": ");
+            textArrangement.getKindText().setText(actionKindView.get(actionKind) + ": ");
         }
         else {
-            actionKindText.setText("");
+            textArrangement.getKindText().setText("");
         }
     }
 
@@ -129,14 +170,18 @@ class OpaqueActionBodyFigure extends RoundedRectangle implements EditableFigure 
         if (text == null) {
             text = "";
         }
-        actionBodyText.setText(text);
+        textArrangement.getBodyText().setText(text);
     }
 
     public String getText() {
-        return actionBodyText.getText();
+        return textArrangement.getBodyText().getText();
+    }
+    
+    public void setComment(String text) {
+        textArrangement.setComment(text);
     }
     
     public IFigure getLocatorFigure() {
-        return actionBodyText;
+        return textArrangement.getBodyText();
     }
 }

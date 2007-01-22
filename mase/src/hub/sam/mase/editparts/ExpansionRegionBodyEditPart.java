@@ -107,6 +107,7 @@ public class ExpansionRegionBodyEditPart extends AbstractGraphicalEditPart imple
     protected IFigure createFigure() {
         ExpansionRegionBodyFigure figure = new ExpansionRegionBodyFigure();
         figure.setMode( getParent().getPresentableModeFromModel() );
+        figure.setComment( getModel().getRegion().getComment() );
         return figure;
     }
     

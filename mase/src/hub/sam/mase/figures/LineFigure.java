@@ -20,34 +20,47 @@
 
 package hub.sam.mase.figures;
 
-import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 
-public class DecisionNodeFigure extends NodeAttachedFigure implements EditableFigure {
+public class LineFigure extends Figure {
     
-    public DecisionNodeFigure() {
-        super(0);
+    private int linestyle = Graphics.LINE_SOLID;
+    private int height = 1;
+    
+    public LineFigure() {
+        setOpaque(true);
+        setBackgroundColor(ColorConstants.black);
     }
     
-    protected boolean addBodyFigure() {
-        body = new DecisionNodeBodyFigure();
-        add(body);
-        return true;
+    public Dimension getPreferredSize(int wHint, int hHint) {
+        return new Dimension(wHint,height);
     }
     
-    public IFigure getLocatorFigure() {
-        return ((EditableFigure) body).getLocatorFigure();
-    }
-    
-    public void setText(String str) {
-        ((EditableFigure) body).setText(str);
+    @Override
+    public void paintFigure(Graphics graphics) {
+        Rectangle r = getBounds();
+        graphics.setLineStyle(linestyle);
+        graphics.drawLine(r.getTopLeft(), r.getTopRight());
     }
 
-    public String getText() {
-        return ((EditableFigure) body).getText();
+    public int getLinestyle() {
+        return linestyle;
+    }
+
+    public void setLinestyle(int linestyle) {
+        this.linestyle = linestyle;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
     
-    public void setComment(String text) {
-        ((DecisionNodeBodyFigure) body).setComment(text);
-    }
-   
 }

@@ -20,49 +20,20 @@
 
 package hub.sam.mase.editparts.properties;
 
-import java.util.Set;
-
-import org.eclipse.ui.views.properties.*;
-
+import hub.sam.mase.editparts.properties.handlers.ValueNodeHandler;
 import hub.sam.mase.m2model.ValueNode;
 
 public class ValueNodePropertySource extends AbstractPropertySource {
 
     private final ValueNode model;
-    private enum PROPERTY_ID {NAME};
     
     public ValueNodePropertySource(ValueNode model) {
         this.model = model;
     }
 
-    protected Set<IPropertyDescriptor> getRawPropertyDescriptors() {
-        Set<IPropertyDescriptor> rawDescriptors = super.getRawPropertyDescriptors();
-        rawDescriptors.add( new TextPropertyDescriptor(PROPERTY_ID.NAME, "name") );
-        return rawDescriptors;
-    }
-    
-    public void setPropertyValue(Object id, Object val) throws IllegalArgumentException {
-        if (id instanceof PROPERTY_ID) {
-            switch((PROPERTY_ID) id) {
-            case NAME:
-                model.setName(val.toString());
-                break;
-            }
-        }
+    @Override
+    protected void createPropertyHandlers() {
+        installPropertyHandler(new ValueNodeHandler(model));
     }
 
-    public Object getPropertyValue(Object id) {
-        if (id instanceof PROPERTY_ID) {
-            switch((PROPERTY_ID) id) {
-            case NAME:
-                String name = model.getName();
-                if (name != null) {
-                    return name;
-                }
-                return new String("");
-            }
-        }
-        return null;
-    }    
-    
 }

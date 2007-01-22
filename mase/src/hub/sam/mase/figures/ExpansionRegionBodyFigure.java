@@ -36,61 +36,107 @@ import org.eclipse.draw2d.FreeformViewport;
 import org.eclipse.draw2d.ScrollPane;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.ToolbarLayout;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 
 public class ExpansionRegionBodyFigure extends RoundedRectangle {
     
-    private final BodyPanel bodyPanel;
-    private final Label bodyLabel;
     private final int xOffset = 4;
     private final int yOffset = 4;
+    private final ContentPane contentPane;
     
+    private class ContentPane extends Figure {
+
+        private final Label modeLabel;
+        private final BodyPanel bodyPanel;
+        private final CommentFigure comment;
+        
+        public ContentPane() {
+            ToolbarLayout layout = new ToolbarLayout(ToolbarLayout.VERTICAL);
+            setLayoutManager(layout);
+            layout.setStretchMinorAxis(false);
+            layout.setSpacing(2);
+            layout.setMinorAlignment(ToolbarLayout.ALIGN_TOPLEFT);
+
+            modeLabel = new Label();
+            modeLabel.setFont(new Font(null, MaseEditDomain.getDefaultFontName(),
+                        MaseEditDomain.getDefaultFontSize(), SWT.NORMAL));
+            add(modeLabel);
+
+            bodyPanel = new BodyPanel();
+            add(bodyPanel);
+            
+            comment = new CommentFigure(true);
+            add(comment);
+
+            if (MaseEditDomain.isDebugMode()) {
+                modeLabel.setBackgroundColor(ColorConstants.yellow);
+                modeLabel.setOpaque(true);
+                setBackgroundColor(ColorConstants.red);
+            }
+        }
+        
+        public Dimension getPreferredSize(int wHint, int hHint) {
+            int limitWidth = bodyPanel.getPreferredSize(wHint, hHint).width;
+            return super.getPreferredSize(limitWidth, hHint);
+        }
+        
+        public void setMode(String text) {
+            modeLabel.setText("<<" + text + ">>");
+        }
+        
+        public void setComment(String text) {
+            comment.setComment(text);
+        }
+
+        public BodyPanel getBodyPanel() {
+            return bodyPanel;
+        }
+        
+    }
+
     public ExpansionRegionBodyFigure() {
         XYLayout layout = new XYLayout();
         setLayoutManager(layout);
         setOpaque(true);
         setLineStyle(Graphics.LINE_DASH);
-        int cornerSize = MaseEditDomain.getCachedInt("roundedRectangle.cornerDimension.size");
+        int cornerSize = MaseEditDomain.getDefaultCornerSize();
         setCornerDimensions(new Dimension(cornerSize,cornerSize));
-                
-        bodyLabel = new Label();
-        add(bodyLabel, new Rectangle(xOffset, yOffset, -1, -1));
-        int labelHeight = 10;
-
-        bodyPanel = new BodyPanel();
-        add(bodyPanel, new Rectangle(xOffset, yOffset+labelHeight+6, -1, -1));
+        
+        contentPane = new ContentPane();
+        add(contentPane, new Rectangle(xOffset, yOffset, -1, -1));
 
         if (MaseEditDomain.isDebugMode()) {
-            bodyLabel.setBackgroundColor(ColorConstants.yellow);
-            bodyLabel.setOpaque(true);
             setBackgroundColor(ColorConstants.green);
         }
     }
     
     public Dimension getPreferredSize(int wHint, int hHint) {
-        Dimension dim = new Dimension();
-        int parentWidth = getParent().getSize().width;
+        /*Dimension dim = new Dimension();
+        int parentWidth = getParent().getSize().width;*/
         Dimension superDim = super.getPreferredSize(wHint, hHint).getCopy();
         superDim.expand(xOffset, yOffset);
-        dim.union(superDim);
+        /*dim.union(superDim);
         if (parentWidth > dim.width) {
             dim.expand(parentWidth - dim.width, 0);
-        }
+        }*/
         return superDim;
     }
 
     public void setMode(String text) {
-        bodyLabel.setText("<<" + text + ">>");
+        contentPane.setMode(text);
     }
     
-    public Label getBodyLabel() {
-        return bodyLabel;
+    public void setComment(String text) {
+        contentPane.setComment(text);
     }
     
     public Layer getContentPane() {
-        return bodyPanel.getContentPane();
+        return contentPane.getBodyPanel().getContentPane();
     }
     
-    protected class BodyPanel extends Figure {
+    private class BodyPanel extends Figure {
         private Layer contentPane;
 
         public BodyPanel() {
@@ -119,5 +165,5 @@ public class ExpansionRegionBodyFigure extends RoundedRectangle {
             }
         }
     }
-    
+       
 }

@@ -20,22 +20,19 @@
 
 package hub.sam.mase.editparts.properties;
 
-import hub.sam.mase.editparts.properties.handlers.CommentedNodeHandler;
-import hub.sam.mase.editparts.properties.handlers.ExpansionRegionHandler;
-import hub.sam.mase.m2model.ExpansionRegion;
+import hub.sam.mase.editparts.properties.handlers.PropertyHandler;
 
-public class ExpansionRegionPropertySource extends AbstractPropertySource {
+public class SimplePropertySource extends AbstractPropertySource {
 
-    private final ExpansionRegion model;
+    private final PropertyHandler handler;
     
-    public ExpansionRegionPropertySource(ExpansionRegion model) {
-        this.model = model;
+    public SimplePropertySource(PropertyHandler handler) {
+        this.handler = handler;
     }
-
+    
     @Override
     protected void createPropertyHandlers() {
-        installPropertyHandler(new ExpansionRegionHandler(model));
-        installPropertyHandler(new CommentedNodeHandler(model));
+        installPropertyHandler(handler);
     }
-
+   
 }

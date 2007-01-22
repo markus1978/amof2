@@ -30,33 +30,38 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.text.FlowPage;
 import org.eclipse.draw2d.text.ParagraphTextLayout;
 import org.eclipse.draw2d.text.TextFlow;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
+
 import hub.sam.mase.editor.MaseEditDomain;
 
 public class ValueNodeFigure extends RectangleFigure implements EditableFigure {
 
     private final int margin;
-    private final TextFlow nameFlow;
-    private final FlowPage flowPage;
+    private final TextFlow nameText;
+    private final FlowPage mainPage;
 
     public ValueNodeFigure(int margin) {
-        this.margin = margin;
-        
-        flowPage = new FlowPage();
-        nameFlow = new TextFlow();
-        nameFlow.setLayoutManager(new ParagraphTextLayout(nameFlow,
-                ParagraphTextLayout.WORD_WRAP_SOFT));
-        flowPage.add(nameFlow);
-        if (MaseEditDomain.isDebugMode()) {
-            flowPage.setOpaque(true);
-            flowPage.setBackgroundColor(ColorConstants.yellow);
-        }
-        add(flowPage);
-
-        // layout manager which handles position and size of our children
         XYLayout layout = new XYLayout();
         setLayoutManager(layout);
         setBackgroundColor(ColorConstants.white);
         setOpaque(true);        
+        this.margin = margin;
+        
+        mainPage = new FlowPage();
+        add(mainPage);
+        
+        nameText = new TextFlow();
+        nameText.setFont(new Font(null, MaseEditDomain.getDefaultFontName(),
+                MaseEditDomain.getDefaultFontSize(), SWT.NORMAL));
+        nameText.setLayoutManager(new ParagraphTextLayout(nameText,
+                ParagraphTextLayout.WORD_WRAP_SOFT));
+        mainPage.add(nameText);
+        
+        if (MaseEditDomain.isDebugMode()) {
+            mainPage.setOpaque(true);
+            mainPage.setBackgroundColor(ColorConstants.yellow);
+        }
     }
     
     public Dimension getPreferredSize(int wHint, int hHint) {
@@ -65,7 +70,7 @@ public class ValueNodeFigure extends RectangleFigure implements EditableFigure {
         }
         Dimension dim = new Dimension();
         dim.expand(margin*2,margin*2);
-        dim.expand(flowPage.getPreferredSize(wHint-margin*2, hHint-margin*2));        
+        dim.expand(mainPage.getPreferredSize(wHint-margin*2, hHint-margin*2));        
         return dim;
     }
     
@@ -75,21 +80,20 @@ public class ValueNodeFigure extends RectangleFigure implements EditableFigure {
 
     public void validate() {
         LayoutManager layout = getLayoutManager();
-        layout.setConstraint(flowPage, new Rectangle(margin,margin, getSize().width - 2*margin, getSize().height - 2*margin ));
-        
+        layout.setConstraint(mainPage, new Rectangle(margin,margin, getSize().width - 2*margin, getSize().height - 2*margin ));
         super.validate();
     }
     
     public void setText(String str) {
-        nameFlow.setText(str);
+        nameText.setText(str);
     }
 
     public String getText() {
-        return nameFlow.getText();
+        return nameText.getText();
     }
 
     public IFigure getLocatorFigure() {
-        return nameFlow;
+        return nameText;
     }
     
 }

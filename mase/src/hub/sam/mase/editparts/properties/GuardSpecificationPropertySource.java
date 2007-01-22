@@ -20,49 +20,20 @@
 
 package hub.sam.mase.editparts.properties;
 
-import java.util.Set;
-
-import org.eclipse.ui.views.properties.*;
-
+import hub.sam.mase.editparts.properties.handlers.GuardSpecificationHandler;
 import hub.sam.mase.m2model.GuardSpecification;;
 
 public class GuardSpecificationPropertySource extends AbstractPropertySource {
 
     private final GuardSpecification model;
-    private enum PROPERTY_ID {BODY};
     
     public GuardSpecificationPropertySource(GuardSpecification model) {
         this.model = model;
     }
-    
-    protected Set<IPropertyDescriptor> getRawPropertyDescriptors() {
-        Set<IPropertyDescriptor> rawDescriptors = super.getRawPropertyDescriptors();
-        rawDescriptors.add( new TextPropertyDescriptor(PROPERTY_ID.BODY, "body") );
-        return rawDescriptors;
-    }
-    
-    public void setPropertyValue(Object id, Object val) throws IllegalArgumentException {
-        if (id instanceof PROPERTY_ID) {
-            switch((PROPERTY_ID) id) {
-            case BODY:
-                model.setBody(val.toString());
-                break;
-            }
-        }
-    }
 
-    public Object getPropertyValue(Object id) {
-        if (id instanceof PROPERTY_ID) {
-            switch((PROPERTY_ID) id) {
-            case BODY:
-                String name = model.getBody();
-                if (name != null) {
-                    return name;
-                }
-                return new String("");
-            }
-        }
-        return null;
-    }    
+    @Override
+    protected void createPropertyHandlers() {
+        installPropertyHandler(new GuardSpecificationHandler(model));
+    }
     
 }

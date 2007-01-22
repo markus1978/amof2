@@ -122,7 +122,8 @@ public class ExpansionRegionEditPart extends ActionEditPart implements org.eclip
     }
 
     public void propertyChange(PropertyChangeEvent ev) {
-        if (ev.getPropertyName().equals("mode") || ev.getPropertyName().equals("rectangle")) {
+        if (ev.getPropertyName().equals("mode") || ev.getPropertyName().equals("rectangle")
+                || ev.getPropertyName().equals("comment")) {
             logger.debug("property changed: mode or rectangle");
             refreshVisuals();
         }
@@ -176,6 +177,7 @@ public class ExpansionRegionEditPart extends ActionEditPart implements org.eclip
         
         if (childConstructionComplete()) {
             getBodyEditPart().getFigure().setMode( getPresentableModeFromModel() );
+            getBodyEditPart().getFigure().setComment( getModel().getComment() );
         }
         
         Rectangle rectangleCopy = (Rectangle) model.getRectangle().getCopy();

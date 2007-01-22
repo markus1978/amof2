@@ -18,24 +18,28 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mase.editparts.properties;
+package hub.sam.mase.editparts.properties.handlers;
 
-import hub.sam.mase.editparts.properties.handlers.CommentedNodeHandler;
-import hub.sam.mase.editparts.properties.handlers.ExpansionRegionHandler;
-import hub.sam.mase.m2model.ExpansionRegion;
+import hub.sam.mase.m2model.CommentedNode;
 
-public class ExpansionRegionPropertySource extends AbstractPropertySource {
+public class CommentedNodeHandler extends StringAttributeHandler {
 
-    private final ExpansionRegion model;
-    
-    public ExpansionRegionPropertySource(ExpansionRegion model) {
+    private final CommentedNode model;
+
+    public CommentedNodeHandler(CommentedNode model) {
+        super("COMMENTED_NODE_BODY", "comment");
         this.model = model;
     }
 
     @Override
-    protected void createPropertyHandlers() {
-        installPropertyHandler(new ExpansionRegionHandler(model));
-        installPropertyHandler(new CommentedNodeHandler(model));
+    protected String getString() {
+        return model.getComment();
     }
 
+    @Override
+    protected void setString(String value) {
+        model.setComment(value);
+    }
+    
+    
 }

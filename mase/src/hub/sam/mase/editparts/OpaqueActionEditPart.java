@@ -106,7 +106,7 @@ public class OpaqueActionEditPart extends ActionEditPart
     
     public void propertyChange(PropertyChangeEvent ev) {
         if (ev.getPropertyName().equals("actionBody") || ev.getPropertyName().equals("actionKind")
-                || ev.getPropertyName().equals("rectangle")) {
+                || ev.getPropertyName().equals("rectangle") || ev.getPropertyName().equals("comment")) {
             refreshVisuals();
         }
         else if (ev.getPropertyName().equals("input")) {
@@ -135,6 +135,7 @@ public class OpaqueActionEditPart extends ActionEditPart
         
         figure.setActionKind( model.getActionKind() );
         figure.setText( getModel().getActionBody() );
+        figure.setComment( getModel().getComment() );
         
         Rectangle rectangleCopy = (Rectangle) model.getRectangle().getCopy();
         logger.debug("refreshVisuals: saved rectangle = " + rectangleCopy);

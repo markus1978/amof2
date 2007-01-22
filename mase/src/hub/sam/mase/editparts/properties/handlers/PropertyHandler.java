@@ -18,45 +18,13 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mase.editparts.properties;
+package hub.sam.mase.editparts.properties.handlers;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
+import java.util.List;
 import org.eclipse.ui.views.properties.*;
 
-public abstract class AbstractPropertySource implements IPropertySource {
-
-    protected Set<IPropertyDescriptor> rawDescriptors;
-    
-    public AbstractPropertySource() {
-    }
-
-    public IPropertyDescriptor[] getPropertyDescriptors() {
-        return getRawPropertyDescriptors().toArray(new IPropertyDescriptor[] {});
-    }
-    
-    protected Set<IPropertyDescriptor> getRawPropertyDescriptors() {
-        if (rawDescriptors == null) {
-            rawDescriptors = new LinkedHashSet<IPropertyDescriptor>();
-        }
-        return rawDescriptors;
-    }
-    
-    protected Set<IPropertyDescriptor> getRawDescriptors() {
-        return rawDescriptors;
-    }
-    
-    public Object getEditableValue() {
-        return null;
-    }
-    
-    public boolean isPropertySet(Object id) {
-        return false;
-    }
-    
-    public void resetPropertyValue(Object id) {
-        // empty
-    }
-    
+public interface PropertyHandler {
+    public List<IPropertyDescriptor> getPropertyDescriptors();
+    public abstract boolean handleSetPropertyValue(Object id, Object value);
+    public abstract Object handleGetPropertyValue(Object id);
 }

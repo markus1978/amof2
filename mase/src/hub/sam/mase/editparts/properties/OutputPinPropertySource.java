@@ -20,72 +20,26 @@
 
 package hub.sam.mase.editparts.properties;
 
-import java.util.Set;
-
-import org.eclipse.ui.views.properties.*;
-
+import hub.sam.mase.editparts.properties.handlers.OutputPinHandler;
 import hub.sam.mase.m2model.OutputPin;
 import hub.sam.mase.m2model.MaseRepository;
-import hub.sam.mase.m2model.TypeString;
 
 /**
- * 
- * @author Andreas Blunk
  * @deprecated
  */
 public class OutputPinPropertySource extends AbstractPropertySource {
 
     private final OutputPin model;
     private final MaseRepository repository;
-    private enum PROPERTY_ID {TYPE};
     
     public OutputPinPropertySource(OutputPin model, MaseRepository repository) {
         this.model = model;
         this.repository = repository;
     }
 
-    protected Set<IPropertyDescriptor> getRawPropertyDescriptors() {
-        Set<IPropertyDescriptor> rawDescriptors = super.getRawPropertyDescriptors();
-        rawDescriptors.add( new TextPropertyDescriptor(PROPERTY_ID.TYPE, "type") );
-        return rawDescriptors;
+    @Override
+    protected void createPropertyHandlers() {
+        installPropertyHandler(new OutputPinHandler(model, repository));
     }
-    
-    public void setPropertyValue(Object id, Object val) throws IllegalArgumentException {
-        if (id instanceof PROPERTY_ID) {
-            switch((PROPERTY_ID) id) {
-            case TYPE:
-                hub.sam.mase.m2model.TypeString type = repository.getFactory().createTypeString();
-                for(String namePart: val.toString().split("::")) {
-                    type.getQualifiedTypeName().add(namePart);
-                }
-                model.setType(type);
-                break;
-            }
-        }
-    }
-
-    public Object getPropertyValue(Object id) {
-        if (id instanceof PROPERTY_ID) {
-            switch((PROPERTY_ID) id) {
-            case TYPE:
-                TypeString type = (TypeString)model.getType();
-                if (type != null) {
-                    StringBuffer qualifiedName = new StringBuffer();
-                    boolean first = true;
-                    for(String namePart: type.getQualifiedTypeName()) {
-                        if (first) {
-                            first = false;
-                        } else {
-                            qualifiedName.append("::");
-                        }
-                        qualifiedName.append(namePart);                        
-                    }
-                    return qualifiedName.toString();
-                }
-                return new String("");
-            }
-        }
-        return null;
-    }    
     
 }

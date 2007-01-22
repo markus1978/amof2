@@ -30,11 +30,15 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.text.FlowPage;
 import org.eclipse.draw2d.text.ParagraphTextLayout;
 import org.eclipse.draw2d.text.TextFlow;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 
 class DecisionNodeBodyFigure extends Figure implements EditableFigure {
+
     private final DecisionNodeDiamond diamond;
+    private final FlowPage mainPage;
     private final TextFlow bodyFlow;
-    private final FlowPage flowPage;
+    private final CommentFigure comment;
     
     private class DecisionNodeDiamond extends Diamond {
         private final Dimension preferredSize;
@@ -61,40 +65,34 @@ class DecisionNodeBodyFigure extends Figure implements EditableFigure {
         ToolbarLayout layout = new ToolbarLayout(ToolbarLayout.VERTICAL);
         setLayoutManager(layout);
         layout.setStretchMinorAxis(false);
-        layout.setSpacing(0);
+        layout.setSpacing(2);
         layout.setMinorAlignment(ToolbarLayout.ALIGN_CENTER);
         setOpaque(false);
         
         diamond = new DecisionNodeDiamond();
         add(diamond);
 
-        flowPage = new FlowPage();
+        mainPage = new FlowPage();
+        add(mainPage);
+        
         bodyFlow = new TextFlow();
+        bodyFlow.setFont(new Font(null, MaseEditDomain.getDefaultFontName(),
+                MaseEditDomain.getDefaultFontSize(), SWT.NORMAL));
         bodyFlow.setLayoutManager(new ParagraphTextLayout(bodyFlow,
                 ParagraphTextLayout.WORD_WRAP_SOFT));
-        flowPage.add(bodyFlow);
-        add(flowPage);
+        mainPage.add(bodyFlow);
+        
+        comment = new CommentFigure(false);
+        add(comment);
         
         if (MaseEditDomain.isDebugMode()) {
-            flowPage.setOpaque(true);
-            flowPage.setBackgroundColor(ColorConstants.yellow);
+            mainPage.setOpaque(true);
+            mainPage.setBackgroundColor(ColorConstants.yellow);
         }
     }
     
     public Dimension getPreferredSize(int wHint, int hHint) {
-        Dimension dim = new Dimension();
-        dim.expand(0,diamond.getPreferredSize(wHint, hHint).height);
-        dim.expand(flowPage.getPreferredSize(wHint, hHint));        
-        
-        int parentWidth = getParent().getClientArea().width;
-        if (parentWidth > dim.width) {
-            dim.expand(parentWidth - dim.width ,0);            
-        }
-        
-        //int hd = getParent().getClientArea().height - dim.height - PinFigure.SIZE * 2;
-        //if (hd > 0) dim.expand(0,hd);
-        
-        return dim;
+        return super.getPreferredSize(wHint, hHint).getCopy();
     }
 
     public void setText(String str) {
@@ -103,6 +101,10 @@ class DecisionNodeBodyFigure extends Figure implements EditableFigure {
 
     public String getText() {
         return bodyFlow.getText();
+    }
+    
+    public void setComment(String text) {
+        comment.setComment(text);
     }
     
     public IFigure getLocatorFigure() {

@@ -27,25 +27,43 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 
 public class Diamond extends Shape {
+    
+    private Point getTop(Rectangle bounds) {
+        return new Point(bounds.x + bounds.width / 2, bounds.y);
+    }
+
+    private Point getLeft(Rectangle bounds) {
+        return new Point(bounds.x, bounds.y + bounds.height / 2);
+    }
+
+    private Point getRight(Rectangle bounds) {
+        return new Point(bounds.x + bounds.width - lineWidth, bounds.y + bounds.height / 2);
+    }
+
+    private Point getBottom(Rectangle bounds) {
+        return new Point(bounds.x + bounds.width / 2, bounds.y + bounds.height - lineWidth);
+    }
 
     @Override
     protected void fillShape(Graphics graphics) {
-        Rectangle r = getBounds();
+        Rectangle bounds = getBounds();
         PointList points = new PointList();
-        points.addPoint(r.x, r.y + r.height / 2);
-        points.addPoint(r.x + r.width / 2, r.y);
-        points.addPoint(r.x + r.width, r.y + r.height / 2);
-        points.addPoint(r.x + r.width / 2, r.y + r.height);
+        points.addPoint( getLeft(bounds) );
+        points.addPoint( getTop(bounds) );
+        points.addPoint( getRight(bounds) );
+        points.addPoint( getBottom(bounds) );
+        
         graphics.fillPolygon(points);
     }
 
     @Override
     protected void outlineShape(Graphics graphics) {
-        Rectangle r = getBounds();
-        Point left = new Point(r.x, r.y + r.height / 2);
-        Point top = new Point(r.x + r.width / 2, r.y);
-        Point right = new Point(r.x + r.width, r.y + r.height / 2);
-        Point bottom = new Point(r.x + r.width / 2, r.y + r.height);
+        Rectangle bounds = getBounds();
+        Point left = getLeft(bounds);
+        Point top = getTop(bounds);
+        Point right = getRight(bounds);
+        Point bottom = getBottom(bounds);
+        
         graphics.drawLine(left, top);
         graphics.drawLine(top, right);
         graphics.drawLine(right, bottom);
