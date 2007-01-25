@@ -71,7 +71,7 @@
 				javacchome="${basedir}/resources/lib/javacc" outputdirectory="${src}/hub/sam/mof/as/parser/"/>
 	</target>
 
-	<target name="compile" depends="init, mopa, javacc">
+	<target name="compile" depends="init, mopa">
 		<javac debug="on" destdir="${build-dir}" source="1.5" nowarn="yes" memorymaximumsize="100m" fork="true">
 			<src refid="sourcepath"/>
 			<classpath refid="classpath"/>
@@ -219,5 +219,11 @@
     	<mof src="${basedir}/resources/models/work/solo-domain-model-test.xml"
              destdir="${test-generated-src}"/>
     </target>
+	
+    <target name="generate-mase" depends="compile">
+		<java classname="hub.sam.mof.mas.GenerateASRepository" fork="false">
+			<classpath refid="classpath"/>
+		</java>
+	</target>
 </project>
 <!-- vim:set ts=4: -->

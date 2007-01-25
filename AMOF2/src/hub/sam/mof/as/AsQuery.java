@@ -1,5 +1,9 @@
 package hub.sam.mof.as;
 
+import hub.sam.mof.mas.AnalysisEnvironment;
+import hub.sam.mof.mas.SemanticException;
+import hub.sam.mof.mas.ExecutionEnvironment;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,17 +51,17 @@ public class AsQuery extends AsBehavior {
 	}
 	
 	@Override
-	public void staticSemantics(AsAnalysisEnvironment environment) throws AsSemanticException {		
-		AsSemanticException exceptions = new AsSemanticException("Errors in bevavior declarations for name " + contextQualifiedName);	
+	public void staticSemantics(AnalysisEnvironment environment) throws SemanticException {		
+		SemanticException exceptions = new SemanticException("Errors in bevavior declarations for name " + contextQualifiedName);	
 		NamedElement contextNamedElement = null;
 		try {
 			contextNamedElement = resolveQualifiedName(contextQualifiedName, environment.getTopLevelPackages());
-		} catch (AsSemanticException e) {
+		} catch (SemanticException e) {
 			exceptions.addException(e);
 		}
 		
 		if (contextNamedElement == null) {
-			exceptions.addException(new AsSemanticException("The name " + contextQualifiedName + " does not reference an element."));
+			exceptions.addException(new SemanticException("The name " + contextQualifiedName + " does not reference an element."));
 		}
 		
 				
@@ -67,7 +71,7 @@ public class AsQuery extends AsBehavior {
 			contextOperation.setBodyCondition(createConstraint(environment.getFactory()));
 			context = contextOperation;		
 			if (contextOperation.getFormalParameter().size() > 1) {
-				exceptions.addException(new AsSemanticException("Operation support with more than one parameter not yet implemented.")); 
+				exceptions.addException(new SemanticException("Operation support with more than one parameter not yet implemented.")); 
 			} else if (contextOperation.getFormalParameter().size() == 1) {
 				Parameter parameter = contextOperation.getFormalParameter().get(0);
 				environment.addAdditionalContextAttribute(parameter.getName(), null, parameter.getType(), contextOperation.getUmlClass());
@@ -75,12 +79,12 @@ public class AsQuery extends AsBehavior {
 		} else if (contextNamedElement instanceof Property) {
 			Property contextProperty = (Property)contextNamedElement;
 			if (!contextProperty.isDerived() && !contextProperty.isDerivedUnion()) {
-				exceptions.addException(new AsSemanticException("The query behavior does not reference a derived property."));
+				exceptions.addException(new SemanticException("The query behavior does not reference a derived property."));
 			}
 			contextProperty.setOwnedBehavior(createConstraint(environment.getFactory()));
 			context = contextProperty;		
 		} else {
-			exceptions.addException(new AsSemanticException("Name " + contextNamedElement + " does not reference an operation or property."));
+			exceptions.addException(new SemanticException("Name " + contextNamedElement + " does not reference an operation or property."));
 		}
 				
 		try {
@@ -97,7 +101,7 @@ public class AsQuery extends AsBehavior {
 						false, false, false);
 			}			
 			environment.removeAdditionalAttribute();
-		} catch (AsSemanticException e) {
+		} catch (SemanticException e) {
 			exceptions.addException(e);
 		} finally {
 			environment.removeAdditionalAttribute();
@@ -109,7 +113,7 @@ public class AsQuery extends AsBehavior {
 	}
 
 	@Override
-	public Object invoke(Object object, Object[] args, AsExecutionEnvironment environment) {
+	public Object invoke(Object object, Object[] args, ExecutionEnvironment environment) {
 		//System.out.println("### Behavior for " + context.getQualifiedName() + " invoked.");
 		
 		if (context instanceof Operation) {

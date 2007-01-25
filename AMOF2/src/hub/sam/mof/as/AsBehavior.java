@@ -1,5 +1,8 @@
 package hub.sam.mof.as;
 
+import hub.sam.mof.mas.AnalysisEnvironment;
+import hub.sam.mof.mas.SemanticException;
+import hub.sam.mof.mas.ExecutionEnvironment;
 import hub.sam.util.Tree;
 
 import java.util.Collection;
@@ -21,7 +24,7 @@ public abstract class AsBehavior {
 	}
 	
 	protected NamedElement resolveQualifiedName(Iterable<String> qualifiedName, Iterable<? extends Namespace> topLevelNamespaces) 
-			throws AsSemanticException {		
+			throws SemanticException {		
 		NamedElement result = null;
 		outerLoop: for(Namespace ns: topLevelNamespaces) {
 			Iterator<String> i = qualifiedName.iterator();
@@ -36,7 +39,7 @@ public abstract class AsBehavior {
 						ns = (Namespace)ne;
 					} else {
 						if (i.hasNext()) {
-							throw new AsSemanticException("The name " + qualifiedName + " could not be resolved.");
+							throw new SemanticException("The name " + qualifiedName + " could not be resolved.");
 						} else {
 							break innerLoop;
 						}
@@ -49,15 +52,15 @@ public abstract class AsBehavior {
 			if (result == null) {
 				result = ne;
 			} else {
-				throw new AsSemanticException("Multiple matches for name " + qualifiedName + ": " + result.getQualifiedName() + " and " + ne.getQualifiedName() + ".");
+				throw new SemanticException("Multiple matches for name " + qualifiedName + ": " + result.getQualifiedName() + " and " + ne.getQualifiedName() + ".");
 			}
 		}
 		return result;
 	}
 	
-	public abstract void staticSemantics(AsAnalysisEnvironment environment);
+	public abstract void staticSemantics(AnalysisEnvironment environment);
 			
-	private NamedElement resolveName(Namespace ns, String name) throws AsSemanticException {
+	private NamedElement resolveName(Namespace ns, String name) throws SemanticException {
 		Collection<NamedElement> memberWithName = new Vector<NamedElement>();
 		for(NamedElement member: ns.getMember()) {
 			if (name.equals(member.getName())) {
@@ -74,7 +77,7 @@ public abstract class AsBehavior {
 				if (member instanceof RedefinableElement) {
 					redefinition.putAll((RedefinableElement)member, ((RedefinableElement)member).getRedefinedElement());				
 				} else {
-					throw new AsSemanticException("The name " + name + " reference mulitple elements in namespace " + ns.getQualifiedName() + ".");
+					throw new SemanticException("The name " + name + " reference mulitple elements in namespace " + ns.getQualifiedName() + ".");
 				}
 			}
 			memberWithName = new Vector<NamedElement>(); 
@@ -84,10 +87,10 @@ public abstract class AsBehavior {
 			if (memberWithName.size() == 1) {
 				return memberWithName.iterator().next();
 			} else {
-				throw new AsSemanticException("The name " + name + " reference mulitple final elements in namespace " + ns.getQualifiedName() + ".");
+				throw new SemanticException("The name " + name + " reference mulitple final elements in namespace " + ns.getQualifiedName() + ".");
 			}
 		}
 	}
 	
-	public abstract Object invoke(Object object, Object[] args, AsExecutionEnvironment environment);
+	public abstract Object invoke(Object object, Object[] args, ExecutionEnvironment environment);
 }

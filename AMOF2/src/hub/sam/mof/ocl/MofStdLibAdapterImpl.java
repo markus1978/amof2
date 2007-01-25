@@ -39,15 +39,19 @@ public class MofStdLibAdapterImpl extends StdLibAdapterImpl {
 	}
 
 	@SuppressWarnings("unchecked")
-	private Object[] toArray(ReflectiveCollection col) {	
-		int size = col.size();
-		Object[] result = new Object[size+1];
-		Iterator it = col.iterator();
-		for (int i = 0; i < size; i++) {
-			result[i] = it.next();
+	private Object[] toArray(ReflectiveCollection col) {		
+		int size = col.size();		
+		if (size == 0) {
+			return new Object[] {};
+		} else {
+			Object[] result = new Object[size+1];
+			Iterator it = col.iterator();
+			for (int i = 0; i < size; i++) {
+				result[i] = it.next();
+			}
+			result[result.length-1] = result[0];
+			return result;
 		}
-		result[result.length-1] = result[0];
-		return result;
 	}
 	
 	@Override
@@ -72,7 +76,8 @@ public class MofStdLibAdapterImpl extends StdLibAdapterImpl {
 		} else if (untypedSet instanceof MofOclListImpl) {
 			return ((MofOclListImpl)untypedSet).getOclCollection();
 		}
-		cmof.Property property = ((ExtentImpl.ValueList)untypedSet).getValues().getProperty();
+		
+		cmof.Property property = ((TypeWrapperSetImpl)o).getProperty();
 		//Classifier elementType = processor.getBridgeFactory().buildClassifier(property.getType());
 		OclAnyType oat = processor.getTypeFactory().buildOclAnyType();
 		if (property.isUnique() && property.isOrdered()) {

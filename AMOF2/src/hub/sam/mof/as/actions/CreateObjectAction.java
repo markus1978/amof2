@@ -9,10 +9,10 @@ import cmof.UmlClass;
 import core.primitivetypes.Boolean;
 import core.primitivetypes.Integer;
 import core.primitivetypes.UnlimitedNatural;
-import hub.sam.mof.as.AsAnalysisEnvironment;
-import hub.sam.mof.as.AsExecutionEnvironment;
 import hub.sam.mof.as.AsExecutionFrame;
-import hub.sam.mof.as.AsSemanticException;
+import hub.sam.mof.mas.AnalysisEnvironment;
+import hub.sam.mof.mas.SemanticException;
+import hub.sam.mof.mas.ExecutionEnvironment;
 import hub.sam.mof.ocl.MofEnumerationImpl;
 import hub.sam.mof.ocl.MofOclModelElementTypeImpl;
 import hub.sam.mof.util.AssertionException;
@@ -29,7 +29,7 @@ public class CreateObjectAction extends AbstractAction {
 
 	private static int unique = 0;
 
-	protected Classifier getClassifierToCreate(AsAnalysisEnvironment environment) {
+	protected Classifier getClassifierToCreate(AnalysisEnvironment environment) {
 		String body = getAction().getBody().get(1);
 		ModelElement oclModelElementTypeToCreate = null;
 		if (body.contains("::")) {
@@ -47,10 +47,10 @@ public class CreateObjectAction extends AbstractAction {
 				mofDelegate = ((MofEnumerationImpl)oclModelElementTypeToCreate).getMofDelegate();
 			}
 			if (!requiredType.equals(mofDelegate)) {
-				throw new AsSemanticException(errorPrefix + "has wrong type.");
+				throw new SemanticException(errorPrefix + "has wrong type.");
 			} else {
 				if (!(mofDelegate instanceof Classifier || mofDelegate instanceof Enumeration)) {
-					throw new AsSemanticException(errorPrefix + "has a type that is not a classifier.");
+					throw new SemanticException(errorPrefix + "has a type that is not a classifier.");
 				} else {
 					return (Classifier)((MofOclModelElementTypeImpl)oclModelElementTypeToCreate).getMofDelegate();
 				}
@@ -58,19 +58,19 @@ public class CreateObjectAction extends AbstractAction {
 		} else if (oclModelElementTypeToCreate instanceof PrimitiveImpl) {
 			if (oclModelElementTypeToCreate instanceof BooleanType) {
 				if (!requiredType.getName().equals(Boolean.class.getSimpleName())) {
-					throw new AsSemanticException(errorPrefix + "has wrong type.");
+					throw new SemanticException(errorPrefix + "has wrong type.");
 				} else {
 					return environment.getBooleanType();
 				}
 			} else if (oclModelElementTypeToCreate instanceof StringType) {
 				if (!requiredType.getName().equals(core.primitivetypes.String.class.getSimpleName())) {
-					throw new AsSemanticException(errorPrefix + "has wrong type.");
+					throw new SemanticException(errorPrefix + "has wrong type.");
 				} else {
 					return environment.getStringType();
 				}
 			} else if (oclModelElementTypeToCreate instanceof RealType) {
 				if (!requiredType.getName().equals(Integer.class.getSimpleName()) && !requiredType.getName().equals(UnlimitedNatural.class.getSimpleName())) {
-					throw new AsSemanticException(errorPrefix + "has wrong type.");
+					throw new SemanticException(errorPrefix + "has wrong type.");
 				} else {
 					if (requiredType.getName().equals(Integer.class.getSimpleName())) {
 						return environment.getIntegerType();
@@ -79,17 +79,17 @@ public class CreateObjectAction extends AbstractAction {
 					}
 				}
 			} else {
-				throw new AsSemanticException(errorPrefix + "has unknown type.");
+				throw new SemanticException(errorPrefix + "has unknown type.");
 			}
 		} else {
-			throw new AsSemanticException(errorPrefix + "has unknown type.");
+			throw new SemanticException(errorPrefix + "has unknown type.");
 		}
 	}
 
 	private boolean isUnique() {
 		if (getAction().getBody().size() == 3) {
 			if (!new String("unique").equals(getAction().getBody().get(2))) {
-				throw new AsSemanticException("Action " + toString() + " has unknown argument unique.");
+				throw new SemanticException("Action " + toString() + " has unknown argument unique.");
 			} else {
 				return true;
 			}
@@ -99,20 +99,20 @@ public class CreateObjectAction extends AbstractAction {
 	}
 
 	@Override
-	public void staticSemantics(Action action, Type contextType, AsAnalysisEnvironment environment) throws AsSemanticException {
+	public void staticSemantics(Action action, Type contextType, AnalysisEnvironment environment) throws SemanticException {
 		setAction(action);
 		checkArgumentCounts(-1,0,1,false);
 		if (!(getAction().getBody().size() == 2 || getAction().getBody().size() == 3)) {
-			throw new AsSemanticException("Action " + toString() + " has wrong number of arguments.");
+			throw new SemanticException("Action " + toString() + " has wrong number of arguments.");
 		}
 		if (isUnique() && !(getClassifierToCreate(environment).equals(environment.getIntegerType()))) {
-			throw new AsSemanticException("Action " + toString() + " has wrong type for unique.");
+			throw new SemanticException("Action " + toString() + " has wrong type for unique.");
 		}
 		getClassifierToCreate(environment);
 	}
 
 	@Override
-	public void invoke(Action action, List in, List<Object> out, Object context, AsExecutionEnvironment environment, AsExecutionFrame frame) {
+	public void invoke(Action action, List in, List<Object> out, Object context, ExecutionEnvironment environment, AsExecutionFrame frame) {
 		Object result = null;
 		setAction(action);
 		Classifier classifier = getClassifierToCreate(environment);

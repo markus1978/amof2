@@ -6,6 +6,7 @@ import cmof.Feature;
 import cmof.Operation;
 import cmof.Property;
 import hub.sam.mof.instancemodel.ClassifierSemantics;
+import hub.sam.mof.mas.ExecutionEnvironment;
 import hub.sam.mof.reflection.ImplementationsImpl;
 import hub.sam.mof.reflection.ObjectDlg;
 
@@ -19,9 +20,9 @@ public class AsImplementations extends ImplementationsImpl {
 
 	private Map<Feature, AsBehavior> behaviors = new HashMap<Feature, AsBehavior>();
 	private Set<Object> hasNoBehavior = new HashSet<Object>();
-	private final AsExecutionEnvironment environment;
+	private final ExecutionEnvironment environment;
 
-	public AsImplementations(List<ObjectDlg> delegates, AsExecutionEnvironment environment) {
+	public AsImplementations(List<ObjectDlg> delegates, ExecutionEnvironment environment) {
 		super(delegates, null);
 		this.environment = environment;
 	}

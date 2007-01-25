@@ -74,7 +74,7 @@ public class Misc extends AbstractRepository {
     
     public void testObjectsOfExtent() throws Exception {
     	repository.loadXmiIntoExtent(extent, m3, "resources/models/test/warehouse.xml");
-    	UmlClass type = (UmlClass)m3Extent.query("Package:cmof/Class:Type");
+    	UmlClass type = (UmlClass)m3Extent.query("Package:cmof/Class:NamedElement");
     	extent.objectsOfType(type, true).size();
     }
 }

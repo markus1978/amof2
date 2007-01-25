@@ -1,7 +1,7 @@
 package hub.sam.mof.as.actions;
 
-import hub.sam.mof.as.AsExecutionEnvironment;
 import hub.sam.mof.as.AsExecutionFrame;
+import hub.sam.mof.mas.ExecutionEnvironment;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,7 +27,7 @@ public class IterateAction extends ExpressionAction {
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public void invoke(Action action, List in, List out, Object context, AsExecutionEnvironment environment, AsExecutionFrame frame) {
+	public void invoke(Action action, List in, List out, Object context, ExecutionEnvironment environment, AsExecutionFrame frame) {
 		setAction(action);
 		Iterator iterator = frame.getIterators().get(getAction().getBody().get(2));
 		if (iterator == null) {

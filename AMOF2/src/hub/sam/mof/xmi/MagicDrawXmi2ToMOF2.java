@@ -21,6 +21,7 @@ package hub.sam.mof.xmi;
 
 import hub.sam.mof.instancemodel.ClassInstance;
 import hub.sam.mof.instancemodel.InstanceModel;
+import hub.sam.mof.instancemodel.ReferenceValue;
 import hub.sam.mof.instancemodel.ValueSpecification;
 import hub.sam.mopa.Name;
 import hub.sam.mopa.Pattern;
@@ -113,11 +114,17 @@ public class MagicDrawXmi2ToMOF2 extends PatternClass implements XmiTransformato
             @Name("r") ClassInstance<XmiClassifier,String,String> r) {
         String realizingClassifier = getUnspecifiedValue(r, "client", 0);
         String realizedClassifier = getUnspecifiedValue(r, "supplier", 0);
-        model.getInstance(realizingClassifier).addValue("metaClassifier", model.createInstanceValue(
-                model.getInstance(realizedClassifier)), null);
+        if (realizedClassifier == null && realizedClassifier == null) {
+        	// MagicDraw 12
+        	((ReferenceValue)r.get("client").getValues(null).get(0)).getInstance().addValue("metaClassifier", 
+        			model.createInstanceValue(((ReferenceValue)r.get("supplier").getValues(null).get(0)).getInstance()), null);
+        } else {
+	        model.getInstance(realizingClassifier).addValue("metaClassifier", model.createInstanceValue(
+	                model.getInstance(realizedClassifier)), null);
+        }
         p.get("ownedMember").getValues(null).remove(model.createInstanceValue(r));
         r.setComposite(null);
-        r.delete();
+        r.delete();        
     }
 
     //c=Class(g=generalization:Generalization) -> {

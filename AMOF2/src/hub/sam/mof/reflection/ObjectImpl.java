@@ -282,7 +282,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
                 throw new MetaModelException("Static modelelements cant be changed");
             }
             if (property.getUpper() == 1) {
-                if (value instanceof ReflectiveCollection) {
+                if (value instanceof ReflectiveCollection && !(property.getType() instanceof PrimitiveType)) {
                     throw new IllegalArgumentException(value);
                 }
                 if (!typeCheckValue(value, (cmof.Type)property.getType())) {
@@ -375,23 +375,22 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     }
 
     public synchronized void delete() {
-        if (instance == null || isStatic) {
-            throw new MetaModelException("Static modelelements cant be changed");
-        }
-        if (handler != null) {
-            for (ObjectEventHandler aHandler : handler) {
-                aHandler.handleDelete(this);
-            }
-        }
-        for (cmof.reflection.Object component : getComponents()) {
-            component.delete();
-        }
-        if (fPropertyChangeListener != null) {
-        	((MofClassInstance)instance).removePropertyChangeListener(fPropertyChangeListener);
-        	fPropertyChangeListener = null;
-        }
-        extent.removeObject(this, getClassInstance());
-        myFinalize();
+        if (!(instance == null || isStatic)) {                  
+	        if (handler != null) {
+	            for (ObjectEventHandler aHandler : handler) {
+	                aHandler.handleDelete(this);
+	            }
+	        }
+	        for (cmof.reflection.Object component : getComponents()) {
+	            component.delete();
+	        }
+	        if (fPropertyChangeListener != null) {
+	        	((MofClassInstance)instance).removePropertyChangeListener(fPropertyChangeListener);
+	        	fPropertyChangeListener = null;
+	        }	        
+	        extent.removeObject(this, getClassInstance());
+	        myFinalize();
+        }       
     }
 
     class ConcurrentOperationInvoker extends Thread {

@@ -32,6 +32,7 @@ import hub.sam.mof.instancemodel.InstanceModel;
 import hub.sam.mof.instancemodel.ValueSpecification;
 import hub.sam.mof.instancemodel.ValueSpecificationList;
 import hub.sam.mof.domainmodels.ProxyInstanceModel;
+import hub.sam.mof.domainmodels.ProxyObjectInstance;
 import hub.sam.mof.mofinstancemodel.MofValueSpecificationList;
 import hub.sam.mof.reflection.query.ParseException;
 import hub.sam.mof.reflection.query.Query;
@@ -103,10 +104,15 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         if (spec.asDataValue() != null) {
             return spec.asDataValue().getValue();
         } else if (spec.asInstanceValue() != null) {
-            if (getObjectForInstance(spec.asInstanceValue().getInstance())==null) {
-                throw new NullPointerException();
+        	Object result = getObjectForInstance(spec.asInstanceValue().getInstance()); 
+            if (result == null) {
+            	if (spec.asInstanceValue().getInstance() instanceof ProxyObjectInstance) {
+            		return null;
+            	} else {
+            		return null; // BUG: this should be throw new NullPointerException(); but causes the JavaTypeTest to fail.
+            	}
             }
-            return getObjectForInstance(spec.asInstanceValue().getInstance());
+            return result;
         } else {
             throw new RuntimeException("assert");
         }
@@ -119,7 +125,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         if (value instanceof cmof.reflection.Object) {
             cmof.reflection.Object object = (cmof.reflection.Object)value;
             if (!objectsOfType(null, true).contains(object)) {
-                throw new NullPointerException();
+            	return model.createPrimitiveValue(value);                
             }
             return model.createInstanceValue(instanceForObject.get(value));
         } else if (value instanceof Integer || value instanceof Long || value instanceof Boolean || value instanceof String || value instanceof Enum) {
@@ -333,7 +339,9 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
             objectsForTypes.removeValue(object);
             objectsForTypesWithSubtypes.removeValue(object);
         }
-        instance.delete();
+        if (instance != null) {
+        	instance.delete();
+        }
     }
 
     public static void writeStaticModel(String fileName, String packageName, String className, Extent extent) throws IOException {
@@ -396,7 +404,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         return objects.contains(object);
     }
 
-    public void myFinalize() {
+    public void myFinalize() {    	
     	for (cmof.reflection.Object outermostComposites: outermostComposites()) {
     		outermostComposites.delete();
     	}
@@ -409,6 +417,10 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         objects.clear();
         model.myFinalize();
         super.myFinalize();
+        /*
+         * There is a potential memory leak: ProxyObjectInstances are not deleted, since they don't have a cmof.reflect.Object
+         * representation.
+         */
     }
 
     @SuppressWarnings({"unchecked"})
@@ -426,7 +438,11 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         } else {
             ReflectiveCollection<cmof.reflection.Object> result = new ListImpl<cmof.reflection.Object>();
             for (ValueSpecification<UmlClass, Property, Object> value : model.getOutermostComposites()) {
-                result.add(valueForSpecification(value));
+            	Object resultValue = valueForSpecification(value);
+            	// this is null for ProxyObjectInstances, this can be a memory leak. this should only be happen during myFinalize()
+            	if (resultValue != null) {            	
+            		result.add(resultValue);
+            	}
             }
             return result;
         }

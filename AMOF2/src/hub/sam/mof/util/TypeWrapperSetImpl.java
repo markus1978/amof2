@@ -21,6 +21,9 @@ package hub.sam.mof.util;
 
 import java.util.Iterator;
 
+import sun.misc.FpUtils;
+
+import cmof.Property;
 import cmof.common.ReflectiveCollection;
 import hub.sam.mof.reflection.ObjectImpl;
 import hub.sam.mof.reflection.client.impl.ClientObjectImpl;
@@ -100,5 +103,10 @@ public class TypeWrapperSetImpl<E> implements ReflectiveCollection<E> {
 
 	public void clear() {        
 		untypedSet.clear();		        
+	}
+	
+	// required by the oslo OCL adapter
+	public Property getProperty() {
+		return fObject.getSemantics().getProperty(propertyName);
 	}
 }

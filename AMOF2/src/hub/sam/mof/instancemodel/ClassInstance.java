@@ -19,7 +19,10 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.instancemodel;
 
+import cmof.Property;
 import cmof.exception.*;
+
+import hub.sam.mof.Repository;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -97,7 +100,10 @@ public class ClassInstance<C,P,DataValue> extends hub.sam.util.Identity {
     }
 
     public final void setComposite(ClassInstance<C, P, DataValue> composite) {
-        if (getComposite() != null && composite != null && composite != getComposite()) {
+        if (getComposite() != null && composite != null && composite != getComposite()) {        
+        	Property name = (Property)Repository.getLocalRepository().getExtent(Repository.CMOF_EXTENT_NAME).query("Package:cmof/Class:NamedElement/Property:name");
+        	System.out.println(getComposite().get((P)name));
+        	System.out.println(composite.get((P)name));
             throw new CompositeViolation(composite);
         }
         if (this.composite != null) {

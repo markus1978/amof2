@@ -1,8 +1,8 @@
 package hub.sam.mof.as.actions;
 
-import hub.sam.mof.as.AsAnalysisEnvironment;
-import hub.sam.mof.as.AsExecutionEnvironment;
-import hub.sam.mof.as.AsSemanticException;
+import hub.sam.mof.mas.AnalysisEnvironment;
+import hub.sam.mof.mas.SemanticException;
+import hub.sam.mof.mas.ExecutionEnvironment;
 import hub.sam.mof.Repository;
 import as.ActivityEdge;
 import as.ContextExtensionPin;
@@ -24,14 +24,15 @@ public class AsGuardExpression {
 		return expression.substring(1, expression.length()-1);
 	}
 
-	public void staticSemantics(GuardSpecification guardSpecification, Type contextType, AsAnalysisEnvironment environment) throws AsSemanticException {
+	public void staticSemantics(GuardSpecification guardSpecification, Type contextType, AnalysisEnvironment environment) throws SemanticException {
 
 		if (guardSpecification.getInput() != null) {
 			ReflectiveCollection<? extends ActivityEdge> incomingValues = guardSpecification.getInput().getIncoming();
 			Type inputType = ((ValueNode)incomingValues.iterator().next().getSource()).getType();
 			ContextPin contextPin = guardSpecification.getInput();
 			if (contextPin instanceof ContextExtensionPin) {
-				environment.addAdditionalContextAttribute((ContextExtensionPin)contextPin, null, inputType, contextType);
+				environment.addAdditionalContextAttribute(((ContextExtensionPin)contextPin).getExtensionName(),
+						null, inputType, contextType);
 			} else {
 				contextType = inputType;
 			}
@@ -44,7 +45,7 @@ public class AsGuardExpression {
 		environment.removeAdditionalAttribute();
 	}
 
-	public boolean invoke(GuardSpecification guardSpecification, Object context, AsExecutionEnvironment environment) {
+	public boolean invoke(GuardSpecification guardSpecification, Object context, ExecutionEnvironment environment) {
 		return ((Boolean)environment.evaluateInvariant(getExpression(guardSpecification),
 				((cmof.reflection.Object)context).getMetaClass(), context)).booleanValue();
 	}

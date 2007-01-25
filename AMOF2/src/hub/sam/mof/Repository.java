@@ -375,6 +375,38 @@ public class Repository extends hub.sam.util.Identity {
             }
         }
     }
+    
+    public void generateCode(Extent extent, String path, Collection<String> forPackages) {
+        Collection<cmof.reflection.Object> outermostContainer = new HashSet<cmof.reflection.Object>();
+        for (cmof.reflection.Object obj : extent.objectsOfType(null, true)) {
+            outermostContainer.add(obj.getOutermostContainer());
+        }
+
+        new ResolveJavaCodeClashes().resolveJavaCodeClashes(
+                outermostContainer,
+                (cmof.cmofFactory)createFactory(
+                        extent, (cmof.Package)getExtent(CMOF_EXTENT_NAME).
+                        query("Package:cmof")));
+
+        StreamFactory streamFactory = new StreamFactory(path);
+        for (cmof.reflection.Object element : extent.objectsOfType(null, true)) {
+            if (element instanceof cmof.Package) {
+                if (((cmof.Package)element).getOwner() == null) {
+                    if (forPackages.contains((((NamedElement)element).getName()))) {
+                        try {
+                            new PackageGenerator(streamFactory)
+                                    .generate(new java.util.Vector<String>(), (cmof.Package)element);
+                        } catch (GenerationException ex) {
+                            if (ex.getExceptions().size() > 0) {
+                                AbstractClusterableException.printReport(ex, System.err);
+                            }
+                            throw new GenerationException("Errors during code generation.");
+                        }
+                    }
+                }
+            }
+        }    	
+    }
 
     public void generateStaticModel(Extent extent, String className, String path)
             throws java.io.IOException, GenerationException {

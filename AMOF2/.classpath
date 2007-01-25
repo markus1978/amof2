@@ -4,7 +4,6 @@
 	<classpathentry kind="src" path="resources/test/generated-src"/>
 	<classpathentry kind="src" path="resources/repository/generated-src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="resources/lib/oslo.jar"/>
 	<classpathentry kind="lib" path="resources/lib/jdom.jar"/>
 	<classpathentry kind="lib" path="resources/lib/ant.jar"/>
 	<classpathentry kind="lib" path="resources/lib/mopa.jar"/>
@@ -13,5 +12,8 @@
 	<classpathentry kind="lib" path="resources/lib/jbossall-client.jar"/>
 	<classpathentry kind="lib" path="resources/lib/junit.jar"/>
 	<classpathentry kind="lib" path="C:/Programme/Java/jdk1.5.0_09/lib/tools.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/OSLO"/>
+	<classpathentry kind="lib" path="resources/lib/draw2d.jar"/>
+	<classpathentry kind="lib" path="resources/lib/oslo.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>

@@ -3,10 +3,10 @@ package hub.sam.mof.as.actions;
 import java.util.List;
 
 import hub.sam.mof.as.AsAction;
-import hub.sam.mof.as.AsAnalysisEnvironment;
-import hub.sam.mof.as.AsExecutionEnvironment;
 import hub.sam.mof.as.AsExecutionFrame;
-import hub.sam.mof.as.AsSemanticException;
+import hub.sam.mof.mas.AnalysisEnvironment;
+import hub.sam.mof.mas.SemanticException;
+import hub.sam.mof.mas.ExecutionEnvironment;
 import hub.sam.mof.util.AssertionException;
 
 import as.Action;
@@ -34,10 +34,10 @@ public abstract class AbstractAction implements AsAction {
 		for (InputPin inputPin: getAction().getInput()) {
 			if (inputPin instanceof ContextPin) {
 				if (inputPin instanceof ContextExtensionPin) {
-					throw new AsSemanticException("For action " + toString() + " no context extensions are allowed.");
+					throw new SemanticException("For action " + toString() + " no context extensions are allowed.");
 				}
 				if (hasCustomContext) {
-					throw new AsSemanticException("For action " + toString() + " only one context parameter is allowed.");
+					throw new SemanticException("For action " + toString() + " only one context parameter is allowed.");
 				} 
 				hasCustomContext = true;
 				contextType = inputPin.getType();
@@ -89,10 +89,10 @@ public abstract class AbstractAction implements AsAction {
 			badArgumentCount = true;
 		}
 		if (badArgumentCount) {
-			throw new AsSemanticException("Action " + toString() + " has wrong number of arguments.");
+			throw new SemanticException("Action " + toString() + " has wrong number of arguments.");
 		}
 	}
  	
-	public abstract void staticSemantics(Action action, Type contextType, AsAnalysisEnvironment environment) throws AsSemanticException;
-	public abstract void invoke(Action action, List in, List<Object> out, Object context, AsExecutionEnvironment environment, AsExecutionFrame frame);
+	public abstract void staticSemantics(Action action, Type contextType, AnalysisEnvironment environment) throws SemanticException;
+	public abstract void invoke(Action action, List in, List<Object> out, Object context, ExecutionEnvironment environment, AsExecutionFrame frame);
 }

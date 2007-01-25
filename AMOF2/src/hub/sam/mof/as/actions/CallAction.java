@@ -9,10 +9,10 @@ import cmof.Type;
 import cmof.UmlClass;
 import cmof.common.ReflectiveSequence;
 import cmof.reflection.Argument;
-import hub.sam.mof.as.AsAnalysisEnvironment;
-import hub.sam.mof.as.AsExecutionEnvironment;
 import hub.sam.mof.as.AsExecutionFrame;
-import hub.sam.mof.as.AsSemanticException;
+import hub.sam.mof.mas.AnalysisEnvironment;
+import hub.sam.mof.mas.SemanticException;
+import hub.sam.mof.mas.ExecutionEnvironment;
 import hub.sam.mof.mofinstancemodel.MofClassSemantics;
 import hub.sam.mof.mofinstancemodel.MofClassifierSemantics;
 import hub.sam.mof.ocl.MofOclModelElementTypeImpl;
@@ -32,11 +32,11 @@ public class CallAction extends AbstractAction {
         return getAction().getBody().size() == 3;
     }
 
-    protected Operation getFeature(UmlClass contextType, AsAnalysisEnvironment environment) {
+    protected Operation getFeature(UmlClass contextType, AnalysisEnvironment environment) {
         return resolveFeature(contextType, environment);
     }
 
-    protected Operation resolveFeature(UmlClass context, AsAnalysisEnvironment environment) {
+    protected Operation resolveFeature(UmlClass context, AnalysisEnvironment environment) {
         if (semantics == null) {
             semantics = MofClassifierSemantics.createClassClassifierForUmlClass(context);
         }
@@ -53,11 +53,11 @@ public class CallAction extends AbstractAction {
                 oclModelElementTypeToCreate = environment.getOclEnvironment().lookup(body);
             }
             if (!(oclModelElementTypeToCreate instanceof MofOclModelElementTypeImpl)) {
-                throw new AsSemanticException("The arguments of action " + toString() + " does not match to a class proxy.");
+                throw new SemanticException("The arguments of action " + toString() + " does not match to a class proxy.");
             }
 			Object mofDelegate = ((MofOclModelElementTypeImpl)oclModelElementTypeToCreate).getMofDelegate();
             if (!(mofDelegate instanceof UmlClass)) {
-                throw new AsSemanticException("The arguments of action " + toString() + " does not match to a class proxy.");
+                throw new SemanticException("The arguments of action " + toString() + " does not match to a class proxy.");
             }
             semantics = MofClassifierSemantics.createClassClassifierForUmlClass((UmlClass)mofDelegate);
         } else {
@@ -72,17 +72,17 @@ public class CallAction extends AbstractAction {
         }
         Operation operation = semantics.getFinalOperation(operationName);
         if (operation == null) {
-            throw new AsSemanticException("The arguments of action " + toString() + " does not match to an operation in the given context.");
+            throw new SemanticException("The arguments of action " + toString() + " does not match to an operation in the given context.");
         }
         return operation;
     }
 
 
     @Override
-    public void staticSemantics(Action action, Type contextType, AsAnalysisEnvironment environment) throws AsSemanticException {
+    public void staticSemantics(Action action, Type contextType, AnalysisEnvironment environment) throws SemanticException {
         setAction(action);
         if (getAction().getBody().size() > 3 || getAction().getBody().size() < 2) {
-            throw new AsSemanticException("Action " + toString() + " has wrong number of arguments.");
+            throw new SemanticException("Action " + toString() + " has wrong number of arguments.");
         }
         contextType = getContextType(contextType);
         if (!(contextType instanceof UmlClass)) {
@@ -94,23 +94,23 @@ public class CallAction extends AbstractAction {
         Type requiredType = null;
         for (OutputPin outputPin: getAction().getOutput()) {
             if (requiredType != null) {
-                throw new AsSemanticException("Action " + toString() + " has wrong number of arguments.");
+                throw new SemanticException("Action " + toString() + " has wrong number of arguments.");
             } else {
                 requiredType = outputPin.getType();
             }
         }
         if (operation.getType() == null && requiredType != null) {
-            throw new AsSemanticException("Action " + toString() + " has wrong number of arguments.");
+            throw new SemanticException("Action " + toString() + " has wrong number of arguments.");
         }
         if (operation.getType() != null && requiredType != null && !operation.getType().conformsTo(requiredType)) {
-            throw new AsSemanticException("The return type of action " + toString() + " does not match its output parameter " +
+            throw new SemanticException("The return type of action " + toString() + " does not match its output parameter " +
                     "(" + operation.getType() + " vs. " + requiredType + ").");
         }
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public void invoke(Action action, List in, List out, Object context, AsExecutionEnvironment environment, AsExecutionFrame frame) {
+    public void invoke(Action action, List in, List out, Object context, ExecutionEnvironment environment, AsExecutionFrame frame) {
         setAction(action);
         Operation opToCall = getFeature(((cmof.reflection.Object)context).getMetaClass(), environment);
         ReflectiveSequence<Argument> args = new ReadOnlyListWrapper<Argument, Object>(in, new Wrapper<Argument, Object>() {

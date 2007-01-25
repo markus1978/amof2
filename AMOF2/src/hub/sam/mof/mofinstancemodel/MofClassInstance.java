@@ -35,6 +35,7 @@ import hub.sam.mof.mofinstancemodel.events.InsertEvent;
 import hub.sam.mof.mofinstancemodel.events.PropertyChangeEventListener;
 import hub.sam.mof.mofinstancemodel.events.PropertyChangeEvent;
 import hub.sam.mof.mofinstancemodel.events.RemoveEvent;
+import hub.sam.mof.mofinstancemodel.events.SetEvent;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -101,7 +102,9 @@ public class MofClassInstance extends ClassInstance<UmlClass,Property,java.lang.
 					listener.insert((InsertEvent)event);
 				} else if (event instanceof RemoveEvent) {
 					listener.remove((RemoveEvent)event);
-				}
+				} else if (event instanceof SetEvent) {
+					listener.set((SetEvent)event);
+				}				
 	    	}
     	}
     }

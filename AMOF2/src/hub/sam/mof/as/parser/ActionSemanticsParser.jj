@@ -26,11 +26,12 @@ import cmof.common.*;
 import as.*;
 import hub.sam.mof.as.*;
 import hub.sam.mof.util.*;
+import hub.sam.mof.mas.*;
 
 public class ActionSemanticsParser {
     private asFactory factory = null;
     private int unique = 0;
-    private Collection<AsSemanticException> errors = new Vector<AsSemanticException>();
+    private Collection<SemanticException> errors = new Vector<SemanticException>();
 
     public String getUniqueName() {
         return "__unique_name_" + unique++;
@@ -40,7 +41,7 @@ public class ActionSemanticsParser {
         this.factory = factory;
     }
 
-    public Collection<AsSemanticException> getErrors() {
+    public Collection<SemanticException> getErrors() {
         return errors;
     }
 }
@@ -333,7 +334,7 @@ ActivityEdge in_parameter(ActivityEdge root, Activity activity, Map<String,Value
     )?
     {
         if (object == null) {
-            errors.add(new AsSemanticException("The object with name " + name.image + " does not exisit."));
+            errors.add(new SemanticException("The object with name " + name.image + " does not exisit."));
             return root;
         }
         if (pin == null) {
@@ -342,7 +343,7 @@ ActivityEdge in_parameter(ActivityEdge root, Activity activity, Map<String,Value
             } else if (node instanceof GuardSpecification) {
                 pin = factory.createContextPin();
             } else {
-                errors.add(new AsSemanticException("An input parameter is not allowed for a " + node.getClass().getName() + "."));
+                errors.add(new SemanticException("An input parameter is not allowed for a " + node.getClass().getName() + "."));
                 return root;
             }
         }
@@ -355,7 +356,7 @@ ActivityEdge in_parameter(ActivityEdge root, Activity activity, Map<String,Value
         } else if (node instanceof GuardSpecification) {
             ((GuardSpecification)node).setInput((ContextPin)pin);
         } else {
-            errors.add(new AsSemanticException("This kind of input parameter is not allowed for a " + node.getClass().getName() + "."));
+            errors.add(new SemanticException("This kind of input parameter is not allowed for a " + node.getClass().getName() + "."));
             return root;
         }
         return root;
@@ -391,7 +392,7 @@ void out_parameter(Activity activity, Map<String,ValueNode> objects, ActivityNod
     )
     {
         if (object == null) {
-            errors.add(new AsSemanticException("The object with name " + name.image + " does not exisit."));
+            errors.add(new SemanticException("The object with name " + name.image + " does not exisit."));
             return;
         }
         if (node instanceof Action) {
@@ -403,7 +404,7 @@ void out_parameter(Activity activity, Map<String,ValueNode> objects, ActivityNod
         } else if (node instanceof InitialNode) {
             activity.getArgument().add(object);
         } else {
-            errors.add(new AsSemanticException("Output parameter is not allowed for a " + node.getClass().getName() + "."));
+            errors.add(new SemanticException("Output parameter is not allowed for a " + node.getClass().getName() + "."));
             return;
         }
     }
