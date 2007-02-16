@@ -22,7 +22,7 @@
         <mkdir dir="${basedir}/build"/>
         <taskdef name="mofgencode" classname="hub.sam.mof.ant.GenerateCode" classpathref="classpath"/>
         <typedef name="xmifile" classname="hub.sam.mof.ant.XmiFile" classpathref="classpath"/>
-        <taskdef name="mofmerge" classname="hub.sam.mof.ant.MergeModel" classpathref="classpath"/>
+        <taskdef name="mofmerge" classname="hub.sam.mof.ant.MergeModel" classpathref="classpath" />
     </target>
 
 	<target name="prepare" depends="init">
@@ -56,5 +56,17 @@
     		<classpath refid="classpath"/>
 			<test name="umltest.ReadASampleModel"/>
 		</junit>
+    </target>
+    
+    <target name="UML L3 generation" depends="init">
+        <!--<mofmerge dest="${basedir}/resources/models/L3.merged.cmof.xml" packageToMerge="Package:L3">
+            <xmifile key="Infrastructure.cmof" file="${basedir}/../../models/uml/Infrastructure.cmof.xml"/>
+            <xmifile key="Superstructure.cmof" file="${basedir}/../../models/uml/Superstructure.cmof.xml"/>
+            <xmifile key="L0.cmof" file="${basedir}/resources/models/L0.cmof.xml"/>
+            <xmifile key="L1.cmof" file="${basedir}/resources/models/L1.cmof.xml"/>
+            <xmifile key="L2.cmof" file="${basedir}/resources/models/L2.cmof.xml"/>
+            <xmifile key="L3.cmof" file="${basedir}/resources/models/L3.cmof.xml"/>
+        </mofmerge>-->
+    	<mofgencode src="${basedir}/resources/models/L3.merged.cmof.xml" destdir="${basedir}/generated-src"/>
     </target>
 </project>

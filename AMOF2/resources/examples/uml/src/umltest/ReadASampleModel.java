@@ -15,7 +15,7 @@ public class ReadASampleModel extends TestCase {
     }
 
     public static void main(String[] args) throws Exception {
-        Repository repo = Repository.getLocalRepository();
+        Repository repo = Repository.getLocalRepository();        
         Extent cmofExtent = repo.getExtent(Repository.CMOF_EXTENT_NAME);
         cmof.Package cmofPackage = (cmof.Package)cmofExtent.query("Package:cmof");
 
@@ -24,6 +24,6 @@ public class ReadASampleModel extends TestCase {
         cmof.Package umlPackage = (cmof.Package)umlExtent.query("Package:uml");
 
         Extent modelExtent = repo.createExtent("model");
-        repo.loadXmiIntoExtent(modelExtent, umlPackage, "resources/models/TestModel.mdxml");
+        repo.loadXmiIntoExtent(modelExtent, umlPackage, "resources/models/TestModel.mdxml");        
     }
 }

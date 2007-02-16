@@ -122,7 +122,11 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
     
     private void checkReadOnly() {
         if (property.isReadOnly()) {
-            throw new cmof.exception.IllegalArgumentException("A readonly property can not be changed: " + property.getQualifiedName());
+        	if (Repository.getConfiguration().isOnlyWarnOnReadOnlyViolations()) {
+        		System.err.println("Warning: " + "A readonly property was changed: " + property.getQualifiedName());
+        	}  else {
+        		throw new cmof.exception.IllegalArgumentException("A readonly property can not be changed: " + property.getQualifiedName());
+        	}
         } 
     }
 
@@ -154,8 +158,12 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
 	}
 
     private void checkDerived() {
-    	if (property.isDerived() &&  !property.isDerivedUnion()) {    		
-        	throw new cmof.exception.IllegalArgumentException("A derived property can not be changed: " + property.getQualifiedName());
+    	if (property.isDerived() &&  !property.isDerivedUnion()) {
+    		if (Repository.getConfiguration().isOnlyWarnOnReadOnlyViolations()) {
+        		System.err.println("Warning: " + "A derived property was changed: " + property.getQualifiedName());
+        	}  else {
+        		throw new cmof.exception.IllegalArgumentException("A derived property can not be changed: " + property.getQualifiedName());
+        	}
         }
     }
 

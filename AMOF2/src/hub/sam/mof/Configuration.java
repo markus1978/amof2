@@ -11,6 +11,7 @@ public class Configuration {
 	private boolean enableIdentification = false;
 	private boolean generousXMI = true;
 	private boolean threadSafe = false;
+	private boolean onlyWarnOnReadOnlyViolations = true;
 	private String xmlNamespacePrefixForXsiType = "xsi";
 	
 	public boolean allowsMutuableDerivedUnions() {
@@ -66,5 +67,13 @@ public class Configuration {
 	public String getXmlNSPrefixForXsiType() {
 		return xmlNamespacePrefixForXsiType;
 	}
+	public boolean isOnlyWarnOnReadOnlyViolations() {
+		return onlyWarnOnReadOnlyViolations;
+	}
+	public void setOnlyWarnOnReadOnlyViolations(boolean onlyWarnOnReadOnlyViolations) {
+		this.onlyWarnOnReadOnlyViolations = onlyWarnOnReadOnlyViolations;
+	}
+	
+	
 	
 }

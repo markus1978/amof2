@@ -168,7 +168,7 @@ public class MergeTest extends TestCase {
             }
         }
         for(cmof.reflection.Object obj: toDelete) {
-            if (((ObjectImpl)obj).getClassInstance().isValid()) {
+            if (((ObjectImpl)obj).getClassInstance() != null && ((ObjectImpl)obj).getClassInstance().isValid()) {
                 obj.delete();
             }
         }
