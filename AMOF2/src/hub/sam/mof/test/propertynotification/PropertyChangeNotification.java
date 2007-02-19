@@ -70,7 +70,7 @@ public class PropertyChangeNotification extends AbstractRepository
 
         // test setting the same
         elem.setIdentifier("test");
-        assertTrue(!notified); // do not notify if nothing changed
+        assertTrue(notified); // do notify if nothing changed?
         
         ((ElementImpl) elem).delete();
         notified = false;    	
@@ -81,7 +81,7 @@ public class PropertyChangeNotification extends AbstractRepository
      * Tests unsetting a property.
      *
      */
-    public void xtestUnsetProperty() {
+    public void testUnsetProperty() {
     	currentPropertyName = "container";
         
     	ElementImpl elem = (ElementImpl) factory.createElement();
@@ -102,7 +102,7 @@ public class PropertyChangeNotification extends AbstractRepository
     /**
      * Runs some tests on an set.
      */
-    public void xtestSetProperty() {
+    public void testSetProperty() {
     	ElementImpl elem;
     	currentPropertyName = "content";
     	((ContainerImpl) container).addListener(this);
@@ -204,7 +204,7 @@ public class PropertyChangeNotification extends AbstractRepository
     /**
      * Runs some tests on an list.
      */
-    public void xtestListProperty() {
+    public void testListProperty() {
     	ElementImpl elem;
     	currentPropertyName = "orderedContent";
     	((ContainerImpl) container).addListener(this);
@@ -227,6 +227,55 @@ public class PropertyChangeNotification extends AbstractRepository
         // TODO: not sure if adding the same element at the same position
         //       should be tested
 
+        // remove the element
+        container.getOrderedContent().remove(0);
+        assertTrue(notified);
+        // clean up
+        notified = false;
+
+        ((ElementImpl) elem).delete();
+
+        // bring up a list of elements
+        java.util.List<Element> l = new java.util.ArrayList<Element>();
+        for(int i=0; i<3; i++) {
+        	elem = (ElementImpl) factory.createElement();
+        	l.add(elem);
+        }
+        
+        // test adding them all
+        container.getOrderedContent().addAll(0,l);
+        assertTrue(notified);
+        // clean up
+        notified = false;
+        
+        // TODO: not sure if adding them all again should be tested
+      
+    	currentPropertyName = "";
+    }
+    
+    /**
+     * Runs some tests on an list.
+     */
+    public void testOppositeListProperty() {
+    	ElementImpl elem;
+    	currentPropertyName = "content";
+    	((ContainerImpl) container).addListener(this);
+        
+    	elem = (ElementImpl) factory.createElement();
+
+    	// adding an element
+    	container.getOrderedContent().add(0,elem);
+        assertTrue(notified);
+        // clean up
+        notified = false;
+
+        // setting an element at a position
+        Element elem2 = factory.createElement();
+        container.getOrderedContent().set(0,elem2);
+        assertTrue(notified);
+        // clean up
+        notified = false;
+        
         // remove the element
         container.getOrderedContent().remove(0);
         assertTrue(notified);

@@ -33,13 +33,20 @@ public class UpdateGraphNode {
     private Collection<UpdateGraphNode> adjacentReasonings = new HashSet<UpdateGraphNode>();
     private final MofValueSpecificationList owner;
     private int position = -1;
+    private final boolean propagateChangeEvent;
 
-    public UpdateGraphNode(ValueSpecification<UmlClass,Property,java.lang.Object> value, MofValueSpecificationList owner) {
+    public UpdateGraphNode(ValueSpecification<UmlClass,Property,java.lang.Object> value, MofValueSpecificationList owner,
+    		boolean propagateChangeEvent) {
         super();
         this.value = value;
         this.owner = owner;
+        this.propagateChangeEvent = propagateChangeEvent;
     }
 
+    public boolean getPropagateChangeEvent() {
+    	return propagateChangeEvent;
+    }
+    
     public void setPosition(int position) {
     	this.position = position;
     }

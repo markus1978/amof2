@@ -255,10 +255,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         checkReadOnly();
         checkDerived();
     	ValueSpecification<UmlClass,Property,java.lang.Object> value = (ValueSpecification<UmlClass,Property,java.lang.Object>)o;
-        boolean result = new UpdateGraphCreation().add(this, qualifier, value).primaryAdd();
-        if (result) {
-        	firePropertyChanged(new InsertEvent(getProperty(), size() - 1, value));
-        }
+        boolean result = new UpdateGraphCreation().add(this, qualifier, value, true).primaryAdd();
         return result;
     }
 
@@ -286,9 +283,6 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
             removed = true;
             index = values.indexOf(value);
         }
-        if (removed) {
-        	firePropertyChanged(new RemoveEvent(getProperty(), index, value));
-        }
         return removed;
     }
 
@@ -315,7 +309,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         		add(index, o);
         	}
         }
-        performingSet = false;
+        performingSet = false;        
         firePropertyChanged(new SetEvent(getProperty(), index,  (ValueSpecification<UmlClass,Property,java.lang.Object>)o, 
         		removedObject));
         return removedObject;
@@ -336,10 +330,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         checkReadOnly();
         checkDerived();
         ValueSpecification<UmlClass,Property,java.lang.Object> value = (ValueSpecification<UmlClass,Property,java.lang.Object>)o;
-        new UpdateGraphCreation().add(this, qualifier, value).primaryAdd(index);
-        if (!performingSet) {
-        	firePropertyChanged(new InsertEvent(getProperty(), index,  (ValueSpecification<UmlClass,Property,java.lang.Object>)o));
-        }
+        new UpdateGraphCreation().add(this, qualifier, value, true).primaryAdd(index);
     }
 
     @Override
@@ -352,10 +343,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
             node.primaryRemove();
             removed = true;
         }
-        if (removed) {
-        	if (!performingSet) {
-        		firePropertyChanged(new RemoveEvent(getProperty(), index,  removedObject));
-        	}        	
+        if (removed) {   	
             return removedObject;
         }        
         return null;
@@ -365,7 +353,8 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
 	 * any depending slots.
      */
     @SuppressWarnings("unchecked")
-	public boolean addPlain(ValueSpecification<UmlClass,Property,java.lang.Object> value) {
+	public boolean addPlain(ValueSpecification<UmlClass,Property,java.lang.Object> value, 
+			boolean propagateChangeEvent) {
         boolean returnValue;
         if (property.isUnique()) {
             if (!values.contains(value)) {
@@ -387,14 +376,18 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
             }
         }
 		checkUpperMultiplicity();
+        if (returnValue) {
+        	firePropertyChanged(new InsertEvent(getProperty(), size() - 1, value));
+        }
         return returnValue;
     }
 
 	@SuppressWarnings("unchecked")
-	public boolean removePlain(ValueSpecification<UmlClass,Property,java.lang.Object> value) {
+	public boolean removePlain(ValueSpecification<UmlClass,Property,java.lang.Object> value, boolean propagateChangeEvent) {
         int index = values.indexOf(value);
         if (index != -1) {
-        	removePlain(index);
+        	removePlain(index, propagateChangeEvent);
+            firePropertyChanged(new RemoveEvent(getProperty(), index, value));
         	return true;
         } else {
         	return false;
@@ -402,6 +395,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
     }
 
     @SuppressWarnings("unchecked")
+    @Deprecated
 	public void setPlain(int index, ValueSpecification<UmlClass,Property,java.lang.Object> newValue) {
         ValueSpecification<UmlClass,Property,java.lang.Object> oldValue = values.get(index);
         values.set(index, newValue);
@@ -423,10 +417,12 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         occurencesAdd(newValue);
 		checkLowerMultiplicity();
 		checkUpperMultiplicity();
+
     }
 
     @SuppressWarnings("unchecked")
-	public void addPlain(int index, ValueSpecification<UmlClass,Property,java.lang.Object> value) {
+	public void addPlain(int index, ValueSpecification<UmlClass,Property,java.lang.Object> value,
+			boolean propagateChangeEvent) {
         if (performingSet && index < values.size()) {
             values.set(index, value);
         } else {
@@ -441,10 +437,13 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
             }
         }
 		checkUpperMultiplicity();
+        if (!performingSet) {
+        	firePropertyChanged(new InsertEvent(getProperty(), index,  (ValueSpecification<UmlClass,Property,java.lang.Object>)value));
+        }
     }
 
     @SuppressWarnings("unchecked")
-	public void removePlain(int index) {
+	public void removePlain(int index, boolean propagateChangeEvent) {
         ValueSpecification<UmlClass,Property,java.lang.Object> oldValue = values.get(index);
         if (oldValue == null) {
             return;
@@ -461,6 +460,9 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
                 //owner.getComponents().remove(oldValueAsInstance);
             }
         }
+    	if (!performingSet) {
+    		firePropertyChanged(new RemoveEvent(getProperty(), index,  oldValue));
+    	}      
 		checkLowerMultiplicity();
     }
 
@@ -588,14 +590,14 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
     }
 
     public boolean primaryAdd(UpdateGraphNode node) {
-        boolean added = addPlain(node.getValue());
+        boolean added = addPlain(node.getValue(), node.getPropagateChangeEvent());
         int index = values.lastIndexOf(node.getValue());
         nodes.addNode(index, node, added);
         return added;
     }
 
     public void primaryAdd(int index, UpdateGraphNode node) {
-        addPlain(index, node.getValue());
+        addPlain(index, node.getValue(), node.getPropagateChangeEvent());
         nodes.addNode(index, node, true);
     }
 
@@ -604,7 +606,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         if (index != -1) {
             boolean lastNode = nodes.isLastNode(index, node);
             if (lastNode) {
-                removePlain(index);
+                removePlain(index, node.getPropagateChangeEvent());
             } else {
             	nodes.removeNode(index, node);
             }
@@ -612,7 +614,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
     }
 
     public void primaryRemove(int index, UpdateGraphNode node) {
-        removePlain(index);
+        removePlain(index, node.getPropagateChangeEvent());
         nodes.removeNode(index, node);
     }
 
@@ -705,20 +707,21 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         @SuppressWarnings({"synthetic-access","unchecked"})
 		private UpdateGraphNode add(MofValueSpecificationList forList,
                               ValueSpecification<UmlClass,Property,Object> qualifier,
-                              ValueSpecification<UmlClass,Property,java.lang.Object> value) {
-            if (updatedLists.contains(forList)) {
+                              ValueSpecification<UmlClass,Property,java.lang.Object> value, 
+                              boolean propagateChangeEvent) {
+        	if (updatedLists.contains(forList)) {
                 return null;
             }
             updatedLists.add(forList);
-            UpdateGraphNode node = new UpdateGraphNode(value, forList);
+            UpdateGraphNode node = new UpdateGraphNode(value, forList, propagateChangeEvent);
             for (Property dependedProperty: forList.subsettedPropertys) {
                 if (dependedProperty.getOwner() instanceof cmof.Association) {
                     node.addAjacentReasoning(add(MofLink.findStructureSlotForEnd(
                             dependedProperty, new InstanceValue(forList.owner))
-                            .getValuesAsList(qualifier), qualifier, value));
+                            .getValuesAsList(qualifier), qualifier, value, false));
                 } else {
                     node.addAjacentReasoning(add(forList.owner.getValuesOfFeature(dependedProperty,
-                            qualifier), qualifier, value));
+                            qualifier), qualifier, value, false));
                 }
             }
             Property oppositeProperty = forList.property.getOpposite();
@@ -732,7 +735,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
                 }
                 node.addAjacentReasoning(add(MofLink.findStructureSlotForEnd(
                         redefiningProperty, (InstanceValue)value).getValuesAsList(qualifier), qualifier,
-                        new InstanceValue(forList.owner)));
+                        new InstanceValue(forList.owner), propagateChangeEvent));
             }
             return node;
         }

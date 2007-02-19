@@ -52,8 +52,8 @@ public class MofLink {
         if ((slotOne == null) || (slotTwo == null)) {
             throw new IllegalArgumentException("instances are not compatible with association");
         }
-        slotOne.getValuesAsList(null).addPlain(two);
-        slotTwo.getValuesAsList(null).addPlain(one);
+        slotOne.getValuesAsList(null).addPlain(two, false);
+        slotTwo.getValuesAsList(null).addPlain(one, false);
     }
 
     public static MofLink getLink(Association association, InstanceValue<UmlClass,Property,java.lang.Object> one, InstanceValue<UmlClass,Property,java.lang.Object> two) {
@@ -71,8 +71,8 @@ public class MofLink {
 
     public static void removeLink(Association association, InstanceValue<UmlClass,Property,java.lang.Object> one, InstanceValue<UmlClass,Property,java.lang.Object> two) {
         if (getLink(association, one, two) != null) {
-            findStructureSlotForEnd(association.getMemberEnd().get(1), one).getValuesAsList(null).removePlain(two);
-            findStructureSlotForEnd(association.getMemberEnd().get(0), two).getValuesAsList(null).removePlain(one);
+            findStructureSlotForEnd(association.getMemberEnd().get(1), one).getValuesAsList(null).removePlain(two, false);
+            findStructureSlotForEnd(association.getMemberEnd().get(0), two).getValuesAsList(null).removePlain(one, false);
         }
     }
 
