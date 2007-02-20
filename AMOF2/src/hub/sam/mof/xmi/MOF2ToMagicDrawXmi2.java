@@ -187,7 +187,7 @@ public class MOF2ToMagicDrawXmi2 extends PatternClass implements XmiTransformato
     @Pattern ( order = 97, atype = "Operation", variable = "o")
     public void operationReturn(@Name("o") ClassInstance<XmiClassifier,String,String> o) {
         
-        if (o.get("type").getValues(null).size() > 0) {
+        if (o.get("type") != null && o.get("type").getValues(null).size() > 0) {
             ClassInstance<XmiClassifier, String, String> type = o.get("type").getValues(null).iterator().next().asInstanceValue().getInstance();
             removeAttribute(o, "type", false);
             ClassInstance<XmiClassifier, String, String> parameter = model.createInstance(null, new XmiClassifier("Parameter", "uml"), o);
