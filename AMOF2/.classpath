@@ -14,6 +14,6 @@
 	<classpathentry exported="true" kind="lib" path="resources/lib/oslo.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="lib" path="C:/Programme/Java/jdk1.5.0_09/lib/tools.jar"/>
+	<classpathentry kind="var" path="JAVA_HOME/lib/tools.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>
