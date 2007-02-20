@@ -1,5 +1,6 @@
 package hub.sam.mof.ocl;
 
+import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.javamapping.JavaMapping;
 
 import org.oslo.ocl20.semantics.SemanticsVisitor;
@@ -59,7 +60,7 @@ public class MofEnumerationLiteralImpl implements EnumLiteral {
 	public Object getDelegate() {                            
          try {
              java.lang.Class implementation = null;                        
-             implementation = Thread.currentThread().getContextClassLoader().loadClass(
+             implementation = PlugInActivator.getClassLoader().loadClass(
                  JavaMapping.mapping.getFullQualifiedJavaIdentifier(((MofEnumerationImpl)mofEnumeration).getMofDelegate()));
              for (java.lang.Object enumConstant: implementation.getEnumConstants()) {
                  if (enumConstant.toString().equals(JavaMapping.mapping.getJavaEnumConstantForLiteral(mofEnumerationLiteral))) {                                

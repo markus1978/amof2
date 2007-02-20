@@ -1,5 +1,6 @@
 package hub.sam.mof.ocl;
 
+import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.javamapping.JavaMapping;
 import hub.sam.mof.util.AssertionException;
 
@@ -122,7 +123,7 @@ public class MofEnumerationImpl extends OclAnyTypeImpl implements EnumerationTyp
 	@Override
 	public Object getDelegate() {
 		try {
-			Class result = Thread.currentThread().getContextClassLoader().loadClass(JavaMapping.mapping.getFullQualifiedJavaIdentifier(mofEnumeration));
+			Class result = PlugInActivator.getClassLoader().loadClass(JavaMapping.mapping.getFullQualifiedJavaIdentifier(mofEnumeration));
 			((MofOclProcessor)processor).getEnumerations().put(result, mofEnumeration);
 			return result;
 		} catch (ClassNotFoundException ex) {

@@ -26,7 +26,7 @@ public class PlugInActivator extends Plugin {
 	 * @see org.eclipse.core.runtime.Plugins#start(org.osgi.framework.BundleContext)
 	 */
 	public void start(BundleContext context) throws Exception {
-		super.start(context);
+		super.start(context);        
 	}
 
 	/*
@@ -46,5 +46,19 @@ public class PlugInActivator extends Plugin {
 	public static PlugInActivator getDefault() {
 		return plugin;
 	}
+    
+    private static Plugin registeredPlugin = null;
+    
+    public static void registerPlugin(Plugin plugin) {
+        registeredPlugin = plugin;
+    }
+    
+    public static ClassLoader getClassLoader() {
+      if (registeredPlugin == null) {
+          return Thread.currentThread().getContextClassLoader();
+      } else {
+          return registeredPlugin.getClass().getClassLoader();
+      }
+    }
 
 }

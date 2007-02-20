@@ -7,6 +7,7 @@ import cmof.Type;
 import cmof.UmlClass;
 import cmof.reflection.Extent;
 import cmof.reflection.Factory;
+import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.ClassInstance;
 import hub.sam.mof.instancemodel.InstanceValue;
@@ -44,7 +45,7 @@ public class ProxyModelContext {
                             String className = aTag.getValue();
                             Class javaClass;
                             try {
-                                javaClass = Thread.currentThread().getContextClassLoader().loadClass(className);
+                                javaClass = PlugInActivator.getClassLoader().loadClass(className);
                             } catch (ClassNotFoundException e) {
                                 throw new ProxyModelException("Java class not found " + className);
                             }

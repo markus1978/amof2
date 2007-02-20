@@ -19,6 +19,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.reflection;
 
+import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.instancemodel.ClassInstance;
 import hub.sam.mof.instancemodel.ClassifierSemantics;
 import hub.sam.mof.instancemodel.StructureSlot;
@@ -697,7 +698,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         try {
             for (String delegateClassName : delegateClassNames) {
                 java.lang.Class implementation =
-                        Thread.currentThread().getContextClassLoader().loadClass(delegateClassName);
+                        PlugInActivator.getClassLoader().loadClass(delegateClassName);
                 java.lang.reflect.Constructor constructor = implementation.getConstructor(new java.lang.Class[]{});
                 ObjectDlg object = (ObjectDlg)constructor.newInstance();
                 delegates.add(object);

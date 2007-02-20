@@ -1,5 +1,6 @@
 package hub.sam.mof.ocl;
 
+import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.javamapping.JavaMapping;
 import hub.sam.mof.mofinstancemodel.MofClassSemantics;
 import hub.sam.mof.mofinstancemodel.MofClassifierSemantics;
@@ -178,7 +179,7 @@ public class MofOclModelElementTypeImpl extends OclAnyTypeImpl implements OclMod
 	@Override
 	public Object getDelegate() {
 		try {
-			return Thread.currentThread().getContextClassLoader().loadClass(JavaMapping.mapping.getFullQualifiedJavaIdentifier(mofElementType));
+			return PlugInActivator.getClassLoader().loadClass(JavaMapping.mapping.getFullQualifiedJavaIdentifier(mofElementType));
 		} catch (ClassNotFoundException ex) {
 			throw new AssertionException(ex);
 		}

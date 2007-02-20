@@ -2,6 +2,7 @@ package hub.sam.mof.domainmodels;
 
 import cmof.UmlClass;
 import cmof.Tag;
+import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.mofinstancemodel.MofClassInstance;
 
 public class ProxyClassInstance extends MofClassInstance {
@@ -18,7 +19,7 @@ public class ProxyClassInstance extends MofClassInstance {
         for(Tag aTag: classifier.getTag()) {
             if (aTag.getName().equals(JavaModelGenerationDoclet.CLASS_PROXY_TAG)) {
                 try {
-                    theClass = Thread.currentThread().getContextClassLoader().loadClass(aTag.getValue());
+                    theClass = PlugInActivator.getClassLoader().loadClass(aTag.getValue());
                 } catch (ClassNotFoundException e) {
                     throw new ProxyModelException("Class not found", e);
                 }

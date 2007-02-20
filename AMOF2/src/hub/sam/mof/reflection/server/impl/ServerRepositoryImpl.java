@@ -88,7 +88,7 @@ public class ServerRepositoryImpl extends AbstractBridge implements ServerReposi
 	 * @ejb.interface-method  view-type = "remote"
 	 */	
 	public void addStaticModel(String staticModelClassName) throws SecurityException, NoSuchMethodException, ClassNotFoundException {
-		localRepository.addStaticModel(Thread.currentThread().getContextClassLoader().loadClass(staticModelClassName));		
+		localRepository.addStaticModel(PlugInActivator.getClassLoader().loadClass(staticModelClassName));		
 	}
 
 	/** 

@@ -25,6 +25,7 @@ import cmof.*;
 import cmof.exception.*;
 import cmof.exception.IllegalArgumentException;
 import cmof.reflection.*;
+import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.instancemodel.*;
 
 public class FactoryImpl extends hub.sam.util.Identity implements Factory {
@@ -55,8 +56,8 @@ public class FactoryImpl extends hub.sam.util.Identity implements Factory {
         String className = javaMapping.getFullQualifiedImplFactoryNameForPackage(forPackage);
 
         FactoryImpl factory = null;
-        try {
-            java.lang.Class implementation = Thread.currentThread().getContextClassLoader().loadClass(className);
+        try {            
+            java.lang.Class implementation = PlugInActivator.getClassLoader().loadClass(className);
             java.lang.reflect.Constructor constructor = implementation.getConstructor(new java.lang.Class[] {ExtentImpl.class, cmof.Package.class });
             factory = (FactoryImpl) constructor.newInstance(extent, forPackage);
         } catch (Exception ex) {
@@ -90,7 +91,7 @@ public class FactoryImpl extends hub.sam.util.Identity implements Factory {
                 for (cmof.EnumerationLiteral literal: ((cmof.Enumeration)dataType).getOwnedLiteral()) {
                     if (literal.getName().equals(string)) {
                         try {
-                            java.lang.Class implementation = Thread.currentThread().getContextClassLoader().loadClass(
+                            java.lang.Class implementation = PlugInActivator.getClassLoader().loadClass(
                                 javaMapping.getFullQualifiedJavaIdentifier(dataType));
                             for (java.lang.Object enumConstant: implementation.getEnumConstants()) {
                                 if (enumConstant.toString().equals(javaMapping.getJavaEnumConstantForLiteral(literal))) {
@@ -208,7 +209,7 @@ public class FactoryImpl extends hub.sam.util.Identity implements Factory {
         if (exists == null) {
             java.lang.reflect.Constructor implementation = null;
             try {
-            	implementation = Thread.currentThread().getContextClassLoader().loadClass(className).getConstructor(new java.lang.Class[] {hub.sam.mof.instancemodel.ClassInstance.class, ExtentImpl.class });
+            	implementation = PlugInActivator.getClassLoader().loadClass(className).getConstructor(new java.lang.Class[] {hub.sam.mof.instancemodel.ClassInstance.class, ExtentImpl.class });
             } catch (Exception e) {
                 // empty
             }

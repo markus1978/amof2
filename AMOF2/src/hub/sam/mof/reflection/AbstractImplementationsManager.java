@@ -1,5 +1,6 @@
 package hub.sam.mof.reflection;
 
+import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.Repository;
 
 import java.util.Collection;
@@ -78,7 +79,7 @@ public abstract class AbstractImplementationsManager<ClassifierType> implements 
         if (exists == null) {
             java.lang.reflect.Constructor implementation = null;
             try {
-                implementation = Thread.currentThread().getContextClassLoader().loadClass(className).getConstructor(new java.lang.Class[] {});
+                implementation = PlugInActivator.getClassLoader().loadClass(className).getConstructor(new java.lang.Class[] {});
             } catch (Exception e) {
                 // empty
             }

@@ -1,5 +1,6 @@
 package hub.sam.mof.as;
 
+import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.as.actions.AsGuardExpression;
 import hub.sam.mof.mas.AnalysisEnvironment;
 import hub.sam.mof.mas.SemanticException;
@@ -216,7 +217,7 @@ public class AsActivity extends AsBehavior {
 		Class actionClass = null;
 		AsAction actionInstance = null;
 		try {
-			actionClass = Thread.currentThread().getContextClassLoader().loadClass(actionClassName);
+			actionClass = PlugInActivator.getClassLoader().loadClass(actionClassName);
 		} catch (ClassNotFoundException ex) {
 			// empty
 		}

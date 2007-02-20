@@ -28,6 +28,7 @@ import cmof.exception.IllegalArgumentException;
 import cmof.reflection.Argument;
 import cmof.reflection.Extent;
 import cmof.reflection.ObjectEventHandler;
+import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.reflection.client.ClientObject;
 import hub.sam.mof.reflection.server.ServerObject;
 import hub.sam.mof.jocl.standardlib.OclModelElement;
@@ -49,7 +50,7 @@ public class ClientObjectImpl extends AbstractBridge implements ClientObject {
         }
         try {
             java.lang.reflect.Constructor implementation = null;
-            implementation = Thread.currentThread().getContextClassLoader().loadClass(className).getConstructor(new java.lang.Class[] {ServerObject.class});
+            implementation = PlugInActivator.getClassLoader().loadClass(className).getConstructor(new java.lang.Class[] {ServerObject.class});
             return (ClientObject)implementation.newInstance(serverObject);
         } catch (Exception e){
             throw new RuntimeException(e);

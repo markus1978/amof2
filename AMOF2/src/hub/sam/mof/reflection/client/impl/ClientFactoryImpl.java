@@ -26,6 +26,7 @@ import cmof.DataType;
 import cmof.UmlClass;
 import cmof.reflection.Link;
 import cmof.reflection.Object;
+import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.reflection.client.*;
 import hub.sam.mof.reflection.server.*;
 
@@ -40,7 +41,7 @@ public class ClientFactoryImpl extends AbstractBridge implements ClientFactory {
 		}		
 		try {
 			java.lang.reflect.Constructor implementation = null;
-            implementation = Thread.currentThread().getContextClassLoader().loadClass(className).getConstructor(new java.lang.Class[] {ServerFactory.class});            	
+            implementation = PlugInActivator.getClassLoader().loadClass(className).getConstructor(new java.lang.Class[] {ServerFactory.class});            	
             return (ClientFactory)implementation.newInstance(remote);
 		} catch (Exception e){
 			throw new RuntimeException(e);
