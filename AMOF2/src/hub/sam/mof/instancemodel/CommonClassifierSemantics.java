@@ -167,7 +167,7 @@ public abstract class CommonClassifierSemantics<C,P,O,Names> implements Classifi
         return supersetGraph.get(forProperty);
     }
 
-    public P getProperty(String name) {
+    public P getProperty(Names name) {
         return propertyForName.get(name);
     }
 
