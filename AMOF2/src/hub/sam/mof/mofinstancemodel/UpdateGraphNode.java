@@ -22,6 +22,7 @@ package hub.sam.mof.mofinstancemodel;
 import cmof.Property;
 import cmof.UmlClass;
 import hub.sam.mof.instancemodel.ValueSpecification;
+import hub.sam.mof.mofinstancemodel.events.PropertyChangeEvent;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -33,7 +34,10 @@ public class UpdateGraphNode {
     private Collection<UpdateGraphNode> adjacentReasonings = new HashSet<UpdateGraphNode>();
     private final MofValueSpecificationList owner;
     private int position = -1;
+    
     private final boolean propagateChangeEvent;
+    private boolean firePropertyChangeEventOnSecondaryOnly;    
+    private PropertyChangeEvent changeEvent = null;
 
     public UpdateGraphNode(ValueSpecification<UmlClass,Property,java.lang.Object> value, MofValueSpecificationList owner,
     		boolean propagateChangeEvent) {
@@ -41,10 +45,6 @@ public class UpdateGraphNode {
         this.value = value;
         this.owner = owner;
         this.propagateChangeEvent = propagateChangeEvent;
-    }
-
-    public boolean getPropagateChangeEvent() {
-    	return propagateChangeEvent;
     }
     
     public void setPosition(int position) {
@@ -138,6 +138,15 @@ public class UpdateGraphNode {
         }
         root.secondaryRemove(this);
     }
+    
+    public void primaryFireChangeEvent() {
+    	if (propagateChangeEvent && !firePropertyChangeEventOnSecondaryOnly) {
+    		owner.firePropertyChanged(changeEvent);
+    	}
+    	for (UpdateGraphNode adjacent: adjacentReasonings) {
+            adjacent.secondaryFireChangeEvent();
+        }
+    }
 
     public void secondaryAdd() {
         owner.secondaryAdd(this);
@@ -154,5 +163,19 @@ public class UpdateGraphNode {
         for (UpdateGraphNode adjacent: adjacentReasonings) {
             adjacent.secondaryRemove(except);
         }
+    }
+    
+    public void secondaryFireChangeEvent() {
+    	if (propagateChangeEvent) {
+    		owner.firePropertyChanged(changeEvent);
+    	}
+    	for (UpdateGraphNode adjacent: adjacentReasonings) {
+            adjacent.secondaryFireChangeEvent();
+        }
+    }
+
+    public void setChangeEvent(PropertyChangeEvent changeEvent, boolean onSecondaryOnly) {
+    	this.changeEvent = changeEvent;
+    	this.firePropertyChangeEventOnSecondaryOnly = onSecondaryOnly;
     }
 }

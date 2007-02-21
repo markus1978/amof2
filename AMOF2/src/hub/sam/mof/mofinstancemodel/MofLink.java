@@ -45,6 +45,9 @@ public class MofLink {
     private final MofLinkSlot slotOne;
     private final MofLinkSlot slotTwo;
 
+    /**
+     * No event notification for this operation, no subset or association handling.
+     */
     public static void createLink(Association association, InstanceValue<UmlClass,Property,java.lang.Object> one,
             InstanceValue<UmlClass,Property,java.lang.Object> two) {
         MofStructureSlot slotOne = findStructureSlotForEnd(association.getMemberEnd().get(1), one);
@@ -52,8 +55,8 @@ public class MofLink {
         if ((slotOne == null) || (slotTwo == null)) {
             throw new IllegalArgumentException("instances are not compatible with association");
         }
-        slotOne.getValuesAsList(null).addPlain(two, false);
-        slotTwo.getValuesAsList(null).addPlain(one, false);
+        slotOne.getValuesAsList(null).addPlain(two, null);
+        slotTwo.getValuesAsList(null).addPlain(one, null);
     }
 
     public static MofLink getLink(Association association, InstanceValue<UmlClass,Property,java.lang.Object> one, InstanceValue<UmlClass,Property,java.lang.Object> two) {
@@ -69,10 +72,13 @@ public class MofLink {
         }
     }
 
+    /**
+     * No event notification for this operation, no subset or association handling.
+     */
     public static void removeLink(Association association, InstanceValue<UmlClass,Property,java.lang.Object> one, InstanceValue<UmlClass,Property,java.lang.Object> two) {
         if (getLink(association, one, two) != null) {
-            findStructureSlotForEnd(association.getMemberEnd().get(1), one).getValuesAsList(null).removePlain(two, false);
-            findStructureSlotForEnd(association.getMemberEnd().get(0), two).getValuesAsList(null).removePlain(one, false);
+            findStructureSlotForEnd(association.getMemberEnd().get(1), one).getValuesAsList(null).removePlain(two, null);
+            findStructureSlotForEnd(association.getMemberEnd().get(0), two).getValuesAsList(null).removePlain(one, null);
         }
     }
 

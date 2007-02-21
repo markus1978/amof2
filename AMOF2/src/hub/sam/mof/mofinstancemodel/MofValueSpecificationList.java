@@ -46,17 +46,29 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Vector;
 
-/** A wrapper arround lists of ValueSpecifications. It ensures:
- *  correct multiplicity (including lower, upper, unique and ordering),
- *  the type, whether its readOnly, derived. It handles the subset structure,
- *  link consistency, checks composition.<p/>
- *
- *  It uses functionality, inherited from ListImpl, to store values. There are two
- *  different kinds of updating methods (line add, set, remove, etc.). The normal update methods
- *  ensure that all depending slots and their values are updated too. All update methods,
- *  ending with <i>Plain</i>, do NOT update other values. But they are used by the normal
- *  update methods. The update methods for mulitple or all elements (like addAll, removeAll, etc.)
- *  delegate all updating to the normal update methods for single elements.
+import javax.swing.event.ChangeEvent;
+
+/**
+ * A wrapper arround lists of ValueSpecifications. It ensures: correct
+ * multiplicity (including lower, upper, unique and ordering), the type, whether
+ * its readOnly, derived. It handles the subset structure, link consistency,
+ * checks composition.<p/>
+ * 
+ * It uses functionality, inherited from ListImpl, to store values. There are
+ * two different kinds of updating methods (line add, set, remove, etc.). The
+ * normal update methods ensure that all depending slots and their values are
+ * updated too. All update methods, ending with <i>Plain</i>, do NOT update
+ * other values. But they are used by the normal update methods. The update
+ * methods for mulitple or all elements (like addAll, removeAll, etc.) delegate
+ * all updating to the normal update methods for single elements.
+ * 
+ * There are mulitple methods for all list operations that change the list.
+ * These operations are add(o), add(i,o), remove(o), remove(i), set(i,o). For
+ * each operation there is a public method to trigger the operation; a plain
+ * method which exectues the operation on the local list; a primary method which
+ * triggeres the operation plain when directly invoked by the user; and a
+ * secondary method which triggeres the operation plain when indirectly invoked
+ * via associations or subsets.
  */
 public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlClass,Property,java.lang.Object>>
         implements ValueSpecificationList<UmlClass,Property,java.lang.Object> {
@@ -148,7 +160,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
 	    return closestProperty;
     }
     
-    private void firePropertyChanged(PropertyChangeEvent event) {
+    protected void firePropertyChanged(PropertyChangeEvent event) {
     	owner.firePropertyChange(event);    	
     }
     
@@ -255,7 +267,9 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         checkReadOnly();
         checkDerived();
     	ValueSpecification<UmlClass,Property,java.lang.Object> value = (ValueSpecification<UmlClass,Property,java.lang.Object>)o;
-        boolean result = new UpdateGraphCreation().add(this, qualifier, value, true).primaryAdd();
+    	UpdateGraphNode updateGraph = new UpdateGraphCreation().add(this, qualifier, value, true);
+        boolean result = updateGraph.primaryAdd();
+        updateGraph.primaryFireChangeEvent();
         return result;
     }
 
@@ -276,12 +290,17 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         ValueSpecification<UmlClass,Property,java.lang.Object> value = (ValueSpecification<UmlClass,Property,java.lang.Object>)o;
         int index = values.indexOf(value);
         boolean removed = false;
+        Collection<UpdateGraphNode> visitedNodes = new Vector<UpdateGraphNode>();
         while(index>=0) {
             for (UpdateGraphNode node: new Vector<UpdateGraphNode>(nodes.get(index))) {
                 node.primaryRemove();
+                visitedNodes.add(node);
             }
             removed = true;
             index = values.indexOf(value);
+        }
+        for (UpdateGraphNode node: visitedNodes) {
+        	node.primaryFireChangeEvent();
         }
         return removed;
     }
@@ -309,7 +328,10 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         		add(index, o);
         	}
         }
-        performingSet = false;        
+        performingSet = false;    
+        // usually this is done by UpdateGraphNode, but because we concieve set by remove/add and don't want 
+        // accodring property change events on the primary remove add, it is ommited by update graph node and
+        // we create a SetEven manually.
         firePropertyChanged(new SetEvent(getProperty(), index,  (ValueSpecification<UmlClass,Property,java.lang.Object>)o, 
         		removedObject));
         return removedObject;
@@ -330,7 +352,9 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         checkReadOnly();
         checkDerived();
         ValueSpecification<UmlClass,Property,java.lang.Object> value = (ValueSpecification<UmlClass,Property,java.lang.Object>)o;
-        new UpdateGraphCreation().add(this, qualifier, value, true).primaryAdd(index);
+        UpdateGraphNode updateGraph = new UpdateGraphCreation().add(this, qualifier, value, true);
+        updateGraph.primaryAdd(index);
+        updateGraph.primaryFireChangeEvent();
     }
 
     @Override
@@ -339,9 +363,14 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         checkDerived();
         ValueSpecification<UmlClass,Property,java.lang.Object> removedObject = get(index);
         boolean removed = false;
+        Collection<UpdateGraphNode> visitedNodes = new Vector<UpdateGraphNode>();
         for (UpdateGraphNode node: new Vector<UpdateGraphNode>(nodes.get(index))) {
             node.primaryRemove();
+            visitedNodes.add(node);
             removed = true;
+        }
+        for (UpdateGraphNode node: visitedNodes) {
+        	node.primaryFireChangeEvent();
         }
         if (removed) {   	
             return removedObject;
@@ -354,7 +383,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
      */
     @SuppressWarnings("unchecked")
 	public boolean addPlain(ValueSpecification<UmlClass,Property,java.lang.Object> value, 
-			boolean propagateChangeEvent) {
+			UpdateGraphNode node) {
         boolean returnValue;
         if (property.isUnique()) {
             if (!values.contains(value)) {
@@ -376,18 +405,17 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
             }
         }
 		checkUpperMultiplicity();
-        if (returnValue) {
-        	firePropertyChanged(new InsertEvent(getProperty(), size() - 1, value));
+        if (returnValue && node != null) {
+        	node.setChangeEvent(new InsertEvent(getProperty(), size() - 1, value), performingSet);
         }
         return returnValue;
     }
 
 	@SuppressWarnings("unchecked")
-	public boolean removePlain(ValueSpecification<UmlClass,Property,java.lang.Object> value, boolean propagateChangeEvent) {
+	public boolean removePlain(ValueSpecification<UmlClass,Property,java.lang.Object> value, UpdateGraphNode node) {
         int index = values.indexOf(value);
         if (index != -1) {
-        	removePlain(index, propagateChangeEvent);
-            firePropertyChanged(new RemoveEvent(getProperty(), index, value));
+        	removePlain(index, node);
         	return true;
         } else {
         	return false;
@@ -422,7 +450,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
 
     @SuppressWarnings("unchecked")
 	public void addPlain(int index, ValueSpecification<UmlClass,Property,java.lang.Object> value,
-			boolean propagateChangeEvent) {
+			UpdateGraphNode node) {
         if (performingSet && index < values.size()) {
             values.set(index, value);
         } else {
@@ -437,13 +465,13 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
             }
         }
 		checkUpperMultiplicity();
-        if (!performingSet) {
-        	firePropertyChanged(new InsertEvent(getProperty(), index,  (ValueSpecification<UmlClass,Property,java.lang.Object>)value));
+        if (node != null) {
+        	node.setChangeEvent(new InsertEvent(getProperty(), index,  (ValueSpecification<UmlClass,Property,java.lang.Object>)value), performingSet);
         }
     }
 
     @SuppressWarnings("unchecked")
-	public void removePlain(int index, boolean propagateChangeEvent) {
+	public void removePlain(int index, UpdateGraphNode node) {
         ValueSpecification<UmlClass,Property,java.lang.Object> oldValue = values.get(index);
         if (oldValue == null) {
             return;
@@ -460,8 +488,8 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
                 //owner.getComponents().remove(oldValueAsInstance);
             }
         }
-    	if (!performingSet) {
-    		firePropertyChanged(new RemoveEvent(getProperty(), index,  oldValue));
+    	if (node != null) {
+    		node.setChangeEvent(new RemoveEvent(getProperty(), index,  oldValue), performingSet);
     	}      
 		checkLowerMultiplicity();
     }
@@ -590,14 +618,14 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
     }
 
     public boolean primaryAdd(UpdateGraphNode node) {
-        boolean added = addPlain(node.getValue(), node.getPropagateChangeEvent());
+        boolean added = addPlain(node.getValue(), node);
         int index = values.lastIndexOf(node.getValue());
         nodes.addNode(index, node, added);
         return added;
     }
 
     public void primaryAdd(int index, UpdateGraphNode node) {
-        addPlain(index, node.getValue(), node.getPropagateChangeEvent());
+        addPlain(index, node.getValue(), node);
         nodes.addNode(index, node, true);
     }
 
@@ -606,7 +634,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         if (index != -1) {
             boolean lastNode = nodes.isLastNode(index, node);
             if (lastNode) {
-                removePlain(index, node.getPropagateChangeEvent());
+                removePlain(index, node);
             } else {
             	nodes.removeNode(index, node);
             }
@@ -614,7 +642,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
     }
 
     public void primaryRemove(int index, UpdateGraphNode node) {
-        removePlain(index, node.getPropagateChangeEvent());
+        removePlain(index, node);
         nodes.removeNode(index, node);
     }
 
