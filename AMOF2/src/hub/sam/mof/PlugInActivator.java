@@ -47,18 +47,8 @@ public class PlugInActivator extends Plugin {
 		return plugin;
 	}
     
-    private static Plugin registeredPlugin = null;
-    
-    public static void registerPlugin(Plugin plugin) {
-        registeredPlugin = plugin;
-    }
-    
     public static ClassLoader getClassLoader() {
-      if (registeredPlugin == null) {
-          return Thread.currentThread().getContextClassLoader();
-      } else {
-          return registeredPlugin.getClass().getClassLoader();
-      }
+        return PlugInActivator.class.getClassLoader();
     }
 
 }

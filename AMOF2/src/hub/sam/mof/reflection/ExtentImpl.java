@@ -31,9 +31,9 @@ import hub.sam.mof.instancemodel.ClassInstance;
 import hub.sam.mof.instancemodel.InstanceModel;
 import hub.sam.mof.instancemodel.ValueSpecification;
 import hub.sam.mof.instancemodel.ValueSpecificationList;
+import hub.sam.mof.mofinstancemodel.MofValueSpecificationList;
 import hub.sam.mof.domainmodels.ProxyInstanceModel;
 import hub.sam.mof.domainmodels.ProxyObjectInstance;
-import hub.sam.mof.mofinstancemodel.MofValueSpecificationList;
 import hub.sam.mof.reflection.query.ParseException;
 import hub.sam.mof.reflection.query.Query;
 import hub.sam.mof.util.ListImpl;
@@ -125,6 +125,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         if (value instanceof cmof.reflection.Object) {
             cmof.reflection.Object object = (cmof.reflection.Object)value;
             if (!objectsOfType(null, true).contains(object)) {
+                System.out.println("Warning: using foreign extent object as property value.");
             	return model.createPrimitiveValue(value);                
             }
             return model.createInstanceValue(instanceForObject.get(value));

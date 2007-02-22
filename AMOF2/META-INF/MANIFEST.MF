@@ -9,6 +9,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.draw2d,
  org.junit
 Eclipse-LazyStart: true
+Eclipse-BuddyPolicy: registered
 Bundle-ClassPath: resources/lib/ant.jar,
  resources/lib/ejb-api.jar,
  resources/lib/jbossall-client.jar,
