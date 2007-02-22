@@ -206,7 +206,7 @@ public class Repository extends hub.sam.util.Identity {
 
     public void deleteExtent(String name) {
         Extent extent = getExtent(name);
-        extents.remove(extent);
+        extents.remove(name);
         ((ExtentImpl)extent).myFinalize();
         System.gc();
     }
