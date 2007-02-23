@@ -26,6 +26,7 @@ import cmof.UmlClass;
 import cmof.common.ReflectiveCollection;
 import cmof.common.ReflectiveSequence;
 import cmof.reflection.Extent;
+import cmof.reflection.ExtentChangeListener;
 import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.ClassInstance;
 import hub.sam.mof.instancemodel.InstanceModel;
@@ -44,10 +45,12 @@ import hub.sam.util.MultiMap;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Vector;
 
 public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection.Extent {
     private final boolean bootstrap;
@@ -61,6 +64,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
     private final MultiMap<UmlClass, cmof.reflection.Object> objectsForTypesWithSubtypes = new MultiMap<UmlClass, cmof.reflection.Object>();
     private ImplementationsManager implementationsManager = null;
     protected final InstanceModel<UmlClass,Property,java.lang.Object> model = new ProxyInstanceModel();//TODO
+    private final Collection<ExtentChangeListener> listeners = new Vector<ExtentChangeListener>();
 
     protected ImplementationsManager createImplementationManager() {
         return new ImplementationsManagerImpl();
@@ -328,6 +332,10 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         this.objects.add(object);
         object.setParentIdentity(this);
         object.setExtent(this);
+        
+        for(ExtentChangeListener listener: listeners) {
+        	listener.newObject(object);
+        }
     }
 
     protected void removeObject(cmof.reflection.Object object, ClassInstance<UmlClass,Property,java.lang.Object> instance) {
@@ -342,6 +350,10 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         }
         if (instance != null) {
         	instance.delete();
+        }
+        
+        for(ExtentChangeListener listener: listeners) {
+        	listener.removedObject(object);
         }
     }
 
@@ -491,4 +503,12 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         }
         return implementationsManager;
     }
+
+	public void addExtentChangeListener(ExtentChangeListener listener) {
+		listeners.add(listener);		
+	}
+    
+	public void removeExtentChangeListener(ExtentChangeListener listener) {
+		listeners.remove(listener);		
+	}
 }

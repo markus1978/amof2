@@ -6,7 +6,11 @@ import SDL.SdlPidExpression;
 import SDL.SdlVariableAccess;
 
 public class ExpressionCustom extends ExpressionDlg {
-    @Override
+    
+	/**
+	 * Instantiates an according Evaluation and initialises it.
+	 */
+	@Override
     public Evaluation instantiate() {
         Evaluation result = null;
         if (self instanceof SdlVariableAccess) {

@@ -54,4 +54,8 @@ public interface Extent {
      * @return the queried object or null.
      */
     public cmof.reflection.Object query(java.lang.String queryString) throws QueryParseException;
+    
+    public void addExtentChangeListener(ExtentChangeListener listener);
+    
+    public void removeExtentChangeListener(ExtentChangeListener listener);
 }

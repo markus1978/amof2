@@ -28,6 +28,7 @@ import cmof.Association;
 import cmof.UmlClass;
 import cmof.common.ReflectiveCollection;
 import cmof.exception.QueryParseException;
+import cmof.reflection.ExtentChangeListener;
 import cmof.reflection.Link;
 import cmof.reflection.Object;
 
@@ -88,6 +89,14 @@ public class ClientExtentImpl extends AbstractBridge implements ClientExtent {
 
 	public ReflectiveCollection<? extends Object> outermostComposites() {		
 		return null;
+	}
+
+	public void addExtentChangeListener(ExtentChangeListener listener) {
+		// not supported
+	}
+
+	public void removeExtentChangeListener(ExtentChangeListener listener) {
+		// not supported	
 	}
 
 }

@@ -10,7 +10,7 @@ import cmof.Property;
 import cmof.UmlClass;
 import cmof.reflection.Extent;
 import hub.sam.mof.Repository;
-import hub.sam.mof.as.layers.MultiLevelImplementationsManager;
+import hub.sam.mof.mas.layers.MultiLevelImplementationsManager;
 import hub.sam.mof.reflection.ExtentImpl;
 import hub.sam.sdlplus.parser.ParseException;
 import hub.sam.sdlplus.parser.SdlplusParser;
