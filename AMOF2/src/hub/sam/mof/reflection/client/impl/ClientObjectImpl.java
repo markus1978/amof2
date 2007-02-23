@@ -27,7 +27,7 @@ import cmof.common.ReflectiveSequence;
 import cmof.exception.IllegalArgumentException;
 import cmof.reflection.Argument;
 import cmof.reflection.Extent;
-import cmof.reflection.ObjectEventHandler;
+import cmof.reflection.ObjectChangeListener;
 import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.reflection.client.ClientObject;
 import hub.sam.mof.reflection.server.ServerObject;
@@ -95,7 +95,7 @@ public class ClientObjectImpl extends AbstractBridge implements ClientObject {
         }
     }
 
-    public void addObjectEventHandler(ObjectEventHandler handler) {
+    public void addObjectEventHandler(ObjectChangeListener handler) {
         throw new RuntimeException("not implemented");
     }
 

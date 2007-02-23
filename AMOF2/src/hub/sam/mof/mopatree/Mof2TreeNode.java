@@ -1,6 +1,6 @@
 package hub.sam.mof.mopatree;
 
-import cmof.reflection.ObjectEventHandler;
+import cmof.reflection.ObjectChangeListener;
 import hub.sam.mopa.trees.TreeNode;
 
 import java.util.Collection;
@@ -12,7 +12,7 @@ import java.util.Vector;
 public class Mof2TreeNode implements TreeNode {
 
     private static final Map<cmof.reflection.Object, TreeNode> cache = new HashMap<cmof.reflection.Object, TreeNode>();
-    private ObjectEventHandler handler = new ObjectEventHandler() {
+    private ObjectChangeListener handler = new ObjectChangeListener() {
         public void handleDelete(cmof.reflection.Object object) {
             for(TreeNode child: new Vector<TreeNode>(children)) {
                 if (child.getElement().equals(object)) {

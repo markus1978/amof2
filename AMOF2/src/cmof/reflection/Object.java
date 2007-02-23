@@ -241,7 +241,7 @@ public interface Object {
     public java.lang.Object invokeOperation(String opName, java.lang.Object[] args);
 
     // TODO align with PropertyChangeListener stuff
-    public void addObjectEventHandler(ObjectEventHandler handler);
+    public void addObjectEventHandler(ObjectChangeListener handler);
 
     public OclModelElement ocl();
 

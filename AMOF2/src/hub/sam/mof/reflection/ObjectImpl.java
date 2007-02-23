@@ -62,7 +62,7 @@ import cmof.exception.IllegalArgumentException;
 import cmof.exception.MetaModelException;
 import cmof.reflection.Argument;
 import cmof.reflection.Extent;
-import cmof.reflection.ObjectEventHandler;
+import cmof.reflection.ObjectChangeListener;
 
 public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection.Object {
     protected boolean isStatic; //TODO
@@ -72,7 +72,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     private Identifier id;
     private ExtentImpl extent;
     private Implementations implementation = null;
-    private List<ObjectEventHandler> handler = null;
+    private List<ObjectChangeListener> handler = null;
     private PropertyChangeEventListener fPropertyChangeListener;
 
     protected ObjectImpl(ClassInstance<UmlClass, Property, java.lang.Object> instance, ExtentImpl extent) {
@@ -378,7 +378,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     public synchronized void delete() {
         if (!(instance == null || isStatic)) {                  
 	        if (handler != null) {
-	            for (ObjectEventHandler aHandler : handler) {
+	            for (ObjectChangeListener aHandler : handler) {
 	                aHandler.handleDelete(this);
 	            }
 	        }
@@ -504,9 +504,9 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         return result;
     }
 
-    public void addObjectEventHandler(ObjectEventHandler handler) {
+    public void addObjectEventHandler(ObjectChangeListener handler) {
         if (this.handler == null) {
-            this.handler = new Vector<ObjectEventHandler>(1);
+            this.handler = new Vector<ObjectChangeListener>(1);
         }
         this.handler.add(handler);
     }
