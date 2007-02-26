@@ -20,8 +20,8 @@
 
 package hub.sam.mase.editparts.properties.handlers;
 
+import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.m2model.OutputPin;
-import hub.sam.mase.m2model.MaseRepository;
 import hub.sam.mase.m2model.TypeString;
 
 import java.util.ArrayList;
@@ -32,12 +32,12 @@ import org.eclipse.ui.views.properties.*;
 public class OutputPinHandler implements PropertyHandler {
 
     private final OutputPin model;
-    private final MaseRepository repository;
+    private final MaseEditDomain editDomain;
     private enum PROPERTY_ID {TYPE};
     
-    public OutputPinHandler(OutputPin model, MaseRepository repository) {
+    public OutputPinHandler(OutputPin model, MaseEditDomain editDomain) {
         this.model = model;
-        this.repository = repository;
+        this.editDomain = editDomain;
     }
     
     public final List<IPropertyDescriptor> getPropertyDescriptors() {
@@ -50,7 +50,7 @@ public class OutputPinHandler implements PropertyHandler {
         if (id instanceof PROPERTY_ID) {
             switch((PROPERTY_ID) id) {
             case TYPE:
-                hub.sam.mase.m2model.TypeString type = repository.getFactory().createTypeString();
+                hub.sam.mase.m2model.TypeString type = editDomain.getFactory().createTypeString();
                 for(String namePart: value.toString().split("::")) {
                     type.getQualifiedTypeName().add(namePart);
                 }

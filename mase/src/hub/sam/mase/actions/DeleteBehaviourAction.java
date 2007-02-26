@@ -18,28 +18,22 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mase.editparts.properties;
+package hub.sam.mase.actions;
 
-import hub.sam.mase.editor.MaseEditDomain;
-import hub.sam.mase.editparts.properties.handlers.OutputPinHandler;
-import hub.sam.mase.m2model.OutputPin;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.MessageDialog;
 
-/**
- * @deprecated
- */
-public class OutputPinPropertySource extends AbstractPropertySource {
-
-    private final OutputPin model;
-    private final MaseEditDomain editDomain;
+public class DeleteBehaviourAction extends MASAction {
     
-    public OutputPinPropertySource(OutputPin model, MaseEditDomain editDomain) {
-        this.model = model;
-        this.editDomain = editDomain;
+    public void run(IAction action) {
+        if (MessageDialog.openConfirm(getModelView().getSite().getShell(), "Confirm delete ...", "Are you sure?")) {
+            getLinkFromSelection().delete();
+        }
     }
 
     @Override
-    protected void createPropertyHandlers() {
-        installPropertyHandler(new OutputPinHandler(model, editDomain));
+    protected boolean shouldEnable() {
+        return getLinkFromSelection() != null;
     }
-    
+
 }

@@ -18,28 +18,12 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mase.editparts.properties;
+package hub.sam.mase.editor;
 
-import hub.sam.mase.editor.MaseEditDomain;
-import hub.sam.mase.editparts.properties.handlers.OutputPinHandler;
-import hub.sam.mase.m2model.OutputPin;
+import hub.sam.mas.management.MASLink;
 
-/**
- * @deprecated
- */
-public class OutputPinPropertySource extends AbstractPropertySource {
+import org.eclipse.ui.IEditorInput;
 
-    private final OutputPin model;
-    private final MaseEditDomain editDomain;
-    
-    public OutputPinPropertySource(OutputPin model, MaseEditDomain editDomain) {
-        this.model = model;
-        this.editDomain = editDomain;
-    }
-
-    @Override
-    protected void createPropertyHandlers() {
-        installPropertyHandler(new OutputPinHandler(model, editDomain));
-    }
-    
+public interface IMaseEditorInput extends IEditorInput {
+    public MASLink getLink();
 }

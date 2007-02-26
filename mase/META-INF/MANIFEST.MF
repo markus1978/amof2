@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mase Plug-in
-Bundle-SymbolicName: Mase;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-SymbolicName: hub.sam.mase;singleton:=true
+Bundle-Version: 1.1.0
 Bundle-Activator: hub.sam.mase.MasePlugin
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -11,9 +11,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.draw2d,
  org.eclipse.gef,
- org.eclipse.ui.views
+ org.eclipse.ui.views,
+ hub.sam.mof.plugin.Mof2Plugin;bundle-version="1.1.0",
+ hub.sam.mof
 Eclipse-LazyStart: true
+Eclipse-RegisterBuddy: hub.sam.mof
 Bundle-ClassPath: resources/lib/junit.jar,
- resources/lib/log4j-1.2.14.jar,
- mase.jar,
- resources/lib/aMOF2.0forJava.jar
+ resources/lib/log4j-1.2.14.jar

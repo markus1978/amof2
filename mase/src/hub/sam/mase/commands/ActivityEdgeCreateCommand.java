@@ -25,7 +25,6 @@ import org.eclipse.gef.RootEditPart;
 import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.editparts.ActivityNodeEditPart;
 import hub.sam.mase.m2model.MaseCreationFactory;
-import hub.sam.mase.m2model.MaseRepository;
 import hub.sam.mase.m2model.ObjectFlow;
 import hub.sam.mase.m2model.ActivityEdge;
 import hub.sam.mase.m2model.ActivityNode;

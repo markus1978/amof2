@@ -22,27 +22,34 @@ package hub.sam.mase.editor;
 
 import java.util.*;
 
-import hub.sam.mase.m2model.MaseRepository;
+import hub.sam.mas.management.MASContext;
+import hub.sam.mase.m2model.m2modelFactory;
 
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.ui.IEditorPart;
 
 public class MaseEditDomain extends DefaultEditDomain {
     
-    private MaseRepository repository;
+    private MASContext masContext;
     private static Properties properties = null;
-
-    public MaseRepository getRepository() {
-        return repository;
-    }
-
-    public void setRepository(MaseRepository repository) {
-        this.repository = repository;
-    }
 
     public MaseEditDomain(IEditorPart editorPart) {
         super(editorPart);
     }
+    
+    public void setMASContext(MASContext masContext) {
+        this.masContext = masContext;
+    }
+    
+    public MASContext getMASContext() {
+        return masContext;
+    }
+    
+    public m2modelFactory getFactory() {
+        return (m2modelFactory) getMASContext().getSemanticModel().getFactory();
+    }
+    
+    // editor properties
 
     public static Properties getProperties() {
         return properties;

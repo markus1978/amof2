@@ -19,6 +19,11 @@
 
 package hub.sam.mase.test;
 
+import static hub.sam.mase.editor.MaseEditDomain.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     
     public static void main(java.lang.String[] args) {
@@ -27,8 +32,12 @@ public class Main {
     }
 
     public void init() {
-        Class type = Main.class;
-        System.out.println(type.getSimpleName());
+        List<String> ids = new ArrayList<String>();
+        ids.add("test");
+        String t = "test";
+        if (ids.contains(t)) {
+            System.out.println("ja");
+        }
     }
     
 }

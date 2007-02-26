@@ -9,7 +9,48 @@
             default="true"
             extensions="asxml"
             icon="icons/alt_window_16.gif"
-            id="hub.sam.editor.mase"
+            id="hub.sam.mase"
+            name="Mase"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="false"
+            id="MofActionSemanticsEditor.TreeObjectContribution"
+            objectClass="hub.sam.mof.plugin.modelview.tree.TreeObject">
+         <action
+               class="hub.sam.mase.actions.DeleteBehaviourAction"
+               enablesFor="1"
+               id="MofActionSemanticsEditor.DeleteBehaviourAction"
+               label="Delete Behaviour"
+               menubarPath="topAdditions"/>
+         <action
+               class="hub.sam.mase.actions.EditBehaviourAction"
+               enablesFor="1"
+               id="MofActionSemanticsEditor.EditBehaviourAction"
+               label="Edit Behaviour"
+               menubarPath="topAdditions"/>
+         <filter
+               name="element_instance_of"
+               value="cmof.Operation"/>
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="MofActionSemanticsEditor.RepositoryTreeObjectContribution"
+            objectClass="hub.sam.mof.plugin.modelview.tree.RepositoryTreeObject">
+         <action
+               class="hub.sam.mase.actions.AddMASContextAction"
+               enablesFor="1"
+               id="MofAcMofActionSemanticsEditor.AddMASContextAction"
+               label="Add MAS Context ..."
+               menubarPath="topAdditions"/>
+      </objectContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="hub.sam.mase.MasePerspectiveFactory"
+            id="MofActionSemanticsEditor.MasePerspective"
             name="Mase"/>
    </extension>
 

@@ -61,7 +61,7 @@ public class OutputPinEditPart extends PinEditPart {
         if (key == IPropertySource.class) {
             if (propertyDescriptor == null) {
                 propertyDescriptor = new OutputPinPropertySource(getModel(),
-                        ((MaseEditDomain) getViewer().getEditDomain()).getRepository());
+                        (MaseEditDomain) getViewer().getEditDomain());
             }
             return propertyDescriptor;
         }

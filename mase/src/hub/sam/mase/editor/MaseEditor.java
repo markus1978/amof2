@@ -32,7 +32,6 @@ import hub.sam.mase.m2model.InExpansionNode;
 import hub.sam.mase.m2model.InitialNode;
 import hub.sam.mase.m2model.InputPin;
 import hub.sam.mase.m2model.JoinNode;
-import hub.sam.mase.m2model.MaseRepository;
 import hub.sam.mase.m2model.ModelGarbageCollector;
 import hub.sam.mase.m2model.MaseCreationFactory;
 import hub.sam.mase.m2model.OpaqueAction;
@@ -63,23 +62,26 @@ import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import java.util.EventObject;
 import java.util.Properties;
 
 import org.eclipse.core.runtime.Path;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.*;
 
 import org.eclipse.core.runtime.FileLocator;
@@ -108,10 +110,6 @@ public class MaseEditor extends GraphicalEditorWithPalette {
     
     protected MaseEditDomain getEditDomain() {
         return (MaseEditDomain) super.getEditDomain();
-    }
-    
-    private MaseRepository getRepository() {
-        return getEditDomain().getRepository();
     }
 
     @Override
@@ -275,31 +273,33 @@ public class MaseEditor extends GraphicalEditorWithPalette {
         getSelectionActions().add(action.getId());
     }
 
-    private InputStream xmiInputStream = null;
-    
-    // return root model element (the content editpart)
     protected hub.sam.mase.m2model.Activity getContent() {
-        if (!MaseRepository.isInitialized()) {
-            org.osgi.framework.Bundle bundle = MasePlugin.getDefault().getBundle();
-            try {            
-                xmiInputStream = FileLocator.openStream(bundle, new Path(MaseRepository.relativeXmiPath), false);
-            }
-            catch(IOException e) {
-                System.out.println("IOException while trying to open InputStream to " + MaseRepository.relativeXmiPath);
-                System.exit(-1);
-            }
-            MaseRepository.init(xmiInputStream);
-        }
-        
-        IFileEditorInput editorInput = ((IFileEditorInput) getEditorInput());
-        getEditDomain().setRepository( new MaseRepository(getEditDomain(), editorInput) );
-        return getRepository().loadModel();
+        IMaseEditorInput editorInput = (IMaseEditorInput) getEditorInput();
+        MaseEditDomain editDomain = getEditDomain();
+        editDomain.setMASContext( editorInput.getLink().getMASContext() );
+        return editorInput.getLink().getActivity();
     }
     
     protected void setInput(IEditorInput input) {
         super.setInput(input);
-        IFile file = ((IFileEditorInput) input).getFile();
-        setPartName(file.getName());
+        editorInputChangeListener = new EditorInputChangeListener(this);
+        ((IMaseEditorInput) input).getLink().addListener(editorInputChangeListener);
+        String partName = ((IMaseEditorInput) input).getName();
+        setPartName(partName);
+    }
+    
+    private EditorInputChangeListener editorInputChangeListener;
+    
+    class EditorInputChangeListener implements PropertyChangeListener {
+        private final IEditorPart editor;
+        public EditorInputChangeListener(IEditorPart editor) {
+            this.editor = editor;
+        }
+        public void propertyChange(PropertyChangeEvent event) {
+            if (event.getPropertyName().equals("deleted")) {
+                PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(editor, false);
+            }
+        }
     }
 
     /*
@@ -346,26 +346,23 @@ public class MaseEditor extends GraphicalEditorWithPalette {
     public void dispose() {
         // remove CommandStackListener
         getCommandStack().removeCommandStackListener(commandStackListener);
-        
-        ModelGarbageCollector.getInstance().cleanUp();
-        getRepository().deleteModelExtent();        
         ModelGarbageCollector.getInstance().dispose();
-        
-        try {
-            if (xmiInputStream != null) {
-                xmiInputStream.close();
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        ((IMaseEditorInput) getEditorInput()).getLink().removeListener(editorInputChangeListener);
         super.dispose();
     }
 
     public void doSave(IProgressMonitor monitor) {
-        getRepository().saveModel();
-        
+        ModelGarbageCollector.getInstance().cleanUp();
+        try {
+            getEditDomain().getMASContext().save();
+        }
+        catch (Exception e) {
+            MessageDialog.openError(
+                    getEditorSite().getShell(),
+                    "Could not save ...",
+                    "Could not save: " + e.getMessage());
+            return;
+        }
         // update last save in CommandStack when the editor is saved
         getCommandStack().markSaveLocation();
     }

@@ -31,9 +31,10 @@ import java.lang.reflect.InvocationTargetException;
 public class MaseCreationFactory implements CreationFactory {
     
     private final Logger logger = Logger.getLogger(MaseCreationFactory.class.getName());
-    private final MaseEditDomain editDomain;
     private final Class type;
     private Method createMethod;
+    private final MaseEditDomain editDomain;
+    private final m2modelFactory factory;
     
     /**
      * Constructs a model factory for a given model class.
@@ -44,6 +45,18 @@ public class MaseCreationFactory implements CreationFactory {
     public MaseCreationFactory(MaseEditDomain editDomain, Class type) {
         this.editDomain = editDomain;
         this.type = type;
+        this.factory = null;
+        initCreateMethod();
+    }
+
+    public MaseCreationFactory(m2modelFactory factory, Class type) {
+        this.editDomain = null;
+        this.factory = factory;
+        this.type = type;
+        initCreateMethod();
+    }
+    
+    private void initCreateMethod() {
         try {
             this.createMethod = this.getClass().getMethod("create" + type.getSimpleName(), (Class[]) null);
         }
@@ -57,8 +70,13 @@ public class MaseCreationFactory implements CreationFactory {
         }
     }
     
-    private MaseRepository getRepository() {
-        return editDomain.getRepository();
+    private m2modelFactory getFactory() {
+        if (editDomain != null) {
+            return editDomain.getFactory();
+        }
+        else {
+            return factory;
+        }
     }
     
     public Object getNewObject() {
@@ -85,28 +103,28 @@ public class MaseCreationFactory implements CreationFactory {
     }
     
     public Activity createActivity() {
-        return getRepository().getFactory().createActivity();
+        return getFactory().createActivity();
     }
     
     public InitialNode createInitialNode() {
-        InitialNode newObject = getRepository().getFactory().createInitialNode();
+        InitialNode newObject = getFactory().createInitialNode();
         ModelGarbageCollector.getInstance().mark(newObject);
         return newObject;
     }
 
     public FinalNode createFinalNode() {
-        FinalNode newObject = getRepository().getFactory().createFinalNode();
+        FinalNode newObject = getFactory().createFinalNode();
         ModelGarbageCollector.getInstance().mark(newObject);
         return newObject;
     }
 
     public OpaqueAction createOpaqueAction() {
-        OpaqueAction newObject = getRepository().getFactory().createOpaqueAction();
+        OpaqueAction newObject = getFactory().createOpaqueAction();
         
-        InputPinList newInputList = getRepository().getFactory().createInputPinList();
+        InputPinList newInputList = getFactory().createInputPinList();
         newObject.setInputList(newInputList);
         
-        OutputPinList newOutputList = getRepository().getFactory().createOutputPinList();
+        OutputPinList newOutputList = getFactory().createOutputPinList();
         newObject.setOutputList(newOutputList);
         
         ModelGarbageCollector.getInstance().mark(newObject);
@@ -114,56 +132,56 @@ public class MaseCreationFactory implements CreationFactory {
     }
 
     public ValueNode createValueNode() {
-        ValueNode newObject = getRepository().getFactory().createValueNode();
+        ValueNode newObject = getFactory().createValueNode();
         ModelGarbageCollector.getInstance().mark(newObject);
         return newObject;
     }
 
     public ObjectFlow createObjectFlow() {
-        ObjectFlow newObject = getRepository().getFactory().createObjectFlow();
+        ObjectFlow newObject = getFactory().createObjectFlow();
         ModelGarbageCollector.getInstance().observeProperty(newObject, "target");
         return newObject;
     }
 
     public ControlFlow createControlFlow() {
-        ControlFlow newObject = getRepository().getFactory().createControlFlow();
+        ControlFlow newObject = getFactory().createControlFlow();
         ModelGarbageCollector.getInstance().observeProperty(newObject, "target");
         return newObject;
     }
 
     public InputPin createInputPin() {
-        InputPin newObject = getRepository().getFactory().createInputPin();
+        InputPin newObject = getFactory().createInputPin();
         ModelGarbageCollector.getInstance().mark(newObject);
         return newObject;
     }
 
     public OutputPin createOutputPin() {
-        OutputPin newObject = getRepository().getFactory().createOutputPin();
+        OutputPin newObject = getFactory().createOutputPin();
         ModelGarbageCollector.getInstance().mark(newObject);
         return newObject;
     }
 
     public ContextPin createContextPin() {
-        ContextPin newObject = getRepository().getFactory().createContextPin();
+        ContextPin newObject = getFactory().createContextPin();
         ModelGarbageCollector.getInstance().mark(newObject);
         return newObject;
     }
 
     public ContextExtensionPin createContextExtensionPin() {
-        ContextExtensionPin newObject = getRepository().getFactory().createContextExtensionPin();
+        ContextExtensionPin newObject = getFactory().createContextExtensionPin();
         ModelGarbageCollector.getInstance().mark(newObject);
         return newObject;
     }
 
     public GuardSpecification createGuardSpecification() {
-        GuardSpecification newObject = getRepository().getFactory().createGuardSpecification();
+        GuardSpecification newObject = getFactory().createGuardSpecification();
         return newObject;
     }
 
     public DecisionNode createDecisionNode() {
-        DecisionNode newObject = getRepository().getFactory().createDecisionNode();
+        DecisionNode newObject = getFactory().createDecisionNode();
         
-        ContextPinList newList = getRepository().getFactory().createContextPinList();
+        ContextPinList newList = getFactory().createContextPinList();
         newObject.getContextList().add(newList);
 
         ModelGarbageCollector.getInstance().mark(newObject);
@@ -171,27 +189,27 @@ public class MaseCreationFactory implements CreationFactory {
     }
     
     public ForkNode createForkNode() {
-        ForkNode newObject = getRepository().getFactory().createForkNode();
+        ForkNode newObject = getFactory().createForkNode();
         ModelGarbageCollector.getInstance().mark(newObject);
         return newObject;
     }
     
     public JoinNode createJoinNode() {
-        JoinNode newObject = getRepository().getFactory().createJoinNode();
+        JoinNode newObject = getFactory().createJoinNode();
         ModelGarbageCollector.getInstance().mark(newObject);
         return newObject;
     }
     
     public ExpansionRegion createExpansionRegion() {
-        ExpansionRegion newObject = getRepository().getFactory().createExpansionRegion();
+        ExpansionRegion newObject = getFactory().createExpansionRegion();
         
-        ExpansionRegionBody newBody = getRepository().getFactory().createExpansionRegionBody();
+        ExpansionRegionBody newBody = getFactory().createExpansionRegionBody();
         newObject.setBody(newBody);
 
-        InExpansionNodeList newInputList = getRepository().getFactory().createInExpansionNodeList();
+        InExpansionNodeList newInputList = getFactory().createInExpansionNodeList();
         newObject.setInList(newInputList);
         
-        OutExpansionNodeList newOutputList = getRepository().getFactory().createOutExpansionNodeList();
+        OutExpansionNodeList newOutputList = getFactory().createOutExpansionNodeList();
         newObject.setOutList(newOutputList);
         
         ModelGarbageCollector.getInstance().mark(newObject);
@@ -199,13 +217,13 @@ public class MaseCreationFactory implements CreationFactory {
     }
     
     public InExpansionNode createInExpansionNode() {
-        InExpansionNode newObject = getRepository().getFactory().createInExpansionNode();
+        InExpansionNode newObject = getFactory().createInExpansionNode();
         ModelGarbageCollector.getInstance().mark(newObject);
         return newObject;
     }
 
     public OutExpansionNode createOutExpansionNode() {
-        OutExpansionNode newObject = getRepository().getFactory().createOutExpansionNode();
+        OutExpansionNode newObject = getFactory().createOutExpansionNode();
         ModelGarbageCollector.getInstance().mark(newObject);
         return newObject;
     }

@@ -30,7 +30,7 @@ import org.osgi.framework.BundleContext;
 public class MasePlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "Mase";
+	public static final String PLUGIN_ID = "hub.sam.mase";
 
 	// The shared instance
 	private static MasePlugin plugin;

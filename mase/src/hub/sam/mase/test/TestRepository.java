@@ -18,7 +18,7 @@ public class TestRepository {
             e.printStackTrace();
         }
         if (fileStream != null) {
-            MaseRepository.init(fileStream);
+            //MaseRepository.init(fileStream);
             
             /*Activity activity1 = MaseCreationFactory.createActivity();
             

@@ -18,28 +18,26 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mase.editparts.properties;
+package hub.sam.mase.actions;
 
-import hub.sam.mase.editor.MaseEditDomain;
-import hub.sam.mase.editparts.properties.handlers.OutputPinHandler;
-import hub.sam.mase.m2model.OutputPin;
+import hub.sam.mof.plugin.modelview.ModelView;
 
-/**
- * @deprecated
- */
-public class OutputPinPropertySource extends AbstractPropertySource {
+import org.eclipse.jface.action.IAction;
+import org.eclipse.ui.IObjectActionDelegate;
+import org.eclipse.ui.IWorkbenchPart;
 
-    private final OutputPin model;
-    private final MaseEditDomain editDomain;
+public abstract class Mof2PluginAction implements IObjectActionDelegate {
     
-    public OutputPinPropertySource(OutputPin model, MaseEditDomain editDomain) {
-        this.model = model;
-        this.editDomain = editDomain;
+    private ModelView view;
+    
+    public ModelView getModelView() {
+        return view;
     }
 
-    @Override
-    protected void createPropertyHandlers() {
-        installPropertyHandler(new OutputPinHandler(model, editDomain));
+    public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+        if (targetPart instanceof ModelView) {
+            this.view = (ModelView) targetPart;
+        }
     }
-    
+
 }

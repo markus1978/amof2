@@ -18,28 +18,9 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mase.editparts.properties;
+package hub.sam.mas.management;
 
-import hub.sam.mase.editor.MaseEditDomain;
-import hub.sam.mase.editparts.properties.handlers.OutputPinHandler;
-import hub.sam.mase.m2model.OutputPin;
-
-/**
- * @deprecated
- */
-public class OutputPinPropertySource extends AbstractPropertySource {
-
-    private final OutputPin model;
-    private final MaseEditDomain editDomain;
-    
-    public OutputPinPropertySource(OutputPin model, MaseEditDomain editDomain) {
-        this.model = model;
-        this.editDomain = editDomain;
-    }
-
-    @Override
-    protected void createPropertyHandlers() {
-        installPropertyHandler(new OutputPinHandler(model, editDomain));
-    }
-    
+public interface MOFModelFactory {
+    public MOFModel createSyntaxModel() throws MOFModelException;
+    public MOFModel createSemanticModel() throws MOFModelException;;
 }

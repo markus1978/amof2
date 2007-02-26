@@ -18,28 +18,22 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mase.editparts.properties;
+package hub.sam.mase;
 
-import hub.sam.mase.editor.MaseEditDomain;
-import hub.sam.mase.editparts.properties.handlers.OutputPinHandler;
-import hub.sam.mase.m2model.OutputPin;
+import org.eclipse.ui.IFolderLayout;
+import org.eclipse.ui.IPageLayout;
+import org.eclipse.ui.IPerspectiveFactory;
 
-/**
- * @deprecated
- */
-public class OutputPinPropertySource extends AbstractPropertySource {
+public class MasePerspectiveFactory implements IPerspectiveFactory {
 
-    private final OutputPin model;
-    private final MaseEditDomain editDomain;
-    
-    public OutputPinPropertySource(OutputPin model, MaseEditDomain editDomain) {
-        this.model = model;
-        this.editDomain = editDomain;
+    public void createInitialLayout(IPageLayout layout) {
+        String editorArea = layout.getEditorArea();
+        layout.addView("hub.sam.mof.plugin.modelview.ModelView", IPageLayout.LEFT, 0.25f, editorArea);
+        
+        IFolderLayout bottom = layout.createFolder("bottom", IPageLayout.BOTTOM, 0.75f, editorArea);
+        bottom.addView(IPageLayout.ID_PROP_SHEET);
+        bottom.addView(IPageLayout.ID_PROBLEM_VIEW);
+        bottom.addView("org.eclipse.pde.runtime.LogView");
     }
 
-    @Override
-    protected void createPropertyHandlers() {
-        installPropertyHandler(new OutputPinHandler(model, editDomain));
-    }
-    
 }

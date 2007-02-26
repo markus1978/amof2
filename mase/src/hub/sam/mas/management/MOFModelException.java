@@ -18,28 +18,26 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mase.editparts.properties;
+package hub.sam.mas.management;
 
-import hub.sam.mase.editor.MaseEditDomain;
-import hub.sam.mase.editparts.properties.handlers.OutputPinHandler;
-import hub.sam.mase.m2model.OutputPin;
+public class MOFModelException extends Exception {
 
-/**
- * @deprecated
- */
-public class OutputPinPropertySource extends AbstractPropertySource {
+    private static final long serialVersionUID = 1L;
 
-    private final OutputPin model;
-    private final MaseEditDomain editDomain;
-    
-    public OutputPinPropertySource(OutputPin model, MaseEditDomain editDomain) {
-        this.model = model;
-        this.editDomain = editDomain;
+    public MOFModelException() {
+        super();
     }
 
-    @Override
-    protected void createPropertyHandlers() {
-        installPropertyHandler(new OutputPinHandler(model, editDomain));
+    public MOFModelException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public MOFModelException(String message) {
+        super(message);
+    }
+
+    public MOFModelException(Throwable cause) {
+        super(cause);
     }
     
 }
