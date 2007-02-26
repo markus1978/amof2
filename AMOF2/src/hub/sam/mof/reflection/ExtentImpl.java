@@ -64,7 +64,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
     private final MultiMap<UmlClass, cmof.reflection.Object> objectsForTypesWithSubtypes = new MultiMap<UmlClass, cmof.reflection.Object>();
     private ImplementationsManager implementationsManager = null;
     protected final InstanceModel<UmlClass,Property,java.lang.Object> model = new ProxyInstanceModel();//TODO
-    private final Collection<ExtentChangeListener> listeners = new Vector<ExtentChangeListener>();
+    private final Collection<ExtentChangeListener> fListeners = new Vector<ExtentChangeListener>();
 
     protected ImplementationsManager createImplementationManager() {
         return new ImplementationsManagerImpl();
@@ -333,7 +333,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         object.setParentIdentity(this);
         object.setExtent(this);
         
-        for(ExtentChangeListener listener: listeners) {
+        for(ExtentChangeListener listener: fListeners) {
         	listener.newObject(object);
         }
     }
@@ -352,7 +352,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         	instance.delete();
         }
         
-        for(ExtentChangeListener listener: listeners) {
+        for(ExtentChangeListener listener: fListeners) {
         	listener.removedObject(object);
         }
     }
@@ -418,6 +418,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
     }
 
     public void myFinalize() {    	
+    	fListeners.clear();
     	for (cmof.reflection.Object outermostComposites: outermostComposites()) {
     		outermostComposites.delete();
     	}
@@ -505,10 +506,10 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
     }
 
 	public void addExtentChangeListener(ExtentChangeListener listener) {
-		listeners.add(listener);		
+		fListeners.add(listener);		
 	}
     
 	public void removeExtentChangeListener(ExtentChangeListener listener) {
-		listeners.remove(listener);		
+		fListeners.remove(listener);		
 	}
 }
