@@ -19,6 +19,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.codegeneration;
 
+import cmof.exception.ModelException;
 import hub.sam.mof.codegeneration.wrapper.OperationWrapper;
 import hub.sam.mof.codegeneration.wrapper.PropertyWrapper;
 import hub.sam.mof.codegeneration.wrapper.UmlClassWrapper;
@@ -51,8 +52,8 @@ public class ObjectProxyImplementationGenerator extends AbstractObjectProxyGener
         add("    java.lang.Object value = get(\"$umlName\");");
         }
         add("    if (value == null) {");
-        if (property.isJavaPrimitive()) {
-        add("       throw new RuntimeException(\"assert\");");
+        if (property.isJavaPrimitive()) {        
+        add("       throw new " + ModelException.class.getCanonicalName() + "(\"unset primitive value\");");
         } else {
         add("       return null;");
         }
@@ -77,7 +78,7 @@ public class ObjectProxyImplementationGenerator extends AbstractObjectProxyGener
             }
             add("    if (value == null) {");
             if (property.isJavaPrimitive()) {
-            add("       throw new RuntimeException(\"assert\");");
+            add("       throw new " + ModelException.class.getCanonicalName() + "(\"unset primitive value\");");
             } else {
             add("       return null;");
             }
@@ -106,7 +107,7 @@ public class ObjectProxyImplementationGenerator extends AbstractObjectProxyGener
             add("    java.lang.Object value = invokeOperation(\"$unambigousName\", new java.lang.Object[] { $parameterNames });");
             add("    if (value == null) {");
             if (operation.isJavaPrimitive()) {
-            add("       throw new RuntimeException(\"assert\");");
+            	add("       throw new " + ModelException.class.getCanonicalName() + "(\"null primitive value return value\");");
             } else {
             add("       return null;");
             }

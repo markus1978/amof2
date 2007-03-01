@@ -300,8 +300,8 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
                 } else {
                     values.set(0, extent.specificationForValue(value));
                 }
-                if (propertyChangeListeners.hasListeners(null)) {
-                    propertyChangeListeners.firePropertyChange(property.getName(), oldValue, value);
+                if (getPropertyChangeListener().hasListeners(null)) {
+                	getPropertyChangeListener().firePropertyChange(property.getName(), oldValue, value);
                 }
             } else {
                 throw new IllegalArgumentException(property);
@@ -339,8 +339,8 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
                 new hub.sam.mof.util.SetImpl<ValueSpecification<UmlClass, Property, java.lang.Object>>(
                         instance.get(property).getValuesAsList(null)));
 
-        if (wasSetProperty && propertyChangeListeners.hasListeners(null)) {
-            propertyChangeListeners.firePropertyChange(property.getName(), null, null);
+        if (wasSetProperty && getPropertyChangeListener().hasListeners(null)) {
+        	getPropertyChangeListener().firePropertyChange(property.getName(), null, null);
         }
     }
 
@@ -382,6 +382,10 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
 	                aHandler.handleDelete(this);
 	            }
 	        }
+	        if (handler != null) {
+	        	handler.clear();
+	        }
+	        propertyChangeListeners = null;
 	        for (cmof.reflection.Object component : getComponents()) {
 	            component.delete();
 	        }
@@ -964,26 +968,33 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         }
     }
 
-    protected PropertyChangeSupport propertyChangeListeners = new PropertyChangeSupport(this);
+    private PropertyChangeSupport propertyChangeListeners = null;
+    
+    protected PropertyChangeSupport getPropertyChangeListener() {
+    	if (propertyChangeListeners == null) {
+    		propertyChangeListeners = new PropertyChangeSupport(this);
+    	} 
+    	return propertyChangeListeners;
+    }
 
     public void addListener(PropertyChangeListener listener) {
-    	propertyChangeListeners.addPropertyChangeListener(listener);
+    	getPropertyChangeListener().addPropertyChangeListener(listener);
     }
 
     public void addListener(String propertyName, PropertyChangeListener listener) {
-        propertyChangeListeners.addPropertyChangeListener(propertyName, listener);
+    	getPropertyChangeListener().addPropertyChangeListener(propertyName, listener);
     }
 
     public void removeListener(PropertyChangeListener listener) {
-    	propertyChangeListeners.removePropertyChangeListener(listener);
+    	getPropertyChangeListener().removePropertyChangeListener(listener);
     }
 
     public void removeListener(String propertyName, PropertyChangeListener listener) {
-        propertyChangeListeners.removePropertyChangeListener(propertyName, listener);
+    	getPropertyChangeListener().removePropertyChangeListener(propertyName, listener);
     }
 
     private void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
-    	propertyChangeListeners.firePropertyChange(propertyName, oldValue, newValue);
+    	getPropertyChangeListener().firePropertyChange(propertyName, oldValue, newValue);
     }
 
     public OclModelElement ocl() {
