@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:cmof="http://www.foo.org/cmof">
+  <cmof:PrimitiveType xmi:id="4445" isAbstract="false" name="String" />
   <cmof:Package xmi:id="4892" name="cmof">
     <packageImport xmi:id="5159" importingNamespace="4892" importedPackage="4828" xsi:type="PackageImport" />
     <packageImport xmi:id="5160" importingNamespace="4892" importedPackage="4621" xsi:type="PackageImport" />
@@ -246,7 +247,6 @@
       <ownedEnd xmi:id="5119" owningAssociation="5120" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="4990 4989" type="5046" isReadOnly="false" isOrdered="false" isUnique="true" name="bodyContext" isComposite="false" xsi:type="Property" />
     </ownedType>
     <ownedType xmi:id="5046" isAbstract="false" name="Operation" package="4892" superClass="4842 5083" xsi:type="Class">
-      <ownedAttribute xmi:id="external1" name="ownedBehavior" subsettedProperty="4894" type="4896" upper="1" lower="0"/>
       <ownedRule xmi:id="5121" namespace="5046" name="type_of_result" constrainedElement="5046" xsi:type="Constraint">
         <specification xmi:id="5122" language="OCL" body="if returnResult-&gt;size() = 1 then type = returnResult.type else type = nil endif " xsi:type="OpaqueExpression" />
       </ownedRule>
@@ -307,7 +307,6 @@
       <ownedAttribute xmi:id="5074" isDerived="false" type="5046" subsettedProperty="5009 4913" class="5076" association="5075" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5073" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="ownedOperation" xsi:type="Property" />
     </ownedType>
     <ownedType xmi:id="5021" isAbstract="false" name="Property" package="4892" superClass="5130 4829" xsi:type="Class">
-      <ownedAttribute xmi:id="external2" name="ownedBehavior" subsettedProperty="4894" type="4896" upper="1" lower="0"/>
       <ownedAttribute xmi:id="external3" name="qualifier" subsettedProperty="4894" type="5021" upper="1" lower="0"/>
       <ownedRule xmi:id="5131" namespace="5021" name="opposite_is_other_end" constrainedElement="5021" xsi:type="Constraint">
         <specification xmi:id="5132" language="OCL" body="opposite = if owningAssociation-&gt;notEmpty() and association.memberEnd-&gt;size() = 2 then let otherEnd = (association.memberEnd - self)-&gt;any() in if otherEnd.owningAssociation-&gt;notEmpty then otherEnd else Set{} endif else Set {} endif" xsi:type="OpaqueExpression" />
@@ -389,80 +388,6 @@
       <ownedLiteral xmi:id="5096" enumeration="5094" name="inout" xsi:type="EnumerationLiteral" />
       <ownedLiteral xmi:id="5097" enumeration="5094" name="out" xsi:type="EnumerationLiteral" />
       <ownedLiteral xmi:id="5098" enumeration="5094" name="return" xsi:type="EnumerationLiteral" />
-    </ownedType>
-  </cmof:Package>
-  <cmof:Package xmi:id="4871" name="as">
-    <ownedType xmi:id="4872" isAbstract="false" name="ForkNode" package="4871" superClass="4873" xsi:type="Class" />
-    <ownedType xmi:id="4873" isAbstract="true" name="ControlNode" package="4871" superClass="4874" xsi:type="Class" />
-    <ownedType xmi:id="4887" isAbstract="false" name="ContextPin" package="4871" superClass="4888" xsi:type="Class" />
-    <ownedType xmi:id="4888" isAbstract="false" name="InputPin" package="4871" superClass="4889" xsi:type="Class" />
-    <ownedType xmi:id="4889" isAbstract="false" name="Pin" package="4871" superClass="4890 5102" xsi:type="Class" />
-    <ownedType xmi:id="4890" isAbstract="true" name="ObjectNode" package="4871" superClass="4874 4891" xsi:type="Class" />
-    <ownedType xmi:id="4886" memberEnd="4884" isDerived="false" isAbstract="false" package="4871" xsi:type="Association">
-      <ownedEnd xmi:id="4885" owningAssociation="4886" isDerivedUnion="false" upper="1" opposite="4884" lower="1" isDerived="false" type="4882" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="4882" isAbstract="false" name="GuardSpecification" package="4871" superClass="4891" xsi:type="Class">
-      <ownedAttribute xmi:id="4883" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4459" class="4882" isReadOnly="false" isOrdered="false" isUnique="true" name="body" isComposite="false" xsi:type="Property" />
-      <ownedAttribute xmi:id="4884" isDerived="false" type="4887" subsettedProperty="4894" class="4882" details="subsets ownedElement" association="4886" isComposite="true" isDerivedUnion="false" upper="1" opposite="4885" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="input" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="4881" memberEnd="4879" isDerived="false" isAbstract="false" package="4871" xsi:type="Association">
-      <ownedEnd xmi:id="4880" owningAssociation="4881" isDerivedUnion="false" upper="1" opposite="4879" lower="1" isDerived="false" type="4878" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="5178" memberEnd="5176 5177" isDerived="false" isAbstract="false" package="4871" xsi:type="Association" />
-    <ownedType xmi:id="4877" memberEnd="4876 4875" isDerived="false" isAbstract="false" package="4871" xsi:type="Association" />
-    <ownedType xmi:id="5186" isAbstract="false" name="ValueNode" package="4871" superClass="4890" xsi:type="Class" />
-    <ownedType xmi:id="5185" memberEnd="5183" isDerived="false" isAbstract="false" package="4871" xsi:type="Association">
-      <ownedEnd xmi:id="5184" owningAssociation="5185" isDerivedUnion="false" upper="1" opposite="5183" lower="1" isDerived="false" type="5182" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="5189" memberEnd="5187 5188" isDerived="false" isAbstract="false" package="4871" xsi:type="Association" />
-    <ownedType xmi:id="5181" memberEnd="5180 5179" isDerived="false" isAbstract="false" package="4871" xsi:type="Association" />
-    <ownedType xmi:id="5182" isAbstract="false" name="Activity" package="4871" superClass="4910" xsi:type="Class">
-      <ownedAttribute xmi:id="5183" isDerived="false" type="5186" class="5182" details="ordered" association="5185" isComposite="false" isDerivedUnion="false" upper="-1" opposite="5184" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="argument" xsi:type="Property" />
-      <ownedAttribute xmi:id="5187" isDerived="false" type="4874" subsettedProperty="4894" class="5182" details="subsets ownedElement" association="5189" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5188" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="node" xsi:type="Property" />
-      <ownedAttribute xmi:id="5180" isDerived="false" type="4878" subsettedProperty="4894" class="5182" details="subsets ownedElement" association="5181" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5179" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="edge" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="4878" isAbstract="true" name="ActivityEdge" package="4871" superClass="4910" xsi:type="Class">
-      <ownedAttribute xmi:id="4879" isDerived="false" type="4882" subsettedProperty="4894" class="4878" details="subsets ownedElement" association="4881" isComposite="true" isDerivedUnion="false" upper="1" opposite="4880" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="guardSpecification" xsi:type="Property" />
-      <ownedAttribute xmi:id="5176" isDerived="false" type="4874" class="4878" association="5178" isComposite="false" isDerivedUnion="false" opposite="5177" upper="1" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="source" xsi:type="Property" />
-      <ownedAttribute xmi:id="4876" isDerived="false" type="4874" class="4878" association="4877" isComposite="false" isDerivedUnion="false" opposite="4875" upper="1" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="target" xsi:type="Property" />
-      <ownedAttribute xmi:id="5179" isDerived="false" type="5182" class="4878" association="5181" isComposite="false" isDerivedUnion="false" opposite="5180" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="activity" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="4874" isAbstract="true" name="ActivityNode" package="4871" superClass="4910" xsi:type="Class">
-      <ownedAttribute xmi:id="4875" isDerived="false" type="4878" class="4874" association="4877" isComposite="false" isDerivedUnion="false" opposite="4876" upper="-1" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="incoming" xsi:type="Property" />
-      <ownedAttribute xmi:id="5188" isDerived="false" type="5182" class="4874" association="5189" isComposite="false" isDerivedUnion="false" opposite="5187" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="activity" xsi:type="Property" />
-      <ownedAttribute xmi:id="5177" isDerived="false" type="4878" class="4874" association="5178" isComposite="false" isDerivedUnion="false" opposite="5176" upper="-1" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="outgoing" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="5190" isAbstract="false" name="MergeNode" package="4871" superClass="4873" xsi:type="Class" />
-    <ownedType xmi:id="5191" isAbstract="false" name="OpaqueAction" package="4871" superClass="5194" xsi:type="Class">
-      <ownedAttribute xmi:id="5192" isDerivedUnion="false" upper="-1" lower="1" isDerived="false" type="4459" class="5191" isReadOnly="false" isOrdered="true" isUnique="true" name="body" isComposite="false" xsi:type="Property" />
-      <ownedAttribute xmi:id="5193" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" type="4459" class="5191" isReadOnly="false" isOrdered="true" isUnique="true" name="language" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="5198" isAbstract="false" name="OutputPin" package="4871" superClass="4889" xsi:type="Class" />
-    <ownedType xmi:id="5197" memberEnd="5195" isDerived="false" isAbstract="false" package="4871" xsi:type="Association">
-      <ownedEnd xmi:id="5196" owningAssociation="5197" isDerivedUnion="false" upper="1" opposite="5195" lower="0" isDerived="false" type="5194" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="5201" memberEnd="5199" isDerived="false" isAbstract="false" package="4871" xsi:type="Association">
-      <ownedEnd xmi:id="5200" owningAssociation="5201" isDerivedUnion="false" upper="1" opposite="5199" lower="0" isDerived="false" type="5194" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="5204" memberEnd="5202" isDerived="false" isAbstract="false" package="4871" xsi:type="Association">
-      <ownedEnd xmi:id="5203" owningAssociation="5204" isDerivedUnion="false" upper="1" opposite="5202" lower="1" isDerived="false" type="5194" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="5194" isAbstract="true" name="Action" package="4871" superClass="4874" xsi:type="Class">
-      <ownedAttribute xmi:id="5195" isDerived="false" type="5198" subsettedProperty="4894" class="5194" details="ordered, subsets ownedElement" association="5197" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5196" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="output" xsi:type="Property" />
-      <ownedAttribute xmi:id="5199" isDerived="false" type="4888" subsettedProperty="4894" class="5194" details="ordered, subsets ownedElement" association="5201" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5200" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="input" xsi:type="Property" />
-      <ownedAttribute xmi:id="5202" isDerived="true" type="5013" class="5194" association="5204" isComposite="false" isDerivedUnion="false" opposite="5203" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="context" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="5205" isAbstract="false" name="JoinNode" package="4871" superClass="4873" xsi:type="Class" />
-    <ownedType xmi:id="5206" isAbstract="false" name="ControlFlow" package="4871" superClass="4878" xsi:type="Class" />
-    <ownedType xmi:id="5207" isAbstract="false" name="FinalNode" package="4871" superClass="4873" xsi:type="Class" />
-    <ownedType xmi:id="5208" isAbstract="false" name="DecisionNode" package="4871" superClass="4873" xsi:type="Class" />
-    <ownedType xmi:id="5209" isAbstract="false" name="InitialNode" package="4871" superClass="4873" xsi:type="Class" />
-    <ownedType xmi:id="5210" isAbstract="false" name="ObjectFlow" package="4871" superClass="4878" xsi:type="Class" />
-    <ownedType xmi:id="5211" isAbstract="false" name="ContextExtensionPin" package="4871" superClass="4887" xsi:type="Class">
-      <ownedAttribute xmi:id="5212" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4459" class="5211" isReadOnly="false" isOrdered="false" isUnique="true" name="extensionName" isComposite="false" xsi:type="Property" />
-    </ownedType>
-    <ownedType xmi:id="5213" isAbstract="false" name="TypeString" package="4871" superClass="4975" xsi:type="Class">
-      <ownedAttribute xmi:id="5214" isDerivedUnion="false" upper="-1" lower="1" isDerived="false" type="4459" class="5213" isReadOnly="false" isOrdered="true" isUnique="true" name="qualifiedTypeName" isComposite="false" xsi:type="Property" />
     </ownedType>
   </cmof:Package>
   <cmof:Package xmi:id="4446" name="core">

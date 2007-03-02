@@ -39,7 +39,8 @@
 	   	<copy todir="${repository-generated-src}">
 	    	<fileset dir="${repository-initial-src}"/>
 	   	</copy>
-		</target>
+	</target>
+	
 	<target name="init-test-generated" unless="${available-test-generated-src}">
 		<copy todir="${test-generated-src}">
 			<fileset dir="${test-initial-src}"/>
@@ -106,15 +107,12 @@
 		<delete dir="${build-dir}"/>
 		<delete dir="${doc-dir}"/>
 		<delete file="${jar-file}"/>
-		<delete>
-			<fileset dir="${src}/hub/sam/mof/as/parser" includes="*.java"/>
-		</delete>
 	</target>
 
 	<target name="dist-clean" depends="clean">
 		<delete dir="${repository-generated-src}"/>
 		<delete dir="${test-generated-src}"/>
-        <delete dir="${basedir}/reources/models/work"/>
+        <delete dir="${basedir}/resources/models/work"/>
     </target>
 
 	<target name="dist" depends="dist-clean,bootstrap,tests,build-jar,doc"
@@ -168,40 +166,9 @@
 		</java>
 	</target>
 
-	<target name="compile-uml">
-		<javac srcdir="${uml-src}" source="1.5" nowarn="yes" memorymaximumsize="100m" fork="true">
-			<classpath refid="classpath"/>
-		</javac>
-	</target>
-
-	<target name="compile-sdl">
-		<javac srcdir="${sdl-src}" nowarn="yes">
-			<classpath refid="classpath"/>
-		</javac>
-	</target>
-
-	<target name="uml" depends="compile">
-		<delete dir="${uml-src}"/>
-		<mkdir dir="${uml-src}"/>
-		<taskdef name="mof" classname="hub.sam.mof.ant.GenerateCode" classpathref="classpath"/>
-		<mof src="${basedir}/resources/models/uml/L3.merged.cmof.xml" destdir="${uml-src}"/>
-		<antcall target="compile-uml"/>
-	</target>
-
     <target name="-splash">
         <splash showduration="0" imageurl="file:doc/rationale.jpg"/>
     </target>
-
-	<target name="adopt-bootstrap">
-		<delete dir="${repository-initial-src}"/>
-		<delete dir="${test-initial-src}"/>
-		<copy todir="${repository-initial-src}">
-	    	<fileset dir="${repository-generated-src}"/>
-		</copy>
-		<copy todir="${test-initial-src}">
-	    	<fileset dir="${test-generated-src}"/>
-		</copy>
-	</target>
 
 	<target name="doclet-test" depends="compile">
 		<!--<javadoc packagenames="hub.sam.mof.domainmodelsinmodels.builderexample" sourcepathref="sourcepath"
@@ -220,10 +187,5 @@
              destdir="${test-generated-src}"/>
     </target>
 	
-    <target name="generate-mase" depends="compile">
-		<java classname="hub.sam.mof.mas.GenerateASRepository" fork="false">
-			<classpath refid="classpath"/>
-		</java>
-	</target>
 </project>
 <!-- vim:set ts=4: -->
