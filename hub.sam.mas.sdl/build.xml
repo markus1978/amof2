@@ -3,11 +3,10 @@
         SDL
 	</description>
 	<property name="build-dir" value="${basedir}/build"/>
-    <property name="javacc-home" location="${basedir}/../../lib/javacc"/>
+    <property name="javacc-home" location="${basedir}/resources/lib/javacc"/>
 	<path id="classpath">
 		<pathelement path="${build/dir}"/>
-        <pathelement path="${basedir}/../../../build"/>
-        <fileset dir="${basedir}/../../../resources/lib">
+        <fileset dir="${basedir}/resources/lib">
 			<include name="**/*.jar"/>
 		</fileset>
     </path>
@@ -17,7 +16,7 @@
 		<pathelement path="${basedir}/generated-src"/>
 	</path>
 
-    <target name="init" depends="precompile" >
+    <target name="init">
 	   	<mkdir dir="./generated-src"/>
         <mkdir dir="./build"/>
         <mkdir dir="${basedir}/generated-src/hub/sam/sdlplus/parser"/>
@@ -27,10 +26,6 @@
 	<target name="prepare" depends="init">
     	<mofgencode src="${basedir}/resources/models/sdl.mdxml" destdir="${basedir}/generated-src" staticmodel="SDL.SdlModel" md="true" instances="true" ocl="true" force="true"/>
         <mofgencode src="${basedir}/resources/models/trace.mdxml" destdir="${basedir}/generated-src" staticmodel="trace.TraceModel" md="true" instances="false" force="true"/>
-    </target>
-
-    <target name="precompile">
-        <ant antfile="${basedir}/../../../build.xml" dir="${basedir}/../../../" inheritAll="false" target="compile" />
     </target>
 
     <target name="gen-parser" depends="init">
