@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:Mase="http://www.foo.org/Mase" xmi:version="2.1">
+  <Mase:TypeString xmi:id="6120" qualifiedTypeName="Traffic Crossroad" />
+  <Mase:TypeString xmi:id="6079" qualifiedTypeName="Crossroad" />
+  <Mase:Activity xmi:id="6080">
+    <node xmi:id="6119" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAGEAAAAc&#xA;" activityAsNode="6080" outgoing="6118" xsi:type="InitialNode" />
+    <node xmi:id="6115" actionBody="self.metaClassifierCrossroad" incoming="6118" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAmwAAACUAAABe&#xA;" actionKind="expression" activityAsNode="6080"  outgoing="6164" xsi:type="OpaqueAction">
+      <outputList xmi:id="6116" action="6115" xsi:type="OutputPinList" />
+      <inputList xmi:id="6117" action="6115" xsi:type="InputPinList" />
+      <output xmi:id="6113" num="0" outgoing="6112" xsi:type="OutputPin">
+        <type xmi:id="6114" qualifiedTypeName="Crossroad" xsi:type="TypeString" />
+      </output>
+    </node>
+    <node xmi:id="6111" incoming="6112" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAdAAAAgQAAAOoAAADE&#xA;" activityAsNode="6080" name="crossroad:Crossroad"  outgoing="6110" xsi:type="ValueNode" />
+    <node xmi:id="6106" actionBody="self.lightSequence" incoming="6164" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAPcAAAD9&#xA;" actionKind="expression" activityAsNode="6080"  outgoing="6163" xsi:type="OpaqueAction">
+      <input xmi:id="6109" incoming="6110" num="0" xsi:type="ContextPin" />
+      <outputList xmi:id="6107" action="6106" xsi:type="OutputPinList" />
+      <inputList xmi:id="6108" action="6106" xsi:type="InputPinList" />
+      <output xmi:id="6105" num="0" outgoing="6104" xsi:type="OutputPin" />
+    </node>
+    <node xmi:id="6299" incoming="6298" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAOsAAAQD&#xA;" activityAsNode="6080" xsi:type="FinalNode" />
+    <edge xmi:id="6118" source="6119" target="6115" activity="6080" xsi:type="ControlFlow" />
+    <edge xmi:id="6112" source="6113" target="6111" activity="6080" xsi:type="ObjectFlow" />
+    <edge xmi:id="6110" source="6111" target="6109" activity="6080" xsi:type="ObjectFlow" />
+    <edge xmi:id="6104" source="6105" target="6103" activity="6080" xsi:type="ObjectFlow" />
+    <edge xmi:id="6099" source="6100" target="6096" activity="6080" xsi:type="ControlFlow" />
+    <edge xmi:id="6102" source="6103" target="6101" activity="6080" xsi:type="ObjectFlow" />
+    <edge xmi:id="6090" source="6091" target="6089" activity="6080" xsi:type="ObjectFlow" />
+    <edge xmi:id="5866" source="6096" target="6092" activity="6080" xsi:type="ControlFlow" />
+    <edge xmi:id="6095" source="6092" target="6085" activity="6080" xsi:type="ControlFlow" />
+    <edge xmi:id="6164" source="6115" target="6106" activity="6080" xsi:type="ControlFlow" />
+    <edge xmi:id="6163" source="6106" target="6081" activity="6080" xsi:type="ControlFlow" />
+    <edge xmi:id="6157" source="6085" target="6158" activity="6080" xsi:type="ControlFlow" />
+    <edge xmi:id="6161" source="6158" target="6162" activity="6080" xsi:type="ControlFlow" />
+    <edge xmi:id="6300" source="6089" target="6301" activity="6080" xsi:type="ObjectFlow" />
+    <edge xmi:id="6327" source="6328" target="6302" activity="6080" xsi:type="ControlFlow" />
+    <edge xmi:id="6324" source="6325" target="6323" activity="6080" xsi:type="ObjectFlow" />
+    <edge xmi:id="6318" source="6319" target="6317" activity="6080" xsi:type="ObjectFlow" />
+    <edge xmi:id="6305" source="6302" target="6306" activity="6080" xsi:type="ControlFlow" />
+    <edge xmi:id="6316" source="6317" target="6315" activity="6080" xsi:type="ObjectFlow" />
+    <edge xmi:id="6322" source="6323" target="6321" activity="6080" xsi:type="ObjectFlow" />
+    <edge xmi:id="6309" source="6306" target="6310" activity="6080" xsi:type="ControlFlow" />
+    <edge xmi:id="6313" source="6310" target="6314" activity="6080" xsi:type="ControlFlow" />
+    <edge xmi:id="6298" source="6081" target="6299" activity="6080" xsi:type="ControlFlow" />
+    <group xmi:id="6081" incoming="6163" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAB1AAAACwAAAFt&#xA;"  activityAsGroup="6080" outgoing="6298" mode="iterative" xsi:type="ExpansionRegion">
+      <inputElement xmi:id="6103" incoming="6104" num="0" regionAsInput="6081" outgoing="6102" xsi:type="InExpansionNode" />
+      <body xmi:id="6083" region="6081" xsi:type="ExpansionRegionBody" />
+      <node xmi:id="6100" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAADQAAAAP&#xA;" activityAsNode="6081" outgoing="6099" xsi:type="InitialNode" />
+      <node xmi:id="6096" actionBody="-----" incoming="6099" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAAwAAAA5&#xA;" actionKind="print" activityAsNode="6081"  outgoing="5866" xsi:type="OpaqueAction">
+        <outputList xmi:id="6097" action="6096" xsi:type="OutputPinList" />
+        <inputList xmi:id="6098" action="6096" xsi:type="InputPinList" />
+      </node>
+      <node xmi:id="6092" actionBody="self.entries" incoming="5866" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAJQAAAAt&#xA;" actionKind="expression" activityAsNode="6081"  outgoing="6095" xsi:type="OpaqueAction">
+        <input xmi:id="6101" incoming="6102" num="0" xsi:type="ContextPin" />
+        <outputList xmi:id="6093" action="6092" xsi:type="OutputPinList" />
+        <inputList xmi:id="6094" action="6092" xsi:type="InputPinList" />
+        <output xmi:id="6091" num="0" outgoing="6090" xsi:type="OutputPin" />
+      </node>
+      <node xmi:id="6158" actionBody="1 second pause" incoming="6157" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAVcAAADt&#xA;" actionKind="print" activityAsNode="6081"  outgoing="6161" xsi:type="OpaqueAction">
+        <outputList xmi:id="6159" action="6158" xsi:type="OutputPinList" />
+        <inputList xmi:id="6160" action="6158" xsi:type="InputPinList" />
+      </node>
+      <node xmi:id="6162" incoming="6161" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAXoAAAFK&#xA;" activityAsNode="6081" xsi:type="FinalNode" />
+      <inList xmi:id="6082" region="6081" xsi:type="InExpansionNodeList" />
+      <outList xmi:id="6084" region="6081" xsi:type="OutExpansionNodeList" />
+      <group xmi:id="6085" incoming="6095" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAgAAAAAkAAACs&#xA;"  activityAsGroup="6081" outgoing="6157" mode="iterative" xsi:type="ExpansionRegion">
+        <inputElement xmi:id="6089" incoming="6090" num="0" regionAsInput="6085" outgoing="6300" xsi:type="InExpansionNode" />
+        <body xmi:id="6087" region="6085" xsi:type="ExpansionRegionBody" />
+        <node xmi:id="6302" actionBody="signal.type.lights-&gt;select(l|l.color = self.color)-&gt;asSequence()-&gt;first()" incoming="6327" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAA0AAAArQAAAAsAAAAN&#xA;" actionKind="expression" activityAsNode="6085"  outgoing="6305" xsi:type="OpaqueAction">
+          <input xmi:id="6301" incoming="6300" num="0" xsi:type="ContextPin" />
+          <outputList xmi:id="6303" action="6302" xsi:type="OutputPinList" />
+          <inputList xmi:id="6304" action="6302" xsi:type="InputPinList" />
+          <output xmi:id="6325" num="0" outgoing="6324" xsi:type="OutputPin">
+            <type xmi:id="6326" qualifiedTypeName="SignalLightType" xsi:type="TypeString" />
+          </output>
+        </node>
+        <node xmi:id="6328" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAABkAAAAE&#xA;" activityAsNode="6085" outgoing="6327" xsi:type="InitialNode" />
+        <node xmi:id="6323" incoming="6324" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAALsAAABd&#xA;" activityAsNode="6085" name="lightType"  outgoing="6322" xsi:type="ValueNode" />
+        <node xmi:id="6306" actionBody="signal.metaInstanceTrafficLightInstance-&gt;asSequence()-&gt;first()" incoming="6305" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAADQAAACB&#xA;" actionKind="expression" activityAsNode="6085"  outgoing="6309" xsi:type="OpaqueAction">
+          <outputList xmi:id="6307" action="6306" xsi:type="OutputPinList" />
+          <inputList xmi:id="6308" action="6306" xsi:type="InputPinList" />
+          <output xmi:id="6319" num="0" outgoing="6318" xsi:type="OutputPin">
+            <type xmi:id="6320" qualifiedTypeName="TrafficLightInstance" xsi:type="TypeString" />
+          </output>
+        </node>
+        <node xmi:id="6317" incoming="6318" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAd/////wAAAL4AAADg&#xA;" activityAsNode="6085" name="trafficLight"  outgoing="6316" xsi:type="ValueNode" />
+        <node xmi:id="6310" actionBody="justDoIt" incoming="6309" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAADwAAAEA&#xA;" actionKind="call" activityAsNode="6085"  outgoing="6313" xsi:type="OpaqueAction">
+          <input xmi:id="6315" incoming="6316" num="0" xsi:type="ContextPin" />
+          <input xmi:id="6321" incoming="6322" num="1" xsi:type="InputPin" />
+          <outputList xmi:id="6311" action="6310" xsi:type="OutputPinList" />
+          <inputList xmi:id="6312" action="6310" xsi:type="InputPinList" />
+        </node>
+        <node xmi:id="6314" incoming="6313" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAMsAAAEs&#xA;" activityAsNode="6085" xsi:type="FinalNode" />
+        <inList xmi:id="6086" region="6085" xsi:type="InExpansionNodeList" />
+        <outList xmi:id="6088" region="6085" xsi:type="OutExpansionNodeList" />
+      </group>
+    </group>
+  </Mase:Activity>
+  <Mase:TypeString xmi:id="6122" qualifiedTypeName="Traffic Crossroad" />
+  <Mase:TypeString xmi:id="6121" qualifiedTypeName="Traffic Crossroad" />
+</xmi:XMI>
+

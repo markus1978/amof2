@@ -1,0 +1,51 @@
+<?xml version="1.0"  encoding="windows-1252"?>
+<XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XMI" xmlns:cmof="http://schema.omg.org/spec/mof/2.0/cmof.xmi">
+    <cmof:Package name="warehouse" xmi:id="warehouse">
+        <packageImport importedPackage="primitivetypes"/>
+        <ownedType xmi:id="Element" xsi:type="Class" name="Element" isAbstract="true">
+            <ownedAttribute name="identifier" type="String"/>
+            <ownedAttribute name="foo" type="String"/>
+            <ownedAttribute name="position" type="String" isDerived="true"/>
+            <ownedAttribute xmi:id="container" name="container" type="Container" opposite="content" association="Contains" lower="0"/>
+            <ownedOperation name="test"/>
+            <ownedOperation name="foo"/>
+        </ownedType>
+        <ownedType xmi:id="Container" xsi:type="Class" name="Container" isAbstract="true" superClass="Element">
+            <ownedAttribute xmi:id="content" name="content" type="Element" upper="-1" lower="0" opposite="container" association="Contains" isComposite="true" />
+        </ownedType>
+        <ownedType xmi:id="Contains" xsi:type="Association" name="Contains"/>
+        <ownedType xmi:id="Rack" xsi:type="Class" name="Rack" superClass="Container">
+            <ownedAttribute xmi:id="containsBox" name="box" type="Box" upper="-1" lower="0" opposite="rack" association="RackContains" isComposite="true" subsettedProperty="content"/>
+        </ownedType>
+        <ownedType xmi:id="RackContains" xsi:type="Association" name="RackContains">
+            <ownedEnd xmi:id="rack" name="rack" type="Rack" opposite="containsBox" lower="0"/>            
+        </ownedType>
+        <ownedType xmi:id="Box" xsi:type="Class" name="Box" superClass="Container">
+            <ownedAttribute xmi:id="containsItem" name="item" type="Item" upper="-1" lower="0" opposite="box" association="BoxContains" isComposite="true" subsettedProperty="content"/>
+            <ownedAttribute name="weight" type="Integer" isDerived="true"/>
+        </ownedType>
+        <ownedType xmi:id="BoxContains" xsi:type="Association" name="BoxContains">
+            <ownedEnd xmi:id="box" name="box" type="Box" opposite="containsItem"/>            
+        </ownedType>
+        <ownedType xmi:id="Item" xsi:type="Class" name="Item" superClass="Element">
+            <ownedAttribute name="weight" type="Integer" default="0"/>
+            <ownedAttribute name="visibility" type="VisibilityKind" default="public"/>
+            <ownedAttribute name="javaTypeTest" type="TestClass"/>
+            <ownedAttribute name="javaTypeTestList" type="TestClass" upper="-1"/>
+        </ownedType>
+        <ownedType xsi:type="Enumeration" xmi:id="VisibilityKind" name="VisibilityKind">
+          <ownedLiteral name="public"/>
+          <ownedLiteral name="private"/>
+        </ownedType>
+        <ownedType xsi:type="PrimitiveType" xmi:id="TestClass" name="hub.sam.mof.test.TestClass"/>
+    </cmof:Package>
+    <cmof:Package name="core">
+      <nestedPackage xmi:id="primitivetypes" name="primitivetypes">
+        <ownedType xsi:type="PrimitiveType" xmi:id="Integer" name="Integer"/>
+        <ownedType xsi:type="PrimitiveType" xmi:id="Boolean" name="Boolean"/>
+        <ownedType xsi:type="PrimitiveType" xmi:id="String" name="String"/>
+        <ownedType xsi:type="PrimitiveType" xmi:id="UnlimitedNatural" name="UnlimitedNatural"/>
+      </nestedPackage>
+    </cmof:Package>
+    <cmof:Tag xmi:id="nsPrefix" name="org.omg.xmi.nsPrefix" value="warehouse" element="warehouse"/>
+</XMI>

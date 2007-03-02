@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 3.0//EN" "http://www.jboss.org/j2ee/dtd/jboss_3_0.dtd">
+
+<jboss>
+
+   <enterprise-beans>
+
+     <!--
+       To add beans that you have deployment descriptor info for, add
+       a file to your XDoclet merge directory called jboss-beans.xml that contains
+       the <session></session>, <entity></entity> and <message-driven></message-driven>
+       markup for those beans.
+     -->
+
+      <entity>
+         <ejb-name>ServerReflectiveCollection</ejb-name>
+         <jndi-name>ejb/ServerReflectiveCollection</jndi-name>
+
+      </entity>
+      <entity>
+         <ejb-name>ServerObject</ejb-name>
+         <jndi-name>ejb/ServerObject</jndi-name>
+
+      </entity>
+      <entity>
+         <ejb-name>ServerFactory</ejb-name>
+         <jndi-name>ejb/ServerFactory</jndi-name>
+
+      </entity>
+      <entity>
+         <ejb-name>ServerReflectiveSequence</ejb-name>
+         <jndi-name>ejb/ServerReflectiveSequence</jndi-name>
+
+      </entity>
+      <entity>
+         <ejb-name>ServerExtent</ejb-name>
+         <jndi-name>ejb/ServerExtent</jndi-name>
+
+      </entity>
+
+      <session>
+         <ejb-name>ServerRepository</ejb-name>
+         <jndi-name>ejb/ServerRepository</jndi-name>
+
+      </session>
+
+    <!--
+      write a merge file jboss-webservices.ent for webservice-description 
+    -->
+
+   </enterprise-beans>
+
+   <resource-managers>
+   </resource-managers>
+
+  <!--
+    | for container settings, you can merge in jboss-container.xml
+    | this can contain <invoker-proxy-bindings/> and <container-configurations/>
+  -->
+
+</jboss>

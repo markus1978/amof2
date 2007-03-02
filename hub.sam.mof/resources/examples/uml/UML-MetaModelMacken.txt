@@ -1,0 +1,11 @@
+An awkward Association: Class::Kernel::Classes-Kernel-A_navigableOwnedEnd_association
+A lot of awkward associations
+
+The multiplicities are bad:
+    - sometimes there are not specified, with the meaning that they arent interesting, therefore 0..*
+    - sometimes there are not specified, meaning they default values, thus 1..1
+
+    - solution for now ... every non navigable association end with out lower or upper explicitly given, is assigend
+      mulitplicity 0..*
+
+  %Class::Kernel::Classes-Kernel-A_member_namespace

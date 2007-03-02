@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:Java="http://www.foo.org/cmof" xmi:version="2.1">
+<!--
+class c1 {
+    v:c2;
+
+    a() {
+        v = new c2();
+        v.a();
+    }
+
+    b() {
+
+    }
+
+    main() {
+        v:c1;
+        v = new c1();
+        v.a();
+    }
+}
+-->
+    <Java:Class xmi:id="c1" name="c1">
+        <variable xmi:id="c1::v" scope="MEMBER" name="c1::v"/>
+        <method xmi:id="c1::a" scope="MEMBER" name="c1::a">
+            <body xsi:type="Assignment" assignTo="c1::v">
+                <assignWith xsi:type="New" class="c2"/>
+            </body>
+            <body xsi:type="MethodCall" calledMethod="c2::a">
+                <target xsi:type="ReadVariable" variable="c1::v"/>
+            </body>
+        </method>
+        <method xmi:id="c1::b" scope="MEMBER" name="c1::b"/>
+        <method xmi:id="c1::main" scope="CLASS" name="main">
+            <variable xmi:id="c1::main::v" name="c1::main::v"/>
+            <body xsi:type="Assignment" assignTo="c1::main::v">
+                <assignWith xsi:type="New" class="c1"/>
+            </body>
+            <body xsi:type="MethodCall" calledMethod="c1::a">
+                <target xsi:type="ReadVariable" variable="c1::main::v"/>
+            </body>
+        </method>
+    </Java:Class>
+
+<!--
+class c2 {
+    v:c1;
+
+    a() {
+        v = new c1();
+        u:c1;
+        u = v;
+        u.b();
+    }
+}
+-->
+    <Java:Class xmi:id="c2" name="c2">
+        <variable xmi:id="c2::v" name="c2::v" scope="MEMBER"/>
+        <method xmi:id="c2::a" name="c2::a" scope="MEMBER">
+            <variable xmi:id="c2::a::u" name="c2::a::u"/>
+            <body xsi:type="Assignment" assignTo="c2::v">
+                <assignWith xsi:type="New" class="c1"/>
+            </body>
+            <body xsi:type="Assignment" assignTo="c2::a::u">
+                <assignWith xsi:type="ReadVariable" variable="c2::v"/>
+            </body>
+            <body xsi:type="MethodCall" calledMethod="c1::b">
+                <target xsi:type="ReadVariable" variable="c2::a::u"/>
+            </body>
+        </method>
+    </Java:Class>
+</xmi:XMI>
+

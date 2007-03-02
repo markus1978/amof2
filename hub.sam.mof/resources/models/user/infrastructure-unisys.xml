@@ -1,0 +1,165 @@
+<?xml version = '1.0' encoding = 'ISO-8859-1' ?>
+<!-- <!DOCTYPE XMI SYSTEM 'UMLX13-11.dtd' > -->
+<XMI xmi.version = '1.1' xmlns:UML='href://org.omg/UML/1.3' timestamp = 'Wed Jun 29 16:01:20 2005' >
+ <XMI.header>
+  <XMI.documentation>
+  <XMI.exporter>Unisys.JCR.1</XMI.exporter>
+  <XMI.exporterVersion>1.3.4</XMI.exporterVersion>
+  </XMI.documentation>
+  <XMI.metamodel xmi.name = 'UML' xmi.version = '1.3'/>
+ </XMI.header>
+<XMI.content>
+<!-- ==================== test    [Model] ==================== -->
+<UML:Model xmi.id = 'G.0' 
+  name = 'test' visibility = 'public' isSpecification = 'false' 
+  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+  <UML:Namespace.ownedElement>
+<UML:Package name = 'core' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Package name = 'basic' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'Type' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+<UML:Class name = 'Property' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'NamedElement' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+<UML:Class name = 'DataType' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+<UML:Class name = 'Parameter' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'TypedElement' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+<UML:Class name = 'Operation' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'Enumeration' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'PrimitiveType' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'EnumerationLiteral' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'Package' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'Class' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'abstractions' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Package name = 'changeabilities' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'StructuralFeature' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'generalizations' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'Generalization' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'Classifier' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'multiplicities' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'MultiplicityElement' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'behavioralfeatures' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'BehavioralFeature' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+<UML:Class name = 'Parameter' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'comments' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'Comment' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'Element' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'multiplicityexpressions' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'MultiplicityElement' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'relationships' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'DirectedRelationship' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+<UML:Class name = 'Relationship' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'elements' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'Element' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'constraints' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'Namespace' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+<UML:Class name = 'Constraint' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'classifiers' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'Feature' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+<UML:Class name = 'Classifier' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'structuralfeatures' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'StructuralFeature' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'expressions' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'OpaqueExpression' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'ValueSpecification' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+<UML:Class name = 'Expression' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'instances' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'InstanceSpecification' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'Slot' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'InstanceValue' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'visibilities' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'NamedElement' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'namespaces' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'NamedElement' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+<UML:Class name = 'Namespace' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'super' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'Classifier' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'ownerships' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'Element' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'literals' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'LiteralInteger' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'LiteralSpecification' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+<UML:Class name = 'LiteralString' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'LiteralBoolean' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'LiteralUnlimitedNatural' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+<UML:Class name = 'LiteralNull' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'false' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'typedelements' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'Type' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+<UML:Class name = 'TypedElement' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'redefinitions' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+<UML:Class name = 'RedefinableElement' visibility = 'public' isSpecification = 'false' isRoot = 'true' isLeaf = 'true' isAbstract = 'true' isActive = 'false'/>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+<UML:Package name = 'primitivetypes' visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+  <UML:Namespace.ownedElement>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+  </UML:Namespace.ownedElement>
+</UML:Package>
+  </UML:Namespace.ownedElement>
+</UML:Model>
+</XMI.content>
+</XMI>

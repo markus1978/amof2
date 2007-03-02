@@ -1,0 +1,1657 @@
+<?xml version = '1.0' encoding = 'ISO-8859-1' ?>
+<!-- <!DOCTYPE XMI SYSTEM 'UMLX13-11.dtd' > -->
+<XMI xmi.version = '1.1' xmlns:UML='href://org.omg/UML/1.3' timestamp = 'Mon Sep 19 14:53:32 2005' >
+ <XMI.header>
+  <XMI.documentation>
+   <XMI.exporter>Unisys.JCR.1</XMI.exporter>
+   <XMI.exporterVersion>1.3.4</XMI.exporterVersion>
+  </XMI.documentation>
+  <XMI.metamodel xmi.name = 'UML' xmi.version = '1.3'/>
+ </XMI.header>
+<XMI.content>
+<!-- ==================== CeeJay    [Model] ==================== -->
+<UML:Model xmi.id = 'G.0' 
+  name = 'CeeJay' visibility = 'public' isSpecification = 'false' 
+  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+  <UML:Namespace.ownedElement>
+    <!-- ==================== CeeJay::DataTypes    [Package] ==================== -->
+    <UML:Package xmi.id = 'S.261.1453.19.1' 
+      name = 'DataTypes' visibility = 'public' isSpecification = 'false' 
+      isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+      namespace = 'G.0' supplierDependency = 'G.98' >
+      <UML:Namespace.ownedElement>
+        <UML:Stereotype xmi.id = 'S.261.1453.19.53' 
+          name = 'metamodel' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          icon = '' baseClass = 'Package' 
+          extendedElement = 'S.261.1453.19.1' />
+        <!-- ==================== CeeJay::DataTypes::Boolean    [DataType] ==================== -->
+        <UML:DataType xmi.id = 'S.261.1453.19.2' 
+          name = 'Boolean' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+          namespace = 'S.261.1453.19.1' />
+        <!-- ==================== CeeJay::DataTypes::String    [DataType] ==================== -->
+        <UML:DataType xmi.id = 'S.261.1453.19.3' 
+          name = 'String' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+          namespace = 'S.261.1453.19.1' />
+      </UML:Namespace.ownedElement>
+    </UML:Package>
+    <!-- ==================== CeeJay::Common    [Package] ==================== -->
+    <UML:Package xmi.id = 'S.261.1453.19.4' 
+      name = 'Common' visibility = 'public' isSpecification = 'false' 
+      isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+      namespace = 'G.0' clientDependency = 'G.98' supplierDependency = 'G.99' >
+      <UML:Namespace.ownedElement>
+        <UML:Stereotype xmi.id = 'S.261.1453.19.54' 
+          name = 'metamodel' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          icon = '' baseClass = 'Package' 
+          extendedElement = 'S.261.1453.19.4' />
+        <!-- ==================== CeeJay::Common::Contains{42A8347D01FF}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.1' 
+          name = 'Contains' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::Contains{42A8347D01FF}.contents    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.2' 
+              name = 'contents' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.13' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::Contains{42A8347D01FF}.container    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.3' 
+              name = 'container' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'composite' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.15' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== CeeJay::Common::GeneralizableElementSupertype{42A8347D0202}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.4' 
+          name = 'GeneralizableElementSupertype' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::GeneralizableElementSupertype{42A8347D0202}.supertype    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.5' 
+              name = 'supertype' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.9' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::GeneralizableElementSupertype{42A8347D0202}.specialtype    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.6' 
+              name = 'specialtype' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.9' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== CeeJay::Common::Type{42A8347D0205}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.7' 
+          name = 'Type' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::Type{42A8347D0205}.type    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.8' 
+              name = 'type' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.5' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::Type{42A8347D0205}.instance    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.9' 
+              name = 'instance' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.16' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== CeeJay::Common::Bodied{42A8347D0208}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.10' 
+          name = 'Bodied' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::Bodied{42A8347D0208}.body    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.11' 
+              name = 'body' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.13' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::Bodied{42A8347D0208}.bodiedElement    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.12' 
+              name = 'bodiedElement' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'composite' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.11' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== CeeJay::Common::Signature{42A8347D020B}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.13' 
+          name = 'Signature' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::Signature{42A8347D020B}.parameters    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.14' 
+              name = 'parameters' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              constraint = 'S.261.1453.19.55' 
+              type = 'S.261.1453.19.16' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::Signature{42A8347D020B}.signaturedElement    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.15' 
+              name = 'signaturedElement' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'composite' targetScope = 'instance' changeability = 'changeable' 
+              constraint = 'S.261.1453.19.56' 
+              type = 'S.261.1453.19.17' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== Constraint-S.261.1453.19.55    [Constraint] ==================== -->
+        <UML:Constraint xmi.id = 'S.261.1453.19.55' 
+          name = 'Constraint-S.261.1453.19.55' visibility = 'public' isSpecification = 'false' 
+          constrainedElement = 'G.14' >
+          <UML:Constraint.body>
+            <UML:BooleanExpression 
+              language = '' body = 'ordered, subsets contents' />
+          </UML:Constraint.body>
+        </UML:Constraint>
+        <!-- ==================== Constraint-S.261.1453.19.56    [Constraint] ==================== -->
+        <UML:Constraint xmi.id = 'S.261.1453.19.56' 
+          name = 'Constraint-S.261.1453.19.56' visibility = 'public' isSpecification = 'false' 
+          constrainedElement = 'G.15' >
+          <UML:Constraint.body>
+            <UML:BooleanExpression 
+              language = '' body = 'subsets container' />
+          </UML:Constraint.body>
+        </UML:Constraint>
+        <!-- ==================== CeeJay::Common::InterfaceTypes{42A8347D020E}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.16' 
+          name = 'InterfaceTypes' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::InterfaceTypes{42A8347D020E}.interfaces    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.17' 
+              name = 'interfaces' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.26' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::InterfaceTypes{42A8347D020E}.classifier    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.18' 
+              name = 'classifier' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.18' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== CeeJay::Common::Interfaces{42A8347D0211}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.19' 
+          name = 'Interfaces' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::Interfaces{42A8347D0211}.interfaces    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.20' 
+              name = 'interfaces' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.20' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::Interfaces{42A8347D0211}.instance    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.21' 
+              name = 'instance' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'composite' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.19' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== CeeJay::Common::Entry{42A8347D0214}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.22' 
+          name = 'Entry' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::Entry{42A8347D0214}.toMedia    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.23' 
+              name = 'toMedia' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.24' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::Entry{42A8347D0214}.source    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.24' 
+              name = 'source' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.20' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== CeeJay::Common::Exit{42A8347D0217}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.25' 
+          name = 'Exit' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::Exit{42A8347D0217}.sink    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.26' 
+              name = 'sink' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.20' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::Exit{42A8347D0217}.fromMedia    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.27' 
+              name = 'fromMedia' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.24' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== CeeJay::Common::MediaFor{42A8347D021A}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.28' 
+          name = 'MediaFor' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::MediaFor{42A8347D021A}.items    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.29' 
+              name = 'items' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.25' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::MediaFor{42A8347D021A}.media    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.30' 
+              name = 'media' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.24' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== CeeJay::Common::ReceiveItems{42A8347D021D}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.31' 
+          name = 'ReceiveItems' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::ReceiveItems{42A8347D021D}.receive    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.32' 
+              name = 'receive' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.25' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::ReceiveItems{42A8347D021D}.interfaceType    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.33' 
+              name = 'interfaceType' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.26' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== CeeJay::Common::SendItems{42A8347D0220}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.34' 
+          name = 'SendItems' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::SendItems{42A8347D0220}.send    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.35' 
+              name = 'send' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.25' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::SendItems{42A8347D0220}.interfaceType    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.36' 
+              name = 'interfaceType' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.26' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== CeeJay::Common::SinkData{42A8347D0223}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.37' 
+          name = 'SinkData' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::SinkData{42A8347D0223}.items    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.38' 
+              name = 'items' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.25' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::SinkData{42A8347D0223}.sink    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.39' 
+              name = 'sink' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.22' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <UML:Stereotype xmi.id = 'S.261.1453.19.57' 
+          name = 'derived' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          icon = '' baseClass = 'Association' 
+          extendedElement = 'G.37 G.40' />
+        <!-- ==================== CeeJay::Common::SourceData{42A8347D0226}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.40' 
+          name = 'SourceData' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::SourceData{42A8347D0226}.items    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.41' 
+              name = 'items' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.25' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::SourceData{42A8347D0226}.source    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.42' 
+              name = 'source' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.23' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== CeeJay::Common::ThisInterface{42A8347D0229}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.43' 
+          name = 'ThisInterface' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::Common::ThisInterface{42A8347D0229}.thisInterfaces    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.44' 
+              name = 'thisInterfaces' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.20' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::Common::ThisInterface{42A8347D0229}.classifier    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.45' 
+              name = 'classifier' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'composite' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.18' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== CeeJay::Common::NamedElement    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.5' 
+          name = 'NamedElement' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' supplierDependency = 'G.100' 
+          generalization = 'G.56' specialization = 'G.58 G.60 G.62 G.69 G.78 G.79 G.92 G.95' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.56' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.5' parent = 'S.261.1453.19.13' />
+          </UML:Namespace.ownedElement>
+          <UML:Classifier.feature>
+            <!-- ==================== CeeJay::Common::NamedElement.name    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.261.1453.19.6' 
+              name = 'name' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'S.261.1453.19.3' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+            <!-- ==================== CeeJay::Common::NamedElement./qualifiedName    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.261.1453.19.7' 
+              name = '/qualifiedName' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'S.261.1453.19.3' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::Namespace    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.8' 
+          name = 'Namespace' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' clientDependency = 'G.100' 
+          generalization = 'G.57 G.58' specialization = 'G.59 G.63 G.70' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.57' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.8' parent = 'S.261.1453.19.15' />
+            <UML:Generalization xmi.id = 'G.58' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.8' parent = 'S.261.1453.19.5' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::GeneralizableElement    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.9' 
+          name = 'GeneralizableElement' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.59' specialization = 'G.81' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.59' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.9' parent = 'S.261.1453.19.8' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::TypedElement    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.10' 
+          name = 'TypedElement' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.60 G.61' specialization = 'G.65 G.71 G.83 G.86 G.87' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.60' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.10' parent = 'S.261.1453.19.5' />
+            <UML:Generalization xmi.id = 'G.61' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.10' parent = 'S.261.1453.19.16' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::BodiedElement    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.11' 
+          name = 'BodiedElement' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.62' specialization = 'G.84' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.62' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.11' parent = 'S.261.1453.19.5' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::ParameterizedElement    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.12' 
+          name = 'ParameterizedElement' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.63 G.64' specialization = 'G.94' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.63' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.12' parent = 'S.261.1453.19.8' />
+            <UML:Generalization xmi.id = 'G.64' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.12' parent = 'S.261.1453.19.17' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::ModelElement    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.13' 
+          name = 'ModelElement' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'true' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          specialization = 'G.56 G.66 G.67 G.73 G.75 G.77 G.80' />
+        <!-- ==================== CeeJay::Common::Parameter    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.14' 
+          name = 'Parameter' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.65' specialization = 'G.93' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.65' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.14' parent = 'S.261.1453.19.10' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::Container    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.15' 
+          name = 'Container' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.66' specialization = 'G.57 G.68' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.66' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.15' parent = 'S.261.1453.19.13' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::TypeReference    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.16' 
+          name = 'TypeReference' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.67' specialization = 'G.61 G.72' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.67' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.16' parent = 'S.261.1453.19.13' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::SignaturedElement    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.17' 
+          name = 'SignaturedElement' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.68 G.69' specialization = 'G.64' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.68' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.17' parent = 'S.261.1453.19.15' />
+            <UML:Generalization xmi.id = 'G.69' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.17' parent = 'S.261.1453.19.5' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::Classifier    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.18' 
+          name = 'Classifier' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.70' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.70' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.18' parent = 'S.261.1453.19.8' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::Instance    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.19' 
+          name = 'Instance' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.71' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.71' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.19' parent = 'S.261.1453.19.10' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::Interface    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.20' 
+          name = 'Interface' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' clientDependency = 'G.101' 
+          generalization = 'G.72' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.72' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.20' parent = 'S.261.1453.19.16' />
+          </UML:Namespace.ownedElement>
+          <UML:Classifier.feature>
+            <!-- ==================== CeeJay::Common::Interface.isPositive    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.261.1453.19.21' 
+              name = 'isPositive' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'S.261.1453.19.2' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::Sink    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.22' 
+          name = 'Sink' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.73 G.74' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.73' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.22' parent = 'S.261.1453.19.13' />
+            <UML:Generalization xmi.id = 'G.74' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.22' parent = 'S.261.1453.19.27' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::Source    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.23' 
+          name = 'Source' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.75 G.76' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.75' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.23' parent = 'S.261.1453.19.13' />
+            <UML:Generalization xmi.id = 'G.76' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.23' parent = 'S.261.1453.19.27' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::Media    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.24' 
+          name = 'Media' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.77' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.77' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.24' parent = 'S.261.1453.19.13' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::ComItem    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.25' 
+          name = 'ComItem' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.78' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.78' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.25' parent = 'S.261.1453.19.5' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::InterfaceType    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.26' 
+          name = 'InterfaceType' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' supplierDependency = 'G.101' 
+          generalization = 'G.79' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.79' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.26' parent = 'S.261.1453.19.5' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::Common::Feature    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.27' 
+          name = 'Feature' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.4' 
+          generalization = 'G.80' specialization = 'G.74 G.76' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.80' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.27' parent = 'S.261.1453.19.13' />
+          </UML:Namespace.ownedElement>
+          <UML:Classifier.feature>
+            <!-- ==================== CeeJay::Common::Feature::determineClassifier    [Operation] ==================== -->
+            <UML:Operation xmi.id = 'S.261.1453.19.28' 
+              name = 'determineClassifier' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              isQuery = 'false' 
+              concurrency = 'sequential' isRoot = 'false' isLeaf = 'false' isAbstract = 'false' specification = '' >
+              <UML:BehavioralFeature.parameter>
+                <UML:Parameter xmi.id = 'XX.19.1453.24.36' 
+                  name = 'determineClassifier.Return' visibility = 'public' isSpecification = 'false' 
+                  kind = 'return' 
+                  type = 'S.261.1453.19.18' >
+                </UML:Parameter>
+              </UML:BehavioralFeature.parameter>
+            </UML:Operation>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <UML:Dependency xmi.id = 'G.98' 
+          name = '' visibility = 'public' isSpecification = 'false' 
+          client = 'S.261.1453.19.4' supplier = 'S.261.1453.19.1' />
+        <!-- ==================== Logical View::Common::NamedElement    [Dependency] ==================== -->
+        <UML:Dependency xmi.id = 'G.100' 
+          name = 'Contains' visibility = 'public' isSpecification = 'false' 
+          client = 'S.261.1453.19.8' supplier = 'S.261.1453.19.5' />
+        <!-- ==================== CeeJay::Common::{Interface?InterfaceType}{42A8347D01EE}    [Dependency] ==================== -->
+        <UML:Dependency xmi.id = 'G.101' 
+          name = '' visibility = 'public' isSpecification = 'false' 
+          client = 'S.261.1453.19.20' supplier = 'S.261.1453.19.26' />
+      </UML:Namespace.ownedElement>
+    </UML:Package>
+    <!-- ==================== CeeJay::CeeJay    [Package] ==================== -->
+    <UML:Package xmi.id = 'S.261.1453.19.29' 
+      name = 'CeeJay' visibility = 'public' isSpecification = 'false' 
+      isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+      namespace = 'G.0' clientDependency = 'G.99' >
+      <UML:Namespace.ownedElement>
+        <UML:Stereotype xmi.id = 'S.261.1453.24.0' 
+          name = 'metamodel' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          icon = '' baseClass = 'Package' 
+          extendedElement = 'S.261.1453.19.29' />
+        <!-- ==================== CeeJay::CeeJay::ClassMembers{42E8A836036B}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.46' 
+          name = 'ClassMembers' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::CeeJay::ClassMembers{42E8A836036B}.members    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.47' 
+              name = 'members' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              constraint = 'S.261.1453.24.1' 
+              type = 'S.261.1453.19.33' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::CeeJay::ClassMembers{42E8A836036B}.cjclass    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.48' 
+              name = 'cjclass' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'composite' targetScope = 'instance' changeability = 'changeable' 
+              constraint = 'S.261.1453.24.2' 
+              type = 'S.261.1453.19.30' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== Constraint-S.261.1453.24.1    [Constraint] ==================== -->
+        <UML:Constraint xmi.id = 'S.261.1453.24.1' 
+          name = 'Constraint-S.261.1453.24.1' visibility = 'public' isSpecification = 'false' 
+          constrainedElement = 'G.47' >
+          <UML:Constraint.body>
+            <UML:BooleanExpression 
+              language = '' body = 'subsets contents' />
+          </UML:Constraint.body>
+        </UML:Constraint>
+        <!-- ==================== Constraint-S.261.1453.24.2    [Constraint] ==================== -->
+        <UML:Constraint xmi.id = 'S.261.1453.24.2' 
+          name = 'Constraint-S.261.1453.24.2' visibility = 'public' isSpecification = 'false' 
+          constrainedElement = 'G.48' >
+          <UML:Constraint.body>
+            <UML:BooleanExpression 
+              language = '' body = 'subsets container' />
+          </UML:Constraint.body>
+        </UML:Constraint>
+        <!-- ==================== CeeJay::CeeJay::Signature{431C1DF902FD}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.49' 
+          name = 'Signature' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::CeeJay::Signature{431C1DF902FD}.signature    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.50' 
+              name = 'signature' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'composite' targetScope = 'instance' changeability = 'changeable' 
+              constraint = 'S.261.1453.24.3' 
+              type = 'S.261.1453.19.42' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::CeeJay::Signature{431C1DF902FD}.parameters    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.51' 
+              name = 'parameters' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              constraint = 'S.261.1453.24.4' 
+              type = 'S.261.1453.19.41' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== Constraint-S.261.1453.24.3    [Constraint] ==================== -->
+        <UML:Constraint xmi.id = 'S.261.1453.24.3' 
+          name = 'Constraint-S.261.1453.24.3' visibility = 'public' isSpecification = 'false' 
+          constrainedElement = 'G.50' >
+          <UML:Constraint.body>
+            <UML:BooleanExpression 
+              language = '' body = 'redefines signaturedElement' />
+          </UML:Constraint.body>
+        </UML:Constraint>
+        <!-- ==================== Constraint-S.261.1453.24.4    [Constraint] ==================== -->
+        <UML:Constraint xmi.id = 'S.261.1453.24.4' 
+          name = 'Constraint-S.261.1453.24.4' visibility = 'public' isSpecification = 'false' 
+          constrainedElement = 'G.51' >
+          <UML:Constraint.body>
+            <UML:BooleanExpression 
+              language = '' body = 'redefines parameters' />
+          </UML:Constraint.body>
+        </UML:Constraint>
+        <!-- ==================== CeeJay::CeeJay::ofType{432561ED03B9}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.52' 
+          name = 'ofType' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== CeeJay::CeeJay::ofType{432561ED03B9}.type    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.53' 
+              name = 'type' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.43' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== CeeJay::CeeJay::ofType{432561ED03B9}.collection    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.54' 
+              name = 'collection' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'composite' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.261.1453.19.46' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== CeeJay::CeeJay::CeeJayClass    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.30' 
+          name = 'CeeJayClass' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.29' 
+          generalization = 'G.81 G.82' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.81' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.30' parent = 'S.261.1453.19.9' />
+            <UML:Generalization xmi.id = 'G.82' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.30' parent = 'S.261.1453.19.43' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::CeeJay::Function    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.31' 
+          name = 'Function' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.29' 
+          generalization = 'G.83 G.84 G.85' specialization = 'G.88' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.83' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.31' parent = 'S.261.1453.19.10' />
+            <UML:Generalization xmi.id = 'G.84' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.31' parent = 'S.261.1453.19.11' />
+            <UML:Generalization xmi.id = 'G.85' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.31' parent = 'S.261.1453.19.42' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::CeeJay::Variable    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.32' 
+          name = 'Variable' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.29' 
+          generalization = 'G.86' specialization = 'G.90' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.86' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.32' parent = 'S.261.1453.19.10' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::CeeJay::Member    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.33' 
+          name = 'Member' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.29' 
+          generalization = 'G.87' specialization = 'G.89 G.91' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.87' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.33' parent = 'S.261.1453.19.10' />
+          </UML:Namespace.ownedElement>
+          <UML:Classifier.feature>
+            <!-- ==================== CeeJay::CeeJay::Member.visibility    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.261.1453.19.34' 
+              name = 'visibility' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'S.261.1453.19.35' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <!-- ==================== CeeJay::CeeJay::VisibilityKind    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.35' 
+          name = 'VisibilityKind' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.29' >
+          <UML:Classifier.feature>
+            <!-- ==================== CeeJay::CeeJay::VisibilityKind.public    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.261.1453.19.36' 
+              name = 'public' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'G.55' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+            <!-- ==================== CeeJay::CeeJay::VisibilityKind.protected    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.261.1453.19.37' 
+              name = 'protected' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'G.55' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+            <!-- ==================== CeeJay::CeeJay::VisibilityKind.private    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.261.1453.19.38' 
+              name = 'private' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'G.55' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <UML:Stereotype xmi.id = 'S.261.1453.24.5' 
+          name = 'enumeration' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          icon = '' baseClass = 'Class' 
+          extendedElement = 'S.261.1453.19.35 S.261.1453.19.47' />
+        <!-- ==================== CeeJay::CeeJay::MemberFunction    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.39' 
+          name = 'MemberFunction' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.29' 
+          generalization = 'G.88 G.89' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.88' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.39' parent = 'S.261.1453.19.31' />
+            <UML:Generalization xmi.id = 'G.89' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.39' parent = 'S.261.1453.19.33' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::CeeJay::MemberVariable    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.40' 
+          name = 'MemberVariable' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.29' 
+          generalization = 'G.90 G.91' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.90' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.40' parent = 'S.261.1453.19.32' />
+            <UML:Generalization xmi.id = 'G.91' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.40' parent = 'S.261.1453.19.33' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::CeeJay::Parameter    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.41' 
+          name = 'Parameter' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.29' 
+          generalization = 'G.92 G.93' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.92' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.41' parent = 'S.261.1453.19.5' />
+            <UML:Generalization xmi.id = 'G.93' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.41' parent = 'S.261.1453.19.14' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::CeeJay::ParameterizedElement    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.42' 
+          name = 'ParameterizedElement' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.29' 
+          generalization = 'G.94' specialization = 'G.85' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.94' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.42' parent = 'S.261.1453.19.12' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::CeeJay::Type    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.43' 
+          name = 'Type' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'true' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.29' 
+          generalization = 'G.95' specialization = 'G.82 G.96 G.97' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.95' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.43' parent = 'S.261.1453.19.5' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::CeeJay::PrimitiveType    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.44' 
+          name = 'PrimitiveType' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.29' 
+          generalization = 'G.96' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.96' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.44' parent = 'S.261.1453.19.43' />
+          </UML:Namespace.ownedElement>
+          <UML:Classifier.feature>
+            <!-- ==================== CeeJay::CeeJay::PrimitiveType.ofType    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.261.1453.19.45' 
+              name = 'ofType' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'S.261.1453.19.47' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <!-- ==================== CeeJay::CeeJay::Collection    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.46' 
+          name = 'Collection' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.29' 
+          generalization = 'G.97' >
+          <UML:Namespace.ownedElement>
+            <UML:Generalization xmi.id = 'G.97' 
+              name = '' visibility = 'public' isSpecification = 'false' 
+              discriminator = '' 
+              child = 'S.261.1453.19.46' parent = 'S.261.1453.19.43' />
+          </UML:Namespace.ownedElement>
+        </UML:Class>
+        <!-- ==================== CeeJay::CeeJay::PrimitiveTypeKind    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.261.1453.19.47' 
+          name = 'PrimitiveTypeKind' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.261.1453.19.29' >
+          <UML:Classifier.feature>
+            <!-- ==================== CeeJay::CeeJay::PrimitiveTypeKind.int    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.261.1453.19.48' 
+              name = 'int' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'G.55' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+            <!-- ==================== CeeJay::CeeJay::PrimitiveTypeKind.bool    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.261.1453.19.49' 
+              name = 'bool' visibility = 'public' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'G.55' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+            <!-- ==================== CeeJay::CeeJay::PrimitiveTypeKind.void    [Attribute] ==================== -->
+            <UML:Attribute xmi.id = 'S.261.1453.19.50' 
+              name = 'void' visibility = 'private' isSpecification = 'false' 
+              ownerScope = 'instance' 
+              changeability = 'changeable' targetScope = 'instance' 
+              type = 'G.55' >
+              <UML:StructuralFeature.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:StructuralFeature.multiplicity>
+              <UML:Attribute.initialValue>
+                <UML:Expression 
+                  language = '' body = '' />
+              </UML:Attribute.initialValue>
+            </UML:Attribute>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <UML:Dependency xmi.id = 'G.99' 
+          name = '' visibility = 'public' isSpecification = 'false' 
+          client = 'S.261.1453.19.29' supplier = 'S.261.1453.19.4' />
+      </UML:Namespace.ownedElement>
+    </UML:Package>
+    <!-- ==================== <undefined>    [DataType] ==================== -->
+    <UML:DataType xmi.id = 'G.55' 
+      name = '&lt;undefined&gt;' visibility = 'public' isSpecification = 'false' 
+      isRoot = 'false' isLeaf = 'false' isAbstract = 'false' />
+  </UML:Namespace.ownedElement>
+</UML:Model>
+<UML:TaggedValue xmi.id = 'XX.19.1453.19.2' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.2' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.19.3' 
+  tag = 'RationalRose:Tool#1' value = 'MOF' 
+  modelElement = 'G.0' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.19.4' 
+  tag = 'RationalRose$MOF:uml2mof.corbaType' value = 'boolean' 
+  modelElement = 'S.261.1453.19.2' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.19.5' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.3' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.19.6' 
+  tag = 'RationalRose$MOF:uml2mof.corbaType' value = 'string' 
+  modelElement = 'S.261.1453.19.3' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.19.7' 
+  tag = 'RationalRose$MOF:mof.idl_prefix' value = '' 
+  modelElement = 'S.261.1453.19.4' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.19.8' 
+  tag = 'RationalRose:Tool#6' value = 'JCR' 
+  modelElement = 'G.0' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.19.9' 
+  tag = 'RationalRose$JCR:javax.jmi.packagePrefix' value = '' 
+  modelElement = 'S.261.1453.19.4' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.19.10' 
+  tag = 'RationalRose$MOF:rose2mof.visibility' value = 'public_vis' 
+  modelElement = 'G.1' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.19.11' 
+  tag = 'RationalRose$MOF:rose2mof.visibility' value = 'public_vis' 
+  modelElement = 'G.4' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.19.12' 
+  tag = 'RationalRose$MOF:rose2mof.visibility' value = 'public_vis' 
+  modelElement = 'G.7' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.19.13' 
+  tag = 'RationalRose$MOF:rose2mof.visibility' value = 'public_vis' 
+  modelElement = 'G.10' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.20.14' 
+  tag = 'persistence' value = 'persistent' 
+  modelElement = 'S.261.1453.19.5' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.20.15' 
+  tag = 'RationalRose$MOF:rose2mof.multiplicity' value = '0..1' 
+  modelElement = 'S.261.1453.19.6' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.16' 
+  tag = 'RationalRose$MOF:rose2mof.multiplicity' value = '1 .. *' 
+  modelElement = 'S.261.1453.19.7' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.17' 
+  tag = 'persistence' value = 'persistent' 
+  modelElement = 'S.261.1453.19.8' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.18' 
+  tag = 'persistence' value = 'persistent' 
+  modelElement = 'S.261.1453.19.9' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.19' 
+  tag = 'persistence' value = 'persistent' 
+  modelElement = 'S.261.1453.19.10' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.20' 
+  tag = 'persistence' value = 'persistent' 
+  modelElement = 'S.261.1453.19.11' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.21' 
+  tag = 'persistence' value = 'persistent' 
+  modelElement = 'S.261.1453.19.12' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.22' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.13' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.23' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.14' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.24' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.15' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.25' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.16' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.26' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.17' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.27' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.18' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.28' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.19' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.29' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.20' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.30' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.22' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.31' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.23' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.32' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.24' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.33' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.25' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.34' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.26' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.35' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.27' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.37' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.30' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.38' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.31' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.39' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.32' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.40' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.33' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.41' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.35' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.24.42' 
+  tag = 'RationalRose$MOF:uml2mof.corbaType' value = 'enum VisibilityKind { public, private, protected};' 
+  modelElement = 'S.261.1453.19.35' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.28.43' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.39' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.28.44' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.40' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.28.45' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.41' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.28.46' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.42' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.28.47' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.43' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.28.48' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.44' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.28.49' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.46' />
+<UML:TaggedValue xmi.id = 'XX.19.1453.28.50' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.261.1453.19.47' />
+</XMI.content>
+</XMI>

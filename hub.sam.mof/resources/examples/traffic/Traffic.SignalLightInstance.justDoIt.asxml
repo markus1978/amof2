@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:Mase="http://www.foo.org/Mase" xmi:version="2.1">
+  <Mase:Activity xmi:id="6395">
+    <node xmi:id="6412" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAE0AAAAp&#xA;" activityAsNode="6395" outgoing="6411" xsi:type="InitialNode" />
+    <node xmi:id="6407" body="self.isOn" incoming="6411" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAEQAAAB8&#xA;" activityAsNode="6395" outgoing="6396 6406" xsi:type="DecisionNode">
+      <contextList xmi:id="6408" decisionNode="6407" xsi:type="ContextPinList" />
+    </node>
+    <node xmi:id="6397" actionBody="switchOff" incoming="6396" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAE8AAADk&#xA;" actionKind="call" activityAsNode="6395"  outgoing="6400" xsi:type="OpaqueAction">
+      <outputList xmi:id="6398" action="6397" xsi:type="OutputPinList" />
+      <inputList xmi:id="6399" action="6397" xsi:type="InputPinList" />
+    </node>
+    <node xmi:id="6403" actionBody="switchOn" incoming="6406" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAO0AAADl&#xA;" actionKind="call" activityAsNode="6395"  outgoing="6402" xsi:type="OpaqueAction">
+      <outputList xmi:id="6404" action="6403" xsi:type="OutputPinList" />
+      <inputList xmi:id="6405" action="6403" xsi:type="InputPinList" />
+    </node>
+    <node xmi:id="6401" incoming="6400 6402" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAALUAAAFi&#xA;" activityAsNode="6395" xsi:type="FinalNode" />
+    <edge xmi:id="6396" source="6407" target="6397" activity="6395" xsi:type="ControlFlow">
+      <guardSpecification xmi:id="6415" body="true" xsi:type="GuardSpecification" />
+    </edge>
+    <edge xmi:id="6406" source="6407" target="6403" activity="6395" xsi:type="ControlFlow">
+      <guardSpecification xmi:id="6413" body="false" xsi:type="GuardSpecification" />
+    </edge>
+    <edge xmi:id="6411" source="6412" target="6407" activity="6395" xsi:type="ControlFlow" />
+    <edge xmi:id="6400" source="6397" target="6401" activity="6395" xsi:type="ControlFlow" />
+    <edge xmi:id="6402" source="6403" target="6401" activity="6395" xsi:type="ControlFlow" />
+  </Mase:Activity>
+</xmi:XMI>
+

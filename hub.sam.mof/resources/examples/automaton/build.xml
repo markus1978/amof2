@@ -1,0 +1,61 @@
+<project name = "Automaton" default="compile" basedir=".">
+	<description>
+        An Automaton
+	</description>
+	<property name="base-dir" value="./"/>
+	<property name="build-dir" value="${base-dir}/build"/>
+    <property name="meta-model" value="traffic.mdxml"/>
+
+
+	<path id="classpath">
+		<pathelement path="${build-dir}"/>
+        <pathelement path="../../../build"/>
+        <fileset dir="../../../resources/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+    </path>
+
+	<path id="sourcepath">
+		<pathelement path="./src"/>
+		<pathelement path="./generated-src"/>
+	</path>
+
+    <target name="init" depends="precompile" >
+	   	<mkdir dir="./generated-src"/>
+        <mkdir dir="./build"/>
+        <taskdef name="prepare" classname="hub.sam.mof.ant.PrepareLanguageModel">
+	        <classpath refid="classpath"/>
+		</taskdef>
+        <taskdef name="mof" classname="hub.sam.mof.ant.GenerateCode" classpathref="classpath"/>
+    </target>
+
+	<target name="prepare" depends="init">
+    	<mof src="automaton-ea.xml" destdir="generated-src" ea="true" library="true" libraryFile="../../models/user/core.xml" force="true"/>
+    	<!--<delete dir="generated-src/core"/>-->
+    </target>
+
+    <target name="precompile">
+        <ant antfile="build.xml" dir="../../../" target="compile" />
+    </target>
+
+    <target name="compile" depends="prepare, init">
+		<javac debug="on" destdir="${build-dir}" source="1.5" nowarn="yes" memorymaximumsize="100m" fork="true">
+			<src refid="sourcepath"/>
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+
+    <target name="test" depends="compile">
+        <junit printsummary="true" haltonfailure="true" haltonerror="true" fork="on" maxmemory="200000000">
+			<formatter type="plain" usefile="no"/>
+    		<classpath refid="classpath"/>
+			<test name="hub.sam.mof.test.as.AsTest"/>
+		</junit>
+    </target>
+
+    <target name="clean">
+		<delete dir="${build-dir}"/>
+		<delete dir="./generated-src"/>
+	</target>
+
+</project>

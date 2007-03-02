@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="resources/test/generated-src"/>
+	<classpathentry kind="src" path="resources/repository/generated-src"/>
+	<classpathentry exported="true" kind="lib" path="resources/lib/ant.jar"/>
+	<classpathentry exported="true" kind="lib" path="resources/lib/ejb-api.jar"/>
+	<classpathentry exported="true" kind="lib" path="resources/lib/jbossall-client.jar"/>
+	<classpathentry exported="true" kind="lib" path="resources/lib/jdom.jar"/>
+	<classpathentry exported="true" kind="lib" path="resources/lib/mopa.jar"/>
+	<classpathentry exported="true" kind="lib" path="resources/lib/oslo.jar" sourcepath="/OSLO"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="output" path="build"/>
+</classpath>

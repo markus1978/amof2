@@ -1,0 +1,113 @@
+<body>
+This library provides OCL expressions to Java; it implements the OCL standard
+library. 
+
+<h2>Values</h2> 
+
+The instances of each class represent values. Those values are simultaniously
+represented as OCL values and java values. Therefore, each generic class comes
+with two parameters that give the respective OCL and java type. Take the
+abstract OclAny as example:
+
+<pre>
+class OclAny<OclTypeP, JavaTypeP> {
+    JavaTypeP javaValue();
+}
+</pre>
+
+The concrete class for the OCL type OclString is realised with:
+
+<pre>
+class OclString extends OclAny<OclString,java.lang.String> {
+}
+</pre>
+
+While the OCL value is directly represented by instances of these OCL classes,
+the java value is accessibly via the "javaValue" method provided in each OCL
+class.
+
+<h2>Expressions</h2>
+
+OCL is a functional language and OCL expressions use closures, anonymous
+functions passed a parameters to operations. This cannot be expressed in Java
+right away. Therefore, OCL expressions cannot be realised by java expressions.
+This OCL library is based on an expression builder. 
+
+<pre>
+OCL: self.ownedElements->forAll(n|self.ownedElements->forAll(m|not n = m))
+
+Java:
+self = new NamespaceValue(myNamespace);
+NamedElementValue n = new NamedElementValue();
+NamedElementValue m = new NamedElementValue();
+OclBoolean result = self.ownedElements().forAll(n, 
+                            self.ownedElements().forAll(m, 
+                                    n.oclEquals(m).not()));
+</pre>
+
+The above java assignment does not evaluate the corresponding OCL expression,
+but creates an internal representation for that expression.  The variable
+result does not contain the result value itself, but the given expression. The
+evaluation of the exrpession is delayed until the java value is requested.
+Thus,
+
+<pre>
+result.javaValue()
+</pre>
+
+will actually evaluate the expression. During this evaluation, the
+sub-expressions used as closures (arguments for the forAll operations) are
+evaluates several times for different values represented by the variables n and
+m.<br/>
+
+How does that work? Take OclCollection.forAll as example:
+
+<pre>
+public OclBoolean forAll(OclTypeP iterator, OclBoolean body) {
+    return new OclBoolean(FOR_ALL, null, this, new OclAny[] {(OclAny)iterator, body});
+}
+</pre>
+
+This method does only create an operator node representing <i>forAll</i>. When
+this node is evaluated by calling javaValue(), the constant <i>FOR_ALL</i>says
+which operator is to be called, on with value (<i>this</i>) and for which
+parameters (<i>iterator</i>and <i>body</i>). This leads to invokation of the
+following method at <i>this</i>and with <i>iterator</i>and <i>body</i> as
+arguments:
+
+<pre>
+protected OclBoolean forAllEval(OclTypeP iterator, OclBoolean body) {
+    for(JavaTypeP element: javaValue()) {
+        ((OclAny)iterator).setJavaValue(element);
+        if (!body.javaValue()) {
+            return new OclBoolean(false);
+        }
+    }
+    return new OclBoolean(true);
+}
+</pre>
+
+<h2>Using OCL for models</h2> 
+
+A MOF 2 generates OCL value classes for all model elements. These classes are
+named like the model element's classifier + "Value" (compare to the example
+above). These classes extend the abstact OclModelElement class:
+
+<pre>
+class OclModelElement<ElementType> extends 
+        OclAny<OclModelElement<ElementType>, ElementType> {
+    protected OclAny get(String propertyName, Class type) {
+        ...
+    }
+}
+
+class NamespaceValue extends OclModelElement<Namespace> {
+    public OclSet<NamespaceValue, Namespace> ownedElement() {
+        return get("ownedElement", OclSet.class);
+    }
+}
+</pre>
+
+All properties of the respective model element are navigable via access methods
+with the name of the property. The same holds for operations.
+</body>

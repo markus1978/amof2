@@ -1,0 +1,96 @@
+<?xml version = '1.0' encoding = 'ISO-8859-1' ?>
+<!-- <!DOCTYPE XMI SYSTEM 'UMLX13-11.dtd' > -->
+<XMI xmi.version = '1.1' xmlns:UML='href://org.omg/UML/1.3' timestamp = 'Wed Jun 29 16:01:20 2005' >
+ <XMI.header>
+  <XMI.documentation>
+   <XMI.exporter>Unisys.JCR.1</XMI.exporter>
+   <XMI.exporterVersion>1.3.4</XMI.exporterVersion>
+  </XMI.documentation>
+  <XMI.metamodel xmi.name = 'UML' xmi.version = '1.3'/>
+ </XMI.header>
+<XMI.content>
+<!-- ==================== test    [Model] ==================== -->
+<UML:Model xmi.id = 'G.0' 
+  name = 'test' visibility = 'public' isSpecification = 'false' 
+  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+  <UML:Namespace.ownedElement>
+    <!-- ==================== test::TestPackage    [Package] ==================== -->
+    <UML:Package xmi.id = 'S.179.1601.14.1' 
+      name = 'TestPackage' visibility = 'public' isSpecification = 'false' 
+      isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+      namespace = 'G.0' >
+      <UML:Namespace.ownedElement>
+        <UML:Stereotype xmi.id = 'S.179.1601.14.6' 
+          name = 'metamodel' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' 
+          icon = '' baseClass = 'Package' 
+          extendedElement = 'S.179.1601.14.1' />
+        <!-- ==================== test::TestPackage::{Element-Container}{42C2A40F031F}    [Association] ==================== -->
+        <UML:Association xmi.id = 'G.1' 
+          name = '' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' >
+          <UML:Association.connection>
+            <!-- ==================== test::TestPackage::{Element-Container}{42C2A40F031F}.contents    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.2' 
+              name = 'contents' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'true' ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable' 
+              constraint = 'S.179.1601.14.7' 
+              type = 'S.179.1601.14.3' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '0' upper = '-1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+            <!-- ==================== test::TestPackage::{Element-Container}{42C2A40F031F}.container    [AssociationEnd] ==================== -->
+            <UML:AssociationEnd xmi.id = 'G.3' 
+              name = 'container' visibility = 'public' isSpecification = 'false' 
+              isNavigable = 'false' ordering = 'unordered' aggregation = 'composite' targetScope = 'instance' changeability = 'changeable' 
+              type = 'S.179.1601.14.2' >
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity >
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange 
+                      lower = '1' upper = '1' />
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <!-- ==================== Constraint-S.179.1601.14.7    [Constraint] ==================== -->
+        <UML:Constraint xmi.id = 'S.179.1601.14.7' 
+          name = 'Constraint-S.179.1601.14.7' visibility = 'public' isSpecification = 'false' 
+          constrainedElement = 'G.2' >
+          <UML:Constraint.body>
+            <UML:BooleanExpression 
+              language = '' body = 'subsets other' />
+          </UML:Constraint.body>
+        </UML:Constraint>
+        <!-- ==================== test::TestPackage::Container    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.179.1601.14.2' 
+          name = 'Container' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.179.1601.14.1' />
+        <!-- ==================== test::TestPackage::Element    [Class] ==================== -->
+        <UML:Class xmi.id = 'S.179.1601.14.3' 
+          name = 'Element' visibility = 'public' isSpecification = 'false' 
+          isRoot = 'true' isLeaf = 'true' isAbstract = 'false' 
+          isActive = 'false' 
+          namespace = 'S.179.1601.14.1' />
+      </UML:Namespace.ownedElement>
+    </UML:Package>
+  </UML:Namespace.ownedElement>
+</UML:Model>
+<UML:TaggedValue xmi.id = 'XX.29.161.14.2' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.179.1601.14.2' />
+<UML:TaggedValue xmi.id = 'XX.29.161.14.3' 
+  tag = 'persistence' value = 'transient' 
+  modelElement = 'S.179.1601.14.3' />
+</XMI.content>
+</XMI>

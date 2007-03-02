@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- <!DOCTYPE XMI SYSTEM "uml14xmi12.dtd"> -->
+<!-- This xmi file is optimized for MagicDraw UML. Some references are not saved. -->
+<!-- Change MagicDraw UML environment options property General->.Save Rich XMI -->
+
+<xmi:XMI xmi:version='2.1' timestamp='Sun Jan 29 10:02:03 CET 2006' xmlns:uml='http://schema.omg.org/spec/UML/2.0' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1'>
+	<uml:Model xmi:id='eee_1045467100313_135436_1' name='Data' visibility='public'>
+		<ownedComment xmi:type='uml:Comment' xmi:id='_10_5_d860307_1138525041519_706986_1' body='Author:BohlenMa.&#10;Created:1/29/06 9:57 AM.&#10;Title:.&#10;Comment:.&#10;' annotatedElement='eee_1045467100313_135436_1'/>
+        <ownedMember xmi:type="uml:PrimitiveType" xmi:id="Integer" name="Integer"/>
+	<ownedMember xmi:type="uml:PrimitiveType" xmi:id="Boolean" name="Boolean"/>
+	<ownedMember xmi:type="uml:PrimitiveType" xmi:id="String" name="String"/>
+	<ownedMember xmi:type="uml:PrimitiveType" xmi:id="UnlimitedNatural" name="UnlimitedNatural"/>
+		<ownedMember xmi:type='uml:Package' xmi:id='_10_5_d860307_1138525058553_11180_2' name='org' visibility='public'>
+			<ownedMember xmi:type='uml:Package' xmi:id='_10_5_d860307_1138525064832_864004_3' name='andromda' visibility='public'>
+				<ownedMember xmi:type='uml:Package' xmi:id='_10_5_d860307_1138525070360_579670_4' name='uml2test' visibility='public'>
+					<ownedMember xmi:type='uml:Class' xmi:id='_10_5_d860307_1138525093574_155413_8' name='Person' visibility='public'>
+						<ownedAttribute xmi:type='uml:Property' xmi:id='_10_5_d860307_1138525128834_841285_50' name='vehicle' visibility='public' association='_10_5_d860307_1138525128834_831040_49' type='_10_5_d860307_1138525107884_461892_26'/>
+						<ownedAttribute xmi:type='uml:Property' xmi:id='_10_5_d860307_1138525205735_863374_129' name='name' visibility='public'>
+							<type xmi:type='uml:PrimitiveType' xmi:idref='String'>
+							</type>
+						</ownedAttribute>
+						<ownedAttribute xmi:type='uml:Property' xmi:id='_10_5_d860307_1138525226835_828940_193' name='surname' visibility='public'>
+							<type xmi:type='uml:PrimitiveType' xmi:idref='String'>
+							</type>
+						</ownedAttribute>
+						<ownedAttribute xmi:type='uml:Property' xmi:id='_10_5_d860307_1138525233034_285048_195' name='birthDate' visibility='public' type='_10_5_d860307_1138525238212_975641_197'/>
+					</ownedMember>
+					<ownedMember xmi:type='uml:Class' xmi:id='_10_5_d860307_1138525107884_461892_26' name='Car' visibility='public'>
+						<ownedAttribute xmi:type='uml:Property' xmi:id='_10_5_d860307_1138525242888_822574_198' name='license' visibility='public'>
+							<type xmi:type='uml:PrimitiveType' xmi:idref='String'>
+							</type>
+						</ownedAttribute>
+					</ownedMember>
+					<ownedMember xmi:type='uml:Association' xmi:id='_10_5_d860307_1138525128834_831040_49' visibility='public'>
+						<memberEnd xmi:idref='_10_5_d860307_1138525128834_841285_50'/>
+						<memberEnd xmi:idref='_10_5_d860307_1138525128834_928819_51'/>
+						<ownedEnd xmi:type='uml:Property' xmi:id='_10_5_d860307_1138525128834_928819_51' name='owner' visibility='public' association='_10_5_d860307_1138525128834_831040_49' type='_10_5_d860307_1138525093574_155413_8'/>
+					</ownedMember>
+					<ownedMember xmi:type='uml:Class' xmi:id='_10_5_d860307_1138525135364_901972_100' name='Garage' visibility='public'>
+						<ownedAttribute xmi:type='uml:Property' xmi:id='_10_5_d860307_1138525250980_984924_200' name='size' visibility='public'>
+							<type xmi:type='uml:DataType' xmi:idref='Integer'>
+							</type>
+						</ownedAttribute>
+					</ownedMember>
+					<ownedMember xmi:type='uml:Dependency' xmi:id='_10_5_d860307_1138525163624_423958_118' name='stands in' visibility='public' supplier='_10_5_d860307_1138525135364_901972_100' client='_10_5_d860307_1138525107884_461892_26'/>
+					<ownedMember xmi:type='uml:Class' xmi:id='_10_5_d860307_1138525238212_975641_197' name='Date' visibility='public'/>
+				</ownedMember>
+			</ownedMember>
+		</ownedMember>
+	</uml:Model>
+</xmi:XMI>

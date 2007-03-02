@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Packaging Generator" default="_packaging_generation_">
+<target name="_packaging_generation_" depends="N65540,N65573"/>
+<target name="N65540" description="aMOF2.0forJavaEJB.jar">
+<jar destfile="aMOF2.0forJavaEJB.jar">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="ejb-jar.xml"/>
+</zipfileset>
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="jboss.xml"/>
+</zipfileset>
+<zipfileset dir="build"/>
+</jar>
+</target>
+<target name="N65573" description="aMOF2.0forJava.ear">
+<jar destfile="aMOF2.0forJava.ear">
+<zipfileset dir=".">
+<include name="aMOF2.0forJavaEJB.jar"/>
+</zipfileset>
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="application.xml"/>
+</zipfileset>
+<zipfileset dir="resources/lib">
+<include name="mopa.jar"/>
+</zipfileset>
+<zipfileset dir="resources/lib">
+<include name="jdom.jar"/>
+</zipfileset>
+</jar>
+</target>
+</project>

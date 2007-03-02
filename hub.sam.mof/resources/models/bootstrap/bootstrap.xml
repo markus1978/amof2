@@ -1,0 +1,1018 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:cmof="http://www.foo.org/cmof">
+  <cmof:PrimitiveType xmi:id="4445" isAbstract="false" name="String" />
+  <cmof:Package xmi:id="4892" name="cmof">
+    <packageImport xmi:id="5159" importingNamespace="4892" importedPackage="4828" xsi:type="PackageImport" />
+    <packageImport xmi:id="5160" importingNamespace="4892" importedPackage="4621" xsi:type="PackageImport" />
+    <packageImport xmi:id="5161" importingNamespace="4892" importedPackage="4755" xsi:type="PackageImport" />
+    <packageImport xmi:id="5162" importingNamespace="4892" importedPackage="4509" xsi:type="PackageImport" />
+    <packageImport xmi:id="5163" importingNamespace="4892" importedPackage="4746" xsi:type="PackageImport" />
+    <packageImport xmi:id="5164" importingNamespace="4892" importedPackage="4759" xsi:type="PackageImport" />
+    <packageImport xmi:id="5165" importingNamespace="4892" importedPackage="4450" xsi:type="PackageImport" />
+    <packageImport xmi:id="5166" importingNamespace="4892" importedPackage="4519" xsi:type="PackageImport" />
+    <packageImport xmi:id="5167" importingNamespace="4892" importedPackage="4471" xsi:type="PackageImport" />
+    <packageImport xmi:id="5168" importingNamespace="4892" importedPackage="4697" xsi:type="PackageImport" />
+    <packageImport xmi:id="5169" importingNamespace="4892" importedPackage="4716" xsi:type="PackageImport" />
+    <packageImport xmi:id="5170" importingNamespace="4892" importedPackage="4634" xsi:type="PackageImport" />
+    <packageImport xmi:id="5171" importingNamespace="4892" importedPackage="4776" xsi:type="PackageImport" />
+    <packageImport xmi:id="5172" importingNamespace="4892" importedPackage="4548" xsi:type="PackageImport" />
+    <packageImport xmi:id="5173" importingNamespace="4892" importedPackage="4660" xsi:type="PackageImport" />
+    <packageImport xmi:id="5174" importingNamespace="4892" importedPackage="4612" xsi:type="PackageImport" />
+    <ownedType xmi:id="4893" memberEnd="4894 4895" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="4901" isAbstract="false" name="Comment" package="4892" superClass="4747 4896" xsi:type="Class">
+      <ownedAttribute xmi:id="4902" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" type="4896" class="4901" redefinedProperty="4749" isReadOnly="false" isOrdered="false" isUnique="true" name="annotatedElement" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="4900" memberEnd="4898" isDerived="false" isAbstract="false" package="4892" xsi:type="Association">
+      <ownedEnd xmi:id="4899" owningAssociation="4900" isDerived="false" type="4896" subsettedProperty="4895" redefinedProperty="4752" isComposite="false" isDerivedUnion="false" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="owningComment" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="4896" isAbstract="true" name="Element" package="4892" superClass="4750" xsi:type="Class">
+      <ownedAttribute xmi:id="4907" association="4908" class="4896" isDerivedUnion="false" upper="-1" opposite="4906" lower="0" isDerived="false" type="4903" isReadOnly="false" isOrdered="false" isUnique="true" name="tag" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="4897" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4459" class="4896" isReadOnly="false" isOrdered="false" isUnique="true" name="uri" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="4894" isDerived="true" type="4896" redefinedProperty="4463" class="4896" association="4893" isComposite="true" isDerivedUnion="true" upper="-1" opposite="4895" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="ownedElement" xsi:type="Property" />
+      <ownedAttribute xmi:id="4895" isDerived="true" type="4896" redefinedProperty="4464" class="4896" association="4893" isComposite="false" isDerivedUnion="true" upper="1" opposite="4894" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="owner" xsi:type="Property" />
+      <ownedAttribute xmi:id="4898" isDerived="false" type="4901" subsettedProperty="4894" redefinedProperty="4751" class="4896" association="4900" isComposite="true" isDerivedUnion="false" upper="-1" opposite="4899" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="ownedComment" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="4903" isAbstract="false" name="Tag" package="4892" superClass="4896" xsi:type="Class">
+      <ownedAttribute xmi:id="4904" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4459" class="4903" isReadOnly="false" isOrdered="false" isUnique="true" name="name" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="4905" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4459" class="4903" isReadOnly="false" isOrdered="false" isUnique="true" name="value" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="4906" isDerived="false" type="4896" class="4903" association="4908" isComposite="false" isDerivedUnion="false" opposite="4907" upper="-1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="element" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="4908" memberEnd="4906 4907" isDerived="false" isAbstract="false" package="4892" xsi:type="Association"/>
+    <ownedType xmi:id="4909" isAbstract="true" name="PackageableElement" package="4892" superClass="4910" xsi:type="Class" />
+    <ownedType xmi:id="4935" isAbstract="true" name="Relationship" package="4892" superClass="4896 4717" xsi:type="Class">
+      <ownedAttribute xmi:id="4934" isDerivedUnion="true" upper="-1" lower="1" isDerived="true" type="4896" class="4935" redefinedProperty="4718" isReadOnly="false" isOrdered="false" isUnique="true" name="relatedElement" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="4936" isAbstract="true" name="DirectedRelationship" package="4892" superClass="4935 4719" xsi:type="Class">
+      <ownedAttribute xmi:id="4933" isDerived="true" type="4896" subsettedProperty="4934" redefinedProperty="4720" class="4936" isComposite="false" isDerivedUnion="true" upper="-1" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="source" xsi:type="Property" />
+      <ownedAttribute xmi:id="4937" isDerived="true" type="4896" subsettedProperty="4934" redefinedProperty="4721" class="4936" isComposite="false" isDerivedUnion="true" upper="-1" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="target" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="4938" memberEnd="4931 4932" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="4939" isAbstract="false" name="ElementImport" package="4892" superClass="4936" xsi:type="Class">
+      <ownedRule xmi:id="4946" namespace="4939" name="visibility_public_or_private" constrainedElement="4939" xsi:type="Constraint">
+        <specification xmi:id="4947" language="OCL" body="self.visibility = #public or self.visibility = #private" xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedRule xmi:id="4948" namespace="4939" name="imported_element_is_public" constrainedElement="4939" xsi:type="Constraint">
+        <specification xmi:id="4949" language="OCL" body="self.importedElement.visibility.notEmpty() implies self.importedElement.visibility = #public" xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedAttribute xmi:id="4943" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4777" class="4939" isReadOnly="false" isOrdered="false" isUnique="true" name="visibility" isComposite="false" xsi:type="Property" default="public"/>
+      <ownedAttribute xmi:id="4944" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4459" class="4939" isReadOnly="false" isOrdered="false" isUnique="true" name="alias" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="4945" isDerivedUnion="false" upper="1" lower="1" isDerived="false" subsettedProperty="4937" type="4909" class="4939" isReadOnly="false" isOrdered="false" isUnique="true" name="importedElement" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="4932" isDerived="false" type="4915" subsettedProperty="4933 4895" class="4939" association="4938" isComposite="false" isDerivedUnion="false" upper="1" opposite="4931" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="importingNamespace" xsi:type="Property" />
+      <ownedOperation xmi:id="4940" isQuery="false" upper="1" lower="1" type="4459" class="4939" isUnique="true" isOrdered="false" name="getName" xsi:type="Operation">
+        <bodyCondition xmi:id="4941" namespace="4940" xsi:type="Constraint">
+          <specification xmi:id="4942" language="OCL" body="if self.alias-&gt;notEmpty() then self.alias else self.importedElement.name endif" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+    </ownedType>
+    <ownedType xmi:id="5000" memberEnd="4913 4912" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="4971" memberEnd="4969" isDerived="false" isAbstract="false" package="4892" xsi:type="Association">
+      <ownedEnd xmi:id="4970" owningAssociation="4971" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="4912" type="4956" isReadOnly="false" isOrdered="false" isUnique="true" name="owningPackage" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="4974" memberEnd="4972 4973" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="4975" isAbstract="true" name="Type" package="4892" superClass="4844 4613 4910 4909" xsi:type="Class">
+      <ownedAttribute xmi:id="4973" isDerived="false" type="4956" subsettedProperty="4912" redefinedProperty="4845" class="4975" association="4974" isComposite="false" isDerivedUnion="false" upper="1" opposite="4972" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="package" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="4978" memberEnd="4976 4977" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="4981" memberEnd="4980 4979" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="4982" isAbstract="false" name="PackageMerge" package="4892" superClass="4936" xsi:type="Class">
+      <ownedAttribute xmi:id="4980" isDerived="false" type="4956" subsettedProperty="4933 4895" class="4982" association="4981" isComposite="false" isDerivedUnion="false" upper="1" opposite="4979" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="mergingPackage" xsi:type="Property" />
+      <ownedAttribute xmi:id="4983" isDerivedUnion="false" upper="1" lower="1" isDerived="false" subsettedProperty="4937" type="4956" class="4982" isReadOnly="false" isOrdered="false" isUnique="true" name="mergedPackage" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="4956" isAbstract="false" name="Package" package="4892" superClass="4909 4915 4848" xsi:type="Class">
+      <ownedRule xmi:id="4984" namespace="4956" name="elements_public_or_private" constrainedElement="4956" xsi:type="Constraint">
+        <specification xmi:id="4985" language="OCL" body="self.ownedElements-&gt;forAll(e | e.visibility-&gt;notEmpty() implies e.visbility = #public or e.visibility = #private)" xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedAttribute xmi:id="4969" isDerived="false" type="4909" subsettedProperty="4913" class="4956" association="4971" isComposite="true" isDerivedUnion="false" upper="-1" opposite="4970" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="packagedElement" xsi:type="Property" />
+      <ownedAttribute xmi:id="4972" isDerived="false" type="4975" subsettedProperty="4969" redefinedProperty="4846" class="4956" association="4974" isComposite="true" isDerivedUnion="false" upper="-1" opposite="4973" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="ownedType" xsi:type="Property" />
+      <ownedAttribute xmi:id="4976" isDerived="false" type="4956" subsettedProperty="4969" redefinedProperty="4849" class="4956" association="4978" isComposite="true" isDerivedUnion="false" upper="-1" opposite="4977" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="nestedPackage" xsi:type="Property" />
+      <ownedAttribute xmi:id="4977" isDerived="false" type="4956" subsettedProperty="4912" redefinedProperty="4850" class="4956" association="4978" isComposite="false" isDerivedUnion="false" upper="1" opposite="4976" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="nestingPackage" xsi:type="Property" />
+      <ownedAttribute xmi:id="4979" isDerived="false" type="4982" subsettedProperty="4894" class="4956" association="4981" isComposite="true" isDerivedUnion="false" upper="-1" opposite="4980" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="packageMerge" xsi:type="Property" />
+      <ownedOperation xmi:id="4957" isQuery="false" redefinedOperation="4455" upper="1" lower="1" type="4456" class="4956" isUnique="true" isOrdered="false" name="mustBeOwned" xsi:type="Operation">
+        <bodyCondition xmi:id="4958" namespace="4957" xsi:type="Constraint">
+          <specification xmi:id="4959" language="OCL" body="false" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+      <ownedOperation xmi:id="4960" isQuery="false" upper="-1" lower="0" type="4909" class="4956" isUnique="true" isOrdered="false" name="visibleMembers" xsi:type="Operation">
+        <bodyCondition xmi:id="4961" namespace="4960" xsi:type="Constraint">
+          <specification xmi:id="4962" language="OCL" body="member-&gt;select( m | self.makesVisible(m))" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+      <ownedOperation xmi:id="4963" isQuery="false" upper="1" lower="1" type="4456" class="4956" isUnique="true" isOrdered="false" name="makesVisible" xsi:type="Operation">
+        <formalParameter xmi:id="4964" upper="1" lower="1" direction="in" type="4910" isUnique="true" isOrdered="false" name="el" operation="4963" xsi:type="Parameter" />
+        <bodyCondition xmi:id="4967" namespace="4963" xsi:type="Constraint">
+          <specification xmi:id="4968" language="OCL" body="el.visibility-&gt;isEmpty() or el.visibility = #public" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+        <precondition xmi:id="4965" namespace="4963" name="pre" constrainedElement="4963" xsi:type="Constraint">
+          <specification xmi:id="4966" language="OCL" body="self.member-&gt;includes(el)" xsi:type="OpaqueExpression" />
+        </precondition>
+      </ownedOperation>
+    </ownedType>
+    <ownedType xmi:id="4952" memberEnd="4950 4951" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="4953" isAbstract="false" name="PackageImport" package="4892" superClass="4936" xsi:type="Class">
+      <ownedRule xmi:id="4986" namespace="4953" name="public_or_private" constrainedElement="4953" xsi:type="Constraint">
+        <specification xmi:id="4987" language="OCL" body="self.visibility = #public or self.visibility = #private" xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedAttribute xmi:id="4954" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4777" class="4953" isReadOnly="false" isOrdered="false" isUnique="true" name="visibility" isComposite="false" xsi:type="Property" default="public"/>
+      <ownedAttribute xmi:id="4955" isDerivedUnion="false" upper="1" lower="1" isDerived="false" subsettedProperty="4937" type="4956" class="4953" isReadOnly="false" isOrdered="false" isUnique="true" name="importedPackage" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="4951" isDerived="false" type="4915" subsettedProperty="4933 4895" class="4953" association="4952" isComposite="false" isDerivedUnion="false" upper="1" opposite="4950" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="importingNamespace" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="4997" memberEnd="4988 4989" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="4996" isAbstract="true" name="ValueSpecification" package="4892" superClass="4520 4891" xsi:type="Class" />
+    <ownedType xmi:id="4891" isAbstract="true" name="TypedElement" package="4892" superClass="4858 4618 4910" xsi:type="Class">
+      <ownedAttribute xmi:id="5175" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4975" class="4891" redefinedProperty="4619" isReadOnly="false" isOrdered="false" isUnique="true" name="type" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="4995" memberEnd="4993" isDerived="false" isAbstract="false" package="4892" xsi:type="Association">
+      <ownedEnd xmi:id="4994" owningAssociation="4995" isDerived="false" type="4991" subsettedProperty="4895" redefinedProperty="4768" isComposite="false" isDerivedUnion="false" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="owningConstraint" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="4991" isAbstract="false" name="Constraint" package="4892" superClass="4766 4909" xsi:type="Class">
+      <ownedAttribute xmi:id="4990" isDerivedUnion="true" upper="1" lower="0" isDerived="true" type="4915" class="4991" redefinedProperty="4764" isReadOnly="false" isOrdered="false" isUnique="true" name="context" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="4989" isDerived="false" type="4915" subsettedProperty="4990" redefinedProperty="4762 4912" class="4991" association="4997" isComposite="false" isDerivedUnion="false" upper="1" opposite="4988" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="namespace" xsi:type="Property" />
+      <ownedAttribute xmi:id="4992" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" type="4896" class="4991" redefinedProperty="4770" isReadOnly="false" isOrdered="true" isUnique="true" name="constrainedElement" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="4993" isDerived="false" type="4996" subsettedProperty="4894" redefinedProperty="4767" class="4991" association="4995" isComposite="true" isDerivedUnion="false" upper="1" opposite="4994" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="specification" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="4915" isAbstract="true" name="Namespace" package="4892" superClass="4763 4910" xsi:type="Class">
+      <ownedRule xmi:id="4998" namespace="4915" name="importedMember_derived" constrainedElement="4915" xsi:type="Constraint">
+        <specification xmi:id="4999" language="OCL" body="self.importedMember-&gt;includesAll(self.importedMembers(self.elementImport.importedElement.asSet()-&gt;union(self.packageImport.importedPackage-&gt;collect(p | p.visibleMembers()))))" xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedAttribute xmi:id="4930" isDerivedUnion="false" upper="-1" lower="0" isDerived="true" subsettedProperty="4914" type="4909" class="4915" isReadOnly="false" isOrdered="false" isUnique="true" name="importedMember" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="4931" isDerived="false" type="4939" subsettedProperty="4894" class="4915" association="4938" isComposite="true" isDerivedUnion="false" upper="-1" opposite="4932" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="elementImport" xsi:type="Property" />
+      <ownedAttribute xmi:id="4913" isDerived="true" type="4910" subsettedProperty="4914 4894" redefinedProperty="4484" class="4915" association="5000" isComposite="true" isDerivedUnion="true" upper="-1" opposite="4912" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="ownedMember" xsi:type="Property" />
+      <ownedAttribute xmi:id="4950" isDerived="false" type="4953" subsettedProperty="4894" class="4915" association="4952" isComposite="true" isDerivedUnion="false" upper="-1" opposite="4951" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="packageImport" xsi:type="Property" />
+      <ownedAttribute xmi:id="4988" isDerived="false" type="4991" subsettedProperty="4913" redefinedProperty="4761" class="4915" association="4997" isComposite="true" isDerivedUnion="false" upper="-1" opposite="4989" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="ownedRule" xsi:type="Property" />
+      <ownedAttribute xmi:id="4914" isDerivedUnion="true" upper="-1" lower="0" isDerived="true" type="4910" class="4915" redefinedProperty="4483" isReadOnly="false" isOrdered="false" isUnique="true" name="member" isComposite="false" xsi:type="Property" />
+      <ownedOperation xmi:id="4916" isQuery="false" upper="-1" lower="0" type="4909" class="4915" isUnique="true" isOrdered="false" name="importedMember" xsi:type="Operation">
+        <bodyCondition xmi:id="4917" namespace="4916" xsi:type="Constraint">
+          <specification xmi:id="4918" language="OCL" body="self.importedMembers(self.elementImport.importedElement.asSet()-&gt;union(self.packageImport.importedPackage-&gt;collect(p | p.visibleMembers())))" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+      <ownedOperation xmi:id="4919" isQuery="false" redefinedOperation="4475" upper="-1" lower="0" type="4459" class="4915" isUnique="true" isOrdered="false" name="getNamesOfMember" xsi:type="Operation">
+        <bodyCondition xmi:id="4920" namespace="4919" xsi:type="Constraint">
+          <specification xmi:id="4921" language="OCL" body="if self.ownedMember-&gt;includes(element) then Set{}-&gt;include(element.name) else let elementImports: ElementImport = self.elementImport-&gt;select(ei | ei.importedElement = element) in if elementImports-&gt;notEmpty() then elementImports-&gt;collect(el | el.getName()) else self.packageImport-&gt;select(pi | pi.importedPackage.visibleMembers()-&gt;includes(element))-&gt;collect(pi | pi.importedPackage.getNamesOfMember(element)) endif endif" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+      <ownedOperation xmi:id="4922" isQuery="false" upper="-1" lower="0" type="4909" class="4915" isUnique="true" isOrdered="false" name="importMembers" xsi:type="Operation">
+        <formalParameter xmi:id="4923" upper="-1" lower="0" direction="in" type="4909" isUnique="true" isOrdered="false" name="imps" operation="4922" xsi:type="Parameter" />
+        <bodyCondition xmi:id="4924" namespace="4922" xsi:type="Constraint">
+          <specification xmi:id="4925" language="OCL" body="self.excludeCollisions(imps)-&gt;select(imp | self.ownedMember-&gt;forAll(mem | mem.imp.isDistinguishableFrom(mem, self)))" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+      <ownedOperation xmi:id="4926" isQuery="false" upper="-1" lower="0" type="4909" class="4915" isUnique="true" isOrdered="false" name="excludeCollisions" xsi:type="Operation">
+        <formalParameter xmi:id="4927" upper="-1" lower="0" direction="in" type="4909" isUnique="true" isOrdered="false" name="imps" operation="4926" xsi:type="Parameter" />
+        <bodyCondition xmi:id="4928" namespace="4926" xsi:type="Constraint">
+          <specification xmi:id="4929" language="OCL" body="imps-&gt;reject(imp1 | imps.exists(imp2 | not imp1.isDistinguishableFrom(imp2, self)))" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+    </ownedType>
+    <ownedType xmi:id="4910" isAbstract="true" name="NamedElement" package="4892" superClass="4896 4780 4852" xsi:type="Class">
+      <ownedAttribute xmi:id="4911" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4459" class="4910" redefinedProperty="4502 4853" isReadOnly="false" isOrdered="false" isUnique="true" name="name" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="4912" isDerived="true" type="4915" subsettedProperty="4895" redefinedProperty="4485" class="4910" association="5000" isComposite="false" isDerivedUnion="true" upper="1" opposite="4913" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="namespace" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5001" memberEnd="5002 5003" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="5011" isAbstract="true" name="RedefinableElement" package="4892" superClass="4698 4910" xsi:type="Class">
+      <ownedAttribute xmi:id="5012" isDerivedUnion="true" upper="-1" lower="0" isDerived="true" type="5013" class="5011" redefinedProperty="4710" isReadOnly="false" isOrdered="false" isUnique="true" name="redefinitionContext" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5116" isDerivedUnion="true" upper="-1" lower="0" isDerived="true" type="5011" class="5011" redefinedProperty="4709" isReadOnly="false" isOrdered="false" isUnique="true" name="redefinedElement" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5020" memberEnd="5018" isDerived="false" isAbstract="false" package="4892" xsi:type="Association">
+      <ownedEnd xmi:id="5019" owningAssociation="5020" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="5012" type="5013" isReadOnly="false" isOrdered="false" isUnique="true" name="classifier" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="ext_3" name="InstanceOf" memberEnd="ext_1 ext_2" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="5013" isAbstract="true" name="Classifier" package="4892" superClass="4915 4661 4975" xsi:type="Class">
+      <ownedAttribute xmi:id="ext_2" name="metaInstances" isDerived="false" type="5013" class="5013" isComposite="false" upper="-1" lower="0" isDerivedUnion="false" isReadOnly="false" isUnique="true" isOrdered="false" xsi:type="Property" association="ext_3" opposite="ext_1"/>
+      <ownedAttribute xmi:id="ext_1" name="metaClassifier" isDerived="false" type="5013" class="5013" isComposite="false" upper="1" lower="0" isDerivedUnion="false" isReadOnly="false" isUnique="true" isOrdered="false" xsi:type="Property" association="ext_3" opposite="ext_2"/>
+      <ownedAttribute xmi:id="5018" isDerived="true" type="5021" subsettedProperty="5009" class="5013" association="5020" isComposite="false" isDerivedUnion="true" upper="-1" opposite="5019" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="attribute" xsi:type="Property" />
+      <ownedAttribute xmi:id="5009" isDerived="true" type="5010" subsettedProperty="4914" redefinedProperty="4514" class="5013" association="5145" isComposite="false" isDerivedUnion="true" upper="-1" opposite="5008" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="feature" xsi:type="Property" />
+      <ownedAttribute xmi:id="5126" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" type="5013" class="5013" redefinedProperty="4689" isReadOnly="false" isOrdered="false" isUnique="true" name="general" isComposite="false" xsi:type="Property" />
+      <ownedOperation xmi:id="5014" isQuery="false" redefinedOperation="4614" upper="1" lower="1" type="4456" class="5013" isUnique="true" isOrdered="false" name="conformsTo" xsi:type="Operation">
+        <formalParameter xmi:id="5015" upper="1" lower="1" direction="in" type="5013" isUnique="true" isOrdered="false" name="other" operation="5014" xsi:type="Parameter" />
+        <bodyCondition xmi:id="5016" namespace="5014" xsi:type="Constraint">
+          <specification xmi:id="5017" language="OCL" body="(self=other) or (self.allParents()-&gt;includes(other))" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+    </ownedType>
+    <ownedType xmi:id="5145" memberEnd="5009 5008" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="5010" isAbstract="true" name="Feature" package="4892" superClass="4512 5011" xsi:type="Class">
+      <ownedAttribute xmi:id="5008" isDerived="true" type="5013" redefinedProperty="4513" class="5010" association="5145" isComposite="false" isDerivedUnion="true" upper="-1" opposite="5009" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="featuringClassifier" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5146" memberEnd="5006 5007" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="5004" isAbstract="false" name="Association" package="4892" superClass="5013 4935" xsi:type="Class">
+      <ownedAttribute xmi:id="5005" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4456" class="5004" isReadOnly="false" isOrdered="false" isUnique="true" default="false" name="isDerived" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5002" isDerived="false" type="5021" subsettedProperty="4914" class="5004" association="5001" isComposite="false" isDerivedUnion="false" upper="-1" opposite="5003" lower="2" isReadOnly="false" isUnique="true" isOrdered="true" name="memberEnd" xsi:type="Property" />
+      <ownedAttribute xmi:id="5006" isDerived="false" type="5021" subsettedProperty="5002 5009 4913" class="5004" association="5146" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5007" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="ownedEnd" xsi:type="Property" />
+      <ownedAttribute xmi:id="5147" isDerivedUnion="false" upper="-1" lower="1" isDerived="true" subsettedProperty="4934" type="4975" class="5004" isReadOnly="false" isOrdered="false" isUnique="true" name="endType" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5079" memberEnd="5077 5078" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="5045" memberEnd="5043 5044" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="5075" memberEnd="5074 5073" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="5107" memberEnd="5081" isDerived="false" isAbstract="false" package="4892" xsi:type="Association">
+      <ownedEnd xmi:id="5082" owningAssociation="5107" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="4912" type="5083" isReadOnly="false" isOrdered="false" isUnique="true" name="ownerFormalParam" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5101" memberEnd="5080 5100" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="5092" isAbstract="false" name="Parameter" package="4892" superClass="4857 4622 4891 5102" xsi:type="Class">
+      <ownedAttribute xmi:id="5093" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="5094" class="5092" isReadOnly="false" isOrdered="false" isUnique="true" default="in" name="direction" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5099" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4459" class="5092" isReadOnly="false" isOrdered="false" isUnique="true" name="default" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5100" isDerived="false" type="5046" subsettedProperty="5082" redefinedProperty="4855" class="5092" association="5101" isComposite="false" isDerivedUnion="false" upper="1" opposite="5080" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="operation" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5102" isAbstract="true" name="MultiplicityElement" package="4892" superClass="4896 4549" xsi:type="Class" />
+    <ownedType xmi:id="5091" memberEnd="5089" isDerived="false" isAbstract="false" package="4892" xsi:type="Association">
+      <ownedEnd xmi:id="5090" owningAssociation="5091" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="5083" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5105" memberEnd="5103" isDerived="false" isAbstract="false" package="4892" xsi:type="Association">
+      <ownedEnd xmi:id="5104" owningAssociation="5105" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="4912" type="5083" isReadOnly="false" isOrdered="false" isUnique="true" name="ownerReturnParam" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xsi:type="Enumeration" xmi:id="ext6" name="CallConcurrencyKind" package="4892">
+      <ownedLiteral xsi:type="EnumerationLiteral" enumeration="ext6" xmi:id="ext7" name="sequential"/>
+      <ownedLiteral xsi:type="EnumerationLiteral" enumeration="ext6" xmi:id="ext8" name="concurrent"/>
+    </ownedType>
+    <ownedType xmi:id="5083" isAbstract="true" name="BehavioralFeature" package="4892" superClass="4623 5010 4915" xsi:type="Class">
+      <ownedAttribute xsi:type="Property" xmi:id="ext5" name="concurrency" type="ext6" default="sequential" isComposite="false" upper="1" lower="1" isReadOnly="false" class="5083"/>
+      <ownedAttribute xmi:id="5089" isDerived="true" type="5092" subsettedProperty="4914" redefinedProperty="4629" class="5083" association="5091" isComposite="false" isDerivedUnion="true" upper="-1" opposite="5090" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="parameter" xsi:type="Property" />
+      <ownedAttribute xmi:id="5081" isDerived="false" type="5092" subsettedProperty="5089 4913" class="5083" association="5107" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5082" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="formalParameter" xsi:type="Property" />
+      <ownedAttribute xmi:id="5103" isDerived="false" type="5092" subsettedProperty="5089 4913" class="5083" association="5105" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5104" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="returnResult" xsi:type="Property" />
+      <ownedAttribute xmi:id="5106" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" type="4975" class="5083" isReadOnly="false" isOrdered="false" isUnique="true" name="raisedException" isComposite="false" xsi:type="Property" />
+      <ownedOperation xmi:id="5084" isQuery="false" redefinedOperation="4624" upper="1" lower="1" type="4456" class="5083" isUnique="true" isOrdered="false" name="isDistinguishableFrom" xsi:type="Operation">
+        <formalParameter xmi:id="5085" upper="1" lower="1" direction="in" type="4910" isUnique="true" isOrdered="false" name="n" operation="5084" xsi:type="Parameter" />
+        <formalParameter xmi:id="5086" upper="1" lower="1" direction="in" type="4915" isUnique="true" isOrdered="false" name="ns" operation="5084" xsi:type="Parameter" />
+        <bodyCondition xmi:id="5087" namespace="5084" xsi:type="Constraint">
+          <specification xmi:id="5088" language="OCL" body="if n.oclIsKindOf(BehavioralFeature) then if ns.getNamesOfMember(self)-&gt;intersection(ns.getNamesOfMember(n))-&gt;notEmpty() then Set{}-&gt;include(self)-&gt;include(n)-&gt;isUnique( bf | bf.parameter-&gt;collect(type)) else true endif else true endif" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+    </ownedType>
+    <ownedType xmi:id="5111" memberEnd="5109" isDerived="false" isAbstract="false" package="4892" xsi:type="Association">
+      <ownedEnd xmi:id="5110" owningAssociation="5111" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="4990 4989" type="5046" isReadOnly="false" isOrdered="false" isUnique="true" name="preContext" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5114" memberEnd="5112" isDerived="false" isAbstract="false" package="4892" xsi:type="Association">
+      <ownedEnd xmi:id="5113" owningAssociation="5114" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="4990 4989" type="5046" isReadOnly="false" isOrdered="false" isUnique="true" name="postContext" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5120" memberEnd="5118" isDerived="false" isAbstract="false" package="4892" xsi:type="Association">
+      <ownedEnd xmi:id="5119" owningAssociation="5120" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="4990 4989" type="5046" isReadOnly="false" isOrdered="false" isUnique="true" name="bodyContext" isComposite="false" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5046" isAbstract="false" name="Operation" package="4892" superClass="4842 5083" xsi:type="Class">
+      <ownedRule xmi:id="5121" namespace="5046" name="type_of_result" constrainedElement="5046" xsi:type="Constraint">
+        <specification xmi:id="5122" language="OCL" body="if returnResult-&gt;size() = 1 then type = returnResult.type else type = nil endif " xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedRule xmi:id="5123" namespace="5046" name="only_body_for_query" constrainedElement="5046" xsi:type="Constraint">
+        <specification xmi:id="5124" language="OCL" body="bodyCondition-&gt;notEmpty() implies isQuery" xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedAttribute xmi:id="5068" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4456" class="5046" isReadOnly="false" isOrdered="false" isUnique="true" default="false" name="isQuery" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5069" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4456" class="5046" redefinedProperty="4573" isReadOnly="false" isOrdered="false" isUnique="true" name="isOrdered" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5070" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4456" class="5046" redefinedProperty="4574" isReadOnly="false" isOrdered="false" isUnique="true" name="isUnique" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5071" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4458" class="5046" redefinedProperty="4575" isReadOnly="false" isOrdered="false" isUnique="true" name="lower" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5072" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4460" class="5046" redefinedProperty="4576" isReadOnly="false" isOrdered="false" isUnique="true" name="upper" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5044" isDerived="false" type="5041" subsettedProperty="5012 4912 5008" redefinedProperty="4840" class="5046" association="5045" isComposite="false" isDerivedUnion="false" upper="1" opposite="5043" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="class" xsi:type="Property" />
+      <ownedAttribute xmi:id="5073" isDerived="false" type="5076" subsettedProperty="5012 4912 5008" class="5046" association="5075" isComposite="false" isDerivedUnion="false" upper="1" opposite="5074" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="datatype" xsi:type="Property" />
+      <ownedAttribute xmi:id="5080" isDerived="false" type="5092" redefinedProperty="5081 4854" class="5046" association="5101" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5100" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="formalParameter" xsi:type="Property" />
+      <ownedAttribute xmi:id="5108" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" type="4975" class="5046" redefinedProperty="4843 5106" isReadOnly="false" isOrdered="false" isUnique="true" name="raisedException" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5109" isDerived="false" type="4991" subsettedProperty="4988" class="5046" association="5111" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5110" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="precondition" xsi:type="Property" />
+      <ownedAttribute xmi:id="5112" isDerived="false" type="4991" subsettedProperty="4988" class="5046" association="5114" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5113" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="postcondition" xsi:type="Property" />
+      <ownedAttribute xmi:id="5115" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" subsettedProperty="5116" type="5046" class="5046" isReadOnly="false" isOrdered="false" isUnique="true" name="redefinedOperation" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5117" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4975" class="5046" isReadOnly="false" isOrdered="false" isUnique="true" name="type" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5118" isDerived="false" type="4991" subsettedProperty="4988" class="5046" association="5120" isComposite="true" isDerivedUnion="false" upper="1" opposite="5119" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="bodyCondition" xsi:type="Property" />
+      <ownedOperation xmi:id="5047" isQuery="false" upper="1" lower="1" type="4456" class="5046" isUnique="true" isOrdered="false" name="isOrdered" xsi:type="Operation">
+        <bodyCondition xmi:id="5048" namespace="5047" xsi:type="Constraint">
+          <specification xmi:id="5049" language="OCL" body="if returnResult-&gt;size() = 1 then returnResult-&gt;any().isOrdered else false endif" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+      <ownedOperation xmi:id="5050" isQuery="false" upper="1" lower="1" type="4456" class="5046" isUnique="true" isOrdered="false" name="isUnique" xsi:type="Operation">
+        <bodyCondition xmi:id="5051" namespace="5050" xsi:type="Constraint">
+          <specification xmi:id="5052" language="OCL" body=" if returnResult-&gt;size() = 1 then returnResult-&gt;any().isUnique else true endif" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+      <ownedOperation xmi:id="5053" isQuery="false" upper="1" lower="0" type="4458" class="5046" isUnique="true" isOrdered="false" name="lower" xsi:type="Operation">
+        <bodyCondition xmi:id="5054" namespace="5053" xsi:type="Constraint">
+          <specification xmi:id="5055" language="OCL" body="if returnResult-&gt;size() = 1 then returnResult-&gt;any().lower else Set{} endif" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+      <ownedOperation xmi:id="5056" isQuery="false" upper="1" lower="0" type="4460" class="5046" isUnique="true" isOrdered="false" name="upper" xsi:type="Operation">
+        <bodyCondition xmi:id="5057" namespace="5056" xsi:type="Constraint">
+          <specification xmi:id="5058" language="OCL" body="if returnResult-&gt;size() = 1 then returnResult-&gt;any().upper else Set{} endif" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+      <ownedOperation xmi:id="5059" isQuery="false" upper="1" lower="0" type="5013" class="5046" isUnique="true" isOrdered="false" name="type" xsi:type="Operation">
+        <bodyCondition xmi:id="5060" namespace="5059" xsi:type="Constraint">
+          <specification xmi:id="5061" language="OCL" body="if returnResult-&gt;size() = 1 then returnResult-&gt;any().type else Set{} endif" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+      <ownedOperation xmi:id="5062" isQuery="false" redefinedOperation="4699" upper="1" lower="1" type="4456" class="5046" isUnique="true" isOrdered="false" name="isConsistentWith" xsi:type="Operation">
+        <formalParameter xmi:id="5063" upper="1" lower="1" direction="in" type="5011" isUnique="true" isOrdered="false" name="redefinee" operation="5062" xsi:type="Parameter" />
+        <bodyCondition xmi:id="5066" namespace="5062" xsi:type="Constraint">
+          <specification xmi:id="5067" language="OCL" body="(redefinee.oclIsKindOf(Operation) and let op: Operation = redefinee.oclAsType(Operation) in self.formalParameter.size() = op.formalParameter.size() and self.returnResult.size() = op.returnResult.size() and forAll(i | op.formalParameter[i].type.conformsTo(self.formalParameter[i].type)) and forAll(i | op.returnResult[i].type.conformsTo(self.returnResult[i].type)) )" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+        <precondition xmi:id="5064" namespace="5062" name="pre" constrainedElement="5062" xsi:type="Constraint">
+          <specification xmi:id="5065" language="OCL" body="redefinee.isRedefinitionContextValid(self)" xsi:type="OpaqueExpression" />
+        </precondition>
+      </ownedOperation>
+    </ownedType>
+    <ownedType xmi:id="5076" isAbstract="false" name="DataType" package="4892" superClass="4866 5013" xsi:type="Class">
+      <ownedAttribute xmi:id="5077" isDerived="false" type="5021" subsettedProperty="5018 4913" class="5076" association="5079" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5078" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="ownedAttribute" xsi:type="Property" />
+      <ownedAttribute xmi:id="5074" isDerived="false" type="5046" subsettedProperty="5009 4913" class="5076" association="5075" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5073" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="ownedOperation" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5021" isAbstract="false" name="Property" package="4892" superClass="5130 4829" xsi:type="Class">
+      <ownedAttribute xmi:id="external3" name="qualifier" subsettedProperty="4894" type="5021" upper="1" lower="0"/>
+      <ownedRule xmi:id="5131" namespace="5021" name="opposite_is_other_end" constrainedElement="5021" xsi:type="Constraint">
+        <specification xmi:id="5132" language="OCL" body="opposite = if owningAssociation-&gt;notEmpty() and association.memberEnd-&gt;size() = 2 then let otherEnd = (association.memberEnd - self)-&gt;any() in if otherEnd.owningAssociation-&gt;notEmpty then otherEnd else Set{} endif else Set {} endif" xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedRule xmi:id="5133" namespace="5021" name="multiplicity_of_composite" constrainedElement="5021" xsi:type="Constraint">
+        <specification xmi:id="5134" language="OCL" body="isComposite implies (upperBound()-&gt;isEmpty() or upperBound() &lt;= 1)" xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedRule xmi:id="5135" namespace="5021" name="subsetting_context" constrainedElement="5021" xsi:type="Constraint">
+        <specification xmi:id="5136" language="OCL" body="subsettedProperty-&gt;notEmpty() implies (subsettingContext()-&gt;notEmpty() and subsettingContext()-&gt;forAll (sc | subsettedProperty-&gt;forAll(sp | sp.subsettingContext()-&gt;exists(c | sc.conformsTo(c)))))" xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedRule xmi:id="5137" namespace="5021" name="navigable_property_redefinition" constrainedElement="5021" xsi:type="Constraint">
+        <specification xmi:id="5138" language="OCL" body="(subsettedProperty-&gt;exists(sp | sp.class-&gt;notEmpty()) implies class-&gt;notEmpty()) and (redefinedProperty-&gt;exists(rp | rp.class-&gt;notEmpty()) implies class-&gt;notEmpty())" xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedRule xmi:id="5139" namespace="5021" name="subsetting_rules" constrainedElement="5021" xsi:type="Constraint">
+        <specification xmi:id="5140" language="OCL" body="subsettedProperty-&gt;forAll(sp | type.conformsTo(sp.type) and ((upperBound()-&gt;notEmpty() and sp.upperBound()-&gt;notEmpty()) implies upperBound()&lt;=sp.upperBound() ))" xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedRule xmi:id="5141" namespace="5021" name="navigable_readonly" constrainedElement="5021" xsi:type="Constraint">
+        <specification xmi:id="5142" language="OCL" body="isReadOnly implies class-&gt;notEmpty()" xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedRule xmi:id="5143" namespace="5021" name="derivedUnion_is_derived" constrainedElement="5021" xsi:type="Constraint">
+        <specification xmi:id="5144" language="OCL" body="isDerivedUnion implies isDerived" xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedAttribute xmi:id="5034" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4456" class="5021" isReadOnly="false" isOrdered="false" isUnique="true" name="isID" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5035" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4459" class="5021" isReadOnly="false" isOrdered="false" isUnique="true" name="details" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5036" isDerived="false" type="4456" redefinedProperty="4757 4830" class="5021" default="false" isComposite="false" isDerivedUnion="false" upper="1" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="isReadOnly" xsi:type="Property" />
+      <ownedAttribute xmi:id="5037" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4456" class="5021" isReadOnly="false" isOrdered="false" isUnique="true" default="false" name="isDerivedUnion" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5038" isDerived="false" type="5041" subsettedProperty="4912 5008 5019" redefinedProperty="4834" class="5021" association="5040" isComposite="false" isDerivedUnion="false" upper="1" opposite="5039" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="class" xsi:type="Property" />
+      <ownedAttribute xmi:id="5003" isDerived="false" type="5004" class="5021" association="5001" isComposite="false" isDerivedUnion="false" opposite="5002" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="association" xsi:type="Property" />
+      <ownedAttribute xmi:id="5007" isDerived="false" type="5004" subsettedProperty="5003 4912 5008" class="5021" association="5146" isComposite="false" isDerivedUnion="false" upper="1" opposite="5006" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="owningAssociation" xsi:type="Property" />
+      <ownedAttribute xmi:id="5127" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" subsettedProperty="5116" type="5021" class="5021" isReadOnly="false" isOrdered="false" isUnique="true" name="redefinedProperty" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5128" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" type="5021" class="5021" isReadOnly="false" isOrdered="false" isUnique="true" name="subsettedProperty" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5129" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="5021" class="5021" redefinedProperty="4860" isReadOnly="false" isOrdered="false" isUnique="true" name="opposite" isComposite="false" xsi:type="Property" />
+      <ownedAttribute xmi:id="5078" isDerived="false" type="5076" subsettedProperty="4912 5008 5019" class="5021" association="5079" isComposite="false" isDerivedUnion="false" upper="1" opposite="5077" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="datatype" xsi:type="Property" />
+      <ownedOperation xmi:id="5022" isQuery="false" upper="1" lower="0" type="5021" class="5021" isUnique="true" isOrdered="false" name="opposite" xsi:type="Operation">
+        <bodyCondition xmi:id="5023" namespace="5022" xsi:type="Constraint">
+          <specification xmi:id="5024" language="OCL" body="if owningAssociation-&gt;notEmpty() and association.memberEnd-&gt;size() = 2 then let otherEnd = (association.memberEnd - self)-&gt;any() in if otherEnd.owningAssociation-&gt;notEmpty then otherEnd else Set{} endif else Set {} endif" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+      <ownedOperation xmi:id="5025" isQuery="false" redefinedOperation="4699" upper="1" lower="1" type="4456" class="5021" isUnique="true" isOrdered="false" name="isConsistentWith" xsi:type="Operation">
+        <formalParameter xmi:id="5026" upper="1" lower="1" direction="in" type="5011" isUnique="true" isOrdered="false" name="redefinee" operation="5025" xsi:type="Parameter" />
+        <bodyCondition xmi:id="5029" namespace="5025" xsi:type="Constraint">
+          <specification xmi:id="5030" language="OCL" body="(redefinee.oclIsKindOf(Property) and let prop: Property = redefinee.oclAsType(Property) in type.conformsTo(prop.type) and (lowerBound()-&gt;notEmpty and prop.lowerBound()-&gt;notEmpty() implies lowerBound() &gt;= prop.lowerBound()) and (upperBound()-&gt;notEmpty and prop.upperBound()-&gt;notEmpty() implies upperBound() &lt;= prop.upperBound()) and (prop.isDerived implies isDerived))" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+        <precondition xmi:id="5027" namespace="5025" name="pre" constrainedElement="5025" xsi:type="Constraint">
+          <specification xmi:id="5028" language="OCL" body=" redefinee.isRedefinitionContextValid(self)" xsi:type="OpaqueExpression" />
+        </precondition>
+      </ownedOperation>
+      <ownedOperation xmi:id="5031" isQuery="false" upper="-1" lower="0" type="5013" class="5021" isUnique="true" isOrdered="false" name="subsettingContext" xsi:type="Operation">
+        <bodyCondition xmi:id="5032" namespace="5031" xsi:type="Constraint">
+          <specification xmi:id="5033" language="OCL" body="if association-&gt;notEmpty() then association.endType-type else if classifier-&gt;notEmpty then Set{classifier} else Set{} endif endif" xsi:type="OpaqueExpression" />
+        </bodyCondition>
+      </ownedOperation>
+    </ownedType>
+    <ownedType xmi:id="5130" isAbstract="true" name="StructuralFeature" package="4892" superClass="5010 4756 4891 5102" xsi:type="Class" />
+    <ownedType xmi:id="5041" isAbstract="false" name="Class" package="4892" superClass="5013 4837" xsi:type="Class">
+      <ownedAttribute xmi:id="5042" isDerived="false" type="4456" redefinedProperty="4687 4838" class="5041" default="false" isComposite="false" isDerivedUnion="false" upper="1" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="isAbstract" xsi:type="Property" />
+      <ownedAttribute xmi:id="5043" isDerived="false" type="5046" subsettedProperty="5009 4913" redefinedProperty="4839" class="5041" association="5045" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5044" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="ownedOperation" xsi:type="Property" />
+      <ownedAttribute xmi:id="5039" isDerived="false" type="5021" subsettedProperty="5018 4913" redefinedProperty="4835" class="5041" association="5040" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5038" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="ownedAttribute" xsi:type="Property" />
+      <ownedAttribute xmi:id="5125" isDerived="false" type="5041" subsettedProperty="5126" redefinedProperty="4859" class="5041" isComposite="false" isDerivedUnion="false" upper="-1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="superClass" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5040" memberEnd="5039 5038" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="5148" isAbstract="false" name="EnumerationLiteral" package="4892" superClass="4861 4910" xsi:type="Class">
+      <ownedAttribute xmi:id="5149" isDerived="false" type="5152" subsettedProperty="4912" redefinedProperty="4862" class="5148" association="5151" isComposite="false" isDerivedUnion="false" upper="1" opposite="5150" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="enumeration" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5152" isAbstract="false" name="Enumeration" package="4892" superClass="5076 4865" xsi:type="Class">
+      <ownedAttribute xmi:id="5150" isDerived="false" type="5148" subsettedProperty="4913" redefinedProperty="4863" class="5152" association="5151" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5149" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="ownedLiteral" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5151" memberEnd="5150 5149" isDerived="false" isAbstract="false" package="4892" xsi:type="Association" />
+    <ownedType xmi:id="5153" isAbstract="false" name="Expression" package="4892" superClass="4996 4539" xsi:type="Class">
+      <ownedAttribute xmi:id="5154" isDerived="false" type="4996" subsettedProperty="4894" redefinedProperty="4541" class="5153" association="5156" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5155" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="operand" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5156" memberEnd="5154" isDerived="false" isAbstract="false" package="4892" xsi:type="Association">
+      <ownedEnd xmi:id="5155" owningAssociation="5156" isDerived="false" type="5153" subsettedProperty="4895" redefinedProperty="4542" isComposite="false" isDerivedUnion="false" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="expression" xsi:type="Property" />
+    </ownedType>
+    <ownedType xmi:id="5157" isAbstract="false" name="PrimitiveType" package="4892" superClass="4867 5076" xsi:type="Class" />
+    <ownedType xmi:id="5158" isAbstract="false" name="OpaqueExpression" package="4892" superClass="4996 4544" xsi:type="Class" />
+    <ownedType xmi:id="5094" isAbstract="false" name="ParameterDirectionKind" package="4892" xsi:type="Enumeration">
+      <ownedLiteral xmi:id="5095" enumeration="5094" name="in" xsi:type="EnumerationLiteral" />
+      <ownedLiteral xmi:id="5096" enumeration="5094" name="inout" xsi:type="EnumerationLiteral" />
+      <ownedLiteral xmi:id="5097" enumeration="5094" name="out" xsi:type="EnumerationLiteral" />
+      <ownedLiteral xmi:id="5098" enumeration="5094" name="return" xsi:type="EnumerationLiteral" />
+    </ownedType>
+  </cmof:Package>
+  <cmof:Package xmi:id="4446" name="core">
+    <nestedPackage xmi:id="4447" name="abstractions" nestingPackage="4446" xsi:type="Package">
+      <packageImport xmi:id="4827" importingNamespace="4447" importedPackage="4457" xsi:type="PackageImport" />
+      <nestedPackage xmi:id="4448" name="elements" nestingPackage="4447" xsi:type="Package">
+        <ownedType xmi:id="4449" isAbstract="true" name="Element" package="4448" xsi:type="Class" />
+      </nestedPackage>
+      <nestedPackage xmi:id="4450" name="ownerships" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4470" importingNamespace="4450" importedPackage="4448" xsi:type="PackageImport" />
+        <ownedType xmi:id="4451" isAbstract="true" name="Element" package="4450" superClass="4449" xsi:type="Class">
+          <ownedRule xmi:id="4466" namespace="4451" name="not_own_self" constrainedElement="4451" xsi:type="Constraint">
+            <specification xmi:id="4467" language="OCL" body="not self.allOwnedElements()-&gt;includes(self)" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedRule xmi:id="4468" namespace="4451" name="has_owner" constrainedElement="4451" xsi:type="Constraint">
+            <specification xmi:id="4469" language="OCL" body="self.mustBeOwned() implies owner-&gt;notEmpty()" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedAttribute xmi:id="4463" isDerived="true" type="4451" class="4451" association="4465" isComposite="true" isDerivedUnion="true" opposite="4464" upper="-1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="ownedElement" xsi:type="Property" />
+          <ownedAttribute xmi:id="4464" isDerived="true" type="4451" class="4451" association="4465" isComposite="false" isDerivedUnion="true" opposite="4463" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="owner" xsi:type="Property" />
+          <ownedOperation xmi:id="4452" isQuery="false" upper="-1" lower="0" type="4451" class="4451" isUnique="true" isOrdered="false" name="allOwnedElements" xsi:type="Operation">
+            <bodyCondition xmi:id="4453" namespace="4452" xsi:type="Constraint">
+              <specification xmi:id="4454" language="OCL" body="ownedElement-&gt;union(ownedElement-&gt;collect(e | e.allOwnedElements()))" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4455" isQuery="false" upper="1" lower="1" type="4456" class="4451" isUnique="true" isOrdered="false" name="mustBeOwned" xsi:type="Operation">
+            <bodyCondition xmi:id="4461" namespace="4455" xsi:type="Constraint">
+              <specification xmi:id="4462" language="OCL" body="true" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+        <ownedType xmi:id="4465" memberEnd="4463 4464" isDerived="false" isAbstract="false" package="4450" xsi:type="Association" />
+      </nestedPackage>
+      <nestedPackage xmi:id="4471" name="namespaces" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4508" importingNamespace="4471" importedPackage="4450" xsi:type="PackageImport" />
+        <ownedType xmi:id="4472" isAbstract="true" name="NamedElement" package="4471" superClass="4451" xsi:type="Class">
+          <ownedRule xmi:id="4504" namespace="4472" name="no_name" constrainedElement="4472" xsi:type="Constraint">
+            <specification xmi:id="4505" language="OCL" body="self.name-&gt;isEmpty() or self.allNamespaces()-&gt;select(ns | ns.name-&gt;isEmpty())-&gt;notEmpty() implies self.qualifiedName-&gt;isEmpty()" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedRule xmi:id="4506" namespace="4472" name="qualified_name" constrainedElement="4472" xsi:type="Constraint">
+            <specification xmi:id="4507" language="OCL" body="(self.name-&gt;notEmpty() and self.allNamespaces()-&gt;select(ns | ns.name-&gt;isEmpty())-&gt;isEmpty()) implies self.qualifiedName = self.allNamespaces()-&gt;iterate( ns : Namespace; result: String = self.name | ns.name-&gt;union(self.separator())-&gt;union(result))" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedAttribute xmi:id="4502" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4459" class="4472" isReadOnly="false" isOrdered="false" isUnique="true" name="name" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4503" isDerivedUnion="false" upper="1" lower="0" isDerived="true" type="4459" class="4472" isReadOnly="false" isOrdered="false" isUnique="true" name="qualifiedName" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4485" isDerived="true" type="4474" subsettedProperty="4464" class="4472" association="4486" isComposite="false" isDerivedUnion="true" upper="1" opposite="4484" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="namespace" xsi:type="Property" />
+          <ownedOperation xmi:id="4473" isQuery="false" upper="-1" lower="0" type="4474" class="4472" isUnique="false" isOrdered="true" name="allNamespaces" xsi:type="Operation">
+            <bodyCondition xmi:id="4489" namespace="4473" xsi:type="Constraint">
+              <specification xmi:id="4490" language="OCL" body="if self.namespace-&gt;isEmpty() then Sequence{} else self.namespace.allNamespaces()-&gt;prepend(self.namespace) endif" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4491" isQuery="false" upper="1" lower="1" type="4456" class="4472" isUnique="true" isOrdered="false" name="isDistinguishableFrom" xsi:type="Operation">
+            <formalParameter xmi:id="4492" upper="1" lower="1" direction="in" type="4472" isUnique="true" isOrdered="false" name="n" operation="4491" xsi:type="Parameter" />
+            <formalParameter xmi:id="4493" upper="1" lower="1" direction="in" type="4474" isUnique="true" isOrdered="false" name="ns" operation="4491" xsi:type="Parameter" />
+            <bodyCondition xmi:id="4494" namespace="4491" xsi:type="Constraint">
+              <specification xmi:id="4495" language="OCL" body="if self.oclIsKindOf(n.oclType) or n.oclIsKindOf(self.oclType) then ns.getNamesOfMember(self)-&gt;intersection(ns.getNamesOfMember(n))-&gt;isEmpty() else true endif" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4496" isQuery="false" upper="1" lower="1" type="4459" class="4472" isUnique="true" isOrdered="false" name="separator" xsi:type="Operation">
+            <bodyCondition xmi:id="4497" namespace="4496" xsi:type="Constraint">
+              <specification xmi:id="4498" language="OCL" body="'::'" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4499" isQuery="false" upper="1" lower="0" type="4459" class="4472" isUnique="true" isOrdered="false" name="qualifiedName" xsi:type="Operation">
+            <bodyCondition xmi:id="4500" namespace="4499" xsi:type="Constraint">
+              <specification xmi:id="4501" language="OCL" body="if self.name-&gt;notEmpty() and self.allNamespaces()-&gt;select(ns | ns.name-&gt;isEmpty())-&gt;isEmpty() then self.allNamespaces()-&gt;iterate( ns : Namespace; result: String = self.name | ns.name-&gt;union(self.separator())-&gt;union(result)) else Set{} endif" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+        <ownedType xmi:id="4474" isAbstract="true" name="Namespace" package="4471" superClass="4472" xsi:type="Class">
+          <ownedRule xmi:id="4487" namespace="4474" name="members_are_distinguishable" constrainedElement="4474" xsi:type="Constraint">
+            <specification xmi:id="4488" language="OCL" body="membersAreDistinguishable()" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedAttribute xmi:id="4483" isDerivedUnion="true" upper="-1" lower="0" isDerived="true" type="4472" class="4474" isReadOnly="false" isOrdered="false" isUnique="true" name="member" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4484" isDerived="true" type="4472" subsettedProperty="4463 4483" class="4474" association="4486" isComposite="true" isDerivedUnion="true" upper="-1" opposite="4485" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="ownedMember" xsi:type="Property" />
+          <ownedOperation xmi:id="4475" isQuery="false" upper="-1" lower="0" type="4459" class="4474" isUnique="true" isOrdered="false" name="getNamesOfMember" xsi:type="Operation">
+            <formalParameter xmi:id="4476" upper="1" lower="1" direction="in" type="4472" isUnique="true" isOrdered="false" name="element" operation="4475" xsi:type="Parameter" />
+            <bodyCondition xmi:id="4478" namespace="4475" xsi:type="Constraint">
+              <specification xmi:id="4479" language="OCL" body="if member-&gt;includes(element) then Set{}-&gt;including(element.name) else Set{} endif" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4480" isQuery="false" upper="1" lower="1" type="4456" class="4474" isUnique="true" isOrdered="false" name="membersAreDistinguishable" xsi:type="Operation">
+            <bodyCondition xmi:id="4481" namespace="4480" xsi:type="Constraint">
+              <specification xmi:id="4482" language="OCL" body="self.member-&gt;forAll( memb | self.member-&gt;excluding(memb)-&gt;forAll(other | memb.isDistinguishableFrom(other, self)))" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+        <ownedType xmi:id="4486" memberEnd="4484 4485" isDerived="false" isAbstract="false" package="4471" xsi:type="Association" />
+      </nestedPackage>
+      <nestedPackage xmi:id="4509" name="classifiers" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4518" importingNamespace="4509" importedPackage="4471" xsi:type="PackageImport" />
+        <ownedType xmi:id="4510" isAbstract="true" name="Classifier" package="4509" superClass="4474" xsi:type="Class">
+          <ownedAttribute xmi:id="4514" isDerived="true" type="4512" subsettedProperty="4483" class="4510" association="4515" isComposite="false" isDerivedUnion="true" upper="-1" opposite="4513" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="feature" xsi:type="Property" />
+          <ownedOperation xmi:id="4511" isQuery="false" upper="-1" lower="0" type="4512" class="4510" isUnique="true" isOrdered="false" name="allFeatures" xsi:type="Operation">
+            <bodyCondition xmi:id="4516" namespace="4511" xsi:type="Constraint">
+              <specification xmi:id="4517" language="OCL" body="member-&gt;select(oclIsKindOf(Feature))" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+        <ownedType xmi:id="4512" isAbstract="true" name="Feature" package="4509" superClass="4472" xsi:type="Class">
+          <ownedAttribute xmi:id="4513" isDerived="true" type="4510" class="4512" association="4515" isComposite="false" isDerivedUnion="true" opposite="4514" upper="-1" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="featuringClassifier" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4515" memberEnd="4513 4514" isDerived="false" isAbstract="false" package="4509" xsi:type="Association" />
+      </nestedPackage>
+      <nestedPackage xmi:id="4519" name="expressions" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4547" importingNamespace="4519" importedPackage="4450" xsi:type="PackageImport" />
+        <ownedType xmi:id="4520" isAbstract="true" name="ValueSpecification" package="4519" superClass="4451" xsi:type="Class">
+          <ownedOperation xmi:id="4521" isQuery="false" upper="1" lower="1" type="4456" class="4520" isUnique="true" isOrdered="false" name="isComputable" xsi:type="Operation">
+            <bodyCondition xmi:id="4522" namespace="4521" xsi:type="Constraint">
+              <specification xmi:id="4523" language="OCL" body="false" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4524" isQuery="false" upper="1" lower="0" type="4458" class="4520" isUnique="true" isOrdered="false" name="integerValue" xsi:type="Operation">
+            <bodyCondition xmi:id="4525" namespace="4524" xsi:type="Constraint">
+              <specification xmi:id="4526" language="OCL" body="Set{}" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4527" isQuery="false" upper="1" lower="0" type="4456" class="4520" isUnique="true" isOrdered="false" name="booleanValue" xsi:type="Operation">
+            <bodyCondition xmi:id="4528" namespace="4527" xsi:type="Constraint">
+              <specification xmi:id="4529" language="OCL" body="Set{}" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4530" isQuery="false" upper="1" lower="0" type="4459" class="4520" isUnique="true" isOrdered="false" name="stringValue" xsi:type="Operation">
+            <bodyCondition xmi:id="4531" namespace="4530" xsi:type="Constraint">
+              <specification xmi:id="4532" language="OCL" body="Set{}" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4533" isQuery="false" upper="1" lower="0" type="4460" class="4520" isUnique="true" isOrdered="false" name="unlimitedValue" xsi:type="Operation">
+            <bodyCondition xmi:id="4534" namespace="4533" xsi:type="Constraint">
+              <specification xmi:id="4535" language="OCL" body="Set{}" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4536" isQuery="false" upper="1" lower="1" type="4456" class="4520" isUnique="true" isOrdered="false" name="isNull" xsi:type="Operation">
+            <bodyCondition xmi:id="4537" namespace="4536" xsi:type="Constraint">
+              <specification xmi:id="4538" language="OCL" body="false" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+        <ownedType xmi:id="4539" isAbstract="false" name="Expression" package="4519" superClass="4520" xsi:type="Class">
+          <ownedAttribute xmi:id="4540" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4459" class="4539" isReadOnly="false" isOrdered="false" isUnique="true" name="symbol" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4541" isDerived="false" type="4520" subsettedProperty="4463" class="4539" association="4543" isComposite="true" isDerivedUnion="false" upper="-1" opposite="4542" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="operand" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4543" memberEnd="4541" isDerived="false" isAbstract="false" package="4519" xsi:type="Association">
+          <ownedEnd xmi:id="4542" owningAssociation="4543" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="4464" type="4539" isReadOnly="false" isOrdered="false" isUnique="true" name="expression" isComposite="false" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4544" isAbstract="false" name="OpaqueExpression" package="4519" superClass="4520" xsi:type="Class">
+          <ownedAttribute xmi:id="4545" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4459" class="4544" isReadOnly="false" isOrdered="false" isUnique="true" name="body" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4546" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4459" class="4544" isReadOnly="false" isOrdered="false" isUnique="true" name="language" isComposite="false" xsi:type="Property" />
+        </ownedType>
+      </nestedPackage>
+      <nestedPackage xmi:id="4548" name="multiplicities" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4583" importingNamespace="4548" importedPackage="4448" xsi:type="PackageImport" />
+        <ownedType xmi:id="4549" isAbstract="true" name="MultiplicityElement" package="4548" superClass="4449" xsi:type="Class">
+          <ownedRule xmi:id="4577" namespace="4549" name="upper_gt_0" constrainedElement="4549" xsi:type="Constraint">
+            <specification xmi:id="4578" language="OCL" body="upperBound()-&gt;notEmpty() implies upperBound() &gt; 0" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedRule xmi:id="4579" namespace="4549" name="lower_ge_0" constrainedElement="4549" xsi:type="Constraint">
+            <specification xmi:id="4580" language="OCL" body="lowerBound()-&gt;notEmpty() implies lowerBound() &gt;= 0" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedRule xmi:id="4581" namespace="4549" name="upper_ge_lower" constrainedElement="4549" xsi:type="Constraint">
+            <specification xmi:id="4582" language="OCL" body="(upperBound()-&gt;notEmpty() and lowerBound()-&gt;notEmpty()) implies upperBound() &gt;= lowerBound()" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedAttribute xmi:id="4573" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4456" class="4549" isReadOnly="false" isOrdered="false" isUnique="true" default="false" name="isOrdered" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4574" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4456" class="4549" isReadOnly="false" isOrdered="false" isUnique="true" default="true" name="isUnique" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4575" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4458" class="4549" isReadOnly="false" isOrdered="false" isUnique="true" default="1" name="lower" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4576" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4460" class="4549" isReadOnly="false" isOrdered="false" isUnique="true" default="1" name="upper" isComposite="false" xsi:type="Property" />
+          <ownedOperation xmi:id="4550" isQuery="false" upper="1" lower="0" type="4458" class="4549" isUnique="true" isOrdered="false" name="lowerBound" xsi:type="Operation">
+            <bodyCondition xmi:id="4551" namespace="4550" xsi:type="Constraint">
+              <specification xmi:id="4552" language="OCL" body="if lower-&gt;notEmpty() then lower else 1 endif" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4553" isQuery="false" upper="1" lower="0" type="4460" class="4549" isUnique="true" isOrdered="false" name="upperBound" xsi:type="Operation">
+            <bodyCondition xmi:id="4554" namespace="4553" xsi:type="Constraint">
+              <specification xmi:id="4555" language="OCL" body="if upper-&gt;notEmpty() then upper else 1 endif" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4556" isQuery="false" upper="1" lower="1" type="4456" class="4549" isUnique="true" isOrdered="false" name="isMultivalued" xsi:type="Operation">
+            <bodyCondition xmi:id="4559" namespace="4556" xsi:type="Constraint">
+              <specification xmi:id="4560" language="OCL" body="upperBound() &gt; 1" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+            <precondition xmi:id="4557" namespace="4556" name="pre" constrainedElement="4556" xsi:type="Constraint">
+              <specification xmi:id="4558" language="OCL" body="upperBound()-&gt;notEmpty()" xsi:type="OpaqueExpression" />
+            </precondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4561" isQuery="false" upper="1" lower="1" type="4456" class="4549" isUnique="true" isOrdered="false" name="includesCardinality" xsi:type="Operation">
+            <formalParameter xmi:id="4562" upper="1" lower="1" direction="in" type="4458" isUnique="true" isOrdered="false" name="C" operation="4561" xsi:type="Parameter" />
+            <bodyCondition xmi:id="4565" namespace="4561" xsi:type="Constraint">
+              <specification xmi:id="4566" language="OCL" body="(lowerBound() &lt;= C) and (upperBound() &gt;= C) " xsi:type="OpaqueExpression" />
+            </bodyCondition>
+            <precondition xmi:id="4563" namespace="4561" name="pre" constrainedElement="4561" xsi:type="Constraint">
+              <specification xmi:id="4564" language="OCL" body="upperBound()-&gt;notEmpty() and lowerBound()-&gt;notEmpty()" xsi:type="OpaqueExpression" />
+            </precondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4567" isQuery="false" upper="1" lower="1" type="4456" class="4549" isUnique="true" isOrdered="false" name="includesMultiplicity" xsi:type="Operation">
+            <formalParameter xmi:id="4568" upper="1" lower="1" direction="in" type="4549" isUnique="true" isOrdered="false" name="M" operation="4567" xsi:type="Parameter" />
+            <bodyCondition xmi:id="4571" namespace="4567" xsi:type="Constraint">
+              <specification xmi:id="4572" language="OCL" body="(self.lowerBound() &lt;= M.lowerBound()) and (self.upperBound() &gt;= M.upperBound())" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+            <precondition xmi:id="4569" namespace="4567" name="pre" constrainedElement="4567" xsi:type="Constraint">
+              <specification xmi:id="4570" language="OCL" body="self.upperBound()-&gt;notEmpty() and self.lowerBound()-&gt;notEmpty() and M.upperBound()-&gt;notEmpty() and M.lowerBound()-&gt;notEmpty()" xsi:type="OpaqueExpression" />
+            </precondition>
+          </ownedOperation>
+        </ownedType>
+      </nestedPackage>
+      <nestedPackage xmi:id="4584" name="multiplicityexpressions" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4610" importingNamespace="4584" importedPackage="4548" xsi:type="PackageImport" />
+        <packageImport xmi:id="4611" importingNamespace="4584" importedPackage="4519" xsi:type="PackageImport" />
+        <ownedType xmi:id="4585" memberEnd="4605" isDerived="false" isAbstract="false" package="4584" xsi:type="Association">
+          <ownedEnd xmi:id="4586" owningAssociation="4585" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="4464" type="4587" isReadOnly="false" isOrdered="false" isUnique="true" name="ownerLower" isComposite="false" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4587" isAbstract="true" name="MultiplicityElement" package="4584" superClass="4549 4451" xsi:type="Class">
+          <ownedRule xmi:id="4606" namespace="4587" name="lower_eq_lowerbound" constrainedElement="4587" xsi:type="Constraint">
+            <specification xmi:id="4607" language="OCL" body="lower=lowerBound()" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedRule xmi:id="4608" namespace="4587" name="upper_eq_upperbound" constrainedElement="4587" xsi:type="Constraint">
+            <specification xmi:id="4609" language="OCL" body="upper = upperBound()" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedAttribute xmi:id="4600" isDerivedUnion="false" upper="1" lower="0" isDerived="true" type="4458" class="4587" redefinedProperty="4575" isReadOnly="false" isOrdered="false" isUnique="true" name="lower" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4601" isDerivedUnion="false" upper="1" lower="0" isDerived="true" type="4460" class="4587" redefinedProperty="4576" isReadOnly="false" isOrdered="false" isUnique="true" name="upper" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4602" isDerived="false" type="4520" subsettedProperty="4463" class="4587" association="4604" isComposite="true" isDerivedUnion="false" upper="1" opposite="4603" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="upperValue" xsi:type="Property" />
+          <ownedAttribute xmi:id="4605" isDerived="false" type="4520" subsettedProperty="4463" class="4587" association="4585" isComposite="true" isDerivedUnion="false" upper="1" opposite="4586" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="lowerValue" xsi:type="Property" />
+          <ownedOperation xmi:id="4588" isQuery="false" upper="1" lower="0" type="4458" class="4587" isUnique="true" isOrdered="false" name="lower" xsi:type="Operation">
+            <bodyCondition xmi:id="4589" namespace="4588" xsi:type="Constraint">
+              <specification xmi:id="4590" language="OCL" body="lowerBound()" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4591" isQuery="false" upper="1" lower="0" type="4460" class="4587" isUnique="true" isOrdered="false" name="upper" xsi:type="Operation">
+            <bodyCondition xmi:id="4592" namespace="4591" xsi:type="Constraint">
+              <specification xmi:id="4593" language="OCL" body="upperBound()" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4594" isQuery="false" redefinedOperation="4550" upper="1" lower="0" type="4458" class="4587" isUnique="true" isOrdered="false" name="lowerBound" xsi:type="Operation">
+            <bodyCondition xmi:id="4595" namespace="4594" xsi:type="Constraint">
+              <specification xmi:id="4596" language="OCL" body="if lowerValue-&gt;isEmpty() then 1 else lowerValue.integerValue() endif" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4597" isQuery="false" redefinedOperation="4553" upper="1" lower="0" type="4460" class="4587" isUnique="true" isOrdered="false" name="upperBound" xsi:type="Operation">
+            <bodyCondition xmi:id="4598" namespace="4597" xsi:type="Constraint">
+              <specification xmi:id="4599" language="OCL" body="if upperValue-&gt;isEmpty() then 1 else upperValue.unlimitedValue() endif" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+        <ownedType xmi:id="4604" memberEnd="4602" isDerived="false" isAbstract="false" package="4584" xsi:type="Association">
+          <ownedEnd xmi:id="4603" owningAssociation="4604" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="4464" type="4587" isReadOnly="false" isOrdered="false" isUnique="true" name="ownerUpper" isComposite="false" xsi:type="Property" />
+        </ownedType>
+      </nestedPackage>
+      <nestedPackage xmi:id="4612" name="typedelements" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4620" importingNamespace="4612" importedPackage="4471" xsi:type="PackageImport" />
+        <ownedType xmi:id="4613" isAbstract="true" name="Type" package="4612" superClass="4472" xsi:type="Class">
+          <ownedOperation xmi:id="4614" isQuery="false" upper="1" lower="1" type="4456" class="4613" isUnique="true" isOrdered="false" name="conformsTo" xsi:type="Operation">
+            <formalParameter xmi:id="4615" upper="1" lower="1" direction="in" type="4613" isUnique="true" isOrdered="false" name="other" operation="4614" xsi:type="Parameter" />
+            <bodyCondition xmi:id="4616" namespace="4614" xsi:type="Constraint">
+              <specification xmi:id="4617" language="OCL" body="false" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+        <ownedType xmi:id="4618" isAbstract="true" name="TypedElement" package="4612" superClass="4472" xsi:type="Class">
+          <ownedAttribute xmi:id="4619" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4613" class="4618" isReadOnly="false" isOrdered="false" isUnique="true" name="type" isComposite="false" xsi:type="Property" />
+        </ownedType>
+      </nestedPackage>
+      <nestedPackage xmi:id="4621" name="behavioralfeatures" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4632" importingNamespace="4621" importedPackage="4509" xsi:type="PackageImport" />
+        <packageImport xmi:id="4633" importingNamespace="4621" importedPackage="4612" xsi:type="PackageImport" />
+        <ownedType xmi:id="4622" isAbstract="true" name="Parameter" package="4621" superClass="4472 4618" xsi:type="Class" />
+        <ownedType xmi:id="4623" isAbstract="true" name="BehavioralFeature" package="4621" superClass="4512 4474" xsi:type="Class">
+          <ownedAttribute xmi:id="4629" isDerived="true" type="4622" subsettedProperty="4483" class="4623" association="4631" isComposite="false" isDerivedUnion="true" upper="-1" opposite="4630" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="parameter" xsi:type="Property" />
+          <ownedOperation xmi:id="4624" isQuery="false" redefinedOperation="4491" upper="1" lower="1" type="4456" class="4623" isUnique="true" isOrdered="false" name="isDistinguishableFrom" xsi:type="Operation">
+            <formalParameter xmi:id="4625" upper="1" lower="1" direction="in" type="4472" isUnique="true" isOrdered="false" name="n" operation="4624" xsi:type="Parameter" />
+            <formalParameter xmi:id="4626" upper="1" lower="1" direction="in" type="4474" isUnique="true" isOrdered="false" name="ns" operation="4624" xsi:type="Parameter" />
+            <bodyCondition xmi:id="4627" namespace="4624" xsi:type="Constraint">
+              <specification xmi:id="4628" language="OCL" body="if n.oclIsKindOf(BehavioralFeature) then if ns.getNamesOfMember(self)-&gt;intersection(ns.getNamesOfMember(n))-&gt;notEmpty() then Set{}-&gt;including(self)-&gt;including(n)-&gt;isUnique( bf | bf.parameter-&gt;collect(type)) else true endif else true endif" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+        <ownedType xmi:id="4631" memberEnd="4629" isDerived="false" isAbstract="false" package="4621" xsi:type="Association">
+          <ownedEnd xmi:id="4630" owningAssociation="4631" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4623" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+        </ownedType>
+      </nestedPackage>
+      <nestedPackage xmi:id="4634" name="structuralfeatures" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4636" importingNamespace="4634" importedPackage="4509" xsi:type="PackageImport" />
+        <packageImport xmi:id="4637" importingNamespace="4634" importedPackage="4612" xsi:type="PackageImport" />
+        <ownedType xmi:id="4635" isAbstract="true" name="StructuralFeature" package="4634" superClass="4512 4618" xsi:type="Class" />
+      </nestedPackage>
+      <nestedPackage xmi:id="4638" name="instances" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4658" importingNamespace="4638" importedPackage="4519" xsi:type="PackageImport" />
+        <packageImport xmi:id="4659" importingNamespace="4638" importedPackage="4634" xsi:type="PackageImport" />
+        <ownedType xmi:id="4639" memberEnd="4654" isDerived="false" isAbstract="false" package="4638" xsi:type="Association">
+          <ownedEnd xmi:id="4640" owningAssociation="4639" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="4464" type="4641" isReadOnly="false" isOrdered="false" isUnique="true" name="owningSlot" isComposite="false" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4641" isAbstract="false" name="Slot" package="4638" superClass="4451" xsi:type="Class">
+          <ownedAttribute xmi:id="4642" isDerived="false" type="4645" subsettedProperty="4464" class="4641" association="4644" isComposite="false" isDerivedUnion="false" upper="1" opposite="4643" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="owningInstance" xsi:type="Property" />
+          <ownedAttribute xmi:id="4654" isDerived="false" type="4520" subsettedProperty="4463" class="4641" association="4639" isComposite="true" isDerivedUnion="false" upper="-1" opposite="4640" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="value" xsi:type="Property" />
+          <ownedAttribute xmi:id="4655" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4635" class="4641" isReadOnly="false" isOrdered="false" isUnique="true" name="definingFeature" isComposite="false" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4649" memberEnd="4647" isDerived="false" isAbstract="false" package="4638" xsi:type="Association">
+          <ownedEnd xmi:id="4648" owningAssociation="4649" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="4464" type="4645" isReadOnly="false" isOrdered="false" isUnique="true" name="owningInstanceSpec" isComposite="false" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4645" isAbstract="false" name="InstanceSpecification" package="4638" superClass="4472" xsi:type="Class">
+          <ownedRule xmi:id="4650" namespace="4645" name="slots_are_defined" constrainedElement="4645" xsi:type="Constraint">
+            <specification xmi:id="4651" language="OCL" body="slot-&gt;forAll(s | classifier-&gt;exists(c | c.allFeatures()-&gt;includes(s.definingFeature))" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedRule xmi:id="4652" namespace="4645" name="no_duplicate_slots" constrainedElement="4645" xsi:type="Constraint">
+            <specification xmi:id="4653" language="OCL" body="classifier-&gt;forAll(c | (c.allFeatures()-&gt;forAll(f | slot-&gt;select(s | s.definingFeature = f)-&gt;size() &lt;= 1) )" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedAttribute xmi:id="4643" isDerived="false" type="4641" subsettedProperty="4463" class="4645" association="4644" isComposite="true" isDerivedUnion="false" upper="-1" opposite="4642" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="slot" xsi:type="Property" />
+          <ownedAttribute xmi:id="4646" isDerivedUnion="false" upper="-1" lower="1" isDerived="false" type="4510" class="4645" isReadOnly="false" isOrdered="false" isUnique="true" name="classifier" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4647" isDerived="false" type="4520" subsettedProperty="4463" class="4645" association="4649" isComposite="true" isDerivedUnion="false" upper="1" opposite="4648" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="specification" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4644" memberEnd="4643 4642" isDerived="false" isAbstract="false" package="4638" xsi:type="Association" />
+        <ownedType xmi:id="4656" isAbstract="false" name="InstanceValue" package="4638" superClass="4520" xsi:type="Class">
+          <ownedAttribute xmi:id="4657" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4645" class="4656" isReadOnly="false" isOrdered="false" isUnique="true" name="instance" isComposite="false" xsi:type="Property" />
+        </ownedType>
+      </nestedPackage>
+      <nestedPackage xmi:id="4660" name="super" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4696" importingNamespace="4660" importedPackage="4509" xsi:type="PackageImport" />
+        <ownedType xmi:id="4661" isAbstract="true" name="Classifier" package="4660" superClass="4510" xsi:type="Class">
+          <ownedRule xmi:id="4690" namespace="4661" name="no_cycles_in_generalization" constrainedElement="4661" xsi:type="Constraint">
+            <specification xmi:id="4691" language="OCL" body="not self.allParents()-&gt;includes(self)" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedRule xmi:id="4692" namespace="4661" name="specialize_type" constrainedElement="4661" xsi:type="Constraint">
+            <specification xmi:id="4693" language="OCL" body="self.parents()-&gt;forAll(c | self.maySpecializeType(c))" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedRule xmi:id="4694" namespace="4661" name="inherited_member" constrainedElement="4661" xsi:type="Constraint">
+            <specification xmi:id="4695" language="OCL" body="self.inheritedMember-&gt;includesAll(self.inherit(self.parents()-&gt;collect(p | p.inheritableMembers(self)))" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedAttribute xmi:id="4687" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4456" class="4661" isReadOnly="false" isOrdered="false" isUnique="true" default="false" name="isAbstract" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4688" isDerivedUnion="false" upper="-1" lower="0" isDerived="true" subsettedProperty="4483" type="4472" class="4661" isReadOnly="false" isOrdered="false" isUnique="true" name="inheritedMember" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4689" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" type="4661" class="4661" isReadOnly="false" isOrdered="false" isUnique="true" name="general" isComposite="false" xsi:type="Property" />
+          <ownedOperation xmi:id="4662" isQuery="false" upper="-1" lower="0" type="4472" class="4661" isUnique="true" isOrdered="false" name="inheritedMember" xsi:type="Operation">
+            <bodyCondition xmi:id="4663" namespace="4662" xsi:type="Constraint">
+              <specification xmi:id="4664" language="OCL" body="self.inherit(self.parents()-&gt;collect(p | p.inheritableMembers(self))" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4665" isQuery="false" upper="-1" lower="0" type="4661" class="4661" isUnique="true" isOrdered="false" name="parents" xsi:type="Operation">
+            <bodyCondition xmi:id="4666" namespace="4665" xsi:type="Constraint">
+              <specification xmi:id="4667" language="OCL" body="general" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4668" isQuery="false" upper="-1" lower="0" type="4661" class="4661" isUnique="true" isOrdered="false" name="allParents" xsi:type="Operation">
+            <bodyCondition xmi:id="4669" namespace="4668" xsi:type="Constraint">
+              <specification xmi:id="4670" language="OCL" body="self.parents()-&gt;union(self.parents()-&gt;collect(p | p.allParents())" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4671" isQuery="false" upper="-1" lower="0" type="4472" class="4661" isUnique="true" isOrdered="false" name="inheritableMembers" xsi:type="Operation">
+            <formalParameter xmi:id="4672" upper="1" lower="1" direction="in" type="4661" isUnique="true" isOrdered="false" name="c" operation="4671" xsi:type="Parameter" />
+            <bodyCondition xmi:id="4675" namespace="4671" xsi:type="Constraint">
+              <specification xmi:id="4676" language="OCL" body="member-&gt;select(m | c.hasVisibilityOf(m))" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+            <precondition xmi:id="4673" namespace="4671" name="pre" constrainedElement="4671" xsi:type="Constraint">
+              <specification xmi:id="4674" language="OCL" body="c.allParents()-&gt;includes(self)" xsi:type="OpaqueExpression" />
+            </precondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4677" isQuery="false" upper="1" lower="1" type="4456" class="4661" isUnique="true" isOrdered="false" name="hasVisibilityOf" xsi:type="Operation">
+            <formalParameter xmi:id="4678" upper="1" lower="1" direction="in" type="4472" isUnique="true" isOrdered="false" name="n" operation="4677" xsi:type="Parameter" />
+            <bodyCondition xmi:id="4681" namespace="4677" xsi:type="Constraint">
+              <specification xmi:id="4682" language="OCL" body="true" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+            <precondition xmi:id="4679" namespace="4677" name="pre" constrainedElement="4677" xsi:type="Constraint">
+              <specification xmi:id="4680" language="OCL" body="self.allParents()-&gt;collect(c | c.member)-&gt;includes(n)" xsi:type="OpaqueExpression" />
+            </precondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4683" isQuery="false" upper="1" lower="1" type="4456" class="4661" isUnique="true" isOrdered="false" name="maySpecializeType" xsi:type="Operation">
+            <formalParameter xmi:id="4684" upper="1" lower="1" direction="in" type="4661" isUnique="true" isOrdered="false" name="c" operation="4683" xsi:type="Parameter" />
+            <bodyCondition xmi:id="4685" namespace="4683" xsi:type="Constraint">
+              <specification xmi:id="4686" language="OCL" body="self.oclIsKindOf(c.oclType)" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+      </nestedPackage>
+      <nestedPackage xmi:id="4697" name="redefinitions" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4715" importingNamespace="4697" importedPackage="4660" xsi:type="PackageImport" />
+        <ownedType xmi:id="4698" isAbstract="true" name="RedefinableElement" package="4697" superClass="4472" xsi:type="Class">
+          <ownedRule xmi:id="4711" namespace="4698" name="redefinition_context_valid" constrainedElement="4698" xsi:type="Constraint">
+            <specification xmi:id="4712" language="OCL" body="self.redefinedElement-&gt;forAll(e | self.isRedefinitionContextValid(e))" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedRule xmi:id="4713" namespace="4698" name="redefinition_consistent" constrainedElement="4698" xsi:type="Constraint">
+            <specification xmi:id="4714" language="OCL" body="self.redefinedElement-&gt;forAll(re | re.isConsistentWith(self))" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedAttribute xmi:id="4709" isDerivedUnion="true" upper="-1" lower="0" isDerived="true" type="4698" class="4698" isReadOnly="false" isOrdered="false" isUnique="true" name="redefinedElement" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4710" isDerivedUnion="true" upper="-1" lower="0" isDerived="true" type="4661" class="4698" isReadOnly="false" isOrdered="false" isUnique="true" name="redefinitionContext" isComposite="false" xsi:type="Property" />
+          <ownedOperation xmi:id="4699" isQuery="false" upper="1" lower="1" type="4456" class="4698" isUnique="true" isOrdered="false" name="isConsistentWith" xsi:type="Operation">
+            <formalParameter xmi:id="4700" upper="1" lower="1" direction="in" type="4698" isUnique="true" isOrdered="false" name="redefinee" operation="4699" xsi:type="Parameter" />
+            <bodyCondition xmi:id="4703" namespace="4699" xsi:type="Constraint">
+              <specification xmi:id="4704" language="OCL" body="false" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+            <precondition xmi:id="4701" namespace="4699" name="pre" constrainedElement="4699" xsi:type="Constraint">
+              <specification xmi:id="4702" language="OCL" body="redefinee.isRedefinitionContextValid(self)" xsi:type="OpaqueExpression" />
+            </precondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4705" isQuery="false" upper="1" lower="1" type="4456" class="4698" isUnique="true" isOrdered="false" name="isRedefinitionContextValid" xsi:type="Operation">
+            <formalParameter xmi:id="4706" upper="1" lower="1" direction="in" type="4698" isUnique="true" isOrdered="false" name="redefinable" operation="4705" xsi:type="Parameter" />
+            <bodyCondition xmi:id="4707" namespace="4705" xsi:type="Constraint">
+              <specification xmi:id="4708" language="OCL" body="self.redefinitionContext-&gt;exists(c | redefinable.redefinitionContext-&gt;exists(r | c.allParents()-&gt;includes(r)))" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+      </nestedPackage>
+      <nestedPackage xmi:id="4716" name="relationships" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4722" importingNamespace="4716" importedPackage="4450" xsi:type="PackageImport" />
+        <ownedType xmi:id="4717" isAbstract="true" name="Relationship" package="4716" superClass="4451" xsi:type="Class">
+          <ownedAttribute xmi:id="4718" isDerivedUnion="true" upper="-1" lower="1" isDerived="true" type="4451" class="4717" isReadOnly="false" isOrdered="false" isUnique="true" name="relatedElement" isComposite="false" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4719" isAbstract="true" name="DirectedRelationship" package="4716" superClass="4717" xsi:type="Class">
+          <ownedAttribute xmi:id="4720" isDerivedUnion="true" upper="-1" lower="1" isDerived="true" subsettedProperty="4718" type="4451" class="4719" isReadOnly="false" isOrdered="false" isUnique="true" name="source" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4721" isDerivedUnion="true" upper="-1" lower="1" isDerived="true" subsettedProperty="4718" type="4451" class="4719" isReadOnly="false" isOrdered="false" isUnique="true" name="target" isComposite="false" xsi:type="Property" />
+        </ownedType>
+      </nestedPackage>
+      <nestedPackage xmi:id="4723" name="generalizations" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4743" importingNamespace="4723" importedPackage="4660" xsi:type="PackageImport" />
+        <packageImport xmi:id="4744" importingNamespace="4723" importedPackage="4716" xsi:type="PackageImport" />
+        <packageImport xmi:id="4745" importingNamespace="4723" importedPackage="4612" xsi:type="PackageImport" />
+        <ownedType xmi:id="4724" isAbstract="false" name="Generalization" package="4723" superClass="4719" xsi:type="Class">
+          <ownedAttribute xmi:id="4725" isDerived="false" type="4728" subsettedProperty="4720 4464" class="4724" association="4727" isComposite="false" isDerivedUnion="false" upper="1" opposite="4726" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="specific" xsi:type="Property" />
+          <ownedAttribute xmi:id="4742" isDerivedUnion="false" upper="1" lower="1" isDerived="false" subsettedProperty="4721" type="4728" class="4724" isReadOnly="false" isOrdered="false" isUnique="true" name="general" isComposite="false" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4728" isAbstract="true" name="Classifier" package="4723" superClass="4661 4613" xsi:type="Class">
+          <ownedRule xmi:id="4740" namespace="4728" name="general_equals_parents" constrainedElement="4728" xsi:type="Constraint">
+            <specification xmi:id="4741" language="OCL" body="general = self.parents()" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedAttribute xmi:id="4726" isDerived="false" type="4724" subsettedProperty="4463" class="4728" association="4727" isComposite="true" isDerivedUnion="false" upper="-1" opposite="4725" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="generalization" xsi:type="Property" />
+          <ownedAttribute xmi:id="4739" isDerivedUnion="false" upper="-1" lower="0" isDerived="true" type="4728" class="4728" redefinedProperty="4689" isReadOnly="false" isOrdered="false" isUnique="true" name="general" isComposite="false" xsi:type="Property" />
+          <ownedOperation xmi:id="4729" isQuery="false" upper="-1" lower="0" type="4728" class="4728" isUnique="true" isOrdered="false" name="general" xsi:type="Operation">
+            <bodyCondition xmi:id="4730" namespace="4729" xsi:type="Constraint">
+              <specification xmi:id="4731" language="OCL" body="self.parents()" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4732" isQuery="false" redefinedOperation="4665" upper="-1" lower="0" type="4728" class="4728" isUnique="true" isOrdered="false" name="parents" xsi:type="Operation">
+            <bodyCondition xmi:id="4733" namespace="4732" xsi:type="Constraint">
+              <specification xmi:id="4734" language="OCL" body="generalization.general" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4735" isQuery="false" redefinedOperation="4614" upper="1" lower="1" type="4456" class="4728" isUnique="true" isOrdered="false" name="conformsTo" xsi:type="Operation">
+            <formalParameter xmi:id="4736" upper="1" lower="1" direction="in" type="4728" isUnique="true" isOrdered="false" name="other" operation="4735" xsi:type="Parameter" />
+            <bodyCondition xmi:id="4737" namespace="4735" xsi:type="Constraint">
+              <specification xmi:id="4738" language="OCL" body="(self=other) or (self.allParents()-&gt;includes(other))" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+        <ownedType xmi:id="4727" memberEnd="4726 4725" isDerived="false" isAbstract="false" package="4723" xsi:type="Association" />
+      </nestedPackage>
+      <nestedPackage xmi:id="4746" name="comments" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4754" importingNamespace="4746" importedPackage="4450" xsi:type="PackageImport" />
+        <ownedType xmi:id="4747" isAbstract="false" name="Comment" package="4746" superClass="4750" xsi:type="Class">
+          <ownedAttribute xmi:id="4748" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4459" class="4747" isReadOnly="false" isOrdered="false" isUnique="true" name="body" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4749" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" type="4451" class="4747" isReadOnly="false" isOrdered="false" isUnique="true" name="annotatedElement" isComposite="false" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4750" isAbstract="false" name="Element" package="4746" superClass="4451" xsi:type="Class">
+          <ownedAttribute xmi:id="4751" isDerived="false" type="4747" subsettedProperty="4463" class="4750" association="4753" isComposite="true" isDerivedUnion="false" upper="-1" opposite="4752" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="ownedComment" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4753" memberEnd="4751" isDerived="false" isAbstract="false" package="4746" xsi:type="Association">
+          <ownedEnd xmi:id="4752" owningAssociation="4753" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="4464" type="4750" isReadOnly="false" isOrdered="false" isUnique="true" name="owningComment" isComposite="false" xsi:type="Property" />
+        </ownedType>
+      </nestedPackage>
+      <nestedPackage xmi:id="4755" name="changeabilities" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4758" importingNamespace="4755" importedPackage="4634" xsi:type="PackageImport" />
+        <ownedType xmi:id="4756" isAbstract="true" name="StructuralFeature" package="4755" superClass="4635" xsi:type="Class">
+          <ownedAttribute xmi:id="4757" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4456" class="4756" isReadOnly="false" isOrdered="false" isUnique="true" default="false" name="isReadOnly" isComposite="false" xsi:type="Property" />
+        </ownedType>
+      </nestedPackage>
+      <nestedPackage xmi:id="4759" name="constraints" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4774" importingNamespace="4759" importedPackage="4519" xsi:type="PackageImport" />
+        <packageImport xmi:id="4775" importingNamespace="4759" importedPackage="4471" xsi:type="PackageImport" />
+        <ownedType xmi:id="4760" memberEnd="4761 4762" isDerived="false" isAbstract="false" package="4759" xsi:type="Association" />
+        <ownedType xmi:id="4763" isAbstract="true" name="Namespace" package="4759" superClass="4474" xsi:type="Class">
+          <ownedAttribute xmi:id="4761" isDerived="false" type="4766" subsettedProperty="4484" class="4763" association="4760" isComposite="true" isDerivedUnion="false" upper="-1" opposite="4762" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="ownedRule" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4769" memberEnd="4767" isDerived="false" isAbstract="false" package="4759" xsi:type="Association">
+          <ownedEnd xmi:id="4768" owningAssociation="4769" isDerivedUnion="false" upper="1" lower="0" isDerived="false" subsettedProperty="4464" type="4766" isReadOnly="false" isOrdered="false" isUnique="true" name="owningConstraint" isComposite="false" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4766" isAbstract="false" name="Constraint" package="4759" superClass="4472" xsi:type="Class">
+          <ownedRule xmi:id="4771" namespace="4766" name="not_apply_to_self" constrainedElement="4766" xsi:type="Constraint">
+            <specification xmi:id="4772" language="OCL" body="not constrainedElement-&gt;includes(self)" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedAttribute xmi:id="4764" isDerived="true" type="4474" class="4766" association="4773" isComposite="false" isDerivedUnion="true" opposite="4765" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="context" xsi:type="Property" />
+          <ownedAttribute xmi:id="4762" isDerived="false" type="4763" subsettedProperty="4764" redefinedProperty="4485" class="4766" association="4760" isComposite="false" isDerivedUnion="false" upper="1" opposite="4761" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="namespace" xsi:type="Property" />
+          <ownedAttribute xmi:id="4767" isDerived="false" type="4520" subsettedProperty="4463" class="4766" association="4769" isComposite="true" isDerivedUnion="false" upper="1" opposite="4768" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="specification" xsi:type="Property" />
+          <ownedAttribute xmi:id="4770" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" type="4451" class="4766" isReadOnly="false" isOrdered="true" isUnique="true" name="constrainedElement" isComposite="false" xsi:type="Property" />
+        </ownedType>
+        <ownedType xmi:id="4773" memberEnd="4764" isDerived="false" isAbstract="false" package="4759" xsi:type="Association">
+          <ownedEnd xmi:id="4765" owningAssociation="4773" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" type="4766" isReadOnly="false" isOrdered="false" isUnique="true" name="ownedConstraint" isComposite="false" xsi:type="Property" />
+        </ownedType>
+      </nestedPackage>
+      <nestedPackage xmi:id="4776" name="visibilities" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4784" importingNamespace="4776" importedPackage="4471" xsi:type="PackageImport" />
+        <ownedType xmi:id="4777" isAbstract="false" name="VisibilityKind" package="4776" xsi:type="Enumeration">
+          <ownedLiteral xmi:id="4778" enumeration="4777" name="public" xsi:type="EnumerationLiteral" />
+          <ownedLiteral xmi:id="4779" enumeration="4777" name="private" xsi:type="EnumerationLiteral" />
+        </ownedType>
+        <ownedType xmi:id="4780" isAbstract="true" name="NamedElement" package="4776" superClass="4472" xsi:type="Class">
+          <ownedRule xmi:id="4782" namespace="4780" name="visibility_needs_ownership" constrainedElement="4780" xsi:type="Constraint">
+            <specification xmi:id="4783" language="OCL" body="namespace-&gt;isEmpty() implies visibility-&gt;isEmpty()" xsi:type="OpaqueExpression" />
+          </ownedRule>
+          <ownedAttribute xmi:id="4781" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4777" class="4780" isReadOnly="false" isOrdered="false" isUnique="true" name="visibility" isComposite="false" xsi:type="Property" />
+        </ownedType>
+      </nestedPackage>
+      <nestedPackage xmi:id="4785" name="literals" nestingPackage="4447" xsi:type="Package">
+        <packageImport xmi:id="4826" importingNamespace="4785" importedPackage="4519" xsi:type="PackageImport" />
+        <ownedType xmi:id="4786" isAbstract="false" name="LiteralBoolean" package="4785" superClass="4794" xsi:type="Class">
+          <ownedAttribute xmi:id="4793" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4456" class="4786" isReadOnly="false" isOrdered="false" isUnique="true" name="value" isComposite="false" xsi:type="Property" />
+          <ownedOperation xmi:id="4787" isQuery="false" redefinedOperation="4521" upper="1" lower="1" type="4456" class="4786" isUnique="true" isOrdered="false" name="isComputable" xsi:type="Operation">
+            <bodyCondition xmi:id="4788" namespace="4787" xsi:type="Constraint">
+              <specification xmi:id="4789" language="OCL" body="true" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4790" isQuery="false" redefinedOperation="4527" upper="1" lower="0" type="4456" class="4786" isUnique="true" isOrdered="false" name="booleanValue" xsi:type="Operation">
+            <bodyCondition xmi:id="4791" namespace="4790" xsi:type="Constraint">
+              <specification xmi:id="4792" language="OCL" body="value" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+        <ownedType xmi:id="4794" isAbstract="true" name="LiteralSpecification" package="4785" superClass="4520" xsi:type="Class" />
+        <ownedType xmi:id="4795" isAbstract="false" name="LiteralString" package="4785" superClass="4794" xsi:type="Class">
+          <ownedAttribute xmi:id="4802" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4459" class="4795" isReadOnly="false" isOrdered="false" isUnique="true" name="value" isComposite="false" xsi:type="Property" />
+          <ownedOperation xmi:id="4796" isQuery="false" redefinedOperation="4521" upper="1" lower="1" type="4456" class="4795" isUnique="true" isOrdered="false" name="isComputable" xsi:type="Operation">
+            <bodyCondition xmi:id="4797" namespace="4796" xsi:type="Constraint">
+              <specification xmi:id="4798" language="OCL" body="true" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4799" isQuery="false" redefinedOperation="4530" upper="1" lower="0" type="4459" class="4795" isUnique="true" isOrdered="false" name="stringValue" xsi:type="Operation">
+            <bodyCondition xmi:id="4800" namespace="4799" xsi:type="Constraint">
+              <specification xmi:id="4801" language="OCL" body="value" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+        <ownedType xmi:id="4803" isAbstract="false" name="LiteralNull" package="4785" superClass="4794" xsi:type="Class">
+          <ownedOperation xmi:id="4804" isQuery="false" redefinedOperation="4521" upper="1" lower="1" type="4456" class="4803" isUnique="true" isOrdered="false" name="isComputable" xsi:type="Operation">
+            <bodyCondition xmi:id="4805" namespace="4804" xsi:type="Constraint">
+              <specification xmi:id="4806" language="OCL" body="true" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4807" isQuery="false" redefinedOperation="4536" upper="1" lower="1" type="4456" class="4803" isUnique="true" isOrdered="false" name="isNull" xsi:type="Operation">
+            <bodyCondition xmi:id="4808" namespace="4807" xsi:type="Constraint">
+              <specification xmi:id="4809" language="OCL" body="true" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+        <ownedType xmi:id="4810" isAbstract="false" name="LiteralInteger" package="4785" superClass="4794" xsi:type="Class">
+          <ownedAttribute xmi:id="4817" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4458" class="4810" isReadOnly="false" isOrdered="false" isUnique="true" name="value" isComposite="false" xsi:type="Property" />
+          <ownedOperation xmi:id="4811" isQuery="false" redefinedOperation="4521" upper="1" lower="1" type="4456" class="4810" isUnique="true" isOrdered="false" name="isComputable" xsi:type="Operation">
+            <bodyCondition xmi:id="4812" namespace="4811" xsi:type="Constraint">
+              <specification xmi:id="4813" language="OCL" body="true" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4814" isQuery="false" redefinedOperation="4524" upper="1" lower="0" type="4458" class="4810" isUnique="true" isOrdered="false" name="integerValue" xsi:type="Operation">
+            <bodyCondition xmi:id="4815" namespace="4814" xsi:type="Constraint">
+              <specification xmi:id="4816" language="OCL" body="value" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+        <ownedType xmi:id="4818" isAbstract="false" name="LiteralUnlimitedNatural" package="4785" superClass="4794" xsi:type="Class">
+          <ownedAttribute xmi:id="4825" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4460" class="4818" isReadOnly="false" isOrdered="false" isUnique="true" name="value" isComposite="false" xsi:type="Property" />
+          <ownedOperation xmi:id="4819" isQuery="false" redefinedOperation="4521" upper="1" lower="1" type="4456" class="4818" isUnique="true" isOrdered="false" name="isComputable" xsi:type="Operation">
+            <bodyCondition xmi:id="4820" namespace="4819" xsi:type="Constraint">
+              <specification xmi:id="4821" language="OCL" body="true" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+          <ownedOperation xmi:id="4822" isQuery="false" redefinedOperation="4533" upper="1" lower="0" type="4460" class="4818" isUnique="true" isOrdered="false" name="unlimitedValue" xsi:type="Operation">
+            <bodyCondition xmi:id="4823" namespace="4822" xsi:type="Constraint">
+              <specification xmi:id="4824" language="OCL" body="value" xsi:type="OpaqueExpression" />
+            </bodyCondition>
+          </ownedOperation>
+        </ownedType>
+      </nestedPackage>
+    </nestedPackage>
+    <nestedPackage xmi:id="4457" name="primitivetypes" nestingPackage="4446" xsi:type="Package">
+      <ownedType xmi:id="4458" isAbstract="false" name="Integer" package="4457" xsi:type="PrimitiveType" />
+      <ownedType xmi:id="4456" isAbstract="false" name="Boolean" package="4457" xsi:type="PrimitiveType" />
+      <ownedType xmi:id="4459" isAbstract="false" name="String" package="4457" xsi:type="PrimitiveType" />
+      <ownedType xmi:id="external4" isAbstract="false" name="Object" package="4457" xsi:type="PrimitiveType" />
+      <ownedType xmi:id="4460" isAbstract="false" name="UnlimitedNatural" package="4457" xsi:type="PrimitiveType" />
+    </nestedPackage>
+    <nestedPackage xmi:id="4828" name="basic" nestingPackage="4446" xsi:type="Package">
+      <packageImport xmi:id="4868" importingNamespace="4828" importedPackage="4457" xsi:type="PackageImport" />
+      <packageImport xmi:id="4869" importingNamespace="4828" importedPackage="4448" xsi:type="PackageImport" />
+      <packageImport xmi:id="4870" importingNamespace="4828" importedPackage="4548" xsi:type="PackageImport" />
+      <ownedType xmi:id="4829" isAbstract="false" name="Property" package="4828" superClass="4858 4549" xsi:type="Class">
+        <ownedAttribute xmi:id="4830" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4456" class="4829" isReadOnly="false" isOrdered="false" isUnique="true" default="false" name="isReadOnly" isComposite="false" xsi:type="Property" />
+        <ownedAttribute xmi:id="4831" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4459" class="4829" isReadOnly="false" isOrdered="false" isUnique="true" name="default" isComposite="false" xsi:type="Property" />
+        <ownedAttribute xmi:id="4832" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4456" class="4829" isReadOnly="false" isOrdered="false" isUnique="true" default="false" name="isComposite" isComposite="false" xsi:type="Property" />
+        <ownedAttribute xmi:id="4833" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4456" class="4829" isReadOnly="false" isOrdered="false" isUnique="true" default="false" name="isDerived" isComposite="false" xsi:type="Property" />
+        <ownedAttribute xmi:id="4834" isDerived="false" type="4837" class="4829" association="4836" isComposite="false" isDerivedUnion="false" opposite="4835" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="class" xsi:type="Property" />
+        <ownedAttribute xmi:id="4860" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4829" class="4829" isReadOnly="false" isOrdered="false" isUnique="true" name="opposite" isComposite="false" xsi:type="Property" />
+      </ownedType>
+      <ownedType xmi:id="4858" isAbstract="true" name="TypedElement" package="4828" superClass="4852" xsi:type="Class" />
+      <ownedType xmi:id="4852" isAbstract="true" name="NamedElement" package="4828" superClass="4449" xsi:type="Class">
+        <ownedAttribute xmi:id="4853" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4459" class="4852" isReadOnly="false" isOrdered="false" isUnique="true" name="name" isComposite="false" xsi:type="Property" />
+      </ownedType>
+      <ownedType xmi:id="4851" memberEnd="4849 4850" isDerived="false" isAbstract="false" package="4828" xsi:type="Association" />
+      <ownedType xmi:id="4847" memberEnd="4846 4845" isDerived="false" isAbstract="false" package="4828" xsi:type="Association" />
+      <ownedType xmi:id="4848" isAbstract="false" name="Package" package="4828" superClass="4852" xsi:type="Class">
+        <ownedAttribute xmi:id="4849" isDerived="false" type="4848" class="4848" association="4851" isComposite="true" isDerivedUnion="false" opposite="4850" upper="-1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="nestedPackage" xsi:type="Property" />
+        <ownedAttribute xmi:id="4850" isDerived="false" type="4848" class="4848" association="4851" isComposite="false" isDerivedUnion="false" opposite="4849" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="nestingPackage" xsi:type="Property" />
+        <ownedAttribute xmi:id="4846" isDerived="false" type="4844" class="4848" association="4847" isComposite="true" isDerivedUnion="false" opposite="4845" upper="-1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="ownedType" xsi:type="Property" />
+      </ownedType>
+      <ownedType xmi:id="4844" isAbstract="true" name="Type" package="4828" superClass="4852" xsi:type="Class">
+        <ownedAttribute xmi:id="4845" isDerived="false" type="4848" class="4844" association="4847" isComposite="false" isDerivedUnion="false" opposite="4846" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="package" xsi:type="Property" />
+      </ownedType>
+      <ownedType xmi:id="4856" memberEnd="4854 4855" isDerived="false" isAbstract="false" package="4828" xsi:type="Association" />
+      <ownedType xmi:id="4857" isAbstract="false" name="Parameter" package="4828" superClass="4858 4549" xsi:type="Class">
+        <ownedAttribute xmi:id="4855" isDerived="false" type="4842" class="4857" association="4856" isComposite="false" isDerivedUnion="false" opposite="4854" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="operation" xsi:type="Property" />
+      </ownedType>
+      <ownedType xmi:id="4841" memberEnd="4839 4840" isDerived="false" isAbstract="false" package="4828" xsi:type="Association" />
+      <ownedType xmi:id="4842" isAbstract="false" name="Operation" package="4828" superClass="4858 4549" xsi:type="Class">
+        <ownedAttribute xmi:id="4843" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" type="4844" class="4842" isReadOnly="false" isOrdered="false" isUnique="true" name="raisedException" isComposite="false" xsi:type="Property" />
+        <ownedAttribute xmi:id="4854" isDerived="false" type="4857" class="4842" association="4856" isComposite="true" isDerivedUnion="false" opposite="4855" upper="-1" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="ownedParameter" xsi:type="Property" />
+        <ownedAttribute xmi:id="4840" isDerived="false" type="4837" class="4842" association="4841" isComposite="false" isDerivedUnion="false" opposite="4839" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="class" xsi:type="Property" />
+      </ownedType>
+      <ownedType xmi:id="4837" isAbstract="false" name="Class" package="4828" superClass="4844" xsi:type="Class">
+        <ownedAttribute xmi:id="4838" isDerivedUnion="false" upper="1" lower="1" isDerived="false" type="4456" class="4837" isReadOnly="false" isOrdered="false" isUnique="true" default="false" name="isAbstract" isComposite="false" xsi:type="Property" />
+        <ownedAttribute xmi:id="4835" isDerived="false" type="4829" class="4837" association="4836" isComposite="true" isDerivedUnion="false" opposite="4834" upper="-1" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="ownedAttribute" xsi:type="Property" />
+        <ownedAttribute xmi:id="4839" isDerived="false" type="4842" class="4837" association="4841" isComposite="true" isDerivedUnion="false" opposite="4840" upper="-1" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="ownedOperation" xsi:type="Property" />
+        <ownedAttribute xmi:id="4859" isDerivedUnion="false" upper="-1" lower="0" isDerived="false" type="4837" class="4837" isReadOnly="false" isOrdered="false" isUnique="true" name="superClass" isComposite="false" xsi:type="Property" />
+      </ownedType>
+      <ownedType xmi:id="4836" memberEnd="4835 4834" isDerived="false" isAbstract="false" package="4828" xsi:type="Association" />
+      <ownedType xmi:id="4861" isAbstract="false" name="EnumerationLiteral" package="4828" superClass="4852" xsi:type="Class">
+        <ownedAttribute xmi:id="4862" isDerived="false" type="4865" class="4861" association="4864" isComposite="false" isDerivedUnion="false" opposite="4863" upper="1" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="enumeration" xsi:type="Property" />
+      </ownedType>
+      <ownedType xmi:id="4865" isAbstract="false" name="Enumeration" package="4828" superClass="4866" xsi:type="Class">
+        <ownedAttribute xmi:id="4863" isDerived="false" type="4861" class="4865" association="4864" isComposite="true" isDerivedUnion="false" opposite="4862" upper="-1" lower="0" isReadOnly="false" isUnique="true" isOrdered="true" name="ownedLiteral" xsi:type="Property" />
+      </ownedType>
+      <ownedType xmi:id="4866" isAbstract="true" name="DataType" package="4828" superClass="4844" xsi:type="Class" />
+      <ownedType xmi:id="4864" memberEnd="4863 4862" isDerived="false" isAbstract="false" package="4828" xsi:type="Association" />
+      <ownedType xmi:id="4867" isAbstract="false" name="PrimitiveType" package="4828" superClass="4866" xsi:type="Class" />
+    </nestedPackage>
+  </cmof:Package>
+  <cmof:Tag xmi:id="10548" element="4892" value="cmof" name="org.omg.xmi.nsPrefix"/>
+  <cmof:Tag xmi:id="10549" element="5041" value="UmlClass" name="javax.jmi.substituteName" xsi:type="Tag" />
+  <cmof:Tag xmi:id="10784" element="5044 5038" value="umlClass" name="javax.jmi.substituteName" xsi:type="Tag" />
+</xmi:XMI>
+
