@@ -35,26 +35,35 @@ import cmof.reflection.Extent;
 
 public abstract class MASAction extends Mof2PluginAction {
     
-    protected Operation currentOperation;
+    protected Operation currentOperation = null;
+    protected TreeObject selection = null;
     
     protected MASContext getMASContextFromSelection() {
-        Extent syntaxExtent = currentOperation.getExtent();
-        return MASRepository.getInstance().getMASContext(syntaxExtent);
+    	if (selection != null) {
+	        Extent syntaxExtent = currentOperation.getExtent();
+	        return MASRepository.getInstance().getMASContext(syntaxExtent);
+    	} else {
+    		return null;
+    	}
     }
 
     protected MASLink getLinkFromSelection() {
         MASContext masContext = getMASContextFromSelection();
         if (masContext == null) {
-            MessageDialog.openError(getModelView().getSite().getShell(), "Error", "No MAS Context exists!");
+        	if (selection != null) {
+        		MessageDialog.openError(getModelView().getSite().getShell(), "Error", "No MAS Context exists!");
+        	}
             return null;
         }
         return masContext.getLink(currentOperation);
     }
 
     public void selectionChanged(IAction action, ISelection selection) {
-        TreeObject treeObject = (TreeObject) ((IStructuredSelection) selection).getFirstElement();
-        currentOperation = (Operation) treeObject.getElement();
-        action.setEnabled(shouldEnable());
+        this.selection = (TreeObject) ((IStructuredSelection)selection).getFirstElement();
+        if (this.selection != null) {
+	        currentOperation = (Operation)this.selection.getElement();
+	        action.setEnabled(shouldEnable());
+        }
     }
     
     protected abstract boolean shouldEnable();

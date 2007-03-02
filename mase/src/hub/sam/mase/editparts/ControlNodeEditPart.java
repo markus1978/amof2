@@ -21,7 +21,9 @@
 package hub.sam.mase.editparts;
 
 import java.beans.PropertyChangeEvent;
-import hub.sam.mase.m2model.ControlNode;
+
+import hub.sam.mof.model.mas.ControlNode;
+
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.NodeEditPart;
 

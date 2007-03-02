@@ -22,8 +22,6 @@ package hub.sam.mas.management;
 
 import hub.sam.mase.MasePlugin;
 import hub.sam.mof.Repository;
-import hub.sam.mof.instancemodel.MetaModelException;
-import hub.sam.mof.xmi.XmiException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,7 +29,6 @@ import java.io.InputStream;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
-import org.jdom.JDOMException;
 
 import cmof.Package;
 import cmof.cmofFactory;
@@ -77,7 +74,7 @@ public class MASEditorMOFModelFactory extends AbstractMOFModelFactory {
                 e.printStackTrace();
             }
             
-            Package metaPackage = (Package) metaExtent.query("Package:masgraphics");
+            Package metaPackage = (Package) metaExtent.query("Package:mas");
             cmofFactory cmofFactory = (cmofFactory) repository.createFactory(metaExtent, cmofPackage);
 
             cmof.Tag tag = cmofFactory.createTag();

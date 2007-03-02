@@ -22,10 +22,10 @@ package hub.sam.mase.editpolicies;
 
 import hub.sam.mase.commands.AttachedNodeListMoveChildCommand;
 import hub.sam.mase.commands.AttachedNodeCreateCommand;
-import hub.sam.mase.m2model.AttachedNode;
-import hub.sam.mase.m2model.AttachedNodeList;
 import hub.sam.mase.editparts.AttachedNodeEditPart;
 import hub.sam.mase.editparts.AttachedNodeListEditPart;
+import hub.sam.mof.model.mas.AttachedNode;
+import hub.sam.mof.model.mas.AttachedNodeList;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;

@@ -20,7 +20,7 @@
 
 package hub.sam.mase.commands;
 
-import hub.sam.mase.m2model.ModelGarbageCollector;
+import hub.sam.mof.model.mas.ModelGarbageCollector;
 
 import org.eclipse.gef.commands.Command;
 

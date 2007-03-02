@@ -20,7 +20,7 @@
 
 package hub.sam.mase.editparts;
 
-import hub.sam.mase.m2model.Pin;
+import hub.sam.mof.model.mas.Pin;
 
 public abstract class PinEditPart extends AttachedNodeEditPart {
     

@@ -22,7 +22,7 @@ package hub.sam.mase.editparts;
 
 import org.eclipse.draw2d.ColorConstants;
 
-import hub.sam.mase.m2model.ControlFlow;
+import hub.sam.mof.model.mas.ControlFlow;
 
 public class ControlFlowEditPart extends ActivityEdgeEditPart {
 

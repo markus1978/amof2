@@ -40,7 +40,7 @@ import org.eclipse.swt.SWT;
 
 import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.editpolicies.ActivityXYLayoutEditPolicy;
-import hub.sam.mase.m2model.Activity;
+import hub.sam.mof.model.mas.Activity;
 
 public class ActivityEditPart extends PropertyAwareGraphicalEditPart {
 
@@ -73,14 +73,14 @@ public class ActivityEditPart extends PropertyAwareGraphicalEditPart {
      */
     public List getModelChildren() {
         if (logger.isDebugEnabled()) {
-            java.util.List<hub.sam.mase.m2model.ActivityChild> list = new hub.sam.mof.util.ListWrapper<hub.sam.mase.m2model.ActivityChild>( getModel().getGefChildren() );
+            java.util.List<hub.sam.mof.model.mas.ActivityChild> list = new hub.sam.mof.util.ListWrapper<hub.sam.mof.model.mas.ActivityChild>( getModel().getGefChildren() );
             int i=0;
             for(Object e: list) {
                 logger.debug("getModelChildren(): " + i + "=" + e.getClass().getSimpleName() + "_" + java.lang.Integer.toString(e.hashCode()));
                 i++;
             }
         }
-        return new hub.sam.mof.util.ListWrapper<hub.sam.mase.m2model.ActivityChild>( getModel().getGefChildren() );
+        return new hub.sam.mof.util.ListWrapper<hub.sam.mof.model.mas.ActivityChild>( getModel().getGefChildren() );
     }
 
     /**

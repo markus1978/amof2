@@ -23,8 +23,8 @@ package hub.sam.mase.commands;
 import org.eclipse.gef.RootEditPart;
 import org.eclipse.gef.commands.Command;
 import hub.sam.mase.editparts.ActivityNodeEditPart;
-import hub.sam.mase.m2model.ActivityEdge;
-import hub.sam.mase.m2model.ActivityNode;
+import hub.sam.mof.model.mas.ActivityEdge;
+import hub.sam.mof.model.mas.ActivityNode;
 
 public class ActivityEdgeReconnectTargetCommand extends Command {
 

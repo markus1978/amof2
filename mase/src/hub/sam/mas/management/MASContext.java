@@ -20,8 +20,8 @@
 
 package hub.sam.mas.management;
 
-import hub.sam.mase.m2model.Activity;
 import hub.sam.mof.instancemodel.MetaModelException;
+import hub.sam.mof.model.mas.Activity;
 import hub.sam.mof.xmi.XmiException;
 
 import java.io.IOException;

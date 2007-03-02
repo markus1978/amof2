@@ -20,9 +20,12 @@
 
 package hub.sam.mase.metagen;
 
+import java.util.Arrays;
+
 import hub.sam.mof.Repository;
 import hub.sam.mof.javamapping.JavaMapping;
 import hub.sam.mof.merge.MergeContext;
+import hub.sam.mof.runtimelayer.M1SemanticModel;
 import cmof.Package;
 import cmof.Tag;
 import cmof.cmofFactory;
@@ -42,24 +45,21 @@ public class GenerateRepository {
         try {
             repository.loadMagicDrawXmiIntoExtent(m2Extent, cmofPackage, "resources/models/mas.mdxml");
 
-            Package masgraphics = (Package) m2Extent.query("Package:masgraphics");
-            MergeContext.mergePackages(masgraphics, m3Factory, null);
+            Package asPackage = (Package) m2Extent.query("Package:mas");                   
+            MergeContext.mergePackages(asPackage, m3Factory, null);
             
             Tag nsPrefix = m3Factory.createTag();
             nsPrefix.setName(JavaMapping.PackagePrefixTagName);
-            nsPrefix.setValue("hub.sam.mase");
-            ((Package) m2Extent.query("Package:masgraphics")).getTag().add(nsPrefix);
-
-            Tag nsSubstitute = m3Factory.createTag();
-            nsSubstitute.setName(JavaMapping.SubstituteNameTagName);
-            nsSubstitute.setValue("m2model");
-            ((Package) m2Extent.query("Package:masgraphics")).getTag().add(nsSubstitute);
+            nsPrefix.setValue("hub.sam.mof.model");
+            ((Package)m2Extent.query("Package:mas")).getTag().add(nsPrefix);
+            ((Package)m2Extent.query("Package:petrinets")).getTag().add(nsPrefix);
             
-            ((Package) m2Extent.query("Package:massemantics")).delete();
-            ((Package) m2Extent.query("Package:petrinets")).delete();
-
-            repository.generateCode(m2Extent, "generated-src/");
-            //repository.generateStaticModel(m2Extent, "hub.sam.mase.StaticM2Model", "generated-src/");
+            M1SemanticModel semanticModel = new M1SemanticModel(m3Factory);
+            semanticModel.createImplicitElements(Arrays.asList(new Package[] {
+            		asPackage,(Package)m2Extent.query("Package:petrinets")}));            
+                        
+            repository.generateCode(m2Extent, "generated-src", Arrays.asList(
+            		new String[]{"mas", "petrinets"}));           
             repository.writeExtentToXmi("resources/models/bootstrap_merged.xml", cmofPackage, m2Extent);
         }
         catch (Exception e) {

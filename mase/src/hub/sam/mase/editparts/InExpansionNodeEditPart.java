@@ -21,7 +21,8 @@
 package hub.sam.mase.editparts;
 
 import hub.sam.mase.figures.ExpansionNodeFigure;
-import hub.sam.mase.m2model.InExpansionNode;
+import hub.sam.mof.model.mas.InExpansionNode;
+
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.IFigure;
 

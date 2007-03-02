@@ -21,24 +21,24 @@
 package hub.sam.mase.editor;
 
 import hub.sam.mase.MasePlugin;
-import hub.sam.mase.m2model.ContextExtensionPin;
-import hub.sam.mase.m2model.ContextPin;
-import hub.sam.mase.m2model.ControlFlow;
-import hub.sam.mase.m2model.DecisionNode;
-import hub.sam.mase.m2model.ExpansionRegion;
-import hub.sam.mase.m2model.FinalNode;
-import hub.sam.mase.m2model.ForkNode;
-import hub.sam.mase.m2model.InExpansionNode;
-import hub.sam.mase.m2model.InitialNode;
-import hub.sam.mase.m2model.InputPin;
-import hub.sam.mase.m2model.JoinNode;
-import hub.sam.mase.m2model.ModelGarbageCollector;
-import hub.sam.mase.m2model.MaseCreationFactory;
-import hub.sam.mase.m2model.OpaqueAction;
-import hub.sam.mase.m2model.OutExpansionNode;
-import hub.sam.mase.m2model.OutputPin;
-import hub.sam.mase.m2model.ValueNode;
 import hub.sam.mase.actions.CreateGuardSpecificationAction;
+import hub.sam.mof.model.mas.ContextExtensionPin;
+import hub.sam.mof.model.mas.ContextPin;
+import hub.sam.mof.model.mas.ControlFlow;
+import hub.sam.mof.model.mas.DecisionNode;
+import hub.sam.mof.model.mas.ExpansionRegion;
+import hub.sam.mof.model.mas.FinalNode;
+import hub.sam.mof.model.mas.ForkNode;
+import hub.sam.mof.model.mas.InExpansionNode;
+import hub.sam.mof.model.mas.InitialNode;
+import hub.sam.mof.model.mas.InputPin;
+import hub.sam.mof.model.mas.JoinNode;
+import hub.sam.mof.model.mas.MaseCreationFactory;
+import hub.sam.mof.model.mas.ModelGarbageCollector;
+import hub.sam.mof.model.mas.OpaqueAction;
+import hub.sam.mof.model.mas.OutExpansionNode;
+import hub.sam.mof.model.mas.OutputPin;
+import hub.sam.mof.model.mas.ValueNode;
 
 import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.draw2d.FigureCanvas;
@@ -273,7 +273,7 @@ public class MaseEditor extends GraphicalEditorWithPalette {
         getSelectionActions().add(action.getId());
     }
 
-    protected hub.sam.mase.m2model.Activity getContent() {
+    protected hub.sam.mof.model.mas.Activity getContent() {
         IMaseEditorInput editorInput = (IMaseEditorInput) getEditorInput();
         MaseEditDomain editDomain = getEditDomain();
         editDomain.setMASContext( editorInput.getLink().getMASContext() );

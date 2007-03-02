@@ -20,7 +20,7 @@
 
 package hub.sam.mase.commands;
 
-import hub.sam.mase.m2model.OpaqueAction;
+import hub.sam.mof.model.mas.OpaqueAction;
 
 public class OpaqueActionDirectEditCommand extends LabelDirectEditCommand {
     

@@ -26,7 +26,7 @@ import org.eclipse.gef.editpolicies.DirectEditPolicy;
 
 import hub.sam.mase.commands.ValueNodeDirectEditCommand;
 import hub.sam.mase.figures.ValueNodeFigure;
-import hub.sam.mase.m2model.ValueNode;
+import hub.sam.mof.model.mas.ValueNode;
 
 public class ValueNodeDirectEditPolicy extends DirectEditPolicy {
 

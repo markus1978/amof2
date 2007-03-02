@@ -27,9 +27,9 @@ import org.eclipse.gef.requests.CreateRequest;
 
 import hub.sam.mase.editparts.DecisionNodeEditPart;
 import hub.sam.mase.commands.AttachedNodeCreateCommand;
-import hub.sam.mase.m2model.AttachedNode;
-import hub.sam.mase.m2model.ContextPin;
-import hub.sam.mase.m2model.DecisionNode;
+import hub.sam.mof.model.mas.AttachedNode;
+import hub.sam.mof.model.mas.ContextPin;
+import hub.sam.mof.model.mas.DecisionNode;
 
 /**
  * EditPolicy for creating ContextPins on DecisionNodes.

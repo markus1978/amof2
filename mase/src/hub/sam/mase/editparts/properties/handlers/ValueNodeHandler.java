@@ -20,7 +20,7 @@
 
 package hub.sam.mase.editparts.properties.handlers;
 
-import hub.sam.mase.m2model.ValueNode;
+import hub.sam.mof.model.mas.ValueNode;
 
 public class ValueNodeHandler extends StringAttributeHandler {
 

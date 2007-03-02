@@ -25,7 +25,8 @@ import org.eclipse.gef.requests.DirectEditRequest;
 
 import hub.sam.mase.commands.OpaqueActionDirectEditCommand;
 import hub.sam.mase.figures.OpaqueActionFigure;
-import hub.sam.mase.m2model.OpaqueAction;
+import hub.sam.mof.model.mas.OpaqueAction;
+
 import org.eclipse.gef.editpolicies.DirectEditPolicy;
 
 public class OpaqueActionDirectEditPolicy extends DirectEditPolicy {

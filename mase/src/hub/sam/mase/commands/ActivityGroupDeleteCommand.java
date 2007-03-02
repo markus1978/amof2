@@ -20,8 +20,8 @@
 
 package hub.sam.mase.commands;
 
-import hub.sam.mase.m2model.ActivityGroup;
-import hub.sam.mase.m2model.Activity;
+import hub.sam.mof.model.mas.Activity;
+import hub.sam.mof.model.mas.ActivityGroup;
 
 public class ActivityGroupDeleteCommand extends MofDeleteCommand {
 

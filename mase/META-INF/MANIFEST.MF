@@ -18,3 +18,4 @@ Eclipse-LazyStart: true
 Eclipse-RegisterBuddy: hub.sam.mof
 Bundle-ClassPath: resources/lib/junit.jar,
  resources/lib/log4j-1.2.14.jar
+Export-Package: hub.sam.mof.model.mas

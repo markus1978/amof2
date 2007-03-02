@@ -27,10 +27,10 @@ import org.eclipse.gef.requests.CreateRequest;
 
 import hub.sam.mase.editparts.ActionEditPart;
 import hub.sam.mase.commands.AttachedNodeCreateCommand;
-import hub.sam.mase.m2model.AttachedNode;
-import hub.sam.mase.m2model.Action;
-import hub.sam.mase.m2model.InputPin;
-import hub.sam.mase.m2model.OutputPin;
+import hub.sam.mof.model.mas.Action;
+import hub.sam.mof.model.mas.AttachedNode;
+import hub.sam.mof.model.mas.InputPin;
+import hub.sam.mof.model.mas.OutputPin;
 
 /**
  * EditPolicy for creating Pins on Actions.

@@ -21,7 +21,7 @@
 package hub.sam.mase.editparts.properties;
 
 import hub.sam.mase.editparts.properties.handlers.ContextExtensionPinHandler;
-import hub.sam.mase.m2model.ContextExtensionPin;
+import hub.sam.mof.model.mas.ContextExtensionPin;
 
 public class ContextExtensionPinPropertySource extends AbstractPropertySource {
 

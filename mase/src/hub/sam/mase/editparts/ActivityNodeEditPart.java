@@ -25,8 +25,9 @@ import java.util.List;
 
 import hub.sam.mase.editpolicies.ActivityNodeComponentEditPolicy;
 import hub.sam.mase.editpolicies.ActivityNodeGraphicalNodeEditPolicy;
-import hub.sam.mase.m2model.ActivityNode;
-import hub.sam.mase.m2model.ActivityEdge;
+import hub.sam.mof.model.mas.ActivityEdge;
+import hub.sam.mof.model.mas.ActivityNode;
+
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.gef.ConnectionEditPart;

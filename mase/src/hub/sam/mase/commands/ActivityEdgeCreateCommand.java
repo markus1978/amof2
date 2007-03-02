@@ -24,13 +24,13 @@ import org.eclipse.gef.RootEditPart;
 
 import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.editparts.ActivityNodeEditPart;
-import hub.sam.mase.m2model.MaseCreationFactory;
-import hub.sam.mase.m2model.ObjectFlow;
-import hub.sam.mase.m2model.ActivityEdge;
-import hub.sam.mase.m2model.ActivityNode;
-import hub.sam.mase.m2model.Activity;
-import hub.sam.mase.m2model.ModelGarbageCollector;
-import hub.sam.mase.m2model.ObjectNode;
+import hub.sam.mof.model.mas.Activity;
+import hub.sam.mof.model.mas.ActivityEdge;
+import hub.sam.mof.model.mas.ActivityNode;
+import hub.sam.mof.model.mas.MaseCreationFactory;
+import hub.sam.mof.model.mas.ModelGarbageCollector;
+import hub.sam.mof.model.mas.ObjectFlow;
+import hub.sam.mof.model.mas.ObjectNode;
 
 public class ActivityEdgeCreateCommand extends MofCreateCommand {
 

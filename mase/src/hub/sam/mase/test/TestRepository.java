@@ -1,6 +1,7 @@
 package hub.sam.mase.test;
 
-import hub.sam.mase.m2model.*;
+import hub.sam.mof.model.mas.*;
+
 import java.io.*;
 
 import org.apache.log4j.PropertyConfigurator;

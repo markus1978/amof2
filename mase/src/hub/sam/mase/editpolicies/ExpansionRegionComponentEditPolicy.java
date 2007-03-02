@@ -25,7 +25,7 @@ import org.eclipse.gef.requests.GroupRequest;
 
 import hub.sam.mase.commands.ActivityGroupDeleteCommand;
 import hub.sam.mase.editpolicies.AbstractActivityNodeComponentEditPolicy;
-import hub.sam.mase.m2model.ActivityGroup;
+import hub.sam.mof.model.mas.ActivityGroup;
 
 /**
  * EditPolicy for deleting ExpansionRegions.

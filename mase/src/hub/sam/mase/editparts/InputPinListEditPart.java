@@ -22,8 +22,8 @@ package hub.sam.mase.editparts;
 
 import hub.sam.mase.editpolicies.AttachedNodeListToolbarLayoutEditPolicy;
 import hub.sam.mase.figures.AttachedNodeListFigure;
-import hub.sam.mase.m2model.InputPin;
-import hub.sam.mase.m2model.InputPinList;
+import hub.sam.mof.model.mas.InputPin;
+import hub.sam.mof.model.mas.InputPinList;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;

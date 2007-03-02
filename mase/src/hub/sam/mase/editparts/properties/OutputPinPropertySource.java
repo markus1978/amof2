@@ -22,7 +22,7 @@ package hub.sam.mase.editparts.properties;
 
 import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.editparts.properties.handlers.OutputPinHandler;
-import hub.sam.mase.m2model.OutputPin;
+import hub.sam.mof.model.mas.OutputPin;
 
 /**
  * @deprecated

@@ -21,7 +21,7 @@
 package hub.sam.mase.figures;
 
 import hub.sam.mase.editor.MaseEditDomain;
-import hub.sam.mase.m2model.ActionKind;
+import hub.sam.mof.model.mas.ActionKind;
 
 import org.apache.log4j.Logger;
 import org.eclipse.draw2d.ColorConstants;

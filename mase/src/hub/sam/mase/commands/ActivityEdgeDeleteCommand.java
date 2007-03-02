@@ -21,9 +21,10 @@
 package hub.sam.mase.commands;
 
 import hub.sam.mase.editparts.ActivityNodeEditPart;
-import hub.sam.mase.m2model.Activity;
-import hub.sam.mase.m2model.ActivityEdge;
-import hub.sam.mase.m2model.ActivityNode;
+import hub.sam.mof.model.mas.Activity;
+import hub.sam.mof.model.mas.ActivityEdge;
+import hub.sam.mof.model.mas.ActivityNode;
+
 import org.eclipse.gef.RootEditPart;
 
 public class ActivityEdgeDeleteCommand extends MofDeleteCommand {

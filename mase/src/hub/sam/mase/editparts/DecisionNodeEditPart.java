@@ -34,8 +34,8 @@ import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.editparts.properties.DecisionNodePropertySource;
 import hub.sam.mase.editpolicies.DecisionNodeContainerEditPolicy;
 import hub.sam.mase.figures.DecisionNodeFigure;
-import hub.sam.mase.m2model.DecisionNode;
-import hub.sam.mase.m2model.ContextPinList;
+import hub.sam.mof.model.mas.ContextPinList;
+import hub.sam.mof.model.mas.DecisionNode;
 
 // a DecisionNode behaves more like an OpaqueAction which is an ActivityNode
 public class DecisionNodeEditPart extends ActivityNodeEditPart {

@@ -25,7 +25,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.graphics.Color;
 
 import hub.sam.mase.figures.ActivityEdgeFigure;
-import hub.sam.mase.m2model.ObjectFlow;
+import hub.sam.mof.model.mas.ObjectFlow;
 
 public class ObjectFlowEditPart extends ActivityEdgeEditPart {
     

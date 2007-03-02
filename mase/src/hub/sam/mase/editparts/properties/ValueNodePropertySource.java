@@ -21,7 +21,7 @@
 package hub.sam.mase.editparts.properties;
 
 import hub.sam.mase.editparts.properties.handlers.ValueNodeHandler;
-import hub.sam.mase.m2model.ValueNode;
+import hub.sam.mof.model.mas.ValueNode;
 
 public class ValueNodePropertySource extends AbstractPropertySource {
 

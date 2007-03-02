@@ -20,8 +20,9 @@
 
 package hub.sam.mase.commands;
 
-import hub.sam.mase.m2model.ModelGarbageCollector;
-import hub.sam.mase.m2model.AttachedNode;
+import hub.sam.mof.model.mas.AttachedNode;
+import hub.sam.mof.model.mas.ModelGarbageCollector;
+
 import java.util.List;
 
 public class AttachedNodeCreateCommand extends MofCreateCommand {

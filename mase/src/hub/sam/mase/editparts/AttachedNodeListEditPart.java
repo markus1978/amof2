@@ -28,8 +28,8 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import hub.sam.mase.editpolicies.AttachedNodeListComponentEditPolicy;
 import hub.sam.mase.figures.AttachedNodeListFigure;
-import hub.sam.mase.m2model.AttachedNodeList;
-import hub.sam.mase.m2model.AttachedNode;
+import hub.sam.mof.model.mas.AttachedNode;
+import hub.sam.mof.model.mas.AttachedNodeList;
 
 public abstract class AttachedNodeListEditPart extends AbstractGraphicalEditPart {
    

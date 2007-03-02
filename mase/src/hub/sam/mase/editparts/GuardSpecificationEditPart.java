@@ -35,7 +35,7 @@ import hub.sam.mase.commands.GuardSpecificationDeleteCommand;
 import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.editparts.properties.GuardSpecificationPropertySource;
 import hub.sam.mase.figures.GuardSpecificationFigure;
-import hub.sam.mase.m2model.GuardSpecification;
+import hub.sam.mof.model.mas.GuardSpecification;
 
 public class GuardSpecificationEditPart extends PropertyAwareGraphicalEditPart {
     

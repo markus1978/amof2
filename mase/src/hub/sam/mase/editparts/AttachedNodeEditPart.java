@@ -20,9 +20,10 @@
 
 package hub.sam.mase.editparts;
 
-import hub.sam.mase.m2model.AttachedNode;
 import hub.sam.mase.editparts.AttachedNodeListEditPart;
 import hub.sam.mase.editpolicies.AttachedNodeComponentEditPolicy;
+import hub.sam.mof.model.mas.AttachedNode;
+
 import org.eclipse.gef.EditPolicy;
 
 public abstract class AttachedNodeEditPart extends ObjectNodeEditPart {

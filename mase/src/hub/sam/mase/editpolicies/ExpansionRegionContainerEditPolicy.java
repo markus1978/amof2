@@ -26,10 +26,10 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateRequest;
 
 import hub.sam.mase.commands.AttachedNodeCreateCommand;
-import hub.sam.mase.m2model.AttachedNode;
-import hub.sam.mase.m2model.InExpansionNode;
-import hub.sam.mase.m2model.OutExpansionNode;
-import hub.sam.mase.m2model.ExpansionRegion;
+import hub.sam.mof.model.mas.AttachedNode;
+import hub.sam.mof.model.mas.ExpansionRegion;
+import hub.sam.mof.model.mas.InExpansionNode;
+import hub.sam.mof.model.mas.OutExpansionNode;
 
 /**
  * EditPolicy for creating things on ExpansionRegions.

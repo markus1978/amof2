@@ -20,7 +20,8 @@
 
 package hub.sam.mase.commands;
 
-import hub.sam.mase.m2model.AttachedNode;
+import hub.sam.mof.model.mas.AttachedNode;
+
 import org.apache.log4j.Logger;
 import org.eclipse.gef.commands.Command;
 import java.util.List;

@@ -20,10 +20,12 @@
 
 package hub.sam.mase.editor;
 
-import java.util.*;
-
 import hub.sam.mas.management.MASContext;
-import hub.sam.mase.m2model.m2modelFactory;
+import hub.sam.mof.model.mas.masFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.ui.IEditorPart;
@@ -45,8 +47,8 @@ public class MaseEditDomain extends DefaultEditDomain {
         return masContext;
     }
     
-    public m2modelFactory getFactory() {
-        return (m2modelFactory) getMASContext().getSemanticModel().getFactory();
+    public masFactory getFactory() {
+        return (masFactory) getMASContext().getSemanticModel().getFactory();
     }
     
     // editor properties

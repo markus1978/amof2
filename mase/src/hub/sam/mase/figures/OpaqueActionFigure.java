@@ -20,7 +20,7 @@
 
 package hub.sam.mase.figures;
 
-import hub.sam.mase.m2model.ActionKind;
+import hub.sam.mof.model.mas.ActionKind;
 
 import org.eclipse.draw2d.IFigure;
 

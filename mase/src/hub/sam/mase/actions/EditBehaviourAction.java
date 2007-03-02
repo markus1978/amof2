@@ -24,12 +24,13 @@ import hub.sam.mas.management.MASContext;
 import hub.sam.mas.management.MASLink;
 import hub.sam.mase.editor.IMaseEditorInput;
 import hub.sam.mase.editor.MaseEditorInput;
-import hub.sam.mase.m2model.Activity;
-import hub.sam.mase.m2model.MaseCreationFactory;
-import hub.sam.mase.m2model.m2modelFactory;
+import hub.sam.mof.model.mas.Activity;
+import hub.sam.mof.model.mas.MaseCreationFactory;
+import hub.sam.mof.model.mas.masFactory;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
@@ -39,7 +40,7 @@ public class EditBehaviourAction extends MASAction {
         MASLink link = getLinkFromSelection();
         if (link == null) {
             MASContext masContext = getMASContextFromSelection();
-            MaseCreationFactory maseFactory = new MaseCreationFactory((m2modelFactory) masContext.getSemanticModel().getFactory(),
+            MaseCreationFactory maseFactory = new MaseCreationFactory((masFactory) masContext.getSemanticModel().getFactory(),
                     Activity.class);
             Activity activity = maseFactory.createActivity();
             link = masContext.createLink(currentOperation, activity);
@@ -70,5 +71,5 @@ public class EditBehaviourAction extends MASAction {
         }
     }
 
-
+    
 }

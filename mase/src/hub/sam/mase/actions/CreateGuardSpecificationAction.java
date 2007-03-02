@@ -28,8 +28,8 @@ import org.eclipse.ui.*;
 
 import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.editparts.ActivityEdgeEditPart;
-import hub.sam.mase.m2model.GuardSpecification;
-import hub.sam.mase.m2model.MaseCreationFactory;
+import hub.sam.mof.model.mas.GuardSpecification;
+import hub.sam.mof.model.mas.MaseCreationFactory;
 
 import java.util.*;
 

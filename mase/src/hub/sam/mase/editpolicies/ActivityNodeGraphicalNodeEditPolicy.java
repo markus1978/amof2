@@ -35,9 +35,9 @@ import hub.sam.mase.editparts.ActivityNodeEditPart;
 import hub.sam.mase.editparts.ControlFlowEditPart;
 import hub.sam.mase.editparts.ObjectFlowEditPart;
 import hub.sam.mase.editparts.ObjectNodeEditPart;
-import hub.sam.mase.m2model.ActivityNode;
-import hub.sam.mase.m2model.ActivityEdge;
-import hub.sam.mase.m2model.ObjectNode;
+import hub.sam.mof.model.mas.ActivityEdge;
+import hub.sam.mof.model.mas.ActivityNode;
+import hub.sam.mof.model.mas.ObjectNode;
 
 /**
  * EditPolicy for connecting Nodes with ControlFlows or ObjectFlows
