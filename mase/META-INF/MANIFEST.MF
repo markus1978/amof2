@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Mase Plug-in
-Bundle-SymbolicName: hub.sam.mase;singleton:=true
+Bundle-Name: Mof Action Semantics Plug-in
+Bundle-SymbolicName: hub.sam.mas;singleton:=true
 Bundle-Version: 1.1.0
-Bundle-Activator: hub.sam.mase.MasePlugin
+Bundle-Activator: hub.sam.mas.MasPlugin
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

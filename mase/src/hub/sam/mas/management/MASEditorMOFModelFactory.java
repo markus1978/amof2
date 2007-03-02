@@ -20,7 +20,7 @@
 
 package hub.sam.mas.management;
 
-import hub.sam.mase.MasePlugin;
+import hub.sam.mas.MasPlugin;
 import hub.sam.mof.Repository;
 
 import java.io.FileNotFoundException;
@@ -51,7 +51,7 @@ public class MASEditorMOFModelFactory extends AbstractMOFModelFactory {
     @Override
     protected MOFModel createSemanticMetaModel() {
         if (semanticMetaModel == null) {
-            org.osgi.framework.Bundle bundle = MasePlugin.getDefault().getBundle();
+            org.osgi.framework.Bundle bundle = MasPlugin.getDefault().getBundle();
             InputStream metaInputStream = null;
             try {            
                 metaInputStream = FileLocator.openStream(bundle, new Path(semanticMetaXmiFile), false);
