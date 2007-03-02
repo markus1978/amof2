@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mof2Plugin
+Bundle-SymbolicName: hub.sam.mof.plugin.Mof2Plugin; singleton:=true
+Bundle-Version: 1.1.0
+Bundle-Activator: hub.sam.mof.plugin.Mof2Plugin
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.jface,
+ org.eclipse.osgi,
+ org.eclipse.ui,
+ org.eclipse.ui.views,
+ org.eclipse.ui.workbench,
+ hub.sam.mof,
+ org.eclipse.ui.ide,
+ org.eclipse.core.resources
+Eclipse-LazyStart: true
+Export-Package: hub.sam.mof.plugin,
+ hub.sam.mof.plugin.modelview,
+ hub.sam.mof.plugin.modelview.actions,
+ hub.sam.mof.plugin.modelview.tree

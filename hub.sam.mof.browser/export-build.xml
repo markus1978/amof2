@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="plugin_export" name="build">
+	<target name="plugin_export">
+		<pde.exportPlugins destination="C:\Dokumente und Einstellungen\Markus\workspace\MOF 2 Plugin" exportSource="false" exportType="zip" filename="mof2-plugin.zip" plugins="hub.sam.mof.plugin.Mof2Plugin" source="1.5" target="1.5" useJARFormat="false"/>
+	</target>
+</project>

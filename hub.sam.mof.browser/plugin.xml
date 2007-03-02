@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension-point id="doubleClick" name="DoubleClick on TreeViewerElement" schema="schema/doubleClick.exsd"/>
+     <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="MOF2Plugin"
+            id="MOF2Plugin">
+      </category>
+      <view
+            name="Model View"
+            icon="icons/sample.gif"
+            category="MOF2Plugin"
+            class="hub.sam.mof.plugin.modelview.ModelView"
+            id="hub.sam.mof.plugin.modelview.ModelView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.ui.resourcePerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.TaskList"
+               relationship="right"
+               id="hub.sam.mof.plugin.modelview.ModelView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+  <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="hub.sam.mof.plugin.modeleditor.ModelEditor"
+            extensions="xml"
+            icon="icons/sample.gif"
+            id="hub.sam.mof.plugin.modeleditor.ModelEditor"
+            name="Model Editor">
+      </editor>
+   </extension>
+  
+     <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            name="MOF2Plugin"
+            id="MOF2Plugin">
+      </category>
+      <wizard
+            category="MOF2Plugin"
+            class="hub.sam.mof.plugin.modeleditor.NewModelWizard"
+            icon="icons/sample.gif"
+            id="hub.sam.mof.plugin.modeleditor.NewModelWizard"
+            name="CMOF metamodel">
+      </wizard>
+   </extension>
+</plugin>

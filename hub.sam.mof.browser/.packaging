@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations>
+<archive destination="" exploded="false" name="mof2-plugin.jar" used="true">
+<folder excludes="" includes="" location="build" name="build" prefix="" project="" projectLocation="build" used="true"/>
+</archive>
+</configurations>
