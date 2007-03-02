@@ -20,8 +20,8 @@
 
 package hub.sam.mase.editparts.properties.handlers;
 
-import hub.sam.mof.model.mas.ExpansionKind;
-import hub.sam.mof.model.mas.ExpansionRegion;
+import hub.sam.mas.model.mas.ExpansionKind;
+import hub.sam.mas.model.mas.ExpansionRegion;
 
 public class ExpansionRegionHandler extends EnumerationAttributeHandler {
 

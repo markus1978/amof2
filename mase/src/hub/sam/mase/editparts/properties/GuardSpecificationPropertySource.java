@@ -20,8 +20,8 @@
 
 package hub.sam.mase.editparts.properties;
 
+import hub.sam.mas.model.mas.GuardSpecification;
 import hub.sam.mase.editparts.properties.handlers.GuardSpecificationHandler;
-import hub.sam.mof.model.mas.GuardSpecification;
 
 public class GuardSpecificationPropertySource extends AbstractPropertySource {
 

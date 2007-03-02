@@ -20,15 +20,15 @@
 
 package hub.sam.mase.editparts;
 
+import hub.sam.mas.model.mas.Activity;
+import hub.sam.mas.model.mas.ActivityChild;
+import hub.sam.mas.model.mas.ExpansionRegion;
+import hub.sam.mas.model.mas.ExpansionRegionBody;
 import hub.sam.mase.editpolicies.AbstractActivityNodeComponentEditPolicy;
 import hub.sam.mase.editpolicies.ActivityNodeGraphicalNodeEditPolicy;
 import hub.sam.mase.editpolicies.ActivityXYLayoutEditPolicy;
 import hub.sam.mase.editpolicies.ExpansionRegionContainerEditPolicy;
 import hub.sam.mase.figures.ExpansionRegionBodyFigure;
-import hub.sam.mof.model.mas.Activity;
-import hub.sam.mof.model.mas.ActivityChild;
-import hub.sam.mof.model.mas.ExpansionRegion;
-import hub.sam.mof.model.mas.ExpansionRegionBody;
 
 import java.util.*;
 

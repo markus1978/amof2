@@ -31,11 +31,11 @@ import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.ui.views.properties.IPropertySource;
 
+import hub.sam.mas.model.mas.GuardSpecification;
 import hub.sam.mase.commands.GuardSpecificationDeleteCommand;
 import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.editparts.properties.GuardSpecificationPropertySource;
 import hub.sam.mase.figures.GuardSpecificationFigure;
-import hub.sam.mof.model.mas.GuardSpecification;
 
 public class GuardSpecificationEditPart extends PropertyAwareGraphicalEditPart {
     

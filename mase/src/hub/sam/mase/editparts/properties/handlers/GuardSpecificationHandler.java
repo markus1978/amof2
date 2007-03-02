@@ -20,7 +20,7 @@
 
 package hub.sam.mase.editparts.properties.handlers;
 
-import hub.sam.mof.model.mas.GuardSpecification;
+import hub.sam.mas.model.mas.GuardSpecification;
 
 public class GuardSpecificationHandler extends StringAttributeHandler {
 

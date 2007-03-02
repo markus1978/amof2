@@ -20,9 +20,9 @@
 
 package hub.sam.mase.editparts.properties;
 
+import hub.sam.mas.model.mas.ExpansionRegion;
 import hub.sam.mase.editparts.properties.handlers.CommentedNodeHandler;
 import hub.sam.mase.editparts.properties.handlers.ExpansionRegionHandler;
-import hub.sam.mof.model.mas.ExpansionRegion;
 
 public class ExpansionRegionPropertySource extends AbstractPropertySource {
 

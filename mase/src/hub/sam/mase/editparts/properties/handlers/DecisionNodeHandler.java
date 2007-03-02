@@ -20,7 +20,7 @@
 
 package hub.sam.mase.editparts.properties.handlers;
 
-import hub.sam.mof.model.mas.DecisionNode;
+import hub.sam.mas.model.mas.DecisionNode;
 
 public class DecisionNodeHandler extends StringAttributeHandler {
 

@@ -20,9 +20,9 @@
 
 package hub.sam.mase.editparts.properties;
 
+import hub.sam.mas.model.mas.DecisionNode;
 import hub.sam.mase.editparts.properties.handlers.CommentedNodeHandler;
 import hub.sam.mase.editparts.properties.handlers.DecisionNodeHandler;
-import hub.sam.mof.model.mas.DecisionNode;
 
 public class DecisionNodePropertySource extends AbstractPropertySource {
     

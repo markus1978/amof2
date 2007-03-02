@@ -27,6 +27,9 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 import org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy;
 
+import hub.sam.mas.model.mas.ActivityEdge;
+import hub.sam.mas.model.mas.ActivityNode;
+import hub.sam.mas.model.mas.ObjectNode;
 import hub.sam.mase.commands.ActivityEdgeCreateCommand;
 import hub.sam.mase.commands.ActivityEdgeReconnectSourceCommand;
 import hub.sam.mase.commands.ActivityEdgeReconnectTargetCommand;
@@ -35,9 +38,6 @@ import hub.sam.mase.editparts.ActivityNodeEditPart;
 import hub.sam.mase.editparts.ControlFlowEditPart;
 import hub.sam.mase.editparts.ObjectFlowEditPart;
 import hub.sam.mase.editparts.ObjectNodeEditPart;
-import hub.sam.mof.model.mas.ActivityEdge;
-import hub.sam.mof.model.mas.ActivityNode;
-import hub.sam.mof.model.mas.ObjectNode;
 
 /**
  * EditPolicy for connecting Nodes with ControlFlows or ObjectFlows

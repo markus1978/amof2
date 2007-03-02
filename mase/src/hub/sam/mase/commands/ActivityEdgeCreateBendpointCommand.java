@@ -23,7 +23,7 @@ package hub.sam.mase.commands;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.draw2d.Bendpoint;
 
-import hub.sam.mof.model.mas.ActivityEdge;
+import hub.sam.mas.model.mas.ActivityEdge;
 
 public class ActivityEdgeCreateBendpointCommand extends Command {
 

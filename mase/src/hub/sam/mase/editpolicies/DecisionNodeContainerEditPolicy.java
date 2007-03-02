@@ -25,11 +25,11 @@ import java.util.List;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateRequest;
 
+import hub.sam.mas.model.mas.AttachedNode;
+import hub.sam.mas.model.mas.ContextPin;
+import hub.sam.mas.model.mas.DecisionNode;
 import hub.sam.mase.editparts.DecisionNodeEditPart;
 import hub.sam.mase.commands.AttachedNodeCreateCommand;
-import hub.sam.mof.model.mas.AttachedNode;
-import hub.sam.mof.model.mas.ContextPin;
-import hub.sam.mof.model.mas.DecisionNode;
 
 /**
  * EditPolicy for creating ContextPins on DecisionNodes.

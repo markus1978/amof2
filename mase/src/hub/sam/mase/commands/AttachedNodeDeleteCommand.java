@@ -20,7 +20,7 @@
 
 package hub.sam.mase.commands;
 
-import hub.sam.mof.model.mas.AttachedNode;
+import hub.sam.mas.model.mas.AttachedNode;
 
 import java.util.List;
 

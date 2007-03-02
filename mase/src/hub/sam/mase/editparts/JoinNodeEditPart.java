@@ -20,8 +20,8 @@
 
 package hub.sam.mase.editparts;
 
+import hub.sam.mas.model.mas.JoinNode;
 import hub.sam.mase.figures.ForkJoinNodeFigure;
-import hub.sam.mof.model.mas.JoinNode;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;

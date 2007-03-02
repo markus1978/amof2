@@ -20,15 +20,15 @@
 
 package hub.sam.mase.editparts;
 
+import hub.sam.mas.model.mas.ExpansionKind;
+import hub.sam.mas.model.mas.ExpansionNodeList;
+import hub.sam.mas.model.mas.ExpansionRegion;
+import hub.sam.mas.model.mas.OutExpansionNodeList;
 import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.editpolicies.ExpansionRegionComponentEditPolicy;
 import hub.sam.mase.editpolicies.ExpansionRegionContainerEditPolicy;
 import hub.sam.mase.figures.ExpansionRegionFigure;
 import hub.sam.mase.editparts.properties.ExpansionRegionPropertySource;
-import hub.sam.mof.model.mas.ExpansionKind;
-import hub.sam.mof.model.mas.ExpansionNodeList;
-import hub.sam.mof.model.mas.ExpansionRegion;
-import hub.sam.mof.model.mas.OutExpansionNodeList;
 
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;

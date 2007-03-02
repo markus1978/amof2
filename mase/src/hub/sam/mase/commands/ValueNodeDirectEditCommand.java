@@ -20,7 +20,7 @@
 
 package hub.sam.mase.commands;
 
-import hub.sam.mof.model.mas.ValueNode;
+import hub.sam.mas.model.mas.ValueNode;
 
 public class ValueNodeDirectEditCommand extends LabelDirectEditCommand {
     

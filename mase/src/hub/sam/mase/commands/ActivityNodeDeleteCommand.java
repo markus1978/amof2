@@ -20,8 +20,8 @@
 
 package hub.sam.mase.commands;
 
-import hub.sam.mof.model.mas.Activity;
-import hub.sam.mof.model.mas.ActivityNode;
+import hub.sam.mas.model.mas.Activity;
+import hub.sam.mas.model.mas.ActivityNode;
 
 public class ActivityNodeDeleteCommand extends MofDeleteCommand {
 

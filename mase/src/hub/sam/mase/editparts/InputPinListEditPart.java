@@ -20,10 +20,10 @@
 
 package hub.sam.mase.editparts;
 
+import hub.sam.mas.model.mas.InputPin;
+import hub.sam.mas.model.mas.InputPinList;
 import hub.sam.mase.editpolicies.AttachedNodeListToolbarLayoutEditPolicy;
 import hub.sam.mase.figures.AttachedNodeListFigure;
-import hub.sam.mof.model.mas.InputPin;
-import hub.sam.mof.model.mas.InputPinList;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;

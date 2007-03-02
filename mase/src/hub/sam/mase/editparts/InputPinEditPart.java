@@ -20,8 +20,8 @@
 
 package hub.sam.mase.editparts;
 
+import hub.sam.mas.model.mas.InputPin;
 import hub.sam.mase.figures.PinFigure;
-import hub.sam.mof.model.mas.InputPin;
 
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.IFigure;

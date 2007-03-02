@@ -22,11 +22,11 @@ package hub.sam.mase.actions;
 
 import hub.sam.mas.management.MASContext;
 import hub.sam.mas.management.MASLink;
+import hub.sam.mas.model.mas.Activity;
+import hub.sam.mas.model.mas.MaseCreationFactory;
+import hub.sam.mas.model.mas.masFactory;
 import hub.sam.mase.editor.IMaseEditorInput;
 import hub.sam.mase.editor.MaseEditorInput;
-import hub.sam.mof.model.mas.Activity;
-import hub.sam.mof.model.mas.MaseCreationFactory;
-import hub.sam.mof.model.mas.masFactory;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;

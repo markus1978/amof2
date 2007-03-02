@@ -20,7 +20,7 @@
 
 package hub.sam.mase.editparts.properties.handlers;
 
-import hub.sam.mof.model.mas.CommentedNode;
+import hub.sam.mas.model.mas.CommentedNode;
 
 public class CommentedNodeHandler extends StringAttributeHandler {
 

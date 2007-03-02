@@ -22,15 +22,15 @@ package hub.sam.mase.commands;
 
 import org.eclipse.gef.RootEditPart;
 
+import hub.sam.mas.model.mas.Activity;
+import hub.sam.mas.model.mas.ActivityEdge;
+import hub.sam.mas.model.mas.ActivityNode;
+import hub.sam.mas.model.mas.MaseCreationFactory;
+import hub.sam.mas.model.mas.ModelGarbageCollector;
+import hub.sam.mas.model.mas.ObjectFlow;
+import hub.sam.mas.model.mas.ObjectNode;
 import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.editparts.ActivityNodeEditPart;
-import hub.sam.mof.model.mas.Activity;
-import hub.sam.mof.model.mas.ActivityEdge;
-import hub.sam.mof.model.mas.ActivityNode;
-import hub.sam.mof.model.mas.MaseCreationFactory;
-import hub.sam.mof.model.mas.ModelGarbageCollector;
-import hub.sam.mof.model.mas.ObjectFlow;
-import hub.sam.mof.model.mas.ObjectNode;
 
 public class ActivityEdgeCreateCommand extends MofCreateCommand {
 

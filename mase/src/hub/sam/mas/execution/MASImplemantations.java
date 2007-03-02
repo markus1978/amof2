@@ -1,13 +1,13 @@
 package hub.sam.mas.execution;
 
+import hub.sam.mas.model.mas.Activity;
+import hub.sam.mas.model.mas.ActivityEdge;
+import hub.sam.mas.model.mas.ActivityInstance;
+import hub.sam.mas.model.mas.ActivityNode;
+import hub.sam.mas.model.mas.PinInstance;
+import hub.sam.mas.model.mas.ValueNode;
+import hub.sam.mas.model.petrinets.Place;
 import hub.sam.mof.instancemodel.ClassifierSemantics;
-import hub.sam.mof.model.mas.Activity;
-import hub.sam.mof.model.mas.ActivityEdge;
-import hub.sam.mof.model.mas.ActivityInstance;
-import hub.sam.mof.model.mas.ActivityNode;
-import hub.sam.mof.model.mas.PinInstance;
-import hub.sam.mof.model.mas.ValueNode;
-import hub.sam.mof.model.petrinets.Place;
 import hub.sam.mof.reflection.ImplementationsImpl;
 import hub.sam.mof.reflection.ObjectDlg;
 

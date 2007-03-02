@@ -22,13 +22,13 @@ package hub.sam.mase.editparts;
 
 import java.beans.PropertyChangeEvent;
 
+import hub.sam.mas.model.mas.ValueNode;
 import hub.sam.mase.figures.ValueNodeFigure;
 import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.editpolicies.ValueNodeDirectEditPolicy;
 import hub.sam.mase.tools.FigureCellEditorLocator;
 import hub.sam.mase.tools.DirectEditManagerImpl;
 import hub.sam.mase.editparts.properties.ValueNodePropertySource;
-import hub.sam.mof.model.mas.ValueNode;
 
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.IFigure;

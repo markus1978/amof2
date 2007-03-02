@@ -20,8 +20,8 @@
 
 package hub.sam.mase.editparts.properties.handlers;
 
-import hub.sam.mof.model.mas.ActionKind;
-import hub.sam.mof.model.mas.OpaqueAction;
+import hub.sam.mas.model.mas.ActionKind;
+import hub.sam.mas.model.mas.OpaqueAction;
 
 public class OpaqueActionHandler extends AbstractPropertyHandler {
 

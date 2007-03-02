@@ -23,7 +23,7 @@ package hub.sam.mas.management;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-import hub.sam.mof.model.mas.Activity;
+import hub.sam.mas.model.mas.Activity;
 import cmof.Operation;
 
 public class MASLink {

@@ -22,9 +22,9 @@ package hub.sam.mase.editparts;
 
 import java.util.*;
 
-import hub.sam.mof.model.mas.Action;
-import hub.sam.mof.model.mas.OutputPinList;
-import hub.sam.mof.model.mas.PinList;
+import hub.sam.mas.model.mas.Action;
+import hub.sam.mas.model.mas.OutputPinList;
+import hub.sam.mas.model.mas.PinList;
 
 public abstract class ActionEditPart extends ActivityNodeEditPart {
     

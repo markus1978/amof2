@@ -20,9 +20,9 @@
 
 package hub.sam.mase.commands;
 
-import hub.sam.mof.model.mas.Activity;
-import hub.sam.mof.model.mas.ActivityGroup;
-import hub.sam.mof.model.mas.ModelGarbageCollector;
+import hub.sam.mas.model.mas.Activity;
+import hub.sam.mas.model.mas.ActivityGroup;
+import hub.sam.mas.model.mas.ModelGarbageCollector;
 
 import org.apache.log4j.Logger;
 import org.eclipse.draw2d.geometry.Rectangle;

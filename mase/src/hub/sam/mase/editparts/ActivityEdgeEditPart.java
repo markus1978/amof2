@@ -31,14 +31,14 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 
-import hub.sam.mas.model.ActivityEdgeBendpoint;
+import hub.sam.mas.model.mas.ActivityEdge;
+import hub.sam.mas.model.mas.ActivityEdgeBendpoint;
+import hub.sam.mas.model.mas.GuardSpecification;
 import hub.sam.mase.editpolicies.ActivityEdgeBendpointEditPolicy;
 import hub.sam.mase.editpolicies.ActivityEdgeConnectionEditPolicy;
 import hub.sam.mase.editpolicies.ActivityEdgeContainerEditPolicy;
 import hub.sam.mase.editparts.ActivityNodeEditPart;
 import hub.sam.mase.figures.ActivityEdgeFigure;
-import hub.sam.mof.model.mas.ActivityEdge;
-import hub.sam.mof.model.mas.GuardSpecification;
 
 public abstract class ActivityEdgeEditPart extends PropertyAwareConnectionEditPart {
     

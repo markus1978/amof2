@@ -20,9 +20,9 @@
 
 package hub.sam.mase.editparts.properties;
 
+import hub.sam.mas.model.mas.OpaqueAction;
 import hub.sam.mase.editparts.properties.handlers.CommentedNodeHandler;
 import hub.sam.mase.editparts.properties.handlers.OpaqueActionHandler;
-import hub.sam.mof.model.mas.OpaqueAction;
 
 public class OpaqueActionPropertySource extends AbstractPropertySource {
 

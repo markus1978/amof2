@@ -25,12 +25,12 @@ import java.util.List;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateRequest;
 
+import hub.sam.mas.model.mas.Action;
+import hub.sam.mas.model.mas.AttachedNode;
+import hub.sam.mas.model.mas.InputPin;
+import hub.sam.mas.model.mas.OutputPin;
 import hub.sam.mase.editparts.ActionEditPart;
 import hub.sam.mase.commands.AttachedNodeCreateCommand;
-import hub.sam.mof.model.mas.Action;
-import hub.sam.mof.model.mas.AttachedNode;
-import hub.sam.mof.model.mas.InputPin;
-import hub.sam.mof.model.mas.OutputPin;
 
 /**
  * EditPolicy for creating Pins on Actions.

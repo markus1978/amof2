@@ -20,7 +20,7 @@
 
 package hub.sam.mase.editparts;
 
-import hub.sam.mof.model.mas.ObjectNode;
+import hub.sam.mas.model.mas.ObjectNode;
 
 public abstract class ObjectNodeEditPart extends ActivityNodeEditPart {
     

@@ -20,7 +20,7 @@
 
 package hub.sam.mase.editparts;
 
-import hub.sam.mof.model.mas.PinList;
+import hub.sam.mas.model.mas.PinList;
 
 public abstract class PinListEditPart extends AttachedNodeListEditPart {
     

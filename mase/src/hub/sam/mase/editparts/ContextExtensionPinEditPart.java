@@ -22,10 +22,10 @@ package hub.sam.mase.editparts;
 
 import java.beans.PropertyChangeEvent;
 
+import hub.sam.mas.model.mas.ContextExtensionPin;
 import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.editparts.properties.ContextExtensionPinPropertySource;
 import hub.sam.mase.figures.ContextExtensionPinFigure;
-import hub.sam.mof.model.mas.ContextExtensionPin;
 
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.IFigure;

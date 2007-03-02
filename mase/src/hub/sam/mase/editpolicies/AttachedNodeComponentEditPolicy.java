@@ -20,10 +20,10 @@
 
 package hub.sam.mase.editpolicies;
 
+import hub.sam.mas.model.mas.AttachedNode;
+import hub.sam.mas.model.mas.AttachedNodeList;
 import hub.sam.mase.commands.AttachedNodeDeleteCommand;
 import hub.sam.mase.editparts.AttachedNodeEditPart;
-import hub.sam.mof.model.mas.AttachedNode;
-import hub.sam.mof.model.mas.AttachedNodeList;
 
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.requests.GroupRequest;

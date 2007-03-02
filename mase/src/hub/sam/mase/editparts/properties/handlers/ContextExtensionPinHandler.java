@@ -20,7 +20,7 @@
 
 package hub.sam.mase.editparts.properties.handlers;
 
-import hub.sam.mof.model.mas.ContextExtensionPin;
+import hub.sam.mas.model.mas.ContextExtensionPin;
 
 public class ContextExtensionPinHandler extends StringAttributeHandler {
 

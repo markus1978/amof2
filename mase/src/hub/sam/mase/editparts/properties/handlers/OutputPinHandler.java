@@ -20,9 +20,9 @@
 
 package hub.sam.mase.editparts.properties.handlers;
 
+import hub.sam.mas.model.mas.OutputPin;
+import hub.sam.mas.model.mas.TypeString;
 import hub.sam.mase.editor.MaseEditDomain;
-import hub.sam.mof.model.mas.OutputPin;
-import hub.sam.mof.model.mas.TypeString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class OutputPinHandler implements PropertyHandler {
         if (id instanceof PROPERTY_ID) {
             switch((PROPERTY_ID) id) {
             case TYPE:
-                hub.sam.mof.model.mas.TypeString type = editDomain.getFactory().createTypeString();
+                hub.sam.mas.model.mas.TypeString type = editDomain.getFactory().createTypeString();
                 for(String namePart: value.toString().split("::")) {
                     type.getQualifiedTypeName().add(namePart);
                 }

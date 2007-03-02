@@ -20,10 +20,10 @@
 
 package hub.sam.mase.editparts;
 
+import hub.sam.mas.model.mas.OutExpansionNode;
+import hub.sam.mas.model.mas.OutExpansionNodeList;
 import hub.sam.mase.editpolicies.AttachedNodeListToolbarLayoutEditPolicy;
 import hub.sam.mase.figures.AttachedNodeListFigure;
-import hub.sam.mof.model.mas.OutExpansionNode;
-import hub.sam.mof.model.mas.OutExpansionNodeList;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;

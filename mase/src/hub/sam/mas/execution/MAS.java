@@ -1,7 +1,7 @@
 package hub.sam.mas.execution;
 
+import hub.sam.mas.model.mas.Activity;
 import hub.sam.mof.Repository;
-import hub.sam.mof.model.mas.Activity;
 import hub.sam.mof.reflection.ExtentImpl;
 import hub.sam.mof.reflection.ImplementationsManager;
 import hub.sam.mof.reflection.ImplementationsManagerContainer;

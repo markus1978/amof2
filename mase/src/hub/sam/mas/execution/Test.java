@@ -1,9 +1,9 @@
 package hub.sam.mas.execution;
 
-import hub.sam.mof.model.petrinets.Net;
-import hub.sam.mof.model.petrinets.Place;
-import hub.sam.mof.model.petrinets.Transition;
-import hub.sam.mof.model.petrinets.petrinetsFactory;
+import hub.sam.mas.model.petrinets.Net;
+import hub.sam.mas.model.petrinets.Place;
+import hub.sam.mas.model.petrinets.Transition;
+import hub.sam.mas.model.petrinets.petrinetsFactory;
 import cmof.Package;
 import cmof.reflection.Extent;
 

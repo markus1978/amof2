@@ -20,6 +20,8 @@
 
 package hub.sam.mase.editparts;
 
+import hub.sam.mas.model.mas.ActionKind;
+import hub.sam.mas.model.mas.OpaqueAction;
 import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.editparts.properties.OpaqueActionPropertySource;
 import hub.sam.mase.editpolicies.OpaqueActionDirectEditPolicy;
@@ -27,8 +29,6 @@ import hub.sam.mase.editpolicies.ActionContainerEditPolicy;
 import hub.sam.mase.figures.OpaqueActionFigure;
 import hub.sam.mase.tools.FigureCellEditorLocator;
 import hub.sam.mase.tools.DirectEditManagerImpl;
-import hub.sam.mof.model.mas.ActionKind;
-import hub.sam.mof.model.mas.OpaqueAction;
 
 import java.beans.PropertyChangeEvent;
 

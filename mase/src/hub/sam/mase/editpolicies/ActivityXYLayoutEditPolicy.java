@@ -28,6 +28,14 @@ import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 
+import hub.sam.mas.model.mas.Activity;
+import hub.sam.mas.model.mas.ActivityGroup;
+import hub.sam.mas.model.mas.ActivityNode;
+import hub.sam.mas.model.mas.ConstrainedNode;
+import hub.sam.mas.model.mas.ControlNode;
+import hub.sam.mas.model.mas.ExpansionRegion;
+import hub.sam.mas.model.mas.OpaqueAction;
+import hub.sam.mas.model.mas.ValueNode;
 import hub.sam.mase.commands.ActivityNodeCreateCommand;
 import hub.sam.mase.commands.ActivityGroupCreateCommand;
 import hub.sam.mase.commands.ConstrainedNodeChangeConstraintCommand;
@@ -35,14 +43,6 @@ import hub.sam.mase.editparts.ForkNodeEditPart;
 import hub.sam.mase.editparts.InitialNodeEditPart;
 import hub.sam.mase.editparts.FinalNodeEditPart;
 import hub.sam.mase.editparts.JoinNodeEditPart;
-import hub.sam.mof.model.mas.Activity;
-import hub.sam.mof.model.mas.ActivityGroup;
-import hub.sam.mof.model.mas.ActivityNode;
-import hub.sam.mof.model.mas.ConstrainedNode;
-import hub.sam.mof.model.mas.ControlNode;
-import hub.sam.mof.model.mas.ExpansionRegion;
-import hub.sam.mof.model.mas.OpaqueAction;
-import hub.sam.mof.model.mas.ValueNode;
 
 /**
  * EditPolicy for creating concrete ActivityNodes and ActivityGroups and moving ConstrainedNodes.

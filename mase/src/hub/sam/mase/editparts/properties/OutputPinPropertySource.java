@@ -20,9 +20,9 @@
 
 package hub.sam.mase.editparts.properties;
 
+import hub.sam.mas.model.mas.OutputPin;
 import hub.sam.mase.editor.MaseEditDomain;
 import hub.sam.mase.editparts.properties.handlers.OutputPinHandler;
-import hub.sam.mof.model.mas.OutputPin;
 
 /**
  * @deprecated

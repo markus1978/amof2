@@ -50,7 +50,7 @@ public class GenerateRepository {
             
             Tag nsPrefix = m3Factory.createTag();
             nsPrefix.setName(JavaMapping.PackagePrefixTagName);
-            nsPrefix.setValue("hub.sam.mof.model");
+            nsPrefix.setValue("hub.sam.mas.model");
             ((Package)m2Extent.query("Package:mas")).getTag().add(nsPrefix);
             ((Package)m2Extent.query("Package:petrinets")).getTag().add(nsPrefix);
             

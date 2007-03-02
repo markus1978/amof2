@@ -27,7 +27,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.BendpointEditPolicy;
 import org.eclipse.gef.requests.BendpointRequest;
 
-import hub.sam.mas.model.ActivityEdgeBendpoint;
+import hub.sam.mas.model.mas.ActivityEdgeBendpoint;
 import hub.sam.mase.commands.ActivityEdgeCreateBendpointCommand;
 import hub.sam.mase.commands.ActivityEdgeDeleteBendpointCommand;
 import hub.sam.mase.commands.ActivityEdgeMoveBendpointCommand;

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import cmof.UmlClass;
-import hub.sam.mof.model.mas.Activity;
+import hub.sam.mas.model.mas.Activity;
 import hub.sam.mof.reflection.Implementations;
 import hub.sam.mof.reflection.ImplementationsManagerImpl;
 import hub.sam.mof.reflection.ObjectDlg;

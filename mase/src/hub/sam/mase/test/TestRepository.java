@@ -1,6 +1,6 @@
 package hub.sam.mase.test;
 
-import hub.sam.mof.model.mas.*;
+import hub.sam.mas.model.mas.*;
 
 import java.io.*;
 

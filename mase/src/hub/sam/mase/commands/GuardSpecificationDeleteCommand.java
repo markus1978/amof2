@@ -20,8 +20,8 @@
 
 package hub.sam.mase.commands;
 
-import hub.sam.mof.model.mas.ActivityEdge;
-import hub.sam.mof.model.mas.GuardSpecification;
+import hub.sam.mas.model.mas.ActivityEdge;
+import hub.sam.mas.model.mas.GuardSpecification;
 
 public class GuardSpecificationDeleteCommand extends MofDeleteCommand {
 

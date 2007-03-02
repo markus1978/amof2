@@ -23,9 +23,10 @@ package hub.sam.mase.editpolicies;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.ContainerEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
+
+import hub.sam.mas.model.mas.GuardSpecification;
 import hub.sam.mase.editparts.ActivityEdgeEditPart;
 import hub.sam.mase.commands.GuardSpecificationCreateCommand;
-import hub.sam.mof.model.mas.GuardSpecification;
 
 public class ActivityEdgeContainerEditPolicy extends ContainerEditPolicy {
 

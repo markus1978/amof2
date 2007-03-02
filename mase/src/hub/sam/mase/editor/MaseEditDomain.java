@@ -21,7 +21,7 @@
 package hub.sam.mase.editor;
 
 import hub.sam.mas.management.MASContext;
-import hub.sam.mof.model.mas.masFactory;
+import hub.sam.mas.model.mas.masFactory;
 
 import java.util.HashMap;
 import java.util.Map;
