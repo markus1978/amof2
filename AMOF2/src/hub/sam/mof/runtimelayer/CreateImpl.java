@@ -1,23 +1,21 @@
-package hub.sam.mof.mas.layers;
+package hub.sam.mof.runtimelayer;
 
 import hub.sam.mof.reflection.Implementation;
-import hub.sam.mof.reflection.FactoryImpl;
-import cmof.UmlClass;
 import cmof.reflection.Factory;
+import cmof.UmlClass;
 
-public class GenericCreateImpl implements Implementation  {
+public class CreateImpl implements Implementation  {
     private final cmof.reflection.Factory factory;
     private final UmlClass classifierToCreateInstanceFrom;
 
-    public GenericCreateImpl(Factory factory, UmlClass classifierToCreateInstanceFrom) {
+    public CreateImpl(Factory factory, UmlClass classifierToCreateInstanceFrom) {
         super();
         this.factory = factory;
         this.classifierToCreateInstanceFrom = classifierToCreateInstanceFrom;
     }
 
     public Object invoke(cmof.reflection.Object object, Object[] args) {
-        String className = (String)args[args.length - 1];
-        cmof.reflection.Object result = ((FactoryImpl)factory).create(className);
+        cmof.reflection.Object result = factory.create(classifierToCreateInstanceFrom);
         result.set(M1SemanticModel.getClassifierPropertyName((UmlClass)classifierToCreateInstanceFrom.getMetaClassifier()),
                 object);
         return result;

@@ -128,8 +128,10 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         }
         if (value instanceof cmof.reflection.Object) {
             cmof.reflection.Object object = (cmof.reflection.Object)value;
-            if (!objectsOfType(null, true).contains(object)) {
-                System.out.println("Warning: using foreign extent object as property value.");
+            if (!objectsOfType(null, true).contains(object)) {                
+                if (Repository.getLocalRepository().getConfiguration().getWarnAboutForeignExtentObjectUsage()) {
+                	System.out.println("Warning: using foreign extent object as property value.");	
+                }
             	return model.createPrimitiveValue(value);                
             }
             return model.createInstanceValue(instanceForObject.get(value));

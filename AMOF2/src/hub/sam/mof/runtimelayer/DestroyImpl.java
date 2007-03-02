@@ -1,4 +1,4 @@
-package hub.sam.mof.mas.layers;
+package hub.sam.mof.runtimelayer;
 
 import hub.sam.mof.reflection.Implementation;
 import cmof.UmlClass;

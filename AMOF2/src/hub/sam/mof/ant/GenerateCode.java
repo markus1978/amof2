@@ -6,7 +6,7 @@ import cmof.Package;
 import hub.sam.mof.Repository;
 import hub.sam.mof.codegeneration.GenerationException;
 import hub.sam.mof.codegeneration.CodeGenerationConfiguration;
-import hub.sam.mof.mas.layers.M1SemanticModel;
+import hub.sam.mof.runtimelayer.M1SemanticModel;
 import hub.sam.mof.xmi.XmiException;
 import hub.sam.util.AbstractClusterableException;
 import org.apache.tools.ant.BuildException;

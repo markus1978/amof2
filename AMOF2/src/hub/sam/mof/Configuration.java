@@ -12,6 +12,7 @@ public class Configuration {
 	private boolean generousXMI = true;
 	private boolean threadSafe = false;
 	private boolean onlyWarnOnReadOnlyViolations = true;
+	private boolean warnAboutForeignExtentObjectUsage = true;
 	private String xmlNamespacePrefixForXsiType = "xsi";
 	
 	public boolean allowsMutuableDerivedUnions() {
@@ -73,6 +74,14 @@ public class Configuration {
 	public void setOnlyWarnOnReadOnlyViolations(boolean onlyWarnOnReadOnlyViolations) {
 		this.onlyWarnOnReadOnlyViolations = onlyWarnOnReadOnlyViolations;
 	}
+	public boolean getWarnAboutForeignExtentObjectUsage() {
+		return warnAboutForeignExtentObjectUsage;
+	}
+	public void setWarnAboutForeignExtentObjectUsage(
+			boolean warnAboutForeignExtentObjectUsage) {
+		this.warnAboutForeignExtentObjectUsage = warnAboutForeignExtentObjectUsage;
+	}
+	
 	
 	
 	

@@ -8,7 +8,7 @@
 	<classpathentry exported="true" kind="lib" path="resources/lib/jbossall-client.jar"/>
 	<classpathentry exported="true" kind="lib" path="resources/lib/jdom.jar"/>
 	<classpathentry exported="true" kind="lib" path="resources/lib/mopa.jar"/>
-	<classpathentry exported="true" kind="lib" path="resources/lib/oslo.jar"/>
+	<classpathentry exported="true" kind="lib" path="resources/lib/oslo.jar" sourcepath="/OSLO"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="build"/>

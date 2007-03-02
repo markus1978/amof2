@@ -5,7 +5,7 @@ import cmof.*;
 import cmof.Package;
 import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.MetaModelException;
-import hub.sam.mof.mas.layers.M1SemanticModel;
+import hub.sam.mof.runtimelayer.M1SemanticModel;
 import hub.sam.mof.xmi.Xmi1Reader;
 import hub.sam.mof.xmi.XmiException;
 import org.jdom.JDOMException;

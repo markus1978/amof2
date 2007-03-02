@@ -1,4 +1,4 @@
-package hub.sam.mof.mas.layers;
+package hub.sam.mof.runtimelayer;
 
 import cmof.Association;
 import cmof.Classifier;
