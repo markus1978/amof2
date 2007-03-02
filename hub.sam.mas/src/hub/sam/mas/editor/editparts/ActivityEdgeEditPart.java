@@ -20,18 +20,6 @@
 
 package hub.sam.mas.editor.editparts;
 
-import java.beans.PropertyChangeEvent;
-import java.util.*;
-
-import org.eclipse.draw2d.Bendpoint;
-import org.eclipse.draw2d.ManhattanConnectionRouter;
-import org.eclipse.draw2d.RelativeBendpoint;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
-
-import hub.sam.mas.editor.editparts.ActivityNodeEditPart;
 import hub.sam.mas.editor.editpolicies.ActivityEdgeBendpointEditPolicy;
 import hub.sam.mas.editor.editpolicies.ActivityEdgeConnectionEditPolicy;
 import hub.sam.mas.editor.editpolicies.ActivityEdgeContainerEditPolicy;
@@ -39,6 +27,19 @@ import hub.sam.mas.editor.figures.ActivityEdgeFigure;
 import hub.sam.mas.model.mas.ActivityEdge;
 import hub.sam.mas.model.mas.ActivityEdgeBendpoint;
 import hub.sam.mas.model.mas.GuardSpecification;
+
+import java.beans.PropertyChangeEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.eclipse.draw2d.Bendpoint;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.ManhattanConnectionRouter;
+import org.eclipse.draw2d.RelativeBendpoint;
+import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
+import org.eclipse.swt.graphics.Color;
 
 public abstract class ActivityEdgeEditPart extends PropertyAwareConnectionEditPart {
     
