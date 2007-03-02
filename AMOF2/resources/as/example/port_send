@@ -1,8 +1,0 @@
-start;
-do while(signal->notEmpty()) {
-    [Expression: signal->get(0)] >new(signal:Signal);
-    [RemoveStructuralFeatureValue: signal];
-    [WriteStructuralFeatureValue: opposite.signal] <signal;
-    [Call: send()] <{[Expression: opposite]};
-};
-end;
