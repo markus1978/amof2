@@ -1,4 +1,4 @@
-<project name="Mase" basedir="." default="generate-repository">
+<project name="Mof Action Semantics" basedir="." default="generate-repository">
 
 	<property name="doc-dir" value="${basedir}/resources/doc/javadoc"/>
     <property name="src-dir" value="${basedir}/src"/>
