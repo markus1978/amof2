@@ -20,7 +20,7 @@ import cmof.cmofFactory;
 import cmof.reflection.Extent;
 import cmof.reflection.Factory;
 
-public class MAS {
+public class MASExecution {
 	
 	protected Repository repository;
 	protected Package m3model;

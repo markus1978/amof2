@@ -24,10 +24,11 @@
 	</target>
 
 	<target name="generate-repository" depends="clean,init">
-		<javac debug="on" destdir="${bin-dir}" source="1.5" nowarn="yes" srcdir="src/hub/sam/mase/metagen">
+		<javac debug="on" destdir="${bin-dir}" source="1.5" nowarn="yes" srcdir="${src-dir}">
+			<include name="hub/sam/mas/GenerateRepository.java"/>
 			<classpath refid="classpath"/>
 	    </javac>
-		<java classname="hub.sam.mase.metagen.GenerateRepository" fork="false">
+		<java classname="hub.sam.mas.GenerateRepository" fork="false">
 			<classpath refid="classpath"/>
 	    </java>
 	</target>

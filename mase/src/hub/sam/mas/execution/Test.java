@@ -7,7 +7,7 @@ import hub.sam.mas.model.petrinets.petrinetsFactory;
 import cmof.Package;
 import cmof.reflection.Extent;
 
-public class Test extends MAS {
+public class Test extends MASExecution {
 	
 	private Net createTestModel(petrinetsFactory factory) {
 		Net result = factory.createNet();

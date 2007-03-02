@@ -20,6 +20,7 @@
 
 package hub.sam.mas.editor.actions;
 
+import hub.sam.mas.MasPlugin;
 import hub.sam.mas.editor.editor.IMaseEditorInput;
 import hub.sam.mas.editor.editor.MaseEditorInput;
 import hub.sam.mas.management.MASContext;
@@ -48,7 +49,7 @@ public class EditBehaviourAction extends MASAction {
         
         IMaseEditorInput input = new MaseEditorInput(link);
         try {
-            PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input, "hub.sam.mase");
+            PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input, MasPlugin.EDITOR_PACKAGE_PREFIX);
         }
         catch (PartInitException e) {
             e.printStackTrace();

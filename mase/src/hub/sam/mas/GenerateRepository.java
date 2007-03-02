@@ -18,7 +18,7 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.editor.metagen;
+package hub.sam.mas;
 
 import java.util.Arrays;
 

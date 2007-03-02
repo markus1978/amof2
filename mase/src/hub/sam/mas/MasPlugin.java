@@ -30,7 +30,9 @@ import org.osgi.framework.BundleContext;
 public class MasPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "hub.sam.mase";
+	public static final String PLUGIN_ID = "hub.sam.mas";
+	public static final String PACKAGE_PREFIX = "hub.sam.mas";
+	public static final String EDITOR_PACKAGE_PREFIX = PACKAGE_PREFIX + ".editor";
 
 	// The shared instance
 	private static MasPlugin plugin;

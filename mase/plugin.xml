@@ -9,8 +9,8 @@
             default="true"
             extensions="asxml"
             icon="icons/alt_window_16.gif"
-            id="hub.sam.mase"
-            name="Mase"/>
+            id="hub.sam.mas.editor"
+            name="Mof Action Semantics Editor"/>
    </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
@@ -51,7 +51,7 @@
       <perspective
             class="hub.sam.mas.editor.MasePerspectiveFactory"
             id="MofActionSemanticsEditor.MasePerspective"
-            name="Mase"/>
+            name="Mof Action Semantics Editor"/>
    </extension>
 
 </plugin>

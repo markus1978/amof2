@@ -20,6 +20,8 @@
 
 package hub.sam.mas.editor.editor;
 
+import hub.sam.mas.MasPlugin;
+
 import org.apache.log4j.Logger;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
@@ -40,7 +42,7 @@ public class EditPartFactoryImpl implements EditPartFactory {
         java.lang.String modelId = rawModelId.substring(0, rawModelId.length()-4);
         
         try {
-            Class editPartClass = Class.forName("hub.sam.mase.editparts." + modelId + "EditPart");
+            Class editPartClass = Class.forName(MasPlugin.EDITOR_PACKAGE_PREFIX + ".editparts." + modelId + "EditPart");
             part = (EditPart) editPartClass.newInstance();
             part.setModel(model);
             if (logger.isDebugEnabled()) {
