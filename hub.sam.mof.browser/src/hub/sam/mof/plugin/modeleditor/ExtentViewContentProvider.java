@@ -7,6 +7,8 @@ import hub.sam.mof.plugin.modelview.tree.TreeParent;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Vector;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -22,6 +24,7 @@ public class ExtentViewContentProvider implements IStructuredContentProvider, IT
 	private final TreeViewer view;
 	private final Filter filter;
 	private ExtentTreeObject invisibleRoot;	
+	private RootTreeParent realInvisibleRoot;
 	private Extent extent;
 	
 	public ExtentViewContentProvider(IEditorPart editorPart, TreeViewer view) {		
@@ -36,8 +39,8 @@ public class ExtentViewContentProvider implements IStructuredContentProvider, IT
 	
 	public Object[] getElements(Object parent) {
 		if (parent.equals(editorPart.getEditorSite())) {
-			if (invisibleRoot == null) initialize();
-			return getChildren(invisibleRoot);
+			if (realInvisibleRoot == null) initialize();
+			return getChildren(realInvisibleRoot);
 		}
 		return getChildren(parent);
 	}
@@ -68,16 +71,36 @@ public class ExtentViewContentProvider implements IStructuredContentProvider, IT
 			return ((TreeParent)parent).hasChildren();
 		return false;
 	}
+	
+	class RootTreeParent extends TreeParent {
+		public RootTreeParent(TreeViewer view) {
+			super(null, null, view);
+		}
+
+		private final Collection<TreeObject> children = new Vector<TreeObject>();
+		
+		@Override		
+		protected Collection<TreeObject> retrieveChildren() {
+			return children;
+		}
+		
+		void addChild(TreeObject child) {
+			children.add(child);
+		}
+		
+	}
 
 	private void initialize() {
 		if (extent == null) {
 			throw new RuntimeException("Extent must not be null");
 		}
-		invisibleRoot = new ExtentTreeObject(extent, "AnExtentForExiting", null, view);
+		realInvisibleRoot = new RootTreeParent(view);		
+		invisibleRoot = new ExtentTreeObject(extent, "Model", realInvisibleRoot, view);
+		realInvisibleRoot.addChild(invisibleRoot);		
 	}
 	
 	public TreeParent getRoot() {
-		return invisibleRoot;
+		return realInvisibleRoot;
 	}
 
 	public void dispose() {
