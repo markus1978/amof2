@@ -7,7 +7,6 @@ import hub.sam.mof.plugin.modelview.tree.TreeParent;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Vector;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -23,8 +22,8 @@ public class ExtentViewContentProvider implements IStructuredContentProvider, IT
 	private final IEditorPart editorPart;
 	private final TreeViewer view;
 	private final Filter filter;
-	private ExtentTreeObject invisibleRoot;	
-	private RootTreeParent realInvisibleRoot;
+	private ExtentTreeObject extentNode;	
+	private RootTreeParent invisibleRoot;
 	private Extent extent;
 	
 	public ExtentViewContentProvider(IEditorPart editorPart, TreeViewer view) {		
@@ -39,8 +38,8 @@ public class ExtentViewContentProvider implements IStructuredContentProvider, IT
 	
 	public Object[] getElements(Object parent) {
 		if (parent.equals(editorPart.getEditorSite())) {
-			if (realInvisibleRoot == null) initialize();
-			return getChildren(realInvisibleRoot);
+			if (invisibleRoot == null) initialize();
+			return getChildren(invisibleRoot);
 		}
 		return getChildren(parent);
 	}
@@ -94,13 +93,13 @@ public class ExtentViewContentProvider implements IStructuredContentProvider, IT
 		if (extent == null) {
 			throw new RuntimeException("Extent must not be null");
 		}
-		realInvisibleRoot = new RootTreeParent(view);		
-		invisibleRoot = new ExtentTreeObject(extent, "Model", realInvisibleRoot, view);
-		realInvisibleRoot.addChild(invisibleRoot);		
+		invisibleRoot = new RootTreeParent(view);		
+		extentNode = new ExtentTreeObject(extent, "Model", invisibleRoot, view);
+		invisibleRoot.addChild(extentNode);		
 	}
 	
 	public TreeParent getRoot() {
-		return realInvisibleRoot;
+		return invisibleRoot;
 	}
 
 	public void dispose() {
