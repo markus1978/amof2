@@ -515,6 +515,12 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         this.handler.add(handler);
     }
 
+    public void removeObjectEventHandler(ObjectChangeListener handler) {
+        if (this.handler != null) {
+            this.handler.remove(handler);
+        }
+    }
+
     private String getOperationNameForOperation(cmof.Operation op) {
         StringBuffer opName = new StringBuffer(op.getName());
         for (Parameter parameter : op.getFormalParameter()) {

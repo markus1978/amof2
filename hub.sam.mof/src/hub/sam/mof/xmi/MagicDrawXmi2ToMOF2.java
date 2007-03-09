@@ -98,13 +98,6 @@ public class MagicDrawXmi2ToMOF2 extends PatternClass implements XmiTransformato
         }
     }
 
-    //c=Comment
-    @Pattern ( order = 99, atype = "Comment", variable = "c")
-    public void classifier(@Name("c") ClassInstance<XmiClassifier,String,String> c) {
-        c.setComposite(null);
-        c.delete();
-    }
-
     //p=Package(r=Realization)
     @PatternList( order = 98, value = {
         @Pattern( atype = "Package", variable = "p", children = "Realization"),

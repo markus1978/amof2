@@ -127,6 +127,10 @@ public class ObjectDlg implements Object {
     public void addObjectEventHandler(ObjectChangeListener handler) {
         reflectionself.addObjectEventHandler(handler);
     }
+    
+    public void removeObjectEventHandler(ObjectChangeListener handler) {
+        reflectionself.removeObjectEventHandler(handler);
+    }
 
     @Override
     public String toString() {

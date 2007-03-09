@@ -242,6 +242,8 @@ public interface Object {
 
     // TODO align with PropertyChangeListener stuff
     public void addObjectEventHandler(ObjectChangeListener handler);
+    
+    public void removeObjectEventHandler(ObjectChangeListener handler);
 
     public OclModelElement ocl();
 

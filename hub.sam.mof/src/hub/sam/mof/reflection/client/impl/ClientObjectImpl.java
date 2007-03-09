@@ -99,6 +99,10 @@ public class ClientObjectImpl extends AbstractBridge implements ClientObject {
         throw new RuntimeException("not implemented");
     }
 
+    public void removeObjectEventHandler(ObjectChangeListener handler) {
+        throw new RuntimeException("not implemented");        
+    }
+
     public void set(String propertyName, Object value) {
         try {
             remoteObject.set(propertyName, serverizeLocalValue(value));
