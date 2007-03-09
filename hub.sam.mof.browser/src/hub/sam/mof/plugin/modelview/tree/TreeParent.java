@@ -96,6 +96,7 @@ public abstract class  TreeParent extends TreeObject {
 		Object element = getElement();
 		if (element instanceof cmof.reflection.Object) {
 			((cmof.reflection.Object)element).removeListener(fPropertyChangeListener);
+            ((cmof.reflection.Object)element).removeObjectEventHandler(fObjectChangeListener);
 		}
 		if (children != null) {
 			for (TreeObject child: children) {
