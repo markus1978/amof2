@@ -19,13 +19,6 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof;
 
-import cmof.NamedElement;
-import cmof.Package;
-import cmof.PrimitiveType;
-import cmof.UmlClass;
-import cmof.cmofFactory;
-import cmof.reflection.Extent;
-import cmof.reflection.Factory;
 import hub.sam.mof.bootstrap.BootstrapExtent;
 import hub.sam.mof.codegeneration.GenerationException;
 import hub.sam.mof.codegeneration.PackageGenerator;
@@ -36,20 +29,17 @@ import hub.sam.mof.reflection.ExtentImpl;
 import hub.sam.mof.reflection.server.ejb.ServerRepositoryHome;
 import hub.sam.mof.reflection.server.impl.ReflectionFactory;
 import hub.sam.mof.xmi.Xmi1Reader;
-import hub.sam.mof.xmi.Xmi1Reader.XmiKind;
 import hub.sam.mof.xmi.XmiException;
+import hub.sam.mof.xmi.XmiImportExport;
+import hub.sam.mof.xmi.Xmi1Reader.XmiKind;
 import hub.sam.util.AbstractClusterableException;
 import hub.sam.util.Identity;
-import org.jdom.JDOMException;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.rmi.PortableRemoteObject;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.HashMap;
@@ -57,6 +47,21 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.rmi.PortableRemoteObject;
+
+import org.jdom.JDOMException;
+
+import cmof.NamedElement;
+import cmof.Package;
+import cmof.PrimitiveType;
+import cmof.UmlClass;
+import cmof.cmofFactory;
+import cmof.reflection.Extent;
+import cmof.reflection.Factory;
 
 /**
  * A repository manages a set of extents that can contain
@@ -245,17 +250,21 @@ public class Repository extends hub.sam.util.Identity {
         hub.sam.mof.xmi.Xmi2Reader.readMofXmi(prepareXmiFileMap(in), extent, metaModel, XmiKind.mof);
     }
 
-    public void loadMagicDrawXmiIntoExtent(Extent extent, cmof.Package metaModel, String xmiFileName)
+    public XmiImportExport loadMagicDrawXmiIntoExtent(Extent extent, cmof.Package metaModel, String xmiFileName)
             throws java.io.IOException,
             org.jdom.JDOMException, hub.sam.mof.xmi.XmiException, hub.sam.mof.instancemodel.MetaModelException {
+    	XmiImportExport result = new XmiImportExport();
         hub.sam.mof.xmi.Xmi2Reader.readMofXmi(prepareXmiFileMap(new java.io.File(xmiFileName)), extent, metaModel,
-                XmiKind.md);
+                XmiKind.md, result);
+        return result;
     }
 
-    public void loadMagicDrawXmiIntoExtent(Extent extent, cmof.Package metaModel, InputStream in)
+    public XmiImportExport loadMagicDrawXmiIntoExtent(Extent extent, cmof.Package metaModel, InputStream in)
             throws java.io.IOException,
             org.jdom.JDOMException, hub.sam.mof.xmi.XmiException, hub.sam.mof.instancemodel.MetaModelException {
-        hub.sam.mof.xmi.Xmi2Reader.readMofXmi(prepareXmiFileMap(in), extent, metaModel, XmiKind.md);
+    	XmiImportExport result = new XmiImportExport();
+        hub.sam.mof.xmi.Xmi2Reader.readMofXmi(prepareXmiFileMap(in), extent, metaModel, XmiKind.md, result);
+        return result;
     }
 
     public void loadXmiIntoExtent(Extent extent, Package metaModel, String xmiFileName, XmiKind type)
@@ -324,6 +333,13 @@ public class Repository extends hub.sam.util.Identity {
         hub.sam.mof.xmi.Xmi2Writer.writeMofXmi(new java.io.File(xmiFileName), model, metamodel, XmiKind.md);
     }
 
+    public void writeExtentToMagicDrawXmi(String xmiFileName, cmof.Package metamodel, Extent model, XmiImportExport importExport)
+    		throws java.io.IOException, hub.sam.mof.instancemodel.MetaModelException, hub.sam.mof.xmi.XmiException,
+    		org.jdom.JDOMException {
+    	hub.sam.mof.xmi.Xmi2Writer.writeMofXmi(new FileOutputStream(new java.io.File(xmiFileName)), model, 
+    			metamodel, XmiKind.md, importExport);
+    }
+    
     public void writeExtentToXmi(String xmiFileName, cmof.Package metamodel, Extent model, XmiKind kind)
             throws java.io.IOException, hub.sam.mof.instancemodel.MetaModelException, hub.sam.mof.xmi.XmiException,
             org.jdom.JDOMException {

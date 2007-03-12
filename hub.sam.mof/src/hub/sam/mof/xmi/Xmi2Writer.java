@@ -34,6 +34,7 @@ import hub.sam.mof.reflection.ExtentImpl;
 import hub.sam.mof.xmi.Xmi1Reader.XmiKind;
 import org.jdom.DefaultJDOMFactory;
 import org.jdom.Document;
+import org.jdom.Element;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
@@ -52,6 +53,8 @@ public class Xmi2Writer {
     private final org.jdom.Namespace xsi;
     private org.jdom.Element rootElement;
     private final Map<String, org.jdom.Namespace> nsForPrefix = new HashMap<String, org.jdom.Namespace>();
+    
+    private IIdProvider idProvider = null;
 
     private Xmi2Writer(String xsiNamespacePrefix) {
         super();
@@ -70,8 +73,12 @@ public class Xmi2Writer {
         }
         rootElement.setAttribute("version", "2.1", xmi);
     }
+    
+    public void setIdProvider(IIdProvider provider) {
+    	this.idProvider = provider;
+    }
 
-    private void write(InstanceModel<XmiClassifier,String,String> model, OutputStream out) throws XmiException, java.io.IOException {
+    private void write(InstanceModel<XmiClassifier,String,String> model, OutputStream out, Element additionalXmi) throws XmiException, java.io.IOException {
         for (ValueSpecification<XmiClassifier,String,String> instance: model.getOutermostComposites()) {
             org.jdom.Element element = jdom.element(instance.asInstanceValue().getInstance().getClassifier().getName());
             rootElement.addContent(element);
@@ -86,6 +93,16 @@ public class Xmi2Writer {
             write(instance.asInstanceValue().getInstance(), element);
         }
 
+        if (additionalXmi != null) {
+        	Collection<Element> children = new Vector<Element>();
+	        for (Object obj: additionalXmi.getChildren()) {
+	        	children.add((Element)obj);	       	        
+	        }
+	        for (Element additionalElement: children) {
+	        	additionalElement.detach();
+	        	rootElement.addContent(additionalElement);
+	        }
+        }
         new XMLOutputter(Format.getPrettyFormat()).output(document, out);
     }
 
@@ -99,14 +116,14 @@ public class Xmi2Writer {
     }
 
     private void write(ClassInstance<XmiClassifier,String,String> instance, org.jdom.Element parent) throws XmiException {
-        parent.setAttribute("id", instance.getId(), xmi);
+        parent.setAttribute("id", getId(instance), xmi);
         for(StructureSlot<XmiClassifier,String,String> slot: instance.getSlots()) {
             StringBuffer values = new StringBuffer();
             for (ValueSpecificationImpl<XmiClassifier,String,String> value: slot.getValues(null)) {
                 if (value.asInstanceValue() != null) {
                     ClassInstance<XmiClassifier,String,String> valueInstance = value.asInstanceValue().getInstance();
                     if (valueInstance.getComposite() != instance) {
-                        addValueToBuffer(values, valueInstance.getId());
+                        addValueToBuffer(values, getId(valueInstance));
                     } else {
                         org.jdom.Element element = jdom.element(slot.getProperty());
                         parent.addContent(element);
@@ -130,15 +147,28 @@ public class Xmi2Writer {
             }
         }
     }
-
-    public static void writeMofXmi(java.io.File file, Extent extent, cmof.Package m2, XmiKind xmiKind) throws java.io.IOException, XmiException, MetaModelException {
-    	writeMofXmi(new FileOutputStream(file), extent, m2, xmiKind);
+    
+    private String getId(ClassInstance<XmiClassifier, String, String> instance) {
+    	if (idProvider == null) {
+    		return instance.getId();
+    	} else {
+    		return (String)idProvider.getId(instance.getId());
+    	}
     }
     
+    public static void writeMofXmi(java.io.File file, Extent extent, cmof.Package m2, XmiKind xmiKind) throws java.io.IOException, XmiException, MetaModelException {
+    	writeMofXmi(new FileOutputStream(file), extent, m2, xmiKind, null);
+    }
+    
+    public static void writeMofXmi(OutputStream out, Extent extent, cmof.Package m2, XmiKind xmiKind) throws java.io.IOException, XmiException, MetaModelException {
+    	writeMofXmi(out, extent, m2, xmiKind, null);
+    }
+
     /**
      * Writes XMI with a m1 model of the given m2 into a xmi file. The extent must be based on a MofInstanceModel.
      */
-    public static void writeMofXmi(OutputStream out, Extent extent, cmof.Package m2, XmiKind xmiKind) throws java.io.IOException, XmiException, MetaModelException {
+    public static void writeMofXmi(OutputStream out, Extent extent, cmof.Package m2, XmiKind xmiKind,
+    		XmiImportExport importExport) throws java.io.IOException, XmiException, MetaModelException {
     	// check attriutes for is composite == false
     	for (Object o: extent.getObject()) {
     		if (o instanceof Property) {
@@ -152,8 +182,10 @@ public class Xmi2Writer {
         InstanceModel<XmiClassifier,String,String> xmiModel = new InstanceModel<XmiClassifier,String,String>();
         CMOFToXmi conversion = new CMOFToXmi(m2, "unknownNs");
 
-        new Converter<UmlClass, Property, java.lang.Object, XmiClassifier,String,String, String, String>(conversion).
-                convert(((ExtentImpl)extent).getModel(), xmiModel);
+        Converter<UmlClass, Property, java.lang.Object, XmiClassifier, String, String, String, String> converter =
+        		new Converter<UmlClass, Property, java.lang.Object, XmiClassifier,String,String, String, String>(conversion);
+        converter.setIdMemorizer(importExport);
+        converter.convert(((ExtentImpl)extent).getModel(), xmiModel);
 
         if (xmiKind == XmiKind.md) {
             XmiTransformator transformator = new MOF2ToMagicDrawXmi2(xmiModel);
@@ -170,6 +202,7 @@ public class Xmi2Writer {
         }
 
         Xmi2Writer writer = new Xmi2Writer((xmiKind == XmiKind.md)?"xmi":"xsi");
-        writer.write(xmiModel, out);
+        writer.setIdProvider(importExport);        
+        writer.write(xmiModel, out, (importExport == null) ? null : importExport.getXMI());
     }
 }

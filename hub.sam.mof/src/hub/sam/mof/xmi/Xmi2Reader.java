@@ -43,6 +43,8 @@ import org.jdom.JDOMException;
 import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
 
+import sun.tools.asm.Cover;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
@@ -60,10 +62,16 @@ public class Xmi2Reader {
     private static final String XMI_ROOT_ELEMENT = "XMI";
     private String actualNamespacePrefix = null;
     private String actualIdPrefix = null;
+    
+    private IIdMemorizer idMemorizer = null;
 
     public Xmi2Reader(InstanceModel<XmiClassifier, String, String> model) {
         super();
         this.model = model;
+    }
+    
+    public void setIdMemorizer(IIdMemorizer memorizer) {
+    	this.idMemorizer = memorizer;
     }
 
     /**
@@ -98,15 +106,15 @@ public class Xmi2Reader {
         }
     }
 
-    public void read(java.io.File file) throws JDOMException, java.io.IOException, XmiException, MetaModelException {
-        read(new SAXBuilder().build(file));
+    public Element read(java.io.File file) throws JDOMException, java.io.IOException, XmiException, MetaModelException {
+        return read(new SAXBuilder().build(file));
     }
 
-    public void read(InputStream in) throws JDOMException, IOException, XmiException, MetaModelException {
-        read(new SAXBuilder().build(in));
+    public Element read(InputStream in) throws JDOMException, IOException, XmiException, MetaModelException {
+        return read(new SAXBuilder().build(in));
     }
 
-    private void read(Document document) throws XmiException, MetaModelException {
+    private Element read(Document document) throws XmiException, MetaModelException {
         Element xmi = document.getRootElement();
         if (!xmi.getName().equals(XMI_ROOT_ELEMENT)) {
             throw new XmiException("Unexpected root element \"" + xmi.getName() + "\"");
@@ -138,6 +146,7 @@ public class Xmi2Reader {
                 readInstance(child);
             }
         }
+        return xmi;
     }
 
     private boolean ignoreHRefs(Element element) {
@@ -157,10 +166,18 @@ public class Xmi2Reader {
         String id = readXmiId(child, "id");
         actualNamespacePrefix = child.getNamespacePrefix();
         if (!ignoreElement(child)) {
-            ClassInstance<XmiClassifier, String, String> instance = model.createInstance(id,
+            ClassInstance<XmiClassifier, String, String> instance = createInstance(id,
                     new XmiClassifier(child.getName(), actualNamespacePrefix));
             readContentForInstance(child, instance);
         }
+    }
+    
+    private ClassInstance<XmiClassifier, String, String> createInstance(String id, XmiClassifier classifier) {
+    	ClassInstance<XmiClassifier, String, String> result = model.createInstance(id, classifier);
+    	if (idMemorizer != null) {
+    		idMemorizer.idChanges(id, result.getId());
+    	}
+    	return result;
     }
 
     @SuppressWarnings({"ReuseOfLocalVariable"})
@@ -221,7 +238,7 @@ public class Xmi2Reader {
 
                 if (!ignoreElement(child)) {
                     InstanceValue<XmiClassifier, String, String> instanceValue =
-                            model.createInstanceValue(model.createInstance(id, elementForChild));
+                            model.createInstanceValue(createInstance(id, elementForChild));
 
                     String oldNsPrefix = actualNamespacePrefix;
                     if (nsPrefix != null) {
@@ -250,7 +267,9 @@ public class Xmi2Reader {
         }
     }
 
-    private static void tranformMDXmi(ClassInstance<XmiClassifier, String, String> instance, Collection<ClassInstance<XmiClassifier, String, String>> toDelete, Collection<ClassInstance<XmiClassifier, String, String>> topLevel) {
+    private static void tranformMDXmi(ClassInstance<XmiClassifier, String, String> instance, 
+    		Collection<ClassInstance<XmiClassifier, String, String>> toDelete, 
+    		Collection<ClassInstance<XmiClassifier, String, String>> topLevel) {
         boolean hasHRef = false;
         for (StructureSlot<XmiClassifier, String, String> slot : instance.getSlots()) {
             if (slot.getProperty().equals("href")) {
@@ -287,17 +306,28 @@ public class Xmi2Reader {
         }
     }
 
-    public static void readMofXmi(Map<String, InputStream> xmi, Extent extent, cmof.Package m2, XmiKind xmiKind)
-            throws JDOMException, XmiException, MetaModelException, IOException {
+    public static void readMofXmi(Map<String, InputStream> xmi, Extent extent, cmof.Package m2, 
+    		XmiKind xmiKind) throws JDOMException, XmiException, MetaModelException, 
+    		IOException {
+    	readMofXmi(xmi, extent, m2, xmiKind, null);
+    }
+    
+    public static void readMofXmi(Map<String, InputStream> xmi, Extent extent, cmof.Package m2, 
+    		XmiKind xmiKind, XmiImportExport importExport) throws JDOMException, XmiException, MetaModelException, 
+    		IOException {
         InstanceModel<XmiClassifier, String, String> xmiModel = new InstanceModel<XmiClassifier, String, String>();
         Xmi2Reader reader = new Xmi2Reader(xmiModel);
+        reader.setIdMemorizer(importExport);
         if (xmi.size() > 1) {
             for (String key: xmi.keySet()) {
                 reader.setActualIdPrefix(key);
                 reader.read(xmi.get(key));
             }
         } else if (xmi.size() == 1) {
-            reader.read(xmi.values().iterator().next());
+        	Element xmiRootElement = reader.read(xmi.values().iterator().next());
+        	if (importExport != null) {
+        		importExport.setXMI(xmiRootElement);
+        	}
         }
 
         if (xmiKind == XmiKind.unisys) {
@@ -317,8 +347,8 @@ public class Xmi2Reader {
                     toDelete.add(outermostComposite.asInstanceValue().getInstance());
                 }
             }
-            for (ClassInstance<XmiClassifier, String, String> instance : toDelete) {
-                instance.delete();
+            for (ClassInstance<XmiClassifier, String, String> instance : toDelete) {            	
+            	instance.delete();            	
             }
 
             XmiTransformator transformator = new MagicDrawXmi2ToMOF2(xmiModel);
@@ -329,10 +359,12 @@ public class Xmi2Reader {
             }
         }
 
-        XmiToCMOF conversion = new XmiToCMOF(extent, m2);
+        XmiToCMOF conversion = new XmiToCMOF(extent, m2);        
         InstanceModel<UmlClass, Property, Object> mofModel = ((ExtentImpl) extent).getModel();
-        new Converter<XmiClassifier, String, String, UmlClass, Property, Type, DataType, java.lang.Object>(conversion).
-                convert(xmiModel, mofModel);
+        Converter<XmiClassifier, String, String, UmlClass, Property, Type, DataType, java.lang.Object> converter =
+        		new Converter<XmiClassifier, String, String, UmlClass, Property, Type, DataType, java.lang.Object>(conversion);
+        converter.setIdMemorizer(importExport);
+        converter.convert(xmiModel, mofModel);
         FactoryImpl factory = FactoryImpl.createFactory(extent, m2);
         for (ClassInstance<UmlClass, Property, Object> instance : mofModel.getInstances()) {
             factory.create(instance);

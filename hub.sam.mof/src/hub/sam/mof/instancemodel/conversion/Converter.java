@@ -25,6 +25,7 @@ import hub.sam.mof.instancemodel.MetaModelException;
 import hub.sam.mof.instancemodel.StructureSlot;
 import hub.sam.mof.instancemodel.ValueSpecification;
 import hub.sam.mof.instancemodel.ValueSpecificationImpl;
+import hub.sam.mof.xmi.IIdMemorizer;
 import hub.sam.mof.Repository;
 import hub.sam.util.AbstractFluxBox;
 
@@ -45,10 +46,16 @@ public class Converter <Co,Po,DataValueo,Ci,Pi,T,D,DataValuei> {
                 return targetModel.createInstance(key, params);
             }
     };
+    
+    private IIdMemorizer idMemorizer = null;
 
     public Converter(Conversion<Co,Po,DataValueo,Ci,Pi,T,D,DataValuei> conversion) {
         super();
         this.conversion = conversion;
+    }
+    
+    public void setIdMemorizer(IIdMemorizer memorizer) {
+    	idMemorizer = memorizer;
     }
 
     public void convert(InstanceModel<Co,Po, DataValueo> model, InstanceModel<Ci,Pi,DataValuei> targetModel)
@@ -127,6 +134,10 @@ public class Converter <Co,Po,DataValueo,Ci,Pi,T,D,DataValuei> {
                     throw e;
                 }
             }
+        }
+        
+        if (idMemorizer != null) {
+        	idMemorizer.idChanges(instance.getId(), targetInstance.getId());
         }
         return targetInstance;
     }
