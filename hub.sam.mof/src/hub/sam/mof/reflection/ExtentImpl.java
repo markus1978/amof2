@@ -72,6 +72,14 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
 
     public void setCustomImplementationsManager(ImplementationsManager manager) {
         implementationsManager = manager;
+        if (!bootstrap) {
+            for(cmof.reflection.Object object: objects) {
+                if (object instanceof ObjectImpl) {
+                    ObjectImpl objectImpl = (ObjectImpl)object;
+                    objectImpl.setImplementations(implementationsManager.getImplementationsForClassifier(objectImpl.getMetaClass()));
+                }                
+            }
+        }
     }
 
     private ExtentImpl(boolean bootstrap, String path) {

@@ -102,8 +102,13 @@ public class ClassInstance<C,P,DataValue> extends hub.sam.util.Identity {
     public final void setComposite(ClassInstance<C, P, DataValue> composite) {
         if (getComposite() != null && composite != null && composite != getComposite()) {        
         	Property name = (Property)Repository.getLocalRepository().getExtent(Repository.CMOF_EXTENT_NAME).query("Package:cmof/Class:NamedElement/Property:name");
-        	System.out.println(getComposite().get((P)name));
-        	System.out.println(composite.get((P)name));
+            try {
+                System.out.println(getComposite().get((P)name));
+                System.out.println(composite.get((P)name));
+            }
+            catch(Exception e) {
+                // empty
+            }
             throw new CompositeViolation(composite);
         }
         if (this.composite != null) {
