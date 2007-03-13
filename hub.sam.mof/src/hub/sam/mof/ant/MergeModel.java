@@ -1,6 +1,5 @@
 package hub.sam.mof.ant;
 
-import cmof.reflection.Extent;
 import hub.sam.mof.Repository;
 import hub.sam.mof.Tools;
 import hub.sam.mof.codegeneration.GenerationException;
@@ -10,8 +9,6 @@ import hub.sam.mof.xmi.Xmi1Reader;
 import hub.sam.mof.xmi.Xmi2Reader;
 import hub.sam.mof.xmi.XmiException;
 import hub.sam.util.AbstractClusterableException;
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Task;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,6 +18,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Task;
+
+import cmof.reflection.Extent;
 
 
 public class MergeModel extends Task {
@@ -68,12 +70,14 @@ public class MergeModel extends Task {
             Tools.repairBadOMGUmlMultiplicities(m2);
 
             cmof.Package pkg = (cmof.Package)m2.query(packageToMerge);
+            pkg.getOwnedElement().size();
+            pkg.getPackageMerge().iterator().next().getMergedPackage().getOwnedElement().size();
             if (pkg == null) {
                 throw new BuildException("Package to merge not found");
             }
-            MergeContext.mergePackages(pkg, (cmof.cmofFactory)repo.createFactory(m2, cmof), null);
+            MergeContext.mergePackages(pkg, (cmof.cmofFactory)repo.createFactory(m2, cmof), null);          
             Tools.removeFoldedImports(m2);
-
+            
             Collection<cmof.reflection.Object> toDelete = new Vector<cmof.reflection.Object>();
             for(cmof.reflection.Object obj: m2.getObject()) {
                 if (obj instanceof cmof.Package && !pkg.equals(obj)) {
@@ -86,7 +90,7 @@ public class MergeModel extends Task {
             			((ObjectImpl)obj).getClassInstance().isValid()) {
                     obj.delete();
                 }
-            }
+            }          
 
             repo.writeExtentToXmi(dest.getPath(), cmof, m2);
         } catch (XmiException xe) {

@@ -42,6 +42,9 @@ public class DefaultMergeConfiguration implements MergeConfiguration {
         knownConflicts.put("L2.Pin.isAbstract, UML.Activities.CompleteActivities.Pin.isAbstract, UML.Activities.CompleteStructuredActivities.Pin.isAbstract, UML.Activities.ExtraStructuredActivities.Pin.isAbstract, UML.CompositeStructures.StructuredActivities.Pin.isAbstract, null.isAbstract", Boolean.FALSE);
         knownConflicts.put("L2.Port.required.type, UML.Components.PackagingComponents.Port.required.type, UML.Deployments.ComponentDeployments.Port.required.type, UML.StateMachines.ProtocolStateMachines.Port.required.type, null.type", "L2.Interface");
         knownConflicts.put("L2.Port.provided.type, UML.Components.PackagingComponents.Port.provided.type, UML.Deployments.ComponentDeployments.Port.provided.type, UML.StateMachines.ProtocolStateMachines.Port.provided.type, null.type", "L2.Interface");
+        knownConflicts.put("UML.Actions.BasicActions.Pin.isAbstract, UML.Activities.BasicActivities.Pin.isAbstract, UML.Activities.FundamentalActivities.Pin.isAbstract, UML.Activities.IntermediateActivities.Pin.isAbstract, UML.Activities.StructuredActivities.Pin.isAbstract, UML.CompositeStructures.InvocationActions.Pin.isAbstract, null.isAbstract", Boolean.FALSE);        							
+        knownConflicts.put("InfrastructureLibrary.Core.Constructs.Property.subsettingContext.null.type, L1.Property.subsettingContext.null.type, UML.Actions.IntermediateActions.Property.subsettingContext.null.type, UML.Activities.IntermediateActivities.Property.subsettingContext.null.type, UML.Activities.StructuredActivities.Property.subsettingContext.null.type, UML.CommonBehaviors.SimpleTime.Property.subsettingContext.null.type, UML.Components.BasicComponents.Property.subsettingContext.null.type, UML.CompositeStructures.InvocationActions.Property.subsettingContext.null.type, UML.CompositeStructures.Ports.Property.subsettingContext.null.type, UML.CompositeStructures.StructuredClasses.Property.subsettingContext.null.type, UML.Deployments.Nodes.Property.subsettingContext.null.type, UML.Interactions.Fragments.Property.subsettingContext.null.type, UML.StateMachines.BehaviorStateMachines.Property.subsettingContext.null.type, null.type", "L1.Type");
+        knownConflicts.put("InfrastructureLibrary.Core.Constructs.VisibilityKind.bestVisibility.null.type, L1.VisibilityKind.bestVisibility.null.type, UML.Actions.IntermediateActions.VisibilityKind.bestVisibility.null.type, UML.Activities.IntermediateActivities.VisibilityKind.bestVisibility.null.type, UML.Activities.StructuredActivities.VisibilityKind.bestVisibility.null.type, UML.CommonBehaviors.SimpleTime.VisibilityKind.bestVisibility.null.type, UML.Components.BasicComponents.VisibilityKind.bestVisibility.null.type, UML.CompositeStructures.InvocationActions.VisibilityKind.bestVisibility.null.type, UML.CompositeStructures.Ports.VisibilityKind.bestVisibility.null.type, UML.CompositeStructures.StructuredClasses.VisibilityKind.bestVisibility.null.type, UML.Deployments.Nodes.VisibilityKind.bestVisibility.null.type, UML.Interactions.Fragments.VisibilityKind.bestVisibility.null.type, UML.StateMachines.BehaviorStateMachines.VisibilityKind.bestVisibility.null.type, null.type", "L1.VisibilityKind");
     }
 
     private final Map<String, Object> conflicts;
@@ -259,6 +262,15 @@ public class DefaultMergeConfiguration implements MergeConfiguration {
                             return value;
                         }
                     }
+                }
+                System.out.println("predefined conflict solution is not among the possible values");
+                System.out.println("    possible values are: ");
+                for (Object value: values) {
+                	if (value instanceof NamedElement) {
+                		System.out.println("        " + ((NamedElement)value).getQualifiedName());
+                	} else {
+                		System.out.println("        " + value);
+                	}
                 }
             }
         }

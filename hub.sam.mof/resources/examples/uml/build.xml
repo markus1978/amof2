@@ -1,4 +1,4 @@
-<project name = "UML" default="compile" basedir=".">
+<project name = "UML" default="compile CD" basedir=".">
 	<description>
         UML
 	</description>
@@ -25,7 +25,7 @@
         <taskdef name="mofmerge" classname="hub.sam.mof.ant.MergeModel" classpathref="classpath" />
     </target>
 
-	<target name="prepare" depends="init">
+	<target name="prepare CD" depends="init">
         <mofmerge dest="${basedir}/resources/models/CD.merged.cmof.xml" packageToMerge="Package:uml">
             <xmifile key="Infrastructure.cmof" file="${basedir}/../../models/uml/Infrastructure.cmof.xml"/>
             <xmifile key="Superstructure.cmof" file="${basedir}/../../models/uml/Superstructure.cmof.xml"/>
@@ -38,16 +38,15 @@
         <ant antfile="${basedir}/../../../build.xml" dir="${basedir}/../../../" target="compile" inheritAll="false"/>
     </target>
 
-    <target name="compile" depends="prepare, init">
-		<javac debug="on" destdir="${build-dir}" source="1.5" nowarn="yes" memorymaximumsize="100m" fork="true">
-			<src refid="sourcepath"/>
-			<classpath refid="classpath"/>
-		</javac>
+    <target name="compile CD" depends="prepare CD">
+		<antcall target="compile"/>
 	</target>
 
     <target name="clean">
 		<delete dir="${build-dir}"/>
 		<delete dir="${basedir}/generated-src"/>
+    	<delete file="${basedir}/resources/models/CD.merged.cmof.xml"/>
+    	<delete file="${basedir}/resources/models/L3.merged.cmof.xml"/>
 	</target>
 
     <target name="test" depends="compile">
@@ -57,16 +56,27 @@
 			<test name="umltest.ReadASampleModel"/>
 		</junit>
     </target>
+
+	<target name="compile">
+		<javac debug="on" destdir="${build-dir}" source="1.5" nowarn="yes" memorymaximumsize="100m" fork="true">
+			<src refid="sourcepath"/>
+			<classpath refid="classpath"/>
+	</javac>
+	</target>
+	
+	<target name="compile L3" depends="prepare L3">
+		<antcall target="compile"/>
+	</target>
     
-    <target name="UML L3 generation" depends="init">
-        <!--<mofmerge dest="${basedir}/resources/models/L3.merged.cmof.xml" packageToMerge="Package:L3">
+    <target name="prepare L3" depends="init">
+        <mofmerge dest="${basedir}/resources/models/L3.merged.cmof.xml" packageToMerge="Package:L3">
             <xmifile key="Infrastructure.cmof" file="${basedir}/../../models/uml/Infrastructure.cmof.xml"/>
             <xmifile key="Superstructure.cmof" file="${basedir}/../../models/uml/Superstructure.cmof.xml"/>
             <xmifile key="L0.cmof" file="${basedir}/resources/models/L0.cmof.xml"/>
             <xmifile key="L1.cmof" file="${basedir}/resources/models/L1.cmof.xml"/>
             <xmifile key="L2.cmof" file="${basedir}/resources/models/L2.cmof.xml"/>
             <xmifile key="L3.cmof" file="${basedir}/resources/models/L3.cmof.xml"/>
-        </mofmerge>-->
+        </mofmerge>
     	<mofgencode src="${basedir}/resources/models/L3.merged.cmof.xml" destdir="${basedir}/generated-src"/>
     </target>
 </project>

@@ -4,6 +4,9 @@
     <packageMerge xmi:type="cmof:PackageMerge" xmi:id="_packageMerge.0">
       <mergedPackage xmi:type="cmof:Package" href="L1.cmof#_0"/>
     </packageMerge>
+    <packageMerge xmi:type="cmof:PackageMerge" xmi:id="_packageMerge.x1">
+      <mergedPackage xmi:type="cmof:Package" href="Infrastructure.cmof#Core-Constructs"/>
+    </packageMerge>
     <packageMerge xmi:type="cmof:PackageMerge" xmi:id="_packageMerge.1">
       <mergedPackage xmi:type="cmof:Package" href="Superstructure.cmof#Activities-IntermediateActivities"/>
     </packageMerge>
