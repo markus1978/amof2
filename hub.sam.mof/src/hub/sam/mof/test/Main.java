@@ -19,6 +19,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.test;
 
+import hub.sam.mof.test.bugs.MisreadAggregationOnMDImport;
 import hub.sam.mof.test.bugs.ReflectiveSequenceExtension;
 import hub.sam.mof.test.bugs.ReflectiveSequenceTest;
 import hub.sam.mof.test.lib.abstractions.behavioralfeatures.TestIsDistinguishAbleFrom;
@@ -33,8 +34,8 @@ import hub.sam.mof.test.lib.abstractions.ownerships.TestElement;
 import hub.sam.mof.test.lib.abstractions.redefinitions.TestRedfinableElement;
 import hub.sam.mof.test.lib.abstractions.umlsuper.TestClassifier;
 import hub.sam.mof.test.qualifier.QualifierTest;
-import junit.framework.TestCase;
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 @SuppressWarnings({"OverlyCoupledClass"})
@@ -74,7 +75,8 @@ public class Main extends TestCase {
         suite.addTestSuite(OclTest.class);
         
         suite.addTestSuite(ReflectiveSequenceTest.class);
-
+        suite.addTestSuite(MisreadAggregationOnMDImport.class);
+        
         return suite;
     }
 }

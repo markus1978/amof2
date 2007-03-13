@@ -198,7 +198,7 @@ public class MagicDrawXmi2ToMOF2 extends PatternClass implements XmiTransformato
             }
             removeAttribute(p, "aggregation");
         } else {
-            if (p.get("association") == null) {
+            if (p.get("association") == null && p.get("owningAssociation") == null) {
                 p.addValue("isComposite", model.createPrimitiveValue("true"), null);
             }
         }

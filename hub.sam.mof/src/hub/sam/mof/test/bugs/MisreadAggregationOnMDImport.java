@@ -1,4 +1,4 @@
-package hub.sam.tools.tests;
+package hub.sam.mof.test.bugs;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ import cmof.Package;
 import cmof.Property;
 import cmof.reflection.Extent;
 
-public class CompositeViolationTest extends TestCase {
+public class MisreadAggregationOnMDImport extends TestCase {
     
     private Repository repository;
     private Extent m3Extent;
