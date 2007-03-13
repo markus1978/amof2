@@ -20,10 +20,15 @@
 
 package hub.sam.mas.editor.actions;
 
-import hub.sam.mas.management.MASEditorMOFModelFactory;
-import hub.sam.mas.management.MASRepository;
+import hub.sam.mas.management.GenericMasMofModelManager;
+import hub.sam.mas.management.MasRepository;
+import hub.sam.mas.management.MofModel;
+import hub.sam.mas.management.PluginMasXmiFiles;
+import hub.sam.mas.management.MasXmiFiles;
+import hub.sam.mof.Repository;
 import hub.sam.mof.plugin.modelview.tree.RepositoryTreeObject;
 
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -48,8 +53,26 @@ public class AddMASContextAction extends Mof2PluginAction {
         }
         
         try {
-            MASEditorMOFModelFactory masFactory = new MASEditorMOFModelFactory(true, dialog.getFilterPath(), dialog.getFileName());
-            MASRepository.getInstance().createMASContext(masFactory);
+            MasXmiFiles xmiFiles = new PluginMasXmiFiles(new Path(dialog.getFilterPath()), dialog.getFileName());
+
+            Repository repository = Repository.getLocalRepository();
+            GenericMasMofModelManager modelManager = new GenericMasMofModelManager(repository);
+            modelManager.loadMasMetaModelFromXmi( xmiFiles.getSemanticMetaFile() );
+            modelManager.loadMasModelFromXmi( xmiFiles.getSemanticFile() );
+            modelManager.setSyntaxMetaModel( modelManager.getCmofModel() );
+            
+            // do not load model twice if syntax model is the same as mas meta-model
+            if (xmiFiles.getSyntaxFile().equals(xmiFiles.getSemanticMetaFile())) {
+                MofModel masMetaModel = modelManager.getMasModel().getMetaModel();
+                MofModel petrinetMetaModel = new MofModel(repository, modelManager.getCmofModel(), null,
+                        masMetaModel.getExtent(), masMetaModel.getExtentName(), null);
+                modelManager.setSyntaxModel( petrinetMetaModel );
+            }
+            else {
+                modelManager.loadSyntaxModelFromXmi( xmiFiles.getSyntaxFile() );
+            }
+            
+            MasRepository.getInstance().createMasContext(modelManager);
         }
         catch (Exception e) {
             MessageDialog.openError(

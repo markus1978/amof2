@@ -20,7 +20,7 @@
 
 package hub.sam.mas.model.mas;
 
-import hub.sam.mas.editor.editor.MaseEditDomain;
+import hub.sam.mas.editor.MaseEditDomain;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

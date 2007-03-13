@@ -18,22 +18,36 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.editor.actions;
+package hub.sam.mas.management;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
 
-public class DeleteBehaviourAction extends MasAction {
+public class SimpleMasXmiFiles implements MasXmiFiles {
     
-    public void run(IAction action) {
-        if (MessageDialog.openConfirm(getModelView().getSite().getShell(), "Confirm delete ...", "Are you sure?")) {
-            getLinkFromSelection().delete();
-        }
+    private String syntaxFile;
+    private String semanticFile;
+    
+    public SimpleMasXmiFiles(String pathToContextFile, String contextFile) throws FileNotFoundException, IOException {
+        Properties properties = new Properties();
+        properties.load(new FileInputStream( pathToContextFile.concat(contextFile) ));
+        
+        syntaxFile = pathToContextFile.concat( (String) properties.get("syntax") );
+        semanticFile = pathToContextFile.concat( (String) properties.get("semantic") );
     }
 
-    @Override
-    protected boolean shouldEnable() {
-        return getLinkFromSelection() != null;
+    public String getSemanticFile() {
+        return semanticFile;
+    }
+
+    public String getSyntaxFile() {
+        return syntaxFile;
+    }
+
+    public String getSemanticMetaFile() {
+        return semanticMetaFileRelative;
     }
 
 }

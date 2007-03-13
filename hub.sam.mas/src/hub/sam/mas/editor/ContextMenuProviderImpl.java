@@ -18,7 +18,7 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.editor.editor;
+package hub.sam.mas.editor;
 
 import org.eclipse.jface.action.*;
 import org.eclipse.gef.*;

@@ -5,7 +5,7 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="hub.sam.mas.editor.editor.MaseEditor"
+            class="hub.sam.mas.editor.MaseEditor"
             default="true"
             extensions="asxml"
             icon="icons/alt_window_16.gif"

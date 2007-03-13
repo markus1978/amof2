@@ -20,7 +20,7 @@
 
 package hub.sam.mas.editor.editparts;
 
-import hub.sam.mas.editor.editor.MaseEditDomain;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.properties.ExpansionRegionPropertySource;
 import hub.sam.mas.editor.editpolicies.ExpansionRegionComponentEditPolicy;
 import hub.sam.mas.editor.editpolicies.ExpansionRegionContainerEditPolicy;

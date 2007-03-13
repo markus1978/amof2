@@ -20,7 +20,7 @@
 
 package hub.sam.mas.editor.figures;
 
-import hub.sam.mas.editor.editor.MaseEditDomain;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.model.mas.ActionKind;
 
 import org.apache.log4j.Logger;

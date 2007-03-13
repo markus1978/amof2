@@ -22,7 +22,7 @@ package hub.sam.mas.editor.editparts;
 
 import java.beans.PropertyChangeEvent;
 
-import hub.sam.mas.editor.editor.MaseEditDomain;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.properties.ContextExtensionPinPropertySource;
 import hub.sam.mas.editor.figures.ContextExtensionPinFigure;
 import hub.sam.mas.model.mas.ContextExtensionPin;

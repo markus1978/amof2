@@ -20,7 +20,7 @@
 
 package hub.sam.mas.editor.editparts;
 
-import hub.sam.mas.editor.editor.MaseEditDomain;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.properties.OpaqueActionPropertySource;
 import hub.sam.mas.editor.editpolicies.ActionContainerEditPolicy;
 import hub.sam.mas.editor.editpolicies.OpaqueActionDirectEditPolicy;

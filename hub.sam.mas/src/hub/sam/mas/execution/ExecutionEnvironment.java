@@ -16,18 +16,18 @@ public class ExecutionEnvironment extends AnalysisEnvironment {
 		
 	private final Extent m1Extent;
 	private final Map<Package, Factory> factories = new HashMap<Package, Factory>();
-	private final Repository repo;
+	private final Repository repository;
 	
-	public ExecutionEnvironment(Extent m1Extent, Extent m2Extent, Repository repo) {
-		super(m2Extent, repo);
-		this.repo = repo;
+	public ExecutionEnvironment(Extent m1Extent, Extent m2Extent, Repository repository) {
+		super(m2Extent, repository);
+		this.repository = repository;
 		this.m1Extent = m1Extent;
 	}	
 	
 	private Factory getFactoryForPackage(Package forPackage) {
 		Factory result = factories.get(forPackage);
 		if (result == null) {
-			result = repo.createFactory(m1Extent, forPackage);
+			result = repository.createFactory(m1Extent, forPackage);
 			factories.put(forPackage, result);
 		}
 		return result;
@@ -40,4 +40,5 @@ public class ExecutionEnvironment extends AnalysisEnvironment {
 	public Object evaluateInvariant(String invariant, NamedElement context, java.lang.Object self) {		
 		return MofOclProcessor.evaluateExpression(invariant, context, getOclEnvironment(), MofOclProcessor.createRuntimeEnvironment(self));
 	}
+    
 }

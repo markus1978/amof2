@@ -33,7 +33,7 @@ import org.eclipse.draw2d.text.TextFlow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 
-import hub.sam.mas.editor.editor.MaseEditDomain;
+import hub.sam.mas.editor.MaseEditDomain;
 
 public class ValueNodeFigure extends RectangleFigure implements EditableFigure {
 

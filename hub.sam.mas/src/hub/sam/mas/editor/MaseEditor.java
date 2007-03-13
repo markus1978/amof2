@@ -18,7 +18,7 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.editor.editor;
+package hub.sam.mas.editor;
 
 import hub.sam.mas.MasPlugin;
 import hub.sam.mas.editor.actions.CreateGuardSpecificationAction;
@@ -85,20 +85,22 @@ import java.beans.PropertyChangeListener;
 import java.io.*;
 
 import org.eclipse.core.runtime.FileLocator;
+import org.osgi.framework.Bundle;
 
 public class MaseEditor extends GraphicalEditorWithPalette {
     
     public MaseEditor() {
         super();
         MaseEditDomain editDomain = new MaseEditDomain(this);
-        PropertyConfigurator.configure("resources/log4j.properties");
-
-        org.osgi.framework.Bundle bundle = MasPlugin.getDefault().getBundle();
-        try {            
-            InputStream propertiesInputStream = FileLocator.openStream(bundle, new Path("resources/mase.properties"), false);
-            Properties properties = new Properties();
-            properties.load(propertiesInputStream);
-            MaseEditDomain.setProperties(properties);
+        
+        Bundle masBundle = MasPlugin.getDefault().getBundle();
+        try {
+            PropertyConfigurator.configure(FileLocator.toFileURL(masBundle.getEntry("resources/log4j.properties")));
+            
+            InputStream inputStream = FileLocator.openStream(masBundle, new Path("resources/mase.properties"), false);
+            Properties maseProperties = new Properties();
+            maseProperties.load(inputStream);
+            MaseEditDomain.setProperties(maseProperties);
         }
         catch(IOException e) {
             System.out.println("IOException while trying to open InputStream to mase.properties");

@@ -19,7 +19,7 @@
 
 package hub.sam.mas.editor.test;
 
-import static hub.sam.mas.editor.editor.MaseEditDomain.*;
+import static hub.sam.mas.editor.MaseEditDomain.*;
 
 import java.util.ArrayList;
 import java.util.List;

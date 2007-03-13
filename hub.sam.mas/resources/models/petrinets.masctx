@@ -1,0 +1,2 @@
+syntax = mas.mdxml
+semantic =  petrinets.semantic.xml

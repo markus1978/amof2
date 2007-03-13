@@ -22,7 +22,7 @@ package hub.sam.mas.editor.editparts;
 
 import java.beans.PropertyChangeEvent;
 
-import hub.sam.mas.editor.editor.MaseEditDomain;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.properties.ValueNodePropertySource;
 import hub.sam.mas.editor.editpolicies.ValueNodeDirectEditPolicy;
 import hub.sam.mas.editor.figures.ValueNodeFigure;

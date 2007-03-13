@@ -18,22 +18,22 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.editor.actions;
+package hub.sam.mas.management;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
+/**
+ * Signals that loading an xmi file failed and that a MofModel could not be created.
+ * 
+ */
+public class LoadException extends MofModelException {
 
-public class DeleteBehaviourAction extends MasAction {
+    private static final long serialVersionUID = 1L;
+
+    public LoadException(String file, Throwable cause) {
+        super(file, cause);
+    }
     
-    public void run(IAction action) {
-        if (MessageDialog.openConfirm(getModelView().getSite().getShell(), "Confirm delete ...", "Are you sure?")) {
-            getLinkFromSelection().delete();
-        }
+    public LoadException(String file) {
+        super(file);
     }
-
-    @Override
-    protected boolean shouldEnable() {
-        return getLinkFromSelection() != null;
-    }
-
+    
 }

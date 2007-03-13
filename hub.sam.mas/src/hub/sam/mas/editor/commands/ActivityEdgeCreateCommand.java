@@ -22,7 +22,7 @@ package hub.sam.mas.editor.commands;
 
 import org.eclipse.gef.RootEditPart;
 
-import hub.sam.mas.editor.editor.MaseEditDomain;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.ActivityNodeEditPart;
 import hub.sam.mas.model.mas.Activity;
 import hub.sam.mas.model.mas.ActivityEdge;

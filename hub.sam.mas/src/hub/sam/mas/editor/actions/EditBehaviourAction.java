@@ -21,27 +21,26 @@
 package hub.sam.mas.editor.actions;
 
 import hub.sam.mas.MasPlugin;
-import hub.sam.mas.editor.editor.IMaseEditorInput;
-import hub.sam.mas.editor.editor.MaseEditorInput;
-import hub.sam.mas.management.MASContext;
-import hub.sam.mas.management.MASLink;
+import hub.sam.mas.editor.IMaseEditorInput;
+import hub.sam.mas.editor.MaseEditorInput;
+import hub.sam.mas.management.MasContext;
+import hub.sam.mas.management.MasLink;
 import hub.sam.mas.model.mas.Activity;
 import hub.sam.mas.model.mas.MaseCreationFactory;
 import hub.sam.mas.model.mas.masFactory;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
-public class EditBehaviourAction extends MASAction {
+public class EditBehaviourAction extends MasAction {
 
     public void run(IAction action) {
-        MASLink link = getLinkFromSelection();
+        MasLink link = getLinkFromSelection();
         if (link == null) {
-            MASContext masContext = getMASContextFromSelection();
-            MaseCreationFactory maseFactory = new MaseCreationFactory((masFactory) masContext.getSemanticModel().getFactory(),
+            MasContext masContext = getMASContextFromSelection();
+            MaseCreationFactory maseFactory = new MaseCreationFactory((masFactory) masContext.getMasModel().getFactory(),
                     Activity.class);
             Activity activity = maseFactory.createActivity();
             link = masContext.createLink(currentOperation, activity);

@@ -18,9 +18,12 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.management;
+package hub.sam.mas.editor;
 
-public interface MOFModelFactory {
-    public MOFModel createSyntaxModel() throws MOFModelException;
-    public MOFModel createSemanticModel() throws MOFModelException;;
+import hub.sam.mas.management.MasLink;
+
+import org.eclipse.ui.IEditorInput;
+
+public interface IMaseEditorInput extends IEditorInput {
+    public MasLink getLink();
 }

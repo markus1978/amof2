@@ -20,7 +20,7 @@
 
 package hub.sam.mas.editor.editparts;
 
-import hub.sam.mas.editor.editor.MaseEditDomain;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.properties.OutputPinPropertySource;
 import hub.sam.mas.editor.figures.PinFigure;
 import hub.sam.mas.model.mas.OutputPin;

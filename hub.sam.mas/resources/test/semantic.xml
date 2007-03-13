@@ -1,7 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:Mase="http://www.foo.org/Mase" xmi:version="2.1">
-  <Mase:Activity xmi:id="6012" linkId="mas-id-1169604833">
-    <node xmi:id="6013" activityAsNode="6012" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAGcAAABl&#xA;" xsi:type="FinalNode" />
-  </Mase:Activity>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:mas="http://www.foo.org/mas" xmi:version="2.1">
+  <mas:Activity xmi:id="7478" linkId="mas-id-1169604833">
+    <edge xmi:id="7512" activity="7478" target="7510" source="7513" xsi:type="ControlFlow" />
+    <edge xmi:id="7506" activity="7478" target="7490" source="7507" xsi:type="ControlFlow" />
+    <edge xmi:id="7491" activity="7478" target="7492" source="7490" xsi:type="ControlFlow" />
+    <edge xmi:id="7493" activity="7478" target="7494" source="7492" xsi:type="ControlFlow" />
+    <edge xmi:id="7495" activity="7478" target="7488" source="7494" xsi:type="ControlFlow" />
+    <edge xmi:id="7489" activity="7478" target="7490" source="7488" xsi:type="ControlFlow" />
+    <edge xmi:id="7504" activity="7478" target="7481" source="7490" xsi:type="ControlFlow" />
+    <edge xmi:id="7482" activity="7478" target="7484" source="7481" xsi:type="ControlFlow" />
+    <edge xmi:id="7485" activity="7478" target="7486" source="7484" xsi:type="ControlFlow" />
+    <edge xmi:id="7487" activity="7478" target="7488" source="7486" xsi:type="ControlFlow" />
+    <edge xmi:id="7520" activity="7478" target="7521" source="7488" xsi:type="ControlFlow" />
+    <edge xmi:id="7522" activity="7478" target="7481" source="7521" xsi:type="ControlFlow" />
+    <edge xmi:id="7515" activity="7478" target="7513" source="7481" xsi:type="ControlFlow" />
+    <edge xmi:id="7509" activity="7478" target="7507" source="7510" xsi:type="ControlFlow" />
+    <edge xmi:id="7531" activity="7478" target="7529" source="7532" xsi:type="ControlFlow" />
+    <edge xmi:id="7528" activity="7478" target="7486" source="7529" xsi:type="ControlFlow" />
+    <edge xmi:id="7530" activity="7478" target="7484" source="7529" xsi:type="ControlFlow" />
+    <node xmi:id="7479" activityAsNode="7478" initialTokesn="1" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAMEAAABy&#xA;" xsi:type="InitialNode" />
+    <node xmi:id="7480" activityAsNode="7478" initialTokesn="0" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAANMAAAES&#xA;" xsi:type="FinalNode" />
+    <node xmi:id="7481" activityAsNode="7478" initialTokesn="0" outgoing="7482 7515" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAP4AAACR&#xA;" actionBody="empty" incoming="7504 7522" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7539" action="7481" xsi:type="InputPinList" />
+      <outputList xmi:id="7538" action="7481" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7540" activityAsNode="7478" initialTokesn="0" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAXAAAAEs&#xA;" xsi:type="FinalNode" />
+    <node xmi:id="7541" activityAsNode="7478" initialTokesn="1" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAFoAAABm&#xA;" xsi:type="InitialNode" />
+    <node xmi:id="7513" activityAsNode="7478" initialTokesn="0" outgoing="7512" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAEIAAACu&#xA;" actionBody="empty" incoming="7515" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7516" action="7513" xsi:type="InputPinList" />
+      <outputList xmi:id="7514" action="7513" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7542" activityAsNode="7478" initialTokesn="1" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAWYAAABz&#xA;" xsi:type="InitialNode" />
+    <node xmi:id="7532" activityAsNode="7478" initialTokesn="0" outgoing="7531" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAmMAAAC4&#xA;" actionBody="empty" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7534" action="7532" xsi:type="InputPinList" />
+      <outputList xmi:id="7533" action="7532" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7484" activityAsNode="7478" initialTokesn="0" outgoing="7485" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAckAAACq&#xA;" actionBody="empty" incoming="7482 7530" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7537" action="7484" xsi:type="InputPinList" />
+      <outputList xmi:id="7536" action="7484" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7510" activityAsNode="7478" initialTokesn="0" outgoing="7509" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAGQAAAEw&#xA;" actionBody="empty" incoming="7512" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7517" action="7510" xsi:type="InputPinList" />
+      <outputList xmi:id="7511" action="7510" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7490" activityAsNode="7478" initialTokesn="0" outgoing="7491 7504" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAQYAAAFf&#xA;" actionBody="empty" incoming="7506 7489" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7519" action="7490" xsi:type="InputPinList" />
+      <outputList xmi:id="7505" action="7490" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7507" activityAsNode="7478" initialTokesn="0" outgoing="7506" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAGkAAAF4&#xA;" actionBody="empty" incoming="7509" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7518" action="7507" xsi:type="InputPinList" />
+      <outputList xmi:id="7508" action="7507" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7492" activityAsNode="7478" initialTokesn="0" outgoing="7493" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAPwAAAG1&#xA;" actionBody="empty" incoming="7491" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7503" action="7492" xsi:type="InputPinList" />
+      <outputList xmi:id="7502" action="7492" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7488" activityAsNode="7478" initialTokesn="0" outgoing="7489 7520" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAdIAAAGP&#xA;" actionBody="empty" incoming="7495 7487" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7526" action="7488" xsi:type="InputPinList" />
+      <outputList xmi:id="7525" action="7488" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7486" activityAsNode="7478" initialTokesn="0" outgoing="7487" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAksAAAFO&#xA;" actionBody="empty" incoming="7485 7528" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7535" action="7486" xsi:type="InputPinList" />
+      <outputList xmi:id="7527" action="7486" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7543" activityAsNode="7478" initialTokesn="0" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAALgAAAJj&#xA;" actionBody="empty" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7545" action="7543" xsi:type="InputPinList" />
+      <outputList xmi:id="7544" action="7543" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7546" activityAsNode="7478" initialTokesn="0" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAALIAAAIb&#xA;" actionBody="empty" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7548" action="7546" xsi:type="InputPinList" />
+      <outputList xmi:id="7547" action="7546" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7494" activityAsNode="7478" initialTokesn="0" outgoing="7495" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAeUAAAH3&#xA;" actionBody="empty" incoming="7493" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7501" action="7494" xsi:type="InputPinList" />
+      <outputList xmi:id="7499" action="7494" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7521" activityAsNode="7478" initialTokesn="0" outgoing="7522" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAWMAAADv&#xA;" actionBody="empty" incoming="7520" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7524" action="7521" xsi:type="InputPinList" />
+      <outputList xmi:id="7523" action="7521" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7549" activityAsNode="7478" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAARgAAAA4&#xA;" name="empty" margin="8" xsi:type="ValueNode" />
+    <node xmi:id="7550" activityAsNode="7478" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAEUAAAAt&#xA;" name="empty" margin="8" xsi:type="ValueNode" />
+    <node xmi:id="7551" activityAsNode="7478" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAl4AAABd&#xA;" name="empty" margin="8" xsi:type="ValueNode" />
+    <node xmi:id="7552" activityAsNode="7478" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAfIAAACG&#xA;" name="empty" margin="8" xsi:type="ValueNode" />
+    <node xmi:id="7553" activityAsNode="7478" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAW/////wAAACcAAACM&#xA;" name="empty" margin="8" xsi:type="ValueNode" />
+    <node xmi:id="7554" activityAsNode="7478" initialTokesn="0" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAd4AAAA8&#xA;" actionBody="empty" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="7556" action="7554" xsi:type="InputPinList" />
+      <outputList xmi:id="7555" action="7554" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="7557" activityAsNode="7478" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAakAAAB3&#xA;" name="empty" margin="8" xsi:type="ValueNode" />
+    <node xmi:id="7529" activityAsNode="7478" initialTokesn="0" outgoing="7528 7530" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAq8AAAD5&#xA;" incoming="7531" xsi:type="ForkNode" />
+  </mas:Activity>
 </xmi:XMI>
 

@@ -18,22 +18,22 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.editor.actions;
+package hub.sam.mas.management;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
+/**
+ * Signals that saving an xmi file failed.
+ * 
+ */
+public class SaveException extends MofModelException {
 
-public class DeleteBehaviourAction extends MasAction {
+    private static final long serialVersionUID = 1L;
+
+    public SaveException(String file, Throwable cause) {
+        super(file, cause);
+    }
     
-    public void run(IAction action) {
-        if (MessageDialog.openConfirm(getModelView().getSite().getShell(), "Confirm delete ...", "Are you sure?")) {
-            getLinkFromSelection().delete();
-        }
+    public SaveException(String file) {
+        super(file);
     }
-
-    @Override
-    protected boolean shouldEnable() {
-        return getLinkFromSelection() != null;
-    }
-
+    
 }

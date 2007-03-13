@@ -18,4 +18,18 @@ Eclipse-LazyStart: true
 Eclipse-RegisterBuddy: hub.sam.mof
 Bundle-ClassPath: resources/lib/junit.jar,
  resources/lib/log4j-1.2.14.jar
-Export-Package: hub.sam.mas.model.mas
+Export-Package: hub.sam.mas,
+ hub.sam.mas.editor,
+ hub.sam.mas.editor.actions,
+ hub.sam.mas.editor.commands,
+ hub.sam.mas.editor.editparts,
+ hub.sam.mas.editor.editparts.properties,
+ hub.sam.mas.editor.editparts.properties.handlers,
+ hub.sam.mas.editor.editpolicies,
+ hub.sam.mas.editor.figures,
+ hub.sam.mas.editor.test,
+ hub.sam.mas.editor.tools,
+ hub.sam.mas.execution,
+ hub.sam.mas.management,
+ hub.sam.mas.model.mas,
+ hub.sam.mas.model.petrinets

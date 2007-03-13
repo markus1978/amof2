@@ -18,22 +18,13 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.editor.actions;
+package hub.sam.mas.management;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
-
-public class DeleteBehaviourAction extends MasAction {
-    
-    public void run(IAction action) {
-        if (MessageDialog.openConfirm(getModelView().getSite().getShell(), "Confirm delete ...", "Are you sure?")) {
-            getLinkFromSelection().delete();
-        }
-    }
-
-    @Override
-    protected boolean shouldEnable() {
-        return getLinkFromSelection() != null;
-    }
-
+/**
+ * A manager for MofModels that is used by MAS.
+ * 
+ */
+public interface MasMofModelManager {
+    public MofModel getSyntaxModel();
+    public MofModel getMasModel();
 }

@@ -26,7 +26,7 @@ import org.eclipse.gef.*;
 import org.eclipse.gef.requests.*;
 import org.eclipse.ui.*;
 
-import hub.sam.mas.editor.editor.MaseEditDomain;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.ActivityEdgeEditPart;
 import hub.sam.mas.model.mas.GuardSpecification;
 import hub.sam.mas.model.mas.MaseCreationFactory;

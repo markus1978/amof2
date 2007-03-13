@@ -21,7 +21,7 @@
 package hub.sam.mas.editor.figures;
 
 //import org.eclipse.draw2d.PolygonDecoration;
-import hub.sam.mas.editor.editor.MaseEditDomain;
+import hub.sam.mas.editor.MaseEditDomain;
 
 import org.eclipse.draw2d.PolylineDecoration;
 import org.eclipse.draw2d.PolylineConnection;

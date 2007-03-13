@@ -27,7 +27,7 @@ import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.draw2d.geometry.Dimension;
 
-import hub.sam.mas.editor.editor.MaseEditDomain;
+import hub.sam.mas.editor.MaseEditDomain;
 
 public class AttachedNodeListFigure extends Figure {
     

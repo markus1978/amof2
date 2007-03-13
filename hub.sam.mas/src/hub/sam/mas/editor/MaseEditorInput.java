@@ -18,18 +18,18 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.editor.editor;
+package hub.sam.mas.editor;
 
-import hub.sam.mas.management.MASLink;
+import hub.sam.mas.management.MasLink;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IPersistableElement;
 
 public class MaseEditorInput implements IMaseEditorInput {
     
-    private final MASLink link;
+    private final MasLink link;
     
-    public MaseEditorInput(MASLink link) {
+    public MaseEditorInput(MasLink link) {
         this.link = link;
     }
     
@@ -64,7 +64,7 @@ public class MaseEditorInput implements IMaseEditorInput {
     }
 
     public String getToolTipText() {
-        return link.getMASContext().getSemanticModel().getExtentName();
+        return link.getMASContext().getMasModel().getExtentName();
     }
 
     public Object getAdapter(Class adapter) {
@@ -72,7 +72,7 @@ public class MaseEditorInput implements IMaseEditorInput {
         return null;
     }
 
-    public MASLink getLink() {
+    public MasLink getLink() {
         return link;
     }
 

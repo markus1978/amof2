@@ -30,7 +30,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.ui.views.properties.IPropertySource;
 
-import hub.sam.mas.editor.editor.MaseEditDomain;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.properties.DecisionNodePropertySource;
 import hub.sam.mas.editor.editpolicies.DecisionNodeContainerEditPolicy;
 import hub.sam.mas.editor.figures.DecisionNodeFigure;

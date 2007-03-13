@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:cmof="http://www.foo.org/cmof" xmi:version="2.1">
-  <cmof:Package xmi:id="6015" visibility="public" name="syntax">
-    <ownedType xmi:id="6016" visibility="public" isAbstract="false" name="Process" package="6015" xsi:type="Class">
-      <ownedOperation xmi:id="6017" isQuery="false" upper="1" visibility="public" lower="1" class="6016" isOrdered="false" isUnique="true" concurrency="sequential" name="run" xsi:type="Operation">
-        <formalParameter xmi:id="6019" upper="1" visibility="public" lower="1" direction="return" isUnique="true" isOrdered="false" operation="6017" xsi:type="Parameter" />
-        <ownedComment xmi:id="6018" body="mas-id-1169604833" xsi:type="Comment" />
+  <cmof:Package xmi:id="7242" visibility="public" name="syntax">
+    <ownedType xmi:id="7243" visibility="public" isAbstract="false" name="Process" package="7242" xsi:type="Class">
+      <ownedOperation xmi:id="7244" isQuery="false" visibility="public" upper="1" lower="1" class="7243" isOrdered="false" isUnique="true" concurrency="sequential" name="run" xsi:type="Operation">
+        <formalParameter xmi:id="7246" visibility="public" upper="1" lower="1" direction="return" isUnique="true" isOrdered="false" operation="7244" xsi:type="Parameter" />
+        <ownedComment xmi:id="7245" body="mas-id-1169604833" xsi:type="Comment" />
       </ownedOperation>
-      <ownedOperation xmi:id="6020" isQuery="false" upper="1" visibility="public" lower="1" class="6016" isOrdered="false" isUnique="true" concurrency="sequential" name="run2" xsi:type="Operation">
-        <formalParameter xmi:id="6021" upper="1" visibility="public" lower="1" direction="return" isUnique="true" isOrdered="false" operation="6020" xsi:type="Parameter" />
+      <ownedOperation xmi:id="7247" isQuery="false" visibility="public" upper="1" lower="1" class="7243" isOrdered="false" isUnique="true" concurrency="sequential" name="run2" xsi:type="Operation">
+        <formalParameter xmi:id="7248" visibility="public" upper="1" lower="1" direction="return" isUnique="true" isOrdered="false" operation="7247" xsi:type="Parameter" />
       </ownedOperation>
     </ownedType>
   </cmof:Package>

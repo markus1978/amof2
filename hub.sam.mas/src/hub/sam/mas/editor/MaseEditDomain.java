@@ -18,9 +18,9 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.editor.editor;
+package hub.sam.mas.editor;
 
-import hub.sam.mas.management.MASContext;
+import hub.sam.mas.management.MasContext;
 import hub.sam.mas.model.mas.masFactory;
 
 import java.util.HashMap;
@@ -32,23 +32,23 @@ import org.eclipse.ui.IEditorPart;
 
 public class MaseEditDomain extends DefaultEditDomain {
     
-    private MASContext masContext;
+    private MasContext masContext;
     private static Properties properties = null;
 
     public MaseEditDomain(IEditorPart editorPart) {
         super(editorPart);
     }
     
-    public void setMASContext(MASContext masContext) {
+    public void setMASContext(MasContext masContext) {
         this.masContext = masContext;
     }
     
-    public MASContext getMASContext() {
+    public MasContext getMASContext() {
         return masContext;
     }
     
     public masFactory getFactory() {
-        return (masFactory) getMASContext().getSemanticModel().getFactory();
+        return (masFactory) getMASContext().getMasModel().getFactory();
     }
     
     // editor properties

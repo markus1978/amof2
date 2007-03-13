@@ -18,12 +18,22 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.editor.editor;
+package hub.sam.mas.management;
 
-import hub.sam.mas.management.MASLink;
+public class MofModelException extends Exception {
 
-import org.eclipse.ui.IEditorInput;
+    private static final long serialVersionUID = 1L;
 
-public interface IMaseEditorInput extends IEditorInput {
-    public MASLink getLink();
+    public MofModelException() {
+        super();
+    }
+
+    public MofModelException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public MofModelException(String message) {
+        super(message);
+    }
+    
 }

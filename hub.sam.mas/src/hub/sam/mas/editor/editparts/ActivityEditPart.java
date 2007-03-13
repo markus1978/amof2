@@ -38,7 +38,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.swt.SWT;
 
-import hub.sam.mas.editor.editor.MaseEditDomain;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editpolicies.ActivityXYLayoutEditPolicy;
 import hub.sam.mas.model.mas.Activity;
 

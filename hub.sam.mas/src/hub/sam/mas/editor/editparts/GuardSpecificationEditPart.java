@@ -31,8 +31,8 @@ import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.ui.views.properties.IPropertySource;
 
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.commands.GuardSpecificationDeleteCommand;
-import hub.sam.mas.editor.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.properties.GuardSpecificationPropertySource;
 import hub.sam.mas.editor.figures.GuardSpecificationFigure;
 import hub.sam.mas.model.mas.GuardSpecification;

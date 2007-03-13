@@ -18,22 +18,11 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.editor.actions;
+package hub.sam.mas.management;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
-
-public class DeleteBehaviourAction extends MasAction {
-    
-    public void run(IAction action) {
-        if (MessageDialog.openConfirm(getModelView().getSite().getShell(), "Confirm delete ...", "Are you sure?")) {
-            getLinkFromSelection().delete();
-        }
-    }
-
-    @Override
-    protected boolean shouldEnable() {
-        return getLinkFromSelection() != null;
-    }
-
+public interface MasXmiFiles {
+    public String getSyntaxFile();
+    public String getSemanticFile();
+    public String getSemanticMetaFile();
+    public String semanticMetaFileRelative = "resources/models/mas_merged.xml";
 }

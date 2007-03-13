@@ -1,5 +1,6 @@
 package hub.sam.mas.execution;
 
+import hub.sam.mas.management.MasContext;
 import hub.sam.mas.model.mas.Activity;
 import hub.sam.mas.model.mas.ActivityEdge;
 import hub.sam.mas.model.mas.ActivityInstance;
@@ -12,7 +13,6 @@ import hub.sam.mof.reflection.ImplementationsImpl;
 import hub.sam.mof.reflection.ObjectDlg;
 
 import java.util.List;
-import java.util.Map;
 
 import cmof.Operation;
 import cmof.Parameter;
@@ -21,19 +21,18 @@ import cmof.Property;
 
 public class MASImplemantations extends ImplementationsImpl {
 	
-	private final Map<String, Activity> activities;
+	private final MasContext masContext;
 	private final ExecutionEnvironment env;
 	
-	public MASImplemantations(List<ObjectDlg> delegates, Map<String, Activity> activities, ExecutionEnvironment env) {
+	public MASImplemantations(List<ObjectDlg> delegates, MasContext masContext, ExecutionEnvironment env) {
 		super(delegates, null);
-		this.activities = activities;
+		this.masContext = masContext;
 		this.env = env;
 	}
 
 	@Override
-	public boolean hasImplementationFor(Operation operatoin, ClassifierSemantics<Property, Operation, String> semantics) {
-		Activity activity = activities.get(operatoin.getQualifiedName());
-		return activity != null;
+	public boolean hasImplementationFor(Operation operation, ClassifierSemantics<Property, Operation, String> semantics) {
+		return masContext.getLink(operation) != null;
 	}
 
 	@Override
@@ -44,10 +43,10 @@ public class MASImplemantations extends ImplementationsImpl {
 	@Override
 	public Object invokeImplementationFor(Operation operation, cmof.reflection.Object object, Object[] args, 
 			ClassifierSemantics<Property, Operation, String> semantics) {
-		Activity activity = activities.get(operation.getQualifiedName());
-		ActivityInstance activtiyInstance = activity.instantiate();
-		activtiyInstance.setOclContext(object);
-		activtiyInstance.setEnv(env);
+		Activity activity = masContext.getLink(operation).getActivity();
+		ActivityInstance activityInstance = activity.instantiate();
+		activityInstance.setOclContext(object);
+		activityInstance.setEnv(env);
 		int i = 0;
 		for (Parameter param: operation.getFormalParameter()) {
 			if (param.getDirection() != ParameterDirectionKind.RETURN) {
@@ -55,21 +54,22 @@ public class MASImplemantations extends ImplementationsImpl {
 				for (ActivityNode node: activity.getNode()) {
 					if (node instanceof ValueNode && paramName.equals(((ValueNode)node).getName())) {
 						for(ActivityEdge edge: node.getOutgoing()) {
-							activtiyInstance.getPlaces((Place)edge.getTarget()).setTokens(1);
-							((PinInstance)activtiyInstance.getPlaces((Place)edge.getTarget())).setValue(args[i]);
+							activityInstance.getPlaces((Place)edge.getTarget()).setTokens(1);
+							((PinInstance)activityInstance.getPlaces((Place)edge.getTarget())).setValue(args[i]);
 						}
 					}
 				}
 				i++;
 			}
 		}
-		activtiyInstance.run();
-		activtiyInstance.delete();
+		activityInstance.run();
+		activityInstance.delete();
 		return null; // TODO return parameters
 	}
 
 	@Override
-	public Object invokeImplementationFor(Property property, cmof.reflection.Object object, ClassifierSemantics<Property, Operation, String> semantics) {
+	public Object invokeImplementationFor(Property property, cmof.reflection.Object object,
+	        ClassifierSemantics<Property, Operation, String> semantics) {
 		return null;
 	}
 
