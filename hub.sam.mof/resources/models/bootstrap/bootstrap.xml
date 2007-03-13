@@ -878,7 +878,7 @@
           <ownedRule xmi:id="4782" namespace="4780" name="visibility_needs_ownership" constrainedElement="4780" xsi:type="Constraint">
             <specification xmi:id="4783" language="OCL" body="namespace-&gt;isEmpty() implies visibility-&gt;isEmpty()" xsi:type="OpaqueExpression" />
           </ownedRule>
-          <ownedAttribute xmi:id="4781" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4777" class="4780" isReadOnly="false" isOrdered="false" isUnique="true" name="visibility" isComposite="false" xsi:type="Property" />
+          <ownedAttribute xmi:id="4781" isDerivedUnion="false" upper="1" lower="0" isDerived="false" type="4777" class="4780" isReadOnly="false" isOrdered="false" isUnique="true" name="visibility" isComposite="false" xsi:type="Property" default="public"/>
         </ownedType>
       </nestedPackage>
       <nestedPackage xmi:id="4785" name="literals" nestingPackage="4447" xsi:type="Package">
