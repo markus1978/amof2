@@ -1,4 +1,4 @@
-<project name="Mof Action Semantics" basedir="." default="generate-repository">
+<project name="MAS" basedir="." default="generate-repository">
 
 	<property name="doc-dir" value="${basedir}/resources/doc/javadoc"/>
     <property name="src-dir" value="${basedir}/src"/>
@@ -14,12 +14,13 @@
 
 	<target name="init">
 		<mkdir dir="${bin-dir}"/>
-		<mkdir dir="${gen-src-dir}"/>
 	</target>
 
 	<target name="clean">
 		<delete dir="${bin-dir}"/>
-		<delete dir="${gen-src-dir}"/>
+	    <delete includeemptydirs="true">
+	      <fileset dir="${gen-src-dir}" includes="**/*"/>
+	    </delete>
 	    <delete dir="${doc-dir}"/>
 	</target>
 
