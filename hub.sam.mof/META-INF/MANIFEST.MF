@@ -15,7 +15,8 @@ Bundle-ClassPath: resources/lib/ant.jar,
  resources/lib/jbossall-client.jar,
  resources/lib/jdom.jar,
  resources/lib/mopa.jar,
- resources/lib/oslo.jar
+ resources/lib/oslo.jar,
+ amof.jar
 Export-Package: .,
  cmof,
  cmof.common,
