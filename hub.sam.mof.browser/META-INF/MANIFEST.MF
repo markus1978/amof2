@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Mof2Plugin
-Bundle-SymbolicName: hub.sam.mof.plugin.Mof2Plugin; singleton:=true
+Bundle-Name: Mof Browser Plug-in
+Bundle-SymbolicName: hub.sam.mof.browser;singleton:=true
 Bundle-Version: 1.1.0
 Bundle-Activator: hub.sam.mof.plugin.Mof2Plugin
 Bundle-Localization: plugin
@@ -19,3 +19,4 @@ Export-Package: hub.sam.mof.plugin,
  hub.sam.mof.plugin.modelview,
  hub.sam.mof.plugin.modelview.actions,
  hub.sam.mof.plugin.modelview.tree
+Bundle-ClassPath: mofbrowser.jar

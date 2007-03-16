@@ -12,6 +12,8 @@ import org.osgi.framework.BundleContext;
  */
 public class Mof2Plugin extends AbstractUIPlugin {
 
+    public static final String PLUGIN_ID = "hub.sam.mof.browser";
+    
 	//The shared instance.
 	private static Mof2Plugin plugin;
 	
@@ -55,6 +57,6 @@ public class Mof2Plugin extends AbstractUIPlugin {
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("MOF2Plugin", path);
+		return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
 }

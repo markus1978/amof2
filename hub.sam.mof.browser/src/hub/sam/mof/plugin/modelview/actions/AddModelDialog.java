@@ -1,6 +1,5 @@
 package hub.sam.mof.plugin.modelview.actions;
 
-import hub.sam.mof.plugin.modelview.ModelView;
 import hub.sam.mof.plugin.modelview.tree.RepositoryTreeObject;
 
 import org.eclipse.core.runtime.IPath;
