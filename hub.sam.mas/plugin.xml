@@ -50,7 +50,7 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             class="hub.sam.mas.editor.MasePerspectiveFactory"
-            id="MofActionSemanticsEditor.MasePerspective"
+            id="hub.sam.mase.editor.perspective"
             name="Mof Action Semantics Editor"/>
    </extension>
 

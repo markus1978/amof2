@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="generated-src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="lib" path="resources/lib/junit.jar"/>
 	<classpathentry kind="lib" path="resources/lib/log4j-1.2.14.jar"/>
+	<classpathentry kind="lib" path="resources/lib/junit.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

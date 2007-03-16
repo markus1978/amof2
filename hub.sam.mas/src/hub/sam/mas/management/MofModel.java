@@ -85,7 +85,6 @@ public class MofModel {
     
     public Factory getFactory() {
         if (factory == null) {
-            System.out.println("creating a factory for extent " + extentName + " with meta-model in package " + getMetaModel().getPackage());
             factory = repository.createFactory(extent, getMetaModel().getPackage());
         }
         return factory;

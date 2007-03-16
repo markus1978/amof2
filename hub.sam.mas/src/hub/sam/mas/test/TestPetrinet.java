@@ -86,6 +86,11 @@ public class TestPetrinet extends MASExecution {
         modelManager.loadSyntaxModelFromXmi(clonedSyntaxFile);
         Package petrinetMetaModel = (Package) modelManager.getSyntaxModel().getExtent().query("Package:petrinets");
         
+        Tag nsPrefixTag = ((cmofFactory) modelManager.getSyntaxModel().getFactory()).createTag();
+        nsPrefixTag.setName(JavaMapping.PackagePrefixTagName);
+        nsPrefixTag.setValue("hub.sam.mas.model");
+        petrinetMetaModel.getTag().add(nsPrefixTag);
+        
         // now the model manager is in a legal state and we can create a mas context
         masContext = MasRepository.getInstance().createMasContext(modelManager);
         
@@ -98,63 +103,6 @@ public class TestPetrinet extends MASExecution {
 		Net net = createTestModel(testFactory);
 		net.instantiate().run();		
 	}
-    
-    public void cloneXmiModel(String xmiFile, String clonedXmiFile, Collection<String> forPackages) {
-        Repository repository = Repository.getLocalRepository();
-        Extent m3Extent = repository.getExtent(Repository.CMOF_EXTENT_NAME);
-        Package cmofPackage = (Package) m3Extent.query("Package:cmof");
-
-        Extent modelExtent = repository.createExtent(clonedXmiFile);
-
-        cmofFactory modelFactory = (cmofFactory) repository.createFactory(modelExtent, cmofPackage);
-
-        try {
-            repository.loadXmiIntoExtent(modelExtent, cmofPackage, xmiFile, getXmiKind(xmiFile));
-
-            boolean prefixSet = false;
-            Package petrinetMetaModel = (Package)modelExtent.query("Package:petrinets");
-            for(Tag tag: petrinetMetaModel.getTag()) {
-                if (tag.getName().equals(JavaMapping.PackagePrefixTagName)) {
-                    prefixSet = true;
-                    break;
-                }
-            }
-            
-            if (!prefixSet) {
-                Tag nsPrefixTag = modelFactory.createTag();
-                nsPrefixTag.setName(JavaMapping.PackagePrefixTagName);
-                nsPrefixTag.setValue("hub.sam.mas.model");
-                petrinetMetaModel.getTag().add(nsPrefixTag);
-            }
-            
-            List<Package> implicitElementsForPackages = new ArrayList<Package>();
-            for(String packageName: forPackages) {
-                implicitElementsForPackages.add( (Package) modelExtent.query("Package:" + packageName) );
-            }
-            
-            // Creates associations for runtime-instance-of-relationships.
-            // These associations are used for creating and deleting runtime instances.
-            M1SemanticModel semanticModel = new M1SemanticModel(modelFactory);
-            semanticModel.createImplicitElements(implicitElementsForPackages);
-                        
-            repository.writeExtentToXmi(clonedXmiFile, cmofPackage, modelExtent, getXmiKind(clonedXmiFile));
-            repository.deleteExtent(clonedXmiFile);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-    }
-    
-    private XmiKind getXmiKind(String xmiFile) {
-        if (xmiFile.endsWith(".xml")) {
-            return XmiKind.mof;
-        }
-        else if (xmiFile.endsWith(".mdxml")) {
-            return XmiKind.md;
-        }
-        return null;
-    }
 
 	public static void main(String args[]) throws Exception {
 		new TestPetrinet().run();
