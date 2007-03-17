@@ -21,6 +21,7 @@
 package hub.sam.mas.editor;
 
 import hub.sam.mas.management.MasContext;
+import hub.sam.mas.management.MasLink;
 import hub.sam.mas.model.mas.masFactory;
 
 import java.util.HashMap;
@@ -32,23 +33,27 @@ import org.eclipse.ui.IEditorPart;
 
 public class MaseEditDomain extends DefaultEditDomain {
     
-    private MasContext masContext;
+    private MasLink masLink;
     private static Properties properties = null;
 
     public MaseEditDomain(IEditorPart editorPart) {
         super(editorPart);
     }
     
-    public void setMASContext(MasContext masContext) {
-        this.masContext = masContext;
+    public void setMasLink(MasLink masLink) {
+        this.masLink = masLink;
     }
     
-    public MasContext getMASContext() {
-        return masContext;
+    public MasLink getMasLink() {
+        return masLink;
+    }
+    
+    public MasContext getMasContext() {
+        return masLink.getMASContext();
     }
     
     public masFactory getFactory() {
-        return (masFactory) getMASContext().getMasModel().getFactory();
+        return (masFactory) getMasContext().getMasModel().getFactory();
     }
     
     // editor properties

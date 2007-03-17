@@ -23,6 +23,7 @@ package hub.sam.mas.management;
 import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.MetaModelException;
 import hub.sam.mof.xmi.XmiException;
+import hub.sam.mof.xmi.XmiImportExport;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -39,8 +40,7 @@ import cmof.reflection.Extent;
  * (syntax model + syntax meta-model and mas model + mas meta-model).
  * You may either load them from xmi files or explicitly set them by creating your own MofModel objects.
  * 
- * The manager conforms to its interface only if all four models were specified before. An Exception
- * will be thrown else.
+ * You must specify all four models before using the model manager in a mas context!
  * 
  */
 public class GenericMasMofModelManager implements MasMofModelManager {
@@ -115,13 +115,16 @@ public class GenericMasMofModelManager implements MasMofModelManager {
     private MofModel loadModelFromXmi(MofModel metaModel, String xmiFile) throws LoadException {
         assert(metaModel != null);
         Extent modelExtent = repository.createExtent(xmiFile);
+        MofModel mofModel = null;
         
         try {
             if (xmiFile.endsWith(".xml")) {
                 repository.loadXmiIntoExtent(modelExtent, metaModel.getPackage(), new FileInputStream(xmiFile));
+                mofModel = new MofModel(repository, metaModel, xmiFile, modelExtent, xmiFile, null);
             }
             else if (xmiFile.endsWith(".mdxml")) {
-                repository.loadMagicDrawXmiIntoExtent(modelExtent, metaModel.getPackage(), new FileInputStream(xmiFile));
+                XmiImportExport diagramInfo = repository.loadMagicDrawXmiIntoExtent(modelExtent, metaModel.getPackage(), new FileInputStream(xmiFile));
+                mofModel = new MagicDrawMofModel(repository, metaModel, xmiFile, modelExtent, xmiFile, null, diagramInfo);
             }
             else {
                 throw new LoadException("unkown extension for xmi file " + xmiFile);
@@ -143,7 +146,7 @@ public class GenericMasMofModelManager implements MasMofModelManager {
             throw new LoadException("xmi file " + xmiFile, e);
         }
         
-        return new MofModel(repository, metaModel, xmiFile, modelExtent, xmiFile, null);
+        return mofModel;
     }
     
     public void setSyntaxModel(MofModel model) {

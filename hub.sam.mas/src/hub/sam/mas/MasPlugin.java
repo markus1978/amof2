@@ -20,6 +20,10 @@
 
 package hub.sam.mas;
 
+import java.io.IOException;
+
+import org.apache.log4j.PropertyConfigurator;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -33,6 +37,7 @@ public class MasPlugin extends AbstractUIPlugin {
 	public static final String PLUGIN_ID = "hub.sam.mas";
 	public static final String PACKAGE_PREFIX = "hub.sam.mas";
 	public static final String EDITOR_PACKAGE_PREFIX = PACKAGE_PREFIX + ".editor";
+    public static boolean log4jConfigured = false;
 
 	// The shared instance
 	private static MasPlugin plugin;
@@ -80,4 +85,15 @@ public class MasPlugin extends AbstractUIPlugin {
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
+    
+    public static void configureLog4j() {
+        if (!log4jConfigured) {
+            try {
+                PropertyConfigurator.configure(FileLocator.toFileURL(getDefault().getBundle().getEntry("resources/log4j.properties")));
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

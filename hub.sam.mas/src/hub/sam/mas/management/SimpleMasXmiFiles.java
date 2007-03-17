@@ -38,7 +38,7 @@ public class SimpleMasXmiFiles implements MasXmiFiles {
         semanticFile = pathToContextFile.concat( (String) properties.get("semantic") );
     }
 
-    public String getSemanticFile() {
+    public String getMasFile() {
         return semanticFile;
     }
 
@@ -46,8 +46,8 @@ public class SimpleMasXmiFiles implements MasXmiFiles {
         return syntaxFile;
     }
 
-    public String getSemanticMetaFile() {
-        return semanticMetaFileRelative;
+    public String getMasMetaFile() {
+        return masMetaFileRelative;
     }
 
 }

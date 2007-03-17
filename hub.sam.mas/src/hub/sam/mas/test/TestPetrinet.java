@@ -67,8 +67,8 @@ public class TestPetrinet extends MASExecution {
         GenericMasMofModelManager modelManager = new GenericMasMofModelManager(repository);
         
         // load mas model and mas meta-model
-        modelManager.loadMasMetaModelFromXmi( xmiFiles.getSemanticMetaFile() );
-        modelManager.loadMasModelFromXmi( xmiFiles.getSemanticFile() );
+        modelManager.loadMasMetaModelFromXmi( xmiFiles.getMasMetaFile() );
+        modelManager.loadMasModelFromXmi( xmiFiles.getMasFile() );
         
         {
         MofModel masMetaModel = modelManager.getMasModel().getMetaModel();

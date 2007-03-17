@@ -23,6 +23,7 @@ package hub.sam.mas.management;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import hub.sam.mas.editor.MaseEditor;
 import hub.sam.mas.model.mas.Activity;
 import cmof.Operation;
 
@@ -32,6 +33,7 @@ public class MasLink {
     private final MasContext context;
     private final Operation operation;
     private final Activity activity;
+    private MaseEditor associatedEditor;
     
     protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
     
@@ -69,6 +71,14 @@ public class MasLink {
     
     public void removeListener(PropertyChangeListener listener) {
         listeners.removePropertyChangeListener(listener);
+    }
+
+    public MaseEditor getAssociatedEditor() {
+        return associatedEditor;
+    }
+
+    public void setAssociatedEditor(MaseEditor associatedEditor) {
+        this.associatedEditor = associatedEditor;
     }
     
 }

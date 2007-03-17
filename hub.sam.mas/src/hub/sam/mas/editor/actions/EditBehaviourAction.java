@@ -22,6 +22,7 @@ package hub.sam.mas.editor.actions;
 
 import hub.sam.mas.MasPlugin;
 import hub.sam.mas.editor.IMaseEditorInput;
+import hub.sam.mas.editor.MaseEditor;
 import hub.sam.mas.editor.MaseEditorInput;
 import hub.sam.mas.management.MasContext;
 import hub.sam.mas.management.MasLink;
@@ -31,6 +32,7 @@ import hub.sam.mas.model.mas.masFactory;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
@@ -48,7 +50,8 @@ public class EditBehaviourAction extends MasAction {
         
         IMaseEditorInput input = new MaseEditorInput(link);
         try {
-            PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input, MasPlugin.EDITOR_PACKAGE_PREFIX);
+            IEditorPart editorPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input, MasPlugin.EDITOR_PACKAGE_PREFIX);
+            link.setAssociatedEditor((MaseEditor) editorPart);
         }
         catch (PartInitException e) {
             e.printStackTrace();

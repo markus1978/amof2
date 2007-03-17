@@ -48,11 +48,11 @@ public class PluginMasXmiFiles implements MasXmiFiles {
         syntaxFile = pathToContextFile.append( (String) properties.get("syntax") ).makeAbsolute().toOSString();
         semanticFile = pathToContextFile.append( (String) properties.get("semantic") ).makeAbsolute().toOSString();
         
-        String urlPath = FileLocator.toFileURL(MasPlugin.getDefault().getBundle().getEntry(semanticMetaFileRelative)).getPath();
+        String urlPath = FileLocator.toFileURL(MasPlugin.getDefault().getBundle().getEntry(masMetaFileRelative)).getPath();
         semanticMetaFile = new Path(urlPath).makeAbsolute().toOSString();
     }
 
-    public String getSemanticFile() {
+    public String getMasFile() {
         return semanticFile;
     }
 
@@ -60,7 +60,7 @@ public class PluginMasXmiFiles implements MasXmiFiles {
         return syntaxFile;
     }
 
-    public String getSemanticMetaFile() {
+    public String getMasMetaFile() {
         return semanticMetaFile;
     }
 

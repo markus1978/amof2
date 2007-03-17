@@ -20,11 +20,15 @@
 
 package hub.sam.mas.management;
 
+import hub.sam.mas.MasPlugin;
+import hub.sam.mas.editor.MaseEditor;
 import hub.sam.mas.model.mas.Activity;
 
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
@@ -40,6 +44,7 @@ import cmof.reflection.Extent;
 
 public class MasContext {
     
+    private static Logger logger = Logger.getLogger(MasContext.class.getName());
     private Extent contextId;
     private Map<String, MasLink> links = new TreeMap<String, MasLink>();
     private MofModel syntaxModel;
@@ -50,8 +55,11 @@ public class MasContext {
     private boolean syntaxModelNeedsSaving = false;
     
     MasContext(MasMofModelManager manager) {
+        MasPlugin.configureLog4j();
+        
         syntaxModel = manager.getSyntaxModel();
         masModel = manager.getMasModel();
+        checkMasModel();
         
         contextId = syntaxModel.getExtent();
 
@@ -59,6 +67,16 @@ public class MasContext {
         activities = getActivities(masModel.getExtent());
         
         preserveIntegrity(operations, activities);
+    }
+    
+    private void checkMasModel() {
+        if (logger.isEnabledFor(Level.WARN)) {
+            for(cmof.reflection.Object obj: getMasModel().getExtent().outermostComposites()) {
+                if (!(obj instanceof Activity)) {
+                    logger.warn("found object outside of the activity");
+                }
+            }
+        }
     }
     
     /**
@@ -294,7 +312,7 @@ public class MasContext {
         return contextId;
     }
     
-    protected void close() {
+    public void close() {
         getSyntaxModel().close();
         getMasModel().close();
     }
@@ -305,10 +323,19 @@ public class MasContext {
      * @throws SaveException 
      */
     public void save() throws SaveException {
+        checkMasModel();
         getMasModel().save();
         
         if(syntaxModelNeedsSaving) {
             getSyntaxModel().save();
+        }
+        
+        // mark associated mas editors as saved for all mas links
+        for(MasLink link: getLinks().values()) {
+            MaseEditor editor = link.getAssociatedEditor();
+            if (editor != null) {
+                editor.setDirty(false);
+            }
         }
     }
 

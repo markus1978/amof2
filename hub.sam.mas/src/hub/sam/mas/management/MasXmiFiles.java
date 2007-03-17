@@ -22,7 +22,7 @@ package hub.sam.mas.management;
 
 public interface MasXmiFiles {
     public String getSyntaxFile();
-    public String getSemanticFile();
-    public String getSemanticMetaFile();
-    public String semanticMetaFileRelative = "resources/models/mas_merged.xml";
+    public String getMasFile();
+    public String getMasMetaFile();
+    public String masMetaFileRelative = "resources/models/mas_merged.xml";
 }

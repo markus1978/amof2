@@ -57,12 +57,12 @@ public class AddMASContextAction extends Mof2PluginAction {
 
             Repository repository = Repository.getLocalRepository();
             GenericMasMofModelManager modelManager = new GenericMasMofModelManager(repository);
-            modelManager.loadMasMetaModelFromXmi( xmiFiles.getSemanticMetaFile() );
-            modelManager.loadMasModelFromXmi( xmiFiles.getSemanticFile() );
+            modelManager.loadMasMetaModelFromXmi( xmiFiles.getMasMetaFile() );
+            modelManager.loadMasModelFromXmi( xmiFiles.getMasFile() );
             modelManager.setSyntaxMetaModel( modelManager.getCmofModel() );
             
             // do not load model twice if syntax model is the same as mas meta-model
-            if (xmiFiles.getSyntaxFile().equals(xmiFiles.getSemanticMetaFile())) {
+            if (xmiFiles.getSyntaxFile().equals(xmiFiles.getMasMetaFile())) {
                 MofModel masMetaModel = modelManager.getMasModel().getMetaModel();
                 MofModel petrinetMetaModel = new MofModel(repository, modelManager.getCmofModel(), null,
                         masMetaModel.getExtent(), masMetaModel.getExtentName(), null);

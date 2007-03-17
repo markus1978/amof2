@@ -33,7 +33,7 @@ import cmof.reflection.Factory;
 
 public class MofModel {
 
-    private final Repository repository;
+    protected final Repository repository;
     private final String xmiFile;
     private final Extent extent;
     private final String extentName;
@@ -117,15 +117,7 @@ public class MofModel {
         }
         
         try {
-            if (xmiFile.endsWith(".xml")) {
-                repository.writeExtentToXmi(xmiFile, getMetaModel().getPackage(), getExtent());
-            }
-            else if (xmiFile.endsWith(".mdxml")) {
-                repository.writeExtentToMagicDrawXmi(xmiFile, getMetaModel().getPackage(), getExtent());
-            }
-            else {
-                throw new SaveException("unkown extension for xmi file " + xmiFile);
-            }
+            repository.writeExtentToXmi(xmiFile, getMetaModel().getPackage(), getExtent());
         }
         catch (IOException e) {
             throw new SaveException("xmi file " + xmiFile, e);
@@ -142,6 +134,9 @@ public class MofModel {
     }
     
     protected void close() {
+        if (getMetaModel() != null) {
+            getMetaModel().close();
+        }
         repository.deleteExtent(getExtentName());
     }
     

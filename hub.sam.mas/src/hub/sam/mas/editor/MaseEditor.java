@@ -22,6 +22,7 @@ package hub.sam.mas.editor;
 
 import hub.sam.mas.MasPlugin;
 import hub.sam.mas.editor.actions.CreateGuardSpecificationAction;
+import hub.sam.mas.model.mas.Activity;
 import hub.sam.mas.model.mas.ContextExtensionPin;
 import hub.sam.mas.model.mas.ContextPin;
 import hub.sam.mas.model.mas.ControlFlow;
@@ -40,7 +41,6 @@ import hub.sam.mas.model.mas.OutExpansionNode;
 import hub.sam.mas.model.mas.OutputPin;
 import hub.sam.mas.model.mas.ValueNode;
 
-import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalViewer;
@@ -93,10 +93,10 @@ public class MaseEditor extends GraphicalEditorWithPalette {
         super();
         MaseEditDomain editDomain = new MaseEditDomain(this);
         
-        Bundle masBundle = MasPlugin.getDefault().getBundle();
         try {
-            PropertyConfigurator.configure(FileLocator.toFileURL(masBundle.getEntry("resources/log4j.properties")));
+            MasPlugin.configureLog4j();
             
+            Bundle masBundle = MasPlugin.getDefault().getBundle();
             InputStream inputStream = FileLocator.openStream(masBundle, new Path("resources/mase.properties"), false);
             Properties maseProperties = new Properties();
             maseProperties.load(inputStream);
@@ -275,10 +275,10 @@ public class MaseEditor extends GraphicalEditorWithPalette {
         getSelectionActions().add(action.getId());
     }
 
-    protected hub.sam.mas.model.mas.Activity getContent() {
+    protected Activity getContent() {
         IMaseEditorInput editorInput = (IMaseEditorInput) getEditorInput();
         MaseEditDomain editDomain = getEditDomain();
-        editDomain.setMASContext( editorInput.getLink().getMASContext() );
+        editDomain.setMasLink(editorInput.getLink());
         return editorInput.getLink().getActivity();
     }
     
@@ -322,7 +322,7 @@ public class MaseEditor extends GraphicalEditorWithPalette {
         return isDirty;
     }
 
-    protected void setDirty(boolean dirty) {
+    public void setDirty(boolean dirty) {
         if (isDirty != dirty) {
             isDirty = dirty;
             firePropertyChange(IEditorPart.PROP_DIRTY); // notify Eclipse workbench
@@ -346,6 +346,8 @@ public class MaseEditor extends GraphicalEditorWithPalette {
     }
 
     public void dispose() {
+        // TODO delete MasLink ?
+        getEditDomain().getMasLink().setAssociatedEditor(null);
         // remove CommandStackListener
         getCommandStack().removeCommandStackListener(commandStackListener);
         ModelGarbageCollector.getInstance().dispose();
@@ -356,7 +358,7 @@ public class MaseEditor extends GraphicalEditorWithPalette {
     public void doSave(IProgressMonitor monitor) {
         ModelGarbageCollector.getInstance().cleanUp();
         try {
-            getEditDomain().getMASContext().save();
+            getEditDomain().getMasContext().save();
         }
         catch (Exception e) {
             MessageDialog.openError(
