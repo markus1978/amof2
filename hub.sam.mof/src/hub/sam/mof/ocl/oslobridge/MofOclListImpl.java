@@ -1,4 +1,4 @@
-package hub.sam.mof.ocl;
+package hub.sam.mof.ocl.oslobridge;
 
 import hub.sam.mof.util.ListImpl;
 

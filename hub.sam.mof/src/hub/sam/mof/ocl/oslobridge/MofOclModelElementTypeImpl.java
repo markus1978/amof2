@@ -1,9 +1,10 @@
-package hub.sam.mof.ocl;
+package hub.sam.mof.ocl.oslobridge;
 
 import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.javamapping.JavaMapping;
 import hub.sam.mof.mofinstancemodel.MofClassSemantics;
 import hub.sam.mof.mofinstancemodel.MofClassifierSemantics;
+import hub.sam.mof.ocl.OclException;
 import hub.sam.mof.util.AssertionException;
 
 import java.util.HashMap;

@@ -21,18 +21,22 @@ package hub.sam.mof.reflection;
 
 import cmof.Association;
 import cmof.NamedElement;
+import cmof.Package;
 import cmof.Property;
 import cmof.UmlClass;
 import cmof.common.ReflectiveCollection;
 import cmof.common.ReflectiveSequence;
+import cmof.exception.IllegalArgumentException;
 import cmof.reflection.Extent;
 import cmof.reflection.ExtentChangeListener;
+import cmof.reflection.Factory;
 import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.ClassInstance;
 import hub.sam.mof.instancemodel.InstanceModel;
 import hub.sam.mof.instancemodel.ValueSpecification;
 import hub.sam.mof.instancemodel.ValueSpecificationList;
 import hub.sam.mof.mofinstancemodel.MofValueSpecificationList;
+import hub.sam.mof.ocl.OclEnvironment;
 import hub.sam.mof.domainmodels.ProxyInstanceModel;
 import hub.sam.mof.domainmodels.ProxyObjectInstance;
 import hub.sam.mof.reflection.query.ParseException;
@@ -60,11 +64,14 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
     private final Map<ClassInstance<UmlClass,Property,java.lang.Object>, cmof.reflection.Object> objectForInstance = new HashMap<ClassInstance<UmlClass,Property,java.lang.Object>, cmof.reflection.Object>();
     private final Map<cmof.reflection.Object, ClassInstance<UmlClass,Property,java.lang.Object>> instanceForObject = new HashMap<cmof.reflection.Object, ClassInstance<UmlClass,Property,java.lang.Object>>();
     private Map<Identifier, ObjectImpl> objectForId = null;
-    private final MultiMap<UmlClass, cmof.reflection.Object> objectsForTypes = new MultiMap<UmlClass, cmof.reflection.Object>();
-    private final MultiMap<UmlClass, cmof.reflection.Object> objectsForTypesWithSubtypes = new MultiMap<UmlClass, cmof.reflection.Object>();
+    private MultiMap<UmlClass, cmof.reflection.Object> objectsForTypes = null;
+    private MultiMap<UmlClass, cmof.reflection.Object> objectsForTypesWithSubtypes = null;
     private ImplementationsManager implementationsManager = null;
     protected final InstanceModel<UmlClass,Property,java.lang.Object> model = new ProxyInstanceModel();//TODO
     private final Collection<ExtentChangeListener> fListeners = new Vector<ExtentChangeListener>();
+    private OclEnvironment fOclEnvironment = null;
+    private Iterable<? extends Package> fMetaModel = null;
+    private final Map<Class, Object> fFactories = new HashMap<Class, Object>();
 
     protected ImplementationsManager createImplementationManager() {
         return new ImplementationsManagerImpl();
@@ -293,9 +300,45 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         if (type == null) {
             return objects;
         } else {
-            result = new SetImpl<cmof.reflection.Object>((!includeSubtypes) ? objectsForTypes.get(type) : objectsForTypesWithSubtypes.get(type));
+            result = new SetImpl<cmof.reflection.Object>((!includeSubtypes) ? getObjectsForTypes().get(type) : getObjectsForTypesWithSubtypes().get(type));
         }
         return result;
+    }
+    
+    private void registerObjectAndObjectType(cmof.reflection.Object object) {
+    	if (objectsForTypes == null) {
+    		objectsForTypes = new MultiMap<UmlClass, cmof.reflection.Object>();
+    		objectsForTypesWithSubtypes = new MultiMap<UmlClass, cmof.reflection.Object>();
+    	}
+		UmlClass metaClass = object.getMetaClass();
+        if (metaClass != null) {
+            objectsForTypes.put(metaClass, object);
+            objectsForTypesWithSubtypes.put(metaClass, object);
+            //if (!((ObjectImpl)metaClass).isStatic) {
+                ReflectiveCollection<? extends core.abstractions.umlsuper.Classifier> superClasses = metaClass.allParents();
+                for (core.abstractions.umlsuper.Classifier superClass: superClasses) {
+                    if (superClass instanceof UmlClass) {
+                        objectsForTypesWithSubtypes.put((UmlClass)superClass, object);
+                    }
+                }
+            //}
+        }
+    }
+    
+    private MultiMap<UmlClass, cmof.reflection.Object> getObjectsForTypes() {
+    	if (objectsForTypes == null) {
+    		for (cmof.reflection.Object object: objects) {
+    			registerObjectAndObjectType(object);
+    		}
+    	}
+    	return objectsForTypes;
+    }
+    
+    private MultiMap<UmlClass, cmof.reflection.Object> getObjectsForTypesWithSubtypes() {
+    	if (objectsForTypesWithSubtypes == null) {
+    		getObjectsForTypes();
+    	}
+    	return objectsForTypesWithSubtypes;
     }
 
     public ReflectiveCollection<cmof.reflection.Link> linksOfType(Association type) {
@@ -325,19 +368,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
     protected void addObject(ObjectImpl object) {
         instanceForObject.put(object, object.getClassInstance());
         objectForInstance.put(object.getClassInstance(), object);
-        UmlClass metaClass = object.getMetaClass();
-        if (metaClass != null) {
-            objectsForTypes.put(metaClass, object);
-            objectsForTypesWithSubtypes.put(metaClass, object);
-            //if (!((ObjectImpl)metaClass).isStatic) {
-                ReflectiveCollection<? extends core.abstractions.umlsuper.Classifier> superClasses = metaClass.allParents();
-                for (core.abstractions.umlsuper.Classifier superClass: superClasses) {
-                    if (superClass instanceof UmlClass) {
-                        objectsForTypesWithSubtypes.put((UmlClass)superClass, object);
-                    }
-                }
-            //}
-        }
+        registerObjectAndObjectType(object);
 
         this.objects.add(object);
         object.setParentIdentity(this);
@@ -355,8 +386,8 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         instanceForObject.remove(object);
         objectForInstance.remove(instance);
         if (object.getMetaClass() != null) {
-            objectsForTypes.removeValue(object);
-            objectsForTypesWithSubtypes.removeValue(object);
+        	getObjectsForTypes().removeValue(object);
+        	getObjectsForTypesWithSubtypes().removeValue(object);
         }
         if (instance != null) {
         	instance.delete();
@@ -427,19 +458,28 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         return objects.contains(object);
     }
 
-    public void myFinalize() {    	
+    public void myFinalize() {
+    	fOclEnvironment = null;
     	fListeners.clear();
     	for (cmof.reflection.Object outermostComposites: outermostComposites()) {
     		outermostComposites.delete();
     	}
         for (cmof.reflection.Object obj: objects) {
-        	System.out.println("WARNING: objects in deleted extend remain!");
-            if (obj instanceof ObjectImpl) {
+        	if (!bootstrap) {
+        		System.out.println("WARNING: objects in deleted extend remain!");
+        	}
+        	if (obj instanceof ObjectImpl) {
                 ((ObjectImpl)obj).myFinalize();
             }
         }
+        fMetaModel = null;
+        if (fFactories != null) {
+        	fFactories.clear();
+        }
+        objectsForTypes = null;
+        objectsForTypesWithSubtypes = null;
         objects.clear();
-        model.myFinalize();
+        model.myFinalize();        
         super.myFinalize();
         /*
          * There is a potential memory leak: ProxyObjectInstances are not deleted, since they don't have a cmof.reflect.Object
@@ -522,4 +562,32 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
 	public void removeExtentChangeListener(ExtentChangeListener listener) {
 		fListeners.remove(listener);		
 	}
+	
+	public void configureExtent(Iterable<? extends Package> metaModel) {
+		this.fMetaModel = metaModel;
+	}		
+
+	public <T> T getAdaptor(Class<T> adaptorClass) {
+		if (OclEnvironment.class == adaptorClass) {
+			if (fOclEnvironment == null) {
+				if (fMetaModel == null) {
+					throw new IllegalArgumentException("This extend is not configured.");
+				}
+				fOclEnvironment = OclEnvironment.createOclEnvironment(fMetaModel);
+			}
+			return (T)fOclEnvironment;
+		} else if (Factory.class.isAssignableFrom(adaptorClass)){
+			if (fMetaModel == null) {
+				throw new IllegalArgumentException("This extend is not configured.");
+			}
+			T result = (T)fFactories.get(adaptorClass);
+			if (result == null) {
+				result = (T)FactoryImpl.createFactory(this, fMetaModel, (Class)adaptorClass);
+				fFactories.put(adaptorClass, result);
+			}
+			return result;
+		} else {
+			return null;
+		}
+	}		
 }

@@ -81,5 +81,5 @@ public class Misc extends AbstractRepository {
     public void testExtentDelete() throws Exception {
     	repository.loadXmiIntoExtent(extent, m3, "resources/models/test/warehouse.xml");
     	repository.deleteExtent("test");
-    }
+    }        
 }

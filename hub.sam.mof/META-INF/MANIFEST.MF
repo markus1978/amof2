@@ -6,7 +6,6 @@ Bundle-Version: 1.1.0
 Bundle-Activator: hub.sam.mof.PlugInActivator
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.draw2d,
  org.junit
 Eclipse-LazyStart: true
 Eclipse-BuddyPolicy: registered

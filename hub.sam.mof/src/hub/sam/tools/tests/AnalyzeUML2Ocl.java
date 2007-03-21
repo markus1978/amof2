@@ -1,8 +1,8 @@
 package hub.sam.tools.tests;
 
 import hub.sam.mof.Repository;
-import hub.sam.mof.ocl.MofOclProcessor;
 import hub.sam.mof.ocl.OclException;
+import hub.sam.mof.ocl.oslobridge.MofOclProcessor;
 import hub.sam.mof.reflection.ExtentImpl;
 
 import java.util.Collection;

@@ -167,4 +167,9 @@ public class ObjectDlg implements Object {
     public OclModelElement ocl() {
         return reflectionself.ocl();
     }
+
+	public <T> T getAdaptor(Class<T> adaptorClass) {
+		return reflectionself.getAdaptor(adaptorClass);
+	}    
+    
 }

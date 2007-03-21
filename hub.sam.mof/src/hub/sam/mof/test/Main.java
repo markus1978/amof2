@@ -51,6 +51,7 @@ public class Main extends TestCase {
         suite.addTestSuite(ClientServer.class);
         suite.addTestSuite(DomainModelsTest.class);
         suite.addTestSuite(Misc.class);
+        suite.addTestSuite(OclTests.class);
 
         suite.addTestSuite(hub.sam.mof.merge.MergeTest.class);
 
@@ -72,7 +73,7 @@ public class Main extends TestCase {
         suite.addTestSuite(ReflectiveSequenceExtension.class);
         suite.addTestSuite(JavaTypeTest.class);
         suite.addTestSuite(QualifierTest.class);
-        suite.addTestSuite(OclTest.class);
+        suite.addTestSuite(JOclTest.class);
         
         suite.addTestSuite(ReflectiveSequenceTest.class);
         suite.addTestSuite(MisreadAggregationOnMDImport.class);

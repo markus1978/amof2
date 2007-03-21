@@ -19,11 +19,12 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package cmof.reflection;
 
+import hub.sam.util.IAdaptable;
 import cmof.*;
 import cmof.common.ReflectiveCollection;
 import cmof.exception.*;
 
-public interface Extent {
+public interface Extent extends IAdaptable {
 
     public ReflectiveCollection<? extends Object> getObject();
 

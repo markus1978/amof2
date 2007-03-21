@@ -1,10 +1,11 @@
-package hub.sam.mof.ocl;
+package hub.sam.mof.ocl.oslobridge;
 
 import cmof.Enumeration;
 import cmof.NamedElement;
 import cmof.Package;
 import cmof.reflection.Extent;
 import hub.sam.mof.Repository;
+import hub.sam.mof.ocl.OclException;
 import hub.sam.mof.util.AssertionException;
 import org.oslo.ocl20.OclProcessor;
 import org.oslo.ocl20.OclProcessorImpl;
@@ -62,26 +63,26 @@ public class MofOclProcessor extends OclProcessorImpl {
 	private static final OclProcessor myProcessor = new MofOclProcessor(myLog);
 	private Map<Class, Enumeration> enumerations = new HashMap<Class, Enumeration>();
 
-	public static OclProcessor createProcessor() {
+	public static OclProcessor getDefaultProcessor() {
 		return myProcessor;
 	}
 
 	public static Environment createEnvironment(Iterable<? extends Package> packages) {
-		Environment env = new EnvironmentImpl(createProcessor().getBridgeFactory());
+		Environment env = new EnvironmentImpl(getDefaultProcessor().getBridgeFactory());
 		env = addPackagesForEnvironment(env, packages);
 		return env;
 	}
 
 	public static Environment createEnvironment(Package pkg) {
-		Environment env = new EnvironmentImpl(createProcessor().getBridgeFactory());
-		env = env.addNamespace(createProcessor().getBridgeFactory().buildNamespace(pkg));
+		Environment env = new EnvironmentImpl(getDefaultProcessor().getBridgeFactory());
+		env = env.addNamespace(getDefaultProcessor().getBridgeFactory().buildNamespace(pkg));
 		env = addPackagesForEnvironment(env, pkg.getNestedPackage());
 		return env;
 	}
 
 	private static Environment addPackagesForEnvironment(Environment env, Iterable<? extends Package> packages) {
-		for(Package pkg: packages) {
-			env = env.addNamespace(createProcessor().getBridgeFactory().buildNamespace(pkg));
+		for(cmof.Package pkg: packages) {
+			env = env.addNamespace(getDefaultProcessor().getBridgeFactory().buildNamespace(pkg));
 			env = addPackagesForEnvironment(env, pkg.getNestedPackage());
 		}
 		return env;

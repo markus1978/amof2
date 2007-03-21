@@ -34,7 +34,9 @@ import hub.sam.mof.mofinstancemodel.events.InsertEvent;
 import hub.sam.mof.mofinstancemodel.events.PropertyChangeEventListener;
 import hub.sam.mof.mofinstancemodel.events.RemoveEvent;
 import hub.sam.mof.mofinstancemodel.events.SetEvent;
-import hub.sam.mof.ocl.MofEvaluationAdaptor;
+import hub.sam.mof.ocl.OclEnvironment;
+import hub.sam.mof.ocl.OclObjectEnvironment;
+import hub.sam.mof.ocl.oslobridge.MofEvaluationAdaptor;
 import hub.sam.mof.util.AssertionException;
 import hub.sam.mof.util.SetImpl;
 import hub.sam.mof.xmi.CMOFToXmi;
@@ -47,6 +49,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+
+import org.oslo.ocl20.semantics.bridge.Environment;
 
 import cmof.CallConcurrencyKind;
 import cmof.Operation;
@@ -74,6 +78,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     private Implementations implementation = null;
     private List<ObjectChangeListener> handler = null;
     private PropertyChangeEventListener fPropertyChangeListener;
+    private OclObjectEnvironment fObjectEnvironement = null;
 
     protected ObjectImpl(ClassInstance<UmlClass, Property, java.lang.Object> instance, ExtentImpl extent) {
         super();
@@ -140,6 +145,9 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     }
 
     public ClassifierSemantics<Property, Operation, String> getSemantics() {
+    	if (isStatic && semantics == null) {
+    		semantics = MofClassifierSemantics.createClassClassifierForUmlClass(getMetaClass());
+    	}
         return semantics;
     }
 
@@ -716,7 +724,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        setImplementations(new ImplementationsImpl(delegates, null));
+        setImplementations(new ImplementationsImpl(delegates, null));        
     }
 
     public void putAttribute(String name, java.lang.Object values) {
@@ -1006,5 +1014,21 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     public OclModelElement ocl() {
         return null; // TODO
     }
+
+	public <T> T getAdaptor(Class<T> adaptorClass) {
+		if (OclObjectEnvironment.class == adaptorClass) {
+			if (fObjectEnvironement == null) {
+				OclEnvironment environment = extent.getAdaptor(OclEnvironment.class);
+				if (environment == null) {
+					throw new IllegalArgumentException("ocl environment adaptor cannot be created for this object");
+ 				} else {
+ 					fObjectEnvironement = OclObjectEnvironment.createObjectEnvironment(this, environment);
+ 				}
+			}
+			return (T)fObjectEnvironement;
+		} else {
+			return null;
+		}
+	}        
 }
 

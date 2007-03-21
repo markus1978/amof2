@@ -99,4 +99,9 @@ public class ClientExtentImpl extends AbstractBridge implements ClientExtent {
 		// not supported	
 	}
 
+	public <T> T getAdaptor(Class<T> adaptorClass) {
+		// not supported	
+		return null;
+	}
+	
 }

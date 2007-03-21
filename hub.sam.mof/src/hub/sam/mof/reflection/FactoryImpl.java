@@ -22,6 +22,7 @@ package hub.sam.mof.reflection;
 import java.util.*;
 
 import cmof.*;
+import cmof.Package;
 import cmof.exception.*;
 import cmof.exception.IllegalArgumentException;
 import cmof.reflection.*;
@@ -51,8 +52,7 @@ public class FactoryImpl extends hub.sam.util.Identity implements Factory {
         if (forPackage == null) {
             return new FactoryImpl((ExtentImpl)extent);
         }
-
-        hub.sam.mof.javamapping.JavaMapping javaMapping = hub.sam.mof.javamapping.JavaMapping.mapping;
+        
         String className = javaMapping.getFullQualifiedImplFactoryNameForPackage(forPackage);
 
         FactoryImpl factory = null;
@@ -64,6 +64,33 @@ public class FactoryImpl extends hub.sam.util.Identity implements Factory {
             throw new RuntimeException(ex);
         }
         return factory;
+    }
+    
+    private static void collectAllPackages(Iterable<? extends cmof.Package> packages, Collection<cmof.Package> allPackages) {
+    	for(cmof.Package aPackage: packages) {
+    		allPackages.add(aPackage);
+    		collectAllPackages(aPackage.getNestedPackage(), allPackages);
+    	}
+    }
+    
+    public static <T extends Factory> T createFactory(Extent extent, Iterable<? extends cmof.Package> metaModel, Class<T> factoryClass) {
+    	Collection<cmof.Package> allPackages = new Vector<Package>();
+    	collectAllPackages(metaModel, allPackages);
+    	for (cmof.Package aPackage: allPackages) {
+    		String className = javaMapping.getFullQualifiedImplFactoryNameForPackage(aPackage);
+    		if (className.equals(factoryClass.getCanonicalName())) {
+    	        Factory factory = null;
+    	        try {            
+    	            java.lang.Class implementation = PlugInActivator.getClassLoader().loadClass(className);
+    	            java.lang.reflect.Constructor constructor = implementation.getConstructor(new java.lang.Class[] {ExtentImpl.class, cmof.Package.class });
+    	            factory = (FactoryImpl) constructor.newInstance(extent, aPackage);
+    	        } catch (Exception ex) {
+    	            throw new RuntimeException(ex);
+    	        }
+    	        return (T)factory;
+    		}
+    	}
+    	return null;
     }
 
     // TODO

@@ -1,4 +1,4 @@
-package hub.sam.mof.ocl;
+package hub.sam.mof.ocl.oslobridge;
 
 import org.oslo.ocl20.OclProcessor;
 import org.oslo.ocl20.semantics.bridge.ClassifierImpl;

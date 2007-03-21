@@ -25,6 +25,7 @@ import hub.sam.mof.codegeneration.PackageGenerator;
 import hub.sam.mof.codegeneration.ResolveJavaCodeClashes;
 import hub.sam.mof.codegeneration.StreamFactory;
 import hub.sam.mof.instancemodel.MetaModelException;
+import hub.sam.mof.ocl.OclEnvironment;
 import hub.sam.mof.reflection.ExtentImpl;
 import hub.sam.mof.reflection.server.ejb.ServerRepositoryHome;
 import hub.sam.mof.reflection.server.impl.ReflectionFactory;
@@ -47,6 +48,7 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -54,6 +56,8 @@ import javax.naming.NamingException;
 import javax.rmi.PortableRemoteObject;
 
 import org.jdom.JDOMException;
+
+import com.sun.tools.jdi.EventSetImpl.Itr;
 
 import cmof.NamedElement;
 import cmof.Package;
@@ -208,6 +212,17 @@ public class Repository extends hub.sam.util.Identity {
         extents.put(name, newextent);
         return newextent;
     }
+    
+    public Extent createExtent(String name, Iterable<? extends Package> metaModel) {
+    	Extent result = createExtent(name);
+    	((ExtentImpl)result).configureExtent(metaModel);
+    	return result;
+    }
+    
+    public Extent createExtent(String name, Extent metaExtent) {
+    	return createExtent(name, (Iterable)metaExtent.objectsOfType(
+    			(UmlClass)getExtent(CMOF_EXTENT_NAME).query("Package:cmof/Class:Package"), false));
+    }
 
     public void deleteExtent(String name) {
         Extent extent = getExtent(name);
@@ -222,12 +237,31 @@ public class Repository extends hub.sam.util.Identity {
      * Gives a factory for the meta-elements in a meta-package. The actual
      * type of the factory depends on the given package.
      *
+     * Is deprecated use createExtent with metaModel or metaExtent and retrieve the
+     * factory as adaptor from the extent.
+     * 
      * @param forExtent  the extent in that the factory will put all elements that it will create
      * @param forPackage the package that contains the meta-elements that the factory will instantiate
      * @return The factory.
      */
+    @Deprecated
     public Factory createFactory(Extent forExtent, cmof.Package forPackage) {
         return hub.sam.mof.reflection.FactoryImpl.createFactory(forExtent, forPackage);
+    }
+    
+    public void configureExtent(Extent extent, Extent metaExtent) {
+    	configureExtent(extent, (Iterable)metaExtent.objectsOfType(
+    			(UmlClass)getExtent(CMOF_EXTENT_NAME).query("Package:cmof/Class:Package"), false));
+    }
+    
+    public void configureExtent(Extent extent, Iterable<? extends Package> packages) {
+    	((ExtentImpl)extent).configureExtent(packages);
+    }
+    
+    public void configureExtent(Extent extent, Package metaModel) {
+    	Collection<Package> metaModelList = new Vector<Package>();
+    	metaModelList.add(metaModel);
+    	configureExtent(extent, metaModelList);
     }
 
     /**

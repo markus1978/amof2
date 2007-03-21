@@ -1,6 +1,7 @@
-package hub.sam.mof.ocl;
+package hub.sam.mof.ocl.oslobridge;
 
 import hub.sam.mof.javamapping.JavaMapping;
+import hub.sam.mof.ocl.OclException;
 import hub.sam.mof.util.AssertionException;
 import org.oslo.ocl20.semantics.bridge.Classifier;
 import org.oslo.ocl20.semantics.bridge.EnumLiteral;

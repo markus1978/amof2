@@ -9,9 +9,9 @@ import warehouse.ItemValue;
 import warehouse.BoxValue;
 import hub.sam.mof.jocl.standardlib.OclInteger;
 
-public class OclTest extends AbstractRepository {
+public class JOclTest extends AbstractRepository {
 
-    public OclTest() {
+    public JOclTest() {
         super("jocl test");
     }
 

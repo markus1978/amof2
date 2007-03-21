@@ -26,6 +26,7 @@ import cmof.common.*;
 import cmof.exception.*;
 import cmof.exception.IllegalArgumentException;
 import hub.sam.mof.jocl.standardlib.OclModelElement;
+import hub.sam.util.IAdaptable;
 
 /**
  * Every Object has a Class which describes its properties and operations. The
@@ -81,7 +82,7 @@ import hub.sam.mof.jocl.standardlib.OclModelElement;
  * Core::Basic to produce EMOF which can then be merged into CMOF to provide
  * reflective capability to MOF and all instances of MOF.
  */
-public interface Object {
+public interface Object extends IAdaptable {
 
     /**
      * Returns the Class that describes this object.
