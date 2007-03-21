@@ -27,7 +27,7 @@ public class EcoreGeneratorTest {
 				.put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
 
 		// Get the URI of the model file.
-		URI fileURI = URI.createFileURI(new File("test.ecore")
+		URI fileURI = URI.createFileURI(new File("SDL.ecore")
 				.getAbsolutePath());
 
 		// Create a resource for this file.
