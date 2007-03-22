@@ -87,9 +87,13 @@ public class MasPlugin extends AbstractUIPlugin {
 	}
     
     public static void configureLog4j() {
-        if (!log4jConfigured) {
+        if (!log4jConfigured) {        	
             try {
-                PropertyConfigurator.configure(FileLocator.toFileURL(getDefault().getBundle().getEntry("resources/log4j.properties")));
+            	if (getDefault() == null) {
+            		PropertyConfigurator.configure("resources/log4j.properties");
+            	} else {
+            		PropertyConfigurator.configure(FileLocator.toFileURL(getDefault().getBundle().getEntry("resources/log4j.properties")));	
+            	}                
             }
             catch (IOException e) {
                 e.printStackTrace();

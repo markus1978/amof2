@@ -20,11 +20,6 @@
 
 package hub.sam.mas.test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
 import hub.sam.mas.execution.MASExecution;
 import hub.sam.mas.management.GenericMasMofModelManager;
 import hub.sam.mas.management.MasRepository;
@@ -35,10 +30,10 @@ import hub.sam.mas.model.petrinets.Net;
 import hub.sam.mas.model.petrinets.Place;
 import hub.sam.mas.model.petrinets.Transition;
 import hub.sam.mas.model.petrinets.petrinetsFactory;
-import hub.sam.mof.Repository;
 import hub.sam.mof.javamapping.JavaMapping;
-import hub.sam.mof.runtimelayer.M1SemanticModel;
-import hub.sam.mof.xmi.Xmi1Reader.XmiKind;
+
+import java.util.Arrays;
+
 import cmof.Package;
 import cmof.Tag;
 import cmof.cmofFactory;
@@ -57,6 +52,11 @@ public class TestPetrinet extends MASExecution {
 		result.getTransitions().add(t1);
 		result.getPlaces().add(p1);
 		result.getPlaces().add(p2);
+		
+		Transition t2 = factory.createTransition();
+		t2.getInputPlaces().add(p2);
+		t2.getOutputPlaces().add(p1);
+		result.getTransitions().add(t2);
 		return result;
 	}
 	

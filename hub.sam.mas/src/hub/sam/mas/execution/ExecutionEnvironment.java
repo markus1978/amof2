@@ -1,7 +1,7 @@
 package hub.sam.mas.execution;
 
 import hub.sam.mof.Repository;
-import hub.sam.mof.ocl.MofOclProcessor;
+import hub.sam.mof.ocl.OclProcessor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +38,7 @@ public class ExecutionEnvironment extends AnalysisEnvironment {
 	}
 	
 	public Object evaluateInvariant(String invariant, NamedElement context, java.lang.Object self) {		
-		return MofOclProcessor.evaluateExpression(invariant, context, getOclEnvironment(), MofOclProcessor.createRuntimeEnvironment(self));
+		return OclProcessor.evaluateExpression(invariant, context, getOclEnvironment(), OclProcessor.createRuntimeEnvironment(self));
 	}
     
 }

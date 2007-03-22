@@ -1,10 +1,10 @@
 package hub.sam.mas.execution;
 
 import hub.sam.mof.Repository;
-import hub.sam.mof.ocl.MofEnumerationImpl;
-import hub.sam.mof.ocl.MofOclModelElementTypeImpl;
-import hub.sam.mof.ocl.MofOclProcessor;
 import hub.sam.mof.ocl.OclException;
+import hub.sam.mof.ocl.OclProcessor;
+import hub.sam.mof.ocl.oslobridge.MofEnumerationImpl;
+import hub.sam.mof.ocl.oslobridge.MofOclModelElementTypeImpl;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -56,14 +56,14 @@ public class AnalysisEnvironment {
 		}
 		Package cmofPackage = (cmof.Package)repo.getExtent(Repository.CMOF_EXTENT_NAME).query("Package:cmof");
 		this.factory = (cmofFactory)repo.createFactory(m2Extent, cmofPackage);
-		oclEnvironment = MofOclProcessor.createEnvironment(topLevelPackages);
+		oclEnvironment = OclProcessor.createEnvironment(topLevelPackages);
 	}
 	
 	public void checkOclConstraint(String expression, NamedElement context, Type requiredType, boolean isCollection, boolean isUnique, boolean isOrdered) throws SemanticException {
 		String errorPrefix = "Ocl expression [" + expression + "] ";
 		List result = null;
 		try {
-			result = MofOclProcessor.analyzeInvariant(oclEnvironment, expression, context);
+			result = OclProcessor.analyzeInvariant(oclEnvironment, expression, context);
 		} catch (OclException ex) {
 			throw new SemanticException(ex);
 		}
