@@ -99,17 +99,22 @@ public class ModelViewActionManager {
         manager.add(new GroupMarker("topAdditions"));       
         manager.add(new Separator());      
         manager.add(new GroupMarker("modelBrowser"));
+
+        if(site.getPart() instanceof ModelView) {
+        	addModel.setEnabled(addModel.shouldEnable((IStructuredSelection)viewer.getSelection()));
+        	manager.appendToGroup("modelBrowser", addModel);
+        }
         
-		addModel.setEnabled(addModel.shouldEnable((IStructuredSelection)viewer.getSelection()));
-		manager.appendToGroup("modelBrowser", addModel);
-		
 		addToFilteredClasses.setEnabled(addToFilteredClasses.shouldEnable((IStructuredSelection)viewer.getSelection()));
 		manager.appendToGroup("modelBrowser", addToFilteredClasses);
 		showDetails.setEnabled(showDetails.shouldEnable((IStructuredSelection)viewer.getSelection()));
 		manager.appendToGroup("modelBrowser", showDetails);        
-        removeModel.setEnabled(removeModel.shouldEnable((IStructuredSelection)viewer.getSelection()));
-        manager.appendToGroup("modelBrowser", removeModel);
 		
+		if(site.getPart() instanceof ModelView) {
+			removeModel.setEnabled(removeModel.shouldEnable((IStructuredSelection)viewer.getSelection()));
+	        manager.appendToGroup("modelBrowser", removeModel);
+		}
+        
 		manager.add(new Separator());
 		manager.add(new GroupMarker("modelFeatures"));
 		
