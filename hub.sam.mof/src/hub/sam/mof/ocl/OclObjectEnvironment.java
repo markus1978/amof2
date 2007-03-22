@@ -1,7 +1,5 @@
 package hub.sam.mof.ocl;
 
-import hub.sam.mof.ocl.oslobridge.MofOclProcessor;
-
 import org.oslo.ocl20.synthesis.RuntimeEnvironment;
 
 public class OclObjectEnvironment {
@@ -15,7 +13,7 @@ public class OclObjectEnvironment {
 		super();
 		fSelf = object;
 		fEnvironment = environment;
-		fRuntimeEnvironment = MofOclProcessor.createRuntimeEnvironment(object);
+		fRuntimeEnvironment = OclProcessor.createRuntimeEnvironment(object);
 	}
 
 	public static OclObjectEnvironment createObjectEnvironment(cmof.reflection.Object object, 
@@ -26,7 +24,7 @@ public class OclObjectEnvironment {
 	public Object execute(String invariant) throws OclException {
 		// TODO caching of invariants
 		try {
-			return MofOclProcessor.evaluateExpression(invariant, fSelf.getMetaClass(), 
+			return OclProcessor.evaluateExpression(invariant, fSelf.getMetaClass(), 
 					fEnvironment.getEnvironment(), fRuntimeEnvironment);
 		} catch (Exception ex) {
 			throw new OclException("Exception during evaluation of ocl.", ex);

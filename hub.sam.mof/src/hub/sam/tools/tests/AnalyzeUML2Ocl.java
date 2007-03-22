@@ -2,8 +2,7 @@ package hub.sam.tools.tests;
 
 import hub.sam.mof.Repository;
 import hub.sam.mof.ocl.OclException;
-import hub.sam.mof.ocl.oslobridge.MofOclProcessor;
-import hub.sam.mof.reflection.ExtentImpl;
+import hub.sam.mof.ocl.OclProcessor;
 
 import java.util.Collection;
 import java.util.Vector;
@@ -34,7 +33,7 @@ public class AnalyzeUML2Ocl {
 				packages.add((Package)o);
 			}
 		}
-		Environment env = MofOclProcessor.createEnvironment(packages);
+		Environment env = OclProcessor.createEnvironment(packages);
 		
 		int total = 0;
 		int failures = 0;
@@ -48,7 +47,7 @@ public class AnalyzeUML2Ocl {
 					System.out.println("Analyze " + constraint.getQualifiedName() + ".");
 					total++;
 					try {
-						MofOclProcessor.analyzeInvariant(env, ((OpaqueExpression)constraint.getSpecification()).getBody(),constraint.getContext());
+						OclProcessor.analyzeInvariant(env, ((OpaqueExpression)constraint.getSpecification()).getBody(),constraint.getContext());
 					} catch (OclException e) {
 						System.err.println(e.getMessage());
 						failures++;
