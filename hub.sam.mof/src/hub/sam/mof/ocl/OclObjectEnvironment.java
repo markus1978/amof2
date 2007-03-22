@@ -21,11 +21,10 @@ public class OclObjectEnvironment {
 		return new OclObjectEnvironment(environment, object);
 	}
 	
-	public Object execute(String invariant) throws OclException {
-		// TODO caching of invariants
+	public Object execute(String expression) throws OclException {
 		try {
-			return OclProcessor.evaluateExpression(invariant, fSelf.getMetaClass(), 
-					fEnvironment.getEnvironment(), fRuntimeEnvironment);
+			return OclProcessor.evaluateExpression(fEnvironment.analyseOclExpression(expression, fSelf.getMetaClass()), 
+					expression, fSelf.getMetaClass(),  fRuntimeEnvironment);
 		} catch (Exception ex) {
 			throw new OclException("Exception during evaluation of ocl.", ex);
 		}

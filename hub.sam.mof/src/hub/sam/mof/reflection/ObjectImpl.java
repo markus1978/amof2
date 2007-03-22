@@ -50,8 +50,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import org.oslo.ocl20.semantics.bridge.Environment;
-
 import cmof.CallConcurrencyKind;
 import cmof.Operation;
 import cmof.Parameter;

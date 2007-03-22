@@ -47,7 +47,7 @@ public class AnalyzeUML2Ocl {
 					System.out.println("Analyze " + constraint.getQualifiedName() + ".");
 					total++;
 					try {
-						OclProcessor.analyzeInvariant(env, ((OpaqueExpression)constraint.getSpecification()).getBody(),constraint.getContext());
+						OclProcessor.analyzeExpression(env, ((OpaqueExpression)constraint.getSpecification()).getBody(),constraint.getContext());
 					} catch (OclException e) {
 						System.err.println(e.getMessage());
 						failures++;

@@ -571,7 +571,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
 		if (OclEnvironment.class == adaptorClass) {
 			if (fOclEnvironment == null) {
 				if (fMetaModel == null) {
-					throw new IllegalArgumentException("This extend is not configured.");
+					return null;
 				}
 				fOclEnvironment = OclEnvironment.createOclEnvironment(fMetaModel);
 			}

@@ -1,26 +1,48 @@
 package hub.sam.mof.ocl;
 
 import hub.sam.mof.Repository;
+import hub.sam.mof.ocl.oslobridge.MofEnumerationImpl;
 import hub.sam.mof.ocl.oslobridge.MofLog;
 import hub.sam.mof.ocl.oslobridge.MofOclListImpl;
+import hub.sam.mof.ocl.oslobridge.MofOclModelElementTypeImpl;
 import hub.sam.mof.ocl.oslobridge.MofOclProcessor;
 import hub.sam.mof.ocl.oslobridge.MofOclSetImpl;
 import hub.sam.mof.util.AssertionException;
 
+import java.io.Reader;
 import java.io.StringReader;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
+import org.oslo.ocl20.semantics.bridge.Classifier;
 import org.oslo.ocl20.semantics.bridge.Environment;
 import org.oslo.ocl20.semantics.bridge.EnvironmentImpl;
+import org.oslo.ocl20.semantics.model.contexts.ClassifierContextDecl;
+import org.oslo.ocl20.semantics.model.contexts.Constraint;
+import org.oslo.ocl20.semantics.model.contexts.ConstraintKind$Class;
+import org.oslo.ocl20.semantics.model.contexts.ContextDeclaration;
+import org.oslo.ocl20.semantics.model.types.BagType;
+import org.oslo.ocl20.semantics.model.types.BooleanType;
+import org.oslo.ocl20.semantics.model.types.CollectionType;
+import org.oslo.ocl20.semantics.model.types.OrderedSetType;
+import org.oslo.ocl20.semantics.model.types.RealType;
+import org.oslo.ocl20.semantics.model.types.SequenceType;
+import org.oslo.ocl20.semantics.model.types.SetType;
+import org.oslo.ocl20.semantics.model.types.StringType;
 import org.oslo.ocl20.standard.lib.OclAny;
 import org.oslo.ocl20.standard.lib.OclBoolean;
 import org.oslo.ocl20.standard.lib.OclCollection;
 import org.oslo.ocl20.standard.lib.OclReal;
 import org.oslo.ocl20.standard.lib.OclUndefined;
+import org.oslo.ocl20.standard.types.PrimitiveImpl;
 import org.oslo.ocl20.syntax.ast.contexts.PackageDeclarationAS;
 import org.oslo.ocl20.synthesis.RuntimeEnvironment;
 import org.oslo.ocl20.synthesis.RuntimeEnvironmentImpl;
+
+import core.primitivetypes.UnlimitedNatural;
 
 import uk.ac.kent.cs.kmf.util.ILog;
 import warehouse.Box;
@@ -28,8 +50,10 @@ import warehouse.Item;
 import warehouse.Rack;
 import warehouse.WarehouseModel;
 import warehouse.warehouseFactory;
+import cmof.MultiplicityElement;
 import cmof.NamedElement;
 import cmof.Package;
+import cmof.Type;
 import cmof.reflection.Extent;
 
 public class OclProcessor {
@@ -115,13 +139,65 @@ public class OclProcessor {
 			}
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static Object evaluateExpression(List cs, String invariant, NamedElement context, RuntimeEnvironment runEnv) {        
+        ILog evalLog = new MofLog(System.out);
+		OclAny oclResult = evaluateAsOcl(cs,  runEnv, evalLog);
+		if (evalLog.hasErrors()) {
+			evalLog.finalReport();
+			throw new OclException("Errors during evaluation of '" + invariant + "' in context: " + context.getQualifiedName());
+		}
+		if (oclResult instanceof OclUndefined) {
+			throw new OclException("evluated to undefined: " + invariant);
+		} else {
+		    if (oclResult instanceof OclReal) {
+				return ((OclReal)oclResult).round().asJavaObject();
+			} else if (oclResult instanceof OclCollection) {
+				Object javaResult = oclResult.asJavaObject();
+				if (javaResult instanceof List) {
+					return new MofOclListImpl((List)javaResult, oclResult);
+				} else if (javaResult instanceof Collection) {
+					return new MofOclSetImpl((Collection)javaResult, oclResult);
+				} else {
+					throw new AssertionException("not implemented.");
+				}
+			} else {
+				Object result = oclResult;
+				while (result instanceof OclAny) {
+					result = ((OclAny)result).asJavaObject();
+				}
+				return result;
+			}
+		}
+	}
+	
+    private static OclAny evaluateAsOcl(List cs, RuntimeEnvironment renv, ILog log) {    	        
+        if (cs == null)
+            return null;
+        OclAny result = null;
+        List results = new Vector();
+        Iterator i = cs.iterator();
+        while (i.hasNext()) {
+            ContextDeclaration decl = (ContextDeclaration) i.next();
+            Iterator ci = decl.getConstraint().iterator();
+            while (ci.hasNext()) {
+                Constraint constraint = (Constraint)ci.next();
+                if (! ConstraintKind$Class.DEF.equals(constraint.getKind())) {
+                    OclAny x = myProcessor.getEvaluator().evaluateAsOCL(decl, renv, log);
+                    results.add(x);
+                }
+            }
+        }
+        return (OclAny)results.get(0);
+    }    
 
-	public static List analyzeInvariant(Environment env, String invariant, NamedElement context) throws OclException {
+	public static List analyzeExpression(Environment env, String expression, NamedElement context) throws OclException {
 		ILog parseLog = new MofLog(System.out);
-		PackageDeclarationAS parseResult = myProcessor.getParser().parse(new StringReader(oclForInvariant(invariant, context)), parseLog, false);
+		PackageDeclarationAS parseResult = myProcessor.getParser().parse(new StringReader(oclForInvariant(expression, context)), parseLog, false);
 		if (parseLog.hasErrors()) {
 			parseLog.finalReport();
-			throw new OclException("Errors during parse of '" + invariant + "' in context: " + context.getQualifiedName());
+			throw new OclException("Errors during parse of '" + expression + "' in context: " + context.getQualifiedName());
 		}
 
 		ILog analyzeLog = new MofLog(System.out);
@@ -129,7 +205,7 @@ public class OclProcessor {
 
 		if (analyzeLog.hasErrors()) {
 			analyzeLog.finalReport();
-			throw new OclException("Errors during analysis of '" + invariant + "' in context: " + context.getQualifiedName());
+			throw new OclException("Errors during analysis of '" + expression + "' in context: " + context.getQualifiedName());
 		} else {
 			analyzeLog.finalReport();
 		}
@@ -143,6 +219,89 @@ public class OclProcessor {
 
 		return result;
 	}
+	
+	public static List analyzeExpression(Environment oclEnvironment, String expression, NamedElement context, Type requiredType, 
+			boolean isCollection, boolean isUnique, boolean isOrdered) throws OclException {
+		String errorPrefix = "Ocl expression [" + expression + "] ";
+		List result = null;
+		try {
+			result = OclProcessor.analyzeExpression(oclEnvironment, expression, context);
+		} catch (OclException ex) {
+			throw new OclException(ex);
+		}
+		
+		if (result != null && requiredType != null) {
+			for(Object o1: result) {
+				ClassifierContextDecl ccd = (ClassifierContextDecl)o1;
+				for (Object o2: ccd.getConstraint()) {
+					org.oslo.ocl20.semantics.model.contexts.Constraint constraint = (org.oslo.ocl20.semantics.model.contexts.Constraint)o2;
+					Classifier exprType = constraint.getBodyExpression().getType();
+					Classifier exprClassifierType = null;
+					if (exprType instanceof MofOclModelElementTypeImpl || exprType instanceof MofEnumerationImpl || exprType instanceof PrimitiveImpl) {
+						exprClassifierType = exprType;
+						if (!(!(context instanceof MultiplicityElement) || ((MultiplicityElement)context).getUpper() == 1)) {
+							throw new OclException(errorPrefix + "has collection type for non collection feature.");							
+						}
+					} else if (exprType instanceof CollectionType) {
+						if (!isCollection) {
+							throw new OclException(errorPrefix + "has non collection type for collection feature.");						
+						}
+						exprClassifierType = ((CollectionType)exprType).getBaseElementType();
+						if (exprType instanceof BagType) {
+							if (isOrdered) {
+								throw new OclException(errorPrefix + "has non ordered collection type for an ordered feature.");								
+							}
+							if (isUnique) {
+								throw new OclException(errorPrefix + "has non unique collection type for an unique feature.");								
+							}
+						} else if (exprType instanceof SequenceType) {							
+							if (isUnique) {
+								throw new OclException(errorPrefix + "has non unique collection type for an unique feature.");
+							}
+						} else if (exprType instanceof SetType) {
+							if (!(exprType instanceof OrderedSetType)) {
+								if (isOrdered) {
+									throw new OclException(errorPrefix + "has non ordered collection type for an ordered feature.");									
+								}								
+							}
+						} 
+					} else {
+						throw new OclException(errorPrefix + "has unknown static type.");
+					}
+					
+					if (exprClassifierType instanceof MofOclModelElementTypeImpl || exprClassifierType instanceof MofEnumerationImpl) {
+						Object mofDelegate = null;
+						if (exprClassifierType instanceof MofOclModelElementTypeImpl) {
+							mofDelegate = ((MofOclModelElementTypeImpl)exprClassifierType).getMofDelegate();
+						} else {
+							mofDelegate = ((MofEnumerationImpl)exprClassifierType).getMofDelegate();
+						}
+						if (!requiredType.equals(mofDelegate)) {
+							throw new OclException(errorPrefix + "has wrong type or base type.");
+						}											
+					} else if (exprClassifierType instanceof PrimitiveImpl) {
+						if (exprClassifierType instanceof BooleanType) {
+							if (!requiredType.getName().equals(core.primitivetypes.Boolean.class.getSimpleName())) {
+								throw new OclException(errorPrefix + "has wrong type or base type.");
+							}
+						} else if (exprClassifierType instanceof StringType) {
+							if (!requiredType.getName().equals(core.primitivetypes.String.class.getSimpleName())) {
+								throw new OclException(errorPrefix + "has wrong type or base type.");
+							}
+						} else if (exprClassifierType instanceof RealType) {
+							if (!requiredType.getName().equals(Integer.class.getSimpleName()) && !requiredType.getName().equals(UnlimitedNatural.class.getSimpleName())) {
+								throw new OclException(errorPrefix + "has wrong type or base type.");
+							}
+						}
+					} else {
+						throw new OclException(errorPrefix + "has wrong base type.");
+					}
+				}
+			}
+		}
+		return result;
+	}
+
 
 	private static String oclForInvariant(String invariant, NamedElement context) {
 		StringBuffer constraint = new StringBuffer("context ");
@@ -162,7 +321,7 @@ public class OclProcessor {
 
 		String invariant = "if container->notEmpty() then position = self.container.position.concat('.').concat(self.identifier) else position = identifier endif";
 
-		analyzeInvariant(env, invariant, context);
+		analyzeExpression(env, invariant, context);
 
 		Repository repository = Repository.getLocalRepository();
         Extent warehouseExtent = repository.createExtent("warehouseExtent");
