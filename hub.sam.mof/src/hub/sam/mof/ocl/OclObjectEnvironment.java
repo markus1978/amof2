@@ -2,6 +2,8 @@ package hub.sam.mof.ocl;
 
 import org.oslo.ocl20.synthesis.RuntimeEnvironment;
 
+import cmof.Type;
+
 public class OclObjectEnvironment {
 
 	private final OclEnvironment fEnvironment;
@@ -19,6 +21,15 @@ public class OclObjectEnvironment {
 	public static OclObjectEnvironment createObjectEnvironment(cmof.reflection.Object object, 
 			OclEnvironment environment) {
 		return new OclObjectEnvironment(environment, object);
+	}
+	
+	public void analyse(String expression) throws OclException {
+		fEnvironment.analyseOclExpression(expression, fSelf.getMetaClass());
+	}
+	
+	public void analyse(String expression, Type requiredTyp, boolean collection, boolean unique, boolean ordered) 
+			throws OclException {
+		fEnvironment.analyseOclExpression(expression, fSelf.getMetaClass(), requiredTyp, collection, unique, ordered);
 	}
 	
 	public Object execute(String expression) throws OclException {
