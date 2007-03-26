@@ -332,8 +332,8 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
         // usually this is done by UpdateGraphNode, but because we concieve set by remove/add and don't want 
         // accodring property change events on the primary remove add, it is ommited by update graph node and
         // we create a SetEven manually.
-        firePropertyChanged(new SetEvent(getProperty(), index,  (ValueSpecification<UmlClass,Property,java.lang.Object>)o, 
-        		removedObject));
+        firePropertyChanged(new SetEvent(getProperty(), index,  removedObject, 
+        		(ValueSpecification<UmlClass,Property,java.lang.Object>)o));
         return removedObject;
     }
 

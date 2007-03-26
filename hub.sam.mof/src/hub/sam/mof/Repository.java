@@ -25,7 +25,6 @@ import hub.sam.mof.codegeneration.PackageGenerator;
 import hub.sam.mof.codegeneration.ResolveJavaCodeClashes;
 import hub.sam.mof.codegeneration.StreamFactory;
 import hub.sam.mof.instancemodel.MetaModelException;
-import hub.sam.mof.ocl.OclEnvironment;
 import hub.sam.mof.reflection.ExtentImpl;
 import hub.sam.mof.reflection.server.ejb.ServerRepositoryHome;
 import hub.sam.mof.reflection.server.impl.ReflectionFactory;
@@ -57,13 +56,12 @@ import javax.rmi.PortableRemoteObject;
 
 import org.jdom.JDOMException;
 
-import com.sun.tools.jdi.EventSetImpl.Itr;
-
 import cmof.NamedElement;
 import cmof.Package;
 import cmof.PrimitiveType;
 import cmof.UmlClass;
 import cmof.cmofFactory;
+import cmof.exception.ModelException;
 import cmof.reflection.Extent;
 import cmof.reflection.Factory;
 
@@ -74,6 +72,7 @@ import cmof.reflection.Factory;
 public class Repository extends hub.sam.util.Identity {
 
 	private static Configuration configuration = new Configuration();
+	private Collection<RepositoryChangeListener> fRepositoryChangeListener = new Vector<RepositoryChangeListener>();
 	
     /**
      * Extreeem dirty. This is needed for AS applications to communitcate the actual m2 boolean primitiv type to
@@ -150,6 +149,7 @@ public class Repository extends hub.sam.util.Identity {
         if (result != null) {
             extents.put(staticModel.getName(), result);
         }
+        fireExtentAddedRepositoryChange(result);
         return result;
     }
 
@@ -210,6 +210,7 @@ public class Repository extends hub.sam.util.Identity {
         Extent newextent = new hub.sam.mof.reflection.ExtentImpl(name);
         ((hub.sam.util.Identity)newextent).setParentIdentity(this);
         extents.put(name, newextent);
+        fireExtentAddedRepositoryChange(newextent);
         return newextent;
     }
     
@@ -224,8 +225,12 @@ public class Repository extends hub.sam.util.Identity {
     			(UmlClass)getExtent(CMOF_EXTENT_NAME).query("Package:cmof/Class:Package"), false));
     }
 
-    public void deleteExtent(String name) {
+    public void deleteExtent(String name) {    	
         Extent extent = getExtent(name);
+        if (extent == null) {
+        	throw new ModelException("Extent with name " + name + " does not exist.");
+        }
+        fireExtentRemovedRepositoryChange(extent);
         extents.remove(name);
         if (extent != null) {
         	((ExtentImpl)extent).myFinalize();
@@ -538,7 +543,8 @@ public class Repository extends hub.sam.util.Identity {
     }
 
     public void reset() {
-        for (String extentName : extents.keySet()) {
+    	fRepositoryChangeListener.clear();
+    	for (String extentName : extents.keySet()) {
             Extent extent = extents.get(extentName);
             if (!extentName.equals(CMOF_EXTENT_NAME)) {
                 extents.remove(extent);
@@ -546,7 +552,7 @@ public class Repository extends hub.sam.util.Identity {
                     ((ExtentImpl)extent).myFinalize();
                 }
             }
-        }
+        }        
         System.gc();
     }
 
@@ -560,5 +566,25 @@ public class Repository extends hub.sam.util.Identity {
         Map<String, InputStream> result = new HashMap<String,  InputStream>();
         result.put("", in);
         return result;
+    }
+    
+    public void addRepositoryChangeListener(RepositoryChangeListener listener) {
+    	this.fRepositoryChangeListener.add(listener);
+    }
+    
+    public void removeRepositoryChangeListener(RepositoryChangeListener listener) {
+    	this.fRepositoryChangeListener.remove(listener);
+    }
+    
+    private void fireExtentAddedRepositoryChange(Extent extent) {
+    	for (RepositoryChangeListener listener: fRepositoryChangeListener) {
+    		listener.extendAdded(extent);
+    	}
+    }
+    
+    private void fireExtentRemovedRepositoryChange(Extent extent) {
+    	for (RepositoryChangeListener listener: fRepositoryChangeListener) {
+    		listener.extendRemoved(extent);
+    	}
     }
 }
