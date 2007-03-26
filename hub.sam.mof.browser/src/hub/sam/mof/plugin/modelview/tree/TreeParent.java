@@ -48,6 +48,11 @@ public abstract class  TreeParent extends TreeObject {
 		if (element instanceof cmof.reflection.Object) {
 			((cmof.reflection.Object)element).addObjectEventHandler(fObjectChangeListener);
 			((cmof.reflection.Object)element).addListener(fPropertyChangeListener);
+		} else {
+			if (element != null && 
+					element.getClass().getCanonicalName().equals(cmof.reflection.Object.class.getCanonicalName())) {
+				throw new RuntimeException("Classpath problem");
+			}			
 		}
 	}
 

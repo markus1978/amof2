@@ -81,8 +81,13 @@ public class ExtentViewContentProvider implements IStructuredContentProvider, IT
 		@Override		
 		protected Collection<TreeObject> retrieveChildren() {
 			return children;
-		}
+		}		
 		
+		@Override
+		public Collection<TreeObject> getChildren() {
+			return children;
+		}
+
 		void addChild(TreeObject child) {
 			children.add(child);
 		}

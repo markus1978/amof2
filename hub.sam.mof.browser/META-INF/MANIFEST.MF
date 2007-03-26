@@ -16,7 +16,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources
 Eclipse-LazyStart: true
 Export-Package: hub.sam.mof.plugin,
+ hub.sam.mof.plugin.modeleditor,
  hub.sam.mof.plugin.modelview,
  hub.sam.mof.plugin.modelview.actions,
- hub.sam.mof.plugin.modelview.tree
+ hub.sam.mof.plugin.modelview.tree,
+ hub.sam.mof.plugin.modelview.tree.builder,
+ hub.sam.mof.plugin.properties
 Bundle-ClassPath: mofbrowser.jar

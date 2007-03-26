@@ -29,6 +29,7 @@ public class ExtentTreeObject extends ManTreeObject {
 	
 	class MyExtentChangeListener implements ExtentChangeListener {
 		public void change() {		
+			getView().getSelection();
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {			
 						refresh();
@@ -38,6 +39,8 @@ public class ExtentTreeObject extends ManTreeObject {
 		}
 
 		public void newObject(Object newObject) {
+			// this if is nonsense because in the moment that the object is created and this event is
+			// fired the newObject cant have a container.
 			if (newObject.getOutermostContainer() == newObject) {
 				change();
 			}

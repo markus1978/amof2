@@ -1,6 +1,7 @@
 package hub.sam.mof.plugin.modelview.tree;
 
 import hub.sam.mof.Repository;
+import hub.sam.mof.RepositoryChangeListener;
 import hub.sam.mof.plugin.modelview.Images;
 
 import java.io.FileInputStream;
@@ -10,16 +11,32 @@ import java.util.Collection;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.PlatformUI;
 
 import cmof.reflection.Extent;
 
 public class RepositoryTreeObject extends TreeParent {
 
 	private final Repository repository;	
-	
+	private final RepositoryChangeListener fChangeListener = new RepositoryChangeListener() {
+		@Override
+		public void extendAdded(Extent extent) {
+			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {				
+				private void refresh() {
+					RepositoryTreeObject.this.refresh();						
+					getView().refresh(RepositoryTreeObject.this);
+				}			
+				public void run() {			
+					refresh();
+				}				
+			});
+		}		
+	};
+		
 	public RepositoryTreeObject(Repository repository, TreeParent parent, TreeViewer view) {
 		super(repository, parent, view);
 		this.repository = repository;
+		repository.addRepositoryChangeListener(fChangeListener);
 	}
 
 	@Override
@@ -83,5 +100,11 @@ public class RepositoryTreeObject extends TreeParent {
         refresh();
         return extent;
     }
+
+	@Override
+	protected void delete() {
+		repository.removeRepositoryChangeListener(fChangeListener);
+		super.delete();
+	}
     
 }
