@@ -78,7 +78,7 @@ public class FactoryImpl extends hub.sam.util.Identity implements Factory {
     	collectAllPackages(metaModel, allPackages);
     	for (cmof.Package aPackage: allPackages) {
     		String className = javaMapping.getFullQualifiedImplFactoryNameForPackage(aPackage);
-    		if (className.equals(factoryClass.getCanonicalName())) {
+    		if (javaMapping.getFullQualifiedFactoryNameForPackage(aPackage).equals(factoryClass.getCanonicalName())) {
     	        Factory factory = null;
     	        try {            
     	            java.lang.Class implementation = PlugInActivator.getClassLoader().loadClass(className);
