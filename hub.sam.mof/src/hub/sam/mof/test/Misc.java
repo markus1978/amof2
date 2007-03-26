@@ -81,5 +81,12 @@ public class Misc extends AbstractRepository {
     public void testExtentDelete() throws Exception {
     	repository.loadXmiIntoExtent(extent, m3, "resources/models/test/warehouse.xml");
     	repository.deleteExtent("test");
-    }        
+    }    
+    
+    public void testEmptyExtent() throws Exception {
+    	repository.createExtent("testEmptyExtent").objectsOfType(
+    			(UmlClass)m3Extent.query("Package:cmof/Class:Namespace"), true);
+    	repository.createExtent("testEmptyExtent").objectsOfType(
+    			(UmlClass)m3Extent.query("Package:cmof/Class:Namespace"), false);
+    }
 }

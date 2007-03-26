@@ -331,6 +331,10 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
     			registerObjectAndObjectType(object);
     		}
     	}
+    	if (objectsForTypes == null) {
+    		objectsForTypes = new MultiMap<UmlClass, cmof.reflection.Object>();
+    		objectsForTypesWithSubtypes = new MultiMap<UmlClass, cmof.reflection.Object>();
+    	}
     	return objectsForTypes;
     }
     
