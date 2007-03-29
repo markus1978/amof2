@@ -54,7 +54,7 @@ public class MasContext {
     private Map<String, Activity> activities = new TreeMap<String, Activity>();
     private boolean syntaxModelNeedsSaving = false;
     
-    MasContext(MasMofModelManager manager) {
+    MasContext(IMasMofModelManager manager) {
         MasPlugin.configureLog4j();
         
         syntaxModel = manager.getSyntaxModel();

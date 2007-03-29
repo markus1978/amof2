@@ -21,7 +21,7 @@
 package hub.sam.mas.test;
 
 import hub.sam.mas.execution.MASExecution;
-import hub.sam.mas.management.GenericMasMofModelManager;
+import hub.sam.mas.management.MasMofModelManager;
 import hub.sam.mas.management.MasRepository;
 import hub.sam.mas.management.MasXmiFiles;
 import hub.sam.mas.management.MofModel;
@@ -64,7 +64,7 @@ public class TestPetrinet extends MASExecution {
         MasXmiFiles xmiFiles = new SimpleMasXmiFiles("resources/models/", "petrinets.masctx");
 
         // create a new model manager
-        GenericMasMofModelManager modelManager = new GenericMasMofModelManager(repository);
+        MasMofModelManager modelManager = new MasMofModelManager(repository);
         
         // load mas model and mas meta-model
         modelManager.loadMasMetaModelFromXmi(xmiFiles.getMasMetaFile(), "Package:mas");

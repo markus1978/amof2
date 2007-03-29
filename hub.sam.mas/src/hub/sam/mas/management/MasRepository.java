@@ -42,7 +42,7 @@ public class MasRepository {
         return instance;
     }
     
-    public MasContext createMasContext(MasMofModelManager modelManager) {
+    public MasContext createMasContext(IMasMofModelManager modelManager) {
         MasContext context = new MasContext(modelManager);
         contexts.put(context.getContextId(), context);
         return context;

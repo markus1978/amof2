@@ -20,7 +20,7 @@
 
 package hub.sam.mas.editor.actions;
 
-import hub.sam.mas.management.GenericMasMofModelManager;
+import hub.sam.mas.management.MasMofModelManager;
 import hub.sam.mas.management.MasRepository;
 import hub.sam.mas.management.PluginMasXmiFiles;
 import hub.sam.mas.management.MasXmiFiles;
@@ -55,7 +55,7 @@ public class AddMASContextAction extends Mof2PluginAction {
             MasXmiFiles xmiFiles = new PluginMasXmiFiles(new Path(dialog.getFilterPath()), dialog.getFileName());
 
             Repository repository = Repository.getLocalRepository();
-            GenericMasMofModelManager modelManager = new GenericMasMofModelManager(repository);
+            MasMofModelManager modelManager = new MasMofModelManager(repository);
             modelManager.loadMasMetaModelFromXmi(xmiFiles.getMasMetaFile());
             modelManager.loadMasModelFromXmi(xmiFiles.getMasFile());
             modelManager.loadSyntaxModelFromXmi(xmiFiles.getSyntaxFile());
