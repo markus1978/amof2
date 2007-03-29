@@ -67,24 +67,16 @@ public class TestPetrinet extends MASExecution {
         GenericMasMofModelManager modelManager = new GenericMasMofModelManager(repository);
         
         // load mas model and mas meta-model
-        modelManager.loadMasMetaModelFromXmi( xmiFiles.getMasMetaFile() );
-        modelManager.loadMasModelFromXmi( xmiFiles.getMasFile() );
-        
-        {
-        MofModel masMetaModel = modelManager.getMasModel().getMetaModel();
-        masMetaModel.setPackage( (Package) masMetaModel.getExtent().query("Package:mas") );
-        }
-        
-        // set syntax meta-model
-        modelManager.setSyntaxMetaModel( modelManager.getCmofModel() );
+        modelManager.loadMasMetaModelFromXmi(xmiFiles.getMasMetaFile(), "Package:mas");
+        modelManager.loadMasModelFromXmi(xmiFiles.getMasFile());
         
         // clone syntax model
         String clonedSyntaxFile = xmiFiles.getSyntaxFile() + "_cloned.xml";
         cloneXmiModel(xmiFiles.getSyntaxFile(), clonedSyntaxFile, Arrays.asList(new String[] {"petrinets"}));
         
         // set syntax model
-        modelManager.loadSyntaxModelFromXmi(clonedSyntaxFile);
-        Package petrinetMetaModel = (Package) modelManager.getSyntaxModel().getExtent().query("Package:petrinets");
+        modelManager.loadSyntaxModelFromXmi(clonedSyntaxFile, "Package:petrinets");
+        Package petrinetMetaModel = (Package) modelManager.getSyntaxModel().getPackage();
         
         Tag nsPrefixTag = ((cmofFactory) modelManager.getSyntaxModel().getFactory()).createTag();
         nsPrefixTag.setName(JavaMapping.PackagePrefixTagName);
@@ -96,7 +88,8 @@ public class TestPetrinet extends MASExecution {
         
         // create a test model
         Extent testExtent = repository.createExtent("test");
-        petrinetsFactory testFactory = (petrinetsFactory) repository.createFactory(testExtent, petrinetMetaModel);
+        MofModel testModel = new MofModel(repository, modelManager.getSyntaxModel(), null, testExtent, "test", null);
+        petrinetsFactory testFactory = (petrinetsFactory) testModel.getFactory();
         
 		prepareRun(testExtent, testFactory);
 		

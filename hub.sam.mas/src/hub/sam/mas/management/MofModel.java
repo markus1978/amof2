@@ -24,6 +24,7 @@ import java.io.IOException;
 
 import org.jdom.JDOMException;
 
+import hub.sam.mas.MasPlugin;
 import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.MetaModelException;
 import hub.sam.mof.xmi.XmiException;
@@ -38,7 +39,7 @@ public class MofModel {
     private final Extent extent;
     private final String extentName;
     private Factory factory;
-    private Package cmofPackage;
+    private Package modelPackage;
     private MofModel metaModel;
     
     /**
@@ -50,13 +51,13 @@ public class MofModel {
      * @param extentName
      * @param cmofPackage
      */
-    public MofModel(Repository repository, MofModel metaModel, String xmiFile, Extent extent, String extentName, Package cmofPackage) {
+    public MofModel(Repository repository, MofModel metaModel, String xmiFile, Extent extent, String extentName, Package modelPackage) {
         this.repository = repository;
         this.metaModel = metaModel;
         this.xmiFile = xmiFile;
         this.extent = extent;
         this.extentName = extentName;
-        this.cmofPackage = cmofPackage;
+        this.modelPackage = modelPackage;
     }
 
     /**
@@ -67,12 +68,12 @@ public class MofModel {
      * @param extentName
      * @param cmofPackage
      */
-    public MofModel(Repository repository, String xmiFile, Extent extent, String extentName, Package cmofPackage) {
+    public MofModel(Repository repository, String xmiFile, Extent extent, String extentName, Package modelPackage) {
         this.repository = repository;
         this.xmiFile = xmiFile;
         this.extent = extent;
         this.extentName = extentName;
-        this.cmofPackage = cmofPackage;
+        this.modelPackage = modelPackage;
     }
 
     public Extent getExtent() {
@@ -82,24 +83,38 @@ public class MofModel {
     public String getExtentName() {
         return extentName;
     }
-    
+       
     public Factory getFactory() {
+        Package forPackage = getMetaModel().getPackage();
+        if (forPackage == null) {
+            throw new IllegalStateException("Can not create a factory without a meta-model package.");
+        }
         if (factory == null) {
-            factory = repository.createFactory(extent, getMetaModel().getPackage());
+            String className = hub.sam.mof.javamapping.JavaMapping.mapping.getFullQualifiedFactoryNameForPackage(forPackage);
+            try {            
+                Class factoryClass = MasPlugin.class.getClassLoader().loadClass(className);
+                if (Factory.class.isAssignableFrom(factoryClass)){
+                    factory = (Factory) extent.getAdaptor(factoryClass);
+                    return factory;
+                }
+            }
+            catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
         }
         return factory;
     }
-    
+   
     public String getXmiFile() {
         return xmiFile;
     }
 
     public Package getPackage() {
-        return cmofPackage;
+        return modelPackage;
     }
     
-    public void setPackage(Package cmofPackage) {
-        this.cmofPackage = cmofPackage;
+    public void setPackage(Package modelPackage) {
+        this.modelPackage = modelPackage;
     }
 
     public MofModel getMetaModel() {

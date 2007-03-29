@@ -87,7 +87,7 @@ public class MasPlugin extends AbstractUIPlugin {
 	}
     
     public static void configureLog4j() {
-        if (!log4jConfigured) {        	
+        if (!log4jConfigured && getDefault() != null) {
             try {
             	if (getDefault() == null) {
             		PropertyConfigurator.configure("resources/log4j.properties");

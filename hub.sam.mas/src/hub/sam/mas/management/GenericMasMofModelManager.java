@@ -21,19 +21,7 @@
 package hub.sam.mas.management;
 
 import hub.sam.mof.Repository;
-import hub.sam.mof.instancemodel.MetaModelException;
-import hub.sam.mof.xmi.XmiException;
-import hub.sam.mof.xmi.XmiImportExport;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import org.jdom.JDOMException;
-
-import cmof.Package;
 import cmof.cmofFactory;
-import cmof.reflection.Extent;
 
 /**
  * This MasMofModelManager is generic in the way you can specify the different models
@@ -45,38 +33,18 @@ import cmof.reflection.Extent;
  */
 public class GenericMasMofModelManager implements MasMofModelManager {
     
-    private final Repository repository;
-    private MofModel syntaxModel;
-    private MofModel syntaxMetaModel;
-    private MofModel masModel;
-    private MofModel masMetaModel;
-    private MofModel cmofModel;
-    private static final String illegalStateMessage = "You must specify a syntax model, a mas model and their meta-models first!";
+    private MofModelManager syntaxModelManager;
+    private MofModelManager masModelManager;
     
     public GenericMasMofModelManager(Repository repository) {
-        this.repository = repository;
-    }
-    
-    public MofModel getCmofModel() {
-        if (cmofModel == null) {
-            Extent cmofExtent = repository.getExtent(Repository.CMOF_EXTENT_NAME);
-            Package cmofPackage = (Package) cmofExtent.query("Package:cmof");
-            cmofModel = new MofModel(repository, null, cmofExtent, Repository.CMOF_EXTENT_NAME, cmofPackage);
-        }
-        return cmofModel;
-    }
-    
-    private boolean isIllegalState() {
-        return syntaxModel == null && syntaxMetaModel == null && masModel == null && masMetaModel == null; 
-    }
-    
-    public MofModel getSyntaxModel() {
-        if (isIllegalState()) {
-            throw new IllegalStateException(illegalStateMessage);
-        }
-        return syntaxModel;
+        this.syntaxModelManager = new MofModelManager(repository);
+        this.masModelManager = new MofModelManager(repository);
     }
 
+    public void loadSyntaxModelFromXmi(String xmiFile) throws LoadException {
+        loadSyntaxModelFromXmi(xmiFile, null);
+    }
+    
     /**
      * Loads a syntax model (as instance of the syntax meta-model) from the given xmi file.
      * You must load the syntax meta-model before calling this method!
@@ -84,77 +52,8 @@ public class GenericMasMofModelManager implements MasMofModelManager {
      * @param xmiFile
      * @throws LoadException
      */
-    public void loadSyntaxModelFromXmi(String xmiFile) throws LoadException {
-        syntaxModel = loadModelFromXmi(syntaxMetaModel, xmiFile);
-    }
-    
-    /**
-     * Loads a syntax meta-model (as instance of cmof meta-meta-model) from the given xmi file
-     * without specifying the model's package.
-     * 
-     * @param xmiFile
-     * @throws LoadException
-     */
-    public void loadSyntaxMetaModelFromXmi(String xmiFile) throws LoadException {
-        syntaxMetaModel = loadModelFromXmi(getCmofModel(), xmiFile);
-    }
-    
-    /**
-     * Loads a syntax meta-model (as instance of cmof meta-meta-model) from the given xmi file
-     * in the specified package.
-     * 
-     * @param xmiFile
-     * @param packageQuery
-     * @throws LoadException
-     */
-    public void loadSyntaxMetaModelFromXmi(String xmiFile, String packageQuery) throws LoadException {
-        syntaxMetaModel = loadModelFromXmi(getCmofModel(), xmiFile);
-        syntaxMetaModel.setPackage( (Package) syntaxMetaModel.getExtent().query(packageQuery) );
-    }
-    
-    private MofModel loadModelFromXmi(MofModel metaModel, String xmiFile) throws LoadException {
-        assert(metaModel != null);
-        Extent modelExtent = repository.createExtent(xmiFile);
-        MofModel mofModel = null;
-        
-        try {
-            if (xmiFile.endsWith(".xml")) {
-                repository.loadXmiIntoExtent(modelExtent, metaModel.getPackage(), new FileInputStream(xmiFile));
-                mofModel = new MofModel(repository, metaModel, xmiFile, modelExtent, xmiFile, null);
-            }
-            else if (xmiFile.endsWith(".mdxml")) {
-                XmiImportExport diagramInfo = repository.loadMagicDrawXmiIntoExtent(modelExtent, metaModel.getPackage(), new FileInputStream(xmiFile));
-                mofModel = new MagicDrawMofModel(repository, metaModel, xmiFile, modelExtent, xmiFile, null, diagramInfo);
-            }
-            else {
-                throw new LoadException("unkown extension for xmi file " + xmiFile);
-            }
-        }
-        catch (FileNotFoundException e) {
-            throw new LoadException("xmi file " + xmiFile, e);
-        }
-        catch (IOException e) {
-            throw new LoadException("xmi file " + xmiFile, e);
-        }
-        catch (JDOMException e) {
-            throw new LoadException("xmi file " + xmiFile, e);
-        }
-        catch (XmiException e) {
-            throw new LoadException("xmi file " + xmiFile, e);
-        }
-        catch (MetaModelException e) {
-            throw new LoadException("xmi file " + xmiFile, e);
-        }
-        
-        return mofModel;
-    }
-    
-    public void setSyntaxModel(MofModel model) {
-        syntaxModel = model;
-    }
-    
-    public void setSyntaxMetaModel(MofModel model) {
-        syntaxMetaModel = model;
+    public void loadSyntaxModelFromXmi(String xmiFile, String packageQuery) throws LoadException {
+        syntaxModelManager.loadM2ModelFromXmi(xmiFile, packageQuery);
     }
     
     /**
@@ -163,16 +62,22 @@ public class GenericMasMofModelManager implements MasMofModelManager {
      * @param xmiFile
      * @throws LoadException
      */
-    public void loadMasMetaModelFromXmi(String xmiFile) throws LoadException {
-        masMetaModel = loadModelFromXmi(getCmofModel(), xmiFile);
-        Package masMetaPackage = (Package) masMetaModel.getExtent().query("Package:mas");
-        masMetaModel.setPackage(masMetaPackage);
-        
-        cmofFactory factory = (cmofFactory) masMetaModel.getFactory(); 
+    public void loadMasMetaModelFromXmi(String xmiFile, String packageQuery) throws LoadException {
+        masModelManager.loadM2ModelFromXmi(xmiFile, "Package:mas");
+
+        cmofFactory factory = (cmofFactory) masModelManager.getM2Model().getFactory(); 
         cmof.Tag nsPrefixTag = factory.createTag();
         nsPrefixTag.setValue("mas");
         nsPrefixTag.setName("org.omg.xmi.nsPrefix");
-        masMetaPackage.getTag().add(nsPrefixTag);
+        masModelManager.getM2Model().getPackage().getTag().add(nsPrefixTag);
+    }
+    
+    public void loadMasMetaModelFromXmi(String xmiFile) throws LoadException {
+        loadMasMetaModelFromXmi(xmiFile, null);
+    }
+    
+    public void loadMasModelFromXmi(String xmiFile) throws LoadException {
+        loadMasModelFromXmi(xmiFile, null);
     }
     
     /**
@@ -182,28 +87,16 @@ public class GenericMasMofModelManager implements MasMofModelManager {
      * @param xmiFile
      * @throws LoadException
      */
-    public void loadMasModelFromXmi(String xmiFile) throws LoadException {
-        masModel = loadModelFromXmi(masMetaModel, xmiFile);
-    }
-    
-    public void setMasModel(MofModel model) {
-        this.masModel = model;
-    }
-    
-    public void setMasMetaModel(MofModel model) {
-        this.masMetaModel = model;
+    public void loadMasModelFromXmi(String xmiFile, String packageQuery) throws LoadException {
+        masModelManager.loadM1ModelFromXmi(xmiFile, packageQuery);
     }
 
-    /**
-     * Returns the currently specified mas model.
-     * You must specify a mas model by calling one of the methods setMasModel or loadMasModelFromXmi first!
-     * 
-     */
     public MofModel getMasModel() {
-        if (isIllegalState()) {
-            throw new IllegalStateException(illegalStateMessage);
-        }
-        return masModel;
+        return masModelManager.getM1Model();
+    }
+
+    public MofModel getSyntaxModel() {
+        return syntaxModelManager.getM2Model();
     }
 
 }

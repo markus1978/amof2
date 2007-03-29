@@ -22,7 +22,6 @@ package hub.sam.mas.editor.actions;
 
 import hub.sam.mas.management.GenericMasMofModelManager;
 import hub.sam.mas.management.MasRepository;
-import hub.sam.mas.management.MofModel;
 import hub.sam.mas.management.PluginMasXmiFiles;
 import hub.sam.mas.management.MasXmiFiles;
 import hub.sam.mof.Repository;
@@ -57,20 +56,9 @@ public class AddMASContextAction extends Mof2PluginAction {
 
             Repository repository = Repository.getLocalRepository();
             GenericMasMofModelManager modelManager = new GenericMasMofModelManager(repository);
-            modelManager.loadMasMetaModelFromXmi( xmiFiles.getMasMetaFile() );
-            modelManager.loadMasModelFromXmi( xmiFiles.getMasFile() );
-            modelManager.setSyntaxMetaModel( modelManager.getCmofModel() );
-            
-            // do not load model twice if syntax model is the same as mas meta-model
-            if (xmiFiles.getSyntaxFile().equals(xmiFiles.getMasMetaFile())) {
-                MofModel masMetaModel = modelManager.getMasModel().getMetaModel();
-                MofModel petrinetMetaModel = new MofModel(repository, modelManager.getCmofModel(), null,
-                        masMetaModel.getExtent(), masMetaModel.getExtentName(), null);
-                modelManager.setSyntaxModel( petrinetMetaModel );
-            }
-            else {
-                modelManager.loadSyntaxModelFromXmi( xmiFiles.getSyntaxFile() );
-            }
+            modelManager.loadMasMetaModelFromXmi(xmiFiles.getMasMetaFile());
+            modelManager.loadMasModelFromXmi(xmiFiles.getMasFile());
+            modelManager.loadSyntaxModelFromXmi(xmiFiles.getSyntaxFile());
             
             MasRepository.getInstance().createMasContext(modelManager);
         }

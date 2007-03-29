@@ -6,7 +6,6 @@ import hub.sam.mas.model.petrinets.Place;
 import hub.sam.mas.model.petrinets.Transition;
 import hub.sam.mof.mofinstancemodel.MofClassSemantics;
 import hub.sam.mof.reflection.ArgumentImpl;
-import hub.sam.mof.reflection.ObjectImpl;
 import hub.sam.mof.util.ListImpl;
 
 import java.util.Collection;
