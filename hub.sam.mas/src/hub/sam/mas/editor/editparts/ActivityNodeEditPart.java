@@ -135,11 +135,13 @@ public abstract class ActivityNodeEditPart extends PropertyAwareGraphicalEditPar
     }
     
     public void propertyChange(PropertyChangeEvent ev) {
-        if (ev.getPropertyName().equals("outgoing")) {
-            refreshSourceConnections();
-        }
-        else if (ev.getPropertyName().equals("incoming")) {
-            refreshTargetConnections();
+        if (ev.getPropertyName() != null) {
+            if (ev.getPropertyName().equals("outgoing")) {
+                refreshSourceConnections();
+            }
+            else if (ev.getPropertyName().equals("incoming")) {
+                refreshTargetConnections();
+            }
         }
     }
 

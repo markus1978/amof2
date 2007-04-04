@@ -41,6 +41,7 @@ public class ContextPinListEditPart extends PinListEditPart {
     }
     
     protected void createEditPolicies() {
+        super.createEditPolicies();
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new AttachedNodeListToolbarLayoutEditPolicy() {
             @Override
             protected boolean isOwnerOfModel(Object model) {

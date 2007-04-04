@@ -86,8 +86,10 @@ public class GuardSpecificationEditPart extends PropertyAwareGraphicalEditPart {
     }
 
     public void propertyChange(PropertyChangeEvent ev) {
-        if (ev.getPropertyName().equals("body")) {
-            refreshVisuals();
+        if (ev.getPropertyName() != null) {
+            if (ev.getPropertyName().equals("body")) {
+                refreshVisuals();
+            }
         }
     }
     

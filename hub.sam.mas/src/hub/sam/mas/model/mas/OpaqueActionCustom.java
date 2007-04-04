@@ -24,6 +24,7 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 	public void fire(ActivityInstance context) {
 		// perform all as semantics actions
 		Object contextValue = null;
+        MofClassSemantics semantics = null;
 		switch(self.getActionKind()) {
 			case EXPRESSION: 		
 				System.out.println("eval " + self.getActionBody());
@@ -41,7 +42,7 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 						arguments.add(new ArgumentImpl(null, ((PinInstance)context.getPlaces(pin)).getValue()));
 					}
 				}
-				MofClassSemantics semantics = MofClassSemantics.createClassClassifierForUmlClass((UmlClass)
+				semantics = MofClassSemantics.createClassClassifierForUmlClass((UmlClass)
 						getTypeForObject(contextValue));
 				
 				for (InputPin inputPin: self.getInput()) {
@@ -111,7 +112,18 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 				((ReflectiveSequence)((cmof.reflection.Object)contextValue).get(feature)).remove(featureValue);
 				break;
 			case CREATE_OBJECT:
-			case PRINT_EXPRESSION:
+                contextValue = context.getOclContext();
+                for(InputPin pin: self.getInput()) {
+                    if (pin instanceof ContextPin) {
+                        contextValue = ((PinInstance)context.getPlaces(pin)).getValue();
+                    } else {                     
+                        throw new SemanticException("Only a single context pin is allowed for a create action.");                      
+                    }
+                }
+                semantics = MofClassSemantics.createClassClassifierForUmlClass((UmlClass)
+                        getTypeForObject(contextValue));
+                propagateOutput(semantics, false, context);
+			case PRINT_EXPRESSION:                
 			default:
 				System.out.println("WARNING: unknown action kind");
 		}
