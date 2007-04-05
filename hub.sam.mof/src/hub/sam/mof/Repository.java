@@ -220,6 +220,12 @@ public class Repository extends hub.sam.util.Identity {
     	return result;
     }
     
+    public Extent createExtent(String name, Package metaModel) {
+        Extent result = createExtent(name);
+        ((ExtentImpl)result).configureExtent(metaModel);
+        return result;
+    }
+    
     public Extent createExtent(String name, Extent metaExtent) {
     	return createExtent(name, (Iterable)metaExtent.objectsOfType(
     			(UmlClass)getExtent(CMOF_EXTENT_NAME).query("Package:cmof/Class:Package"), false));
@@ -264,9 +270,7 @@ public class Repository extends hub.sam.util.Identity {
     }
     
     public void configureExtent(Extent extent, Package metaModel) {
-    	Collection<Package> metaModelList = new Vector<Package>();
-    	metaModelList.add(metaModel);
-    	configureExtent(extent, metaModelList);
+        ((ExtentImpl)extent).configureExtent(metaModel);
     }
 
     /**
