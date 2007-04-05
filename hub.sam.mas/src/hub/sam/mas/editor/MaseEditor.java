@@ -340,16 +340,17 @@ public class MaseEditor extends GraphicalEditorWithPalette {
 
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         super.init(site, input);
-
         // add CommandStackListener when the editor gets its input
         getCommandStack().addCommandStackListener(commandStackListener);
     }
 
     public void dispose() {
-        // TODO delete MasLink ?
-        getEditDomain().getMasLink().setAssociatedEditor(null);
-        // remove CommandStackListener
+        if (isDirty() && getCommandStack().canUndo()) {
+            getCommandStack().undo();
+        }
         getCommandStack().removeCommandStackListener(commandStackListener);
+        getEditDomain().getMasLink().setAssociatedEditor(null);
+        ModelGarbageCollector.getInstance().cleanUp();
         ModelGarbageCollector.getInstance().dispose();
         ((IMaseEditorInput) getEditorInput()).getLink().removeListener(editorInputChangeListener);
         super.dispose();

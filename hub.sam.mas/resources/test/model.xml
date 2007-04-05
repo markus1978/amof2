@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:mas="http://www.foo.org/mas" xmi:version="2.1">
+  <mas:ControlFlow xmi:id="7209" target="7210" source="7213" />
+  <mas:Activity xmi:id="7212">
+    <node xmi:id="7213" activityAsNode="7212" outgoing="7209" initialTokesn="0" margin="8" xsi:type="OpaqueAction" />
+    <node xmi:id="7210" activityAsNode="7212" initialTokesn="0" incoming="7209" margin="8" xsi:type="OpaqueAction" />
+  </mas:Activity>
+</xmi:XMI>
+
