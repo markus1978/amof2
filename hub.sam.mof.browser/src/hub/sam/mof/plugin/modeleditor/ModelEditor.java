@@ -4,6 +4,7 @@ import hub.sam.mof.Repository;
 import hub.sam.mof.plugin.modelview.IModelTreeContentContentProvider;
 import hub.sam.mof.plugin.modelview.ModelViewActionManager;
 
+import org.eclipse.core.commands.operations.ObjectUndoContext;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -26,6 +27,7 @@ public class ModelEditor extends EditorPart {
 	private final ModelViewActionManager actions = new ModelViewActionManager();
 
 	private Extent extent;
+	private ObjectUndoContext undoContext;
 	
 	/**
 	 * 
@@ -49,7 +51,7 @@ public class ModelEditor extends EditorPart {
 			
 			String path = ((IPathEditorInput) input).getPath().toOSString();
 			
-			extent = REPOSITORY.createExtent(path);
+			extent = REPOSITORY.createExtent(path, CMOF_EXTENT);
 			try{
 				REPOSITORY.loadXmiIntoExtent(extent, CMOF_PACKAGE, path);
 			} catch (Exception e) {
