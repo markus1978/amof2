@@ -21,31 +21,45 @@ package hub.sam.mof.util;
 
 import java.util.*;
 
+import cmof.exception.IllegalAccessException;
+
 public class SetImpl<E> implements cmof.common.ReflectiveCollection<E> {
     private final Collection<E> values;
+    private boolean modifyable;
     
     public SetImpl() {
+    	modifyable = true;
         this.values = new HashSet<E>();        
     }
     
     public SetImpl(int intialSize) {
+    	modifyable = true;
         this.values = new HashSet<E>(intialSize);        
     }
     
     public SetImpl(Iterable<? extends E> copy) {
-        this();
+        this();        
         for (E elem: copy) {
             values.add(elem);
         }
     }
     
     public SetImpl(Collection<E> values) {
+    	modifyable = true;
         this.values = values;
     }
     
+    public void makeUnmodifyable() {
+    	modifyable = false;
+    }
+    
     @SuppressWarnings("unchecked")
-	public boolean add(Object element) {        
-        return values.add((E)element);
+	public boolean add(Object element) {       
+    	if (modifyable) {
+    		return values.add((E)element);
+    	} else {
+    		throw new IllegalAccessException("add to a unmodifyable set");
+    	}
     }
 
     @SuppressWarnings("unchecked")
@@ -55,7 +69,11 @@ public class SetImpl<E> implements cmof.common.ReflectiveCollection<E> {
 
     @SuppressWarnings("unchecked")
 	public boolean remove(Object element) {
-        return values.remove(element);
+    	if (modifyable) {
+    		return values.remove(element);
+    	} else {
+    		throw new IllegalAccessException("remove to a unmodifyable set");
+    	}
     }
 
     public boolean addAll(Iterable<? extends Object> elements) {

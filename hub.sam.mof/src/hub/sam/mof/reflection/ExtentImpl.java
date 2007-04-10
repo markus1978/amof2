@@ -301,6 +301,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
             return objects;
         } else {
             result = new SetImpl<cmof.reflection.Object>((!includeSubtypes) ? getObjectsForTypes().get(type) : getObjectsForTypesWithSubtypes().get(type));
+            ((SetImpl)result).makeUnmodifyable();
         }
         return result;
     }
@@ -312,6 +313,9 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
     	}
 		UmlClass metaClass = object.getMetaClass();
         if (metaClass != null) {
+        	if (object instanceof ExtentImpl) {
+        		System.out.println("massive error");
+        	}
             objectsForTypes.put(metaClass, object);
             objectsForTypesWithSubtypes.put(metaClass, object);
             //if (!((ObjectImpl)metaClass).isStatic) {
