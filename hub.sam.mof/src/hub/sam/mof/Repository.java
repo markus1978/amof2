@@ -225,7 +225,7 @@ public class Repository extends hub.sam.util.Identity {
         ((ExtentImpl)result).configureExtent(metaModel);
         return result;
     }
-    
+
     public Extent createExtent(String name, Extent metaExtent) {
     	return createExtent(name, (Iterable)metaExtent.objectsOfType(
     			(UmlClass)getExtent(CMOF_EXTENT_NAME).query("Package:cmof/Class:Package"), false));

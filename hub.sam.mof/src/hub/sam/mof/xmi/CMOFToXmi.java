@@ -38,6 +38,8 @@ import java.util.Vector;
 
 public class CMOFToXmi implements Conversion<UmlClass, Property, java.lang.Object, XmiClassifier, String, String, String, String> {
 
+	public static final String NS_PREFIX_TAG_NAME = "org.omg.xmi.nsPrefix";
+	
     private final Map<cmof.Package, String> packageNsPrefixes = new HashMap<cmof.Package, String>();
     private final String defaultNsPrefix;
     private final PrimitiveValueSerializeConfiguration valueSerializeConfiguration =
@@ -50,7 +52,7 @@ public class CMOFToXmi implements Conversion<UmlClass, Property, java.lang.Objec
 
     private void searchForNsPrefixes(cmof.Package inPackage) {
     	for(Tag tag: inPackage.getTag()) {
-    		if (new String("org.omg.xmi.nsPrefix").equals(tag.getName())) {
+    		if (new String(NS_PREFIX_TAG_NAME).equals(tag.getName())) {
                 packageNsPrefixes.put(inPackage, tag.getValue());
             }
     	}
