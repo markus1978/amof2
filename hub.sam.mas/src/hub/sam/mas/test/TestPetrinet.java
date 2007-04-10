@@ -86,12 +86,12 @@ public class TestPetrinet extends MASExecution {
         // now the model manager is in a legal state and we can create a mas context
         masContext = MasRepository.getInstance().createMasContext(modelManager);
         
-        // create a test model
-        Extent testExtent = repository.createExtent("test");
+        // create a test model        
+        Extent testExtent = repository.createExtent("test", modelManager.getSyntaxModel().getExtent());
         MofModel testModel = new MofModel(repository, modelManager.getSyntaxModel(), null, testExtent, "test", null);
         petrinetsFactory testFactory = (petrinetsFactory) testModel.getFactory();
         
-		prepareRun(testExtent, testFactory);
+		prepareRun(testModel.getExtent(), testFactory);
 		
 		Net net = createTestModel(testFactory);
 		net.instantiate().run();		

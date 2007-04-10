@@ -61,6 +61,7 @@ public class GenerateRepository {
             repository.generateCode(masExtent, "generated-src", Arrays.asList(
             		new String[]{"mas", "petrinets"}));           
             repository.writeExtentToXmi("resources/models/mas_merged.xml", cmofPackage, masExtent);
+            repository.generateStaticModel(masExtent, "hub.sam.mas.model.MasModel", "generated-src");
         }
         catch (Exception e) {
             e.printStackTrace();

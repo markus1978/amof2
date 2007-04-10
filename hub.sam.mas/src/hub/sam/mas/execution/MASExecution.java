@@ -92,7 +92,7 @@ public class MASExecution {
 	
 	public void prepareRun(Extent m1Extent, Factory m1Factory) throws Exception {
         ExecutionEnvironment env = new ExecutionEnvironment(m1Extent,
-                masContext.getMasModel().getMetaModel().getExtent(), repository);
+                masContext.getMasModel().getExtent(), repository);
         
         Extent semanticExtent = masContext.getMasModel().getExtent();
         ((ExtentImpl) semanticExtent).setCustomImplementationsManager(new ImplementationsManagerContainer(

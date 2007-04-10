@@ -32,7 +32,7 @@ public class AnalysisEnvironment {
 		Package cmofPackage = (cmof.Package)repo.getExtent(Repository.CMOF_EXTENT_NAME).query("Package:cmof");
 		this.factory = (cmofFactory)repo.createFactory(m2Extent, cmofPackage);
 		
-		OclEnvironment oclEnvironment = m2Extent.getAdaptor(OclEnvironment.class);
+		OclEnvironment oclEnvironment = m1Extent.getAdaptor(OclEnvironment.class);
 		if (oclEnvironment == null) {
 			repo.configureExtent(m1Extent, m2Extent);
 			oclEnvironment = m1Extent.getAdaptor(OclEnvironment.class);
