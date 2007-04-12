@@ -28,9 +28,7 @@ import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 
-import hub.sam.mas.editor.commands.ActivityGroupCreateCommand;
-import hub.sam.mas.editor.commands.ActivityNodeCreateCommand;
-import hub.sam.mas.editor.commands.ConstrainedNodeChangeConstraintCommand;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.FinalNodeEditPart;
 import hub.sam.mas.editor.editparts.ForkNodeEditPart;
 import hub.sam.mas.editor.editparts.InitialNodeEditPart;
@@ -54,12 +52,15 @@ public class ActivityXYLayoutEditPolicy extends XYLayoutEditPolicy {
     protected Command createAddCommand(EditPart child, Object constraint) {
         return null;
     }
+    
+    protected MaseEditDomain getEditDomain() {
+        return (MaseEditDomain) getHost().getRoot().getViewer().getEditDomain();
+    }
 
     @Override
     protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
-        return new ConstrainedNodeChangeConstraintCommand(
-                (ConstrainedNode) child.getModel(),
-                (Rectangle) constraint);
+        return getEditDomain().getCommandFactory().createConstrainedNodeChangeConstraintCommand(
+                (ConstrainedNode) child.getModel(), (Rectangle) constraint);
     }
     
     protected EditPolicy createChildEditPolicy(EditPart child) {
@@ -88,16 +89,12 @@ public class ActivityXYLayoutEditPolicy extends XYLayoutEditPolicy {
         Rectangle rectangle = (Rectangle) getConstraintFor(request);
         if (newObject instanceof OpaqueAction || newObject instanceof ValueNode
                 || newObject instanceof ControlNode) {
-            return new ActivityNodeCreateCommand(
-                    getHostModel(),
-                    (ActivityNode) newObject,
-                    rectangle);
+            return getEditDomain().getCommandFactory().createActivityNodeCreateCommand(
+                    getHostModel(), (ActivityNode) newObject, rectangle);
         }
         else if (newObject instanceof ExpansionRegion) {
-            return new ActivityGroupCreateCommand(
-                    getHostModel(),
-                    (ActivityGroup) newObject,
-                    rectangle);
+            return getEditDomain().getCommandFactory().createActivityGroupCreateCommand(
+                    getHostModel(), (ActivityGroup) newObject, rectangle);
         }
         return null;
     }

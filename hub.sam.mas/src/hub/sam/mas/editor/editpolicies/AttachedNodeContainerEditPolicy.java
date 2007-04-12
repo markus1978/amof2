@@ -20,6 +20,8 @@
 
 package hub.sam.mas.editor.editpolicies;
 
+import hub.sam.mas.editor.MaseEditDomain;
+
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editpolicies.ContainerEditPolicy;
@@ -38,6 +40,10 @@ public abstract class AttachedNodeContainerEditPolicy extends ContainerEditPolic
             || REQ_CLONE.equals(request.getType()))
             return getHost();
         return null;
+    }
+    
+    protected MaseEditDomain getEditDomain() {
+        return (MaseEditDomain) getHost().getRoot().getViewer().getEditDomain();
     }
 
 }

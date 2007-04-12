@@ -19,19 +19,19 @@ import cmof.common.ReflectiveSequence;
 import cmof.reflection.Argument;
 
 public class OpaqueActionCustom extends OpaqueActionDlg {
-
+    
 	@Override
 	public void fire(ActivityInstance context) {
 		// perform all as semantics actions
 		Object contextValue = null;
         MofClassSemantics semantics = null;
 		switch(self.getActionKind()) {
-			case EXPRESSION: 		
-				System.out.println("eval " + self.getActionBody());
+			case EXPRESSION:
+                DebugInfo.printInfo("eval " + self.getActionBody());
 				propagateOutput(evaluateExpression(self, self.getActionBody(), self.getInput(), context), true, context);
 				break;
 			case CALL:
-				System.out.println("call " + self.getActionBody());
+                DebugInfo.printInfo("call " + self.getActionBody());
 				String operationName = getActionBody();				;
 				contextValue = context.getOclContext();
 				ReflectiveSequence<Argument> arguments = new ListImpl<Argument>();
@@ -56,13 +56,13 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 		        }			    
 			    Object result = ((cmof.reflection.Object)contextValue).invokeOperation(operation, arguments);
 		        propagateOutput(result, false, context);
-		        System.out.println("end call " + self.getActionBody());
+                DebugInfo.printInfo("end call " + self.getActionBody());
 		        break;						
 			case PRINT:
 				System.out.println(self.getActionBody());
 				break;							
 			case WRITE_STRUCTURAL_FEATURE:
-				System.out.println("set " + self.getActionBody());
+                DebugInfo.printInfo("set " + self.getActionBody());
 				contextValue = context.getOclContext();
 				Object featureValue = null;
 				for(InputPin pin: self.getInput()) {
@@ -79,7 +79,7 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 				((cmof.reflection.Object)contextValue).set(feature, featureValue);
 				break;
 			case WRITE_STRUCTURAL_FEATURE_VALUE:
-				System.out.println("add " + self.getActionBody());
+                DebugInfo.printInfo("add " + self.getActionBody());
 				contextValue = context.getOclContext();
 				featureValue = null;
 				for(InputPin pin: self.getInput()) {
@@ -96,6 +96,7 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 				((ReflectiveSequence)((cmof.reflection.Object)contextValue).get(feature)).add(featureValue);
 				break;
 			case REMOVE_STRUCTURAL_FEATURE_VALUE:
+                DebugInfo.printInfo("remove " + self.getActionBody());
 				contextValue = context.getOclContext();
 				featureValue = null;
 				for(InputPin pin: self.getInput()) {
@@ -112,6 +113,7 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 				((ReflectiveSequence)((cmof.reflection.Object)contextValue).get(feature)).remove(featureValue);
 				break;
 			case CREATE_OBJECT:
+                DebugInfo.printInfo("create " + self.getActionBody());
                 contextValue = context.getOclContext();
                 for(InputPin pin: self.getInput()) {
                     if (pin instanceof ContextPin) {
@@ -123,7 +125,10 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
                 semantics = MofClassSemantics.createClassClassifierForUmlClass((UmlClass)
                         getTypeForObject(contextValue));
                 propagateOutput(semantics, false, context);
-			case PRINT_EXPRESSION:                
+                break;
+			case PRINT_EXPRESSION:
+                System.out.println(evaluateExpression(self, self.getActionBody(), self.getInput(), context));
+                break;
 			default:
 				System.out.println("WARNING: unknown action kind");
 		}
@@ -164,7 +169,8 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 		}
 	}
 	
-	protected static Object evaluateExpression(ActivityNode self, String body, Iterable<? extends InputPin> pins, ActivityInstance context) {
+	protected static Object evaluateExpression(ActivityNode self, String body, Iterable<? extends InputPin> pins,
+            ActivityInstance context) {
 		ExecutionEnvironment env = context.getEnv();	
 		
 		Object contextValue = context.getOclContext();
@@ -186,7 +192,7 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 					OpaqueActionCustom.getTypeForObject(contextValue));
 			additionalAttribute = true;
 		}
-		Object result = env.evaluateInvariant(body,  OpaqueActionCustom.getTypeForObject(contextValue), contextValue);
+		Object result = env.evaluateInvariant(body, OpaqueActionCustom.getTypeForObject(contextValue), contextValue);
 		if (additionalAttribute) {
 			env.removeAdditionalAttribute();
 		}

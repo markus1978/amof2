@@ -26,6 +26,11 @@ import java.util.Map;
 
 import cmof.reflection.Extent;
 
+/**
+ * manages many different connections between syntax and semantic models in different mas contexts.
+ * it allows creating mas contexts by providing an appropriate mof model manager.
+ *
+ */
 public class MasRepository {
 
     private static MasRepository instance;
@@ -42,8 +47,8 @@ public class MasRepository {
         return instance;
     }
     
-    public MasContext createMasContext(IMasMofModelManager modelManager) {
-        MasContext context = new MasContext(modelManager);
+    public MasContext createMasContext(IMasModelContainer modelContainer) {
+        MasContext context = new MasContext(modelContainer);
         contexts.put(context.getContextId(), context);
         return context;
     }

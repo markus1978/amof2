@@ -32,7 +32,6 @@ import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.ui.views.properties.IPropertySource;
 
 import hub.sam.mas.editor.MaseEditDomain;
-import hub.sam.mas.editor.commands.GuardSpecificationDeleteCommand;
 import hub.sam.mas.editor.editparts.properties.GuardSpecificationPropertySource;
 import hub.sam.mas.editor.figures.GuardSpecificationFigure;
 import hub.sam.mas.model.mas.GuardSpecification;
@@ -70,7 +69,8 @@ public class GuardSpecificationEditPart extends PropertyAwareGraphicalEditPart {
                 if (list.size() > 0) {
                     Object obj = list.get(0);
                     if (obj instanceof GuardSpecificationEditPart) {
-                        return new GuardSpecificationDeleteCommand(getParent().getModel());
+                        MaseEditDomain editDomain = (MaseEditDomain) getHost().getRoot().getViewer().getEditDomain();
+                        return editDomain.getCommandFactory().createGuardSpecificationDeleteCommand(getParent().getModel());
                     }
                 }
                 return null;

@@ -20,8 +20,7 @@
 
 package hub.sam.mas.editor.editpolicies;
 
-import hub.sam.mas.editor.commands.AttachedNodeCreateCommand;
-import hub.sam.mas.editor.commands.AttachedNodeListMoveChildCommand;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.AttachedNodeEditPart;
 import hub.sam.mas.editor.editparts.AttachedNodeListEditPart;
 import hub.sam.mas.model.mas.AttachedNode;
@@ -90,7 +89,8 @@ public abstract class AttachedNodeListToolbarLayoutEditPolicy extends ToolbarLay
                 afterModel = (AttachedNode) after.getModel();
             }            
 
-            return new AttachedNodeListMoveChildCommand(nodeList, childModel, afterModel);
+            return getEditDomain().getCommandFactory().createAttachedNodeListMoveChildCommand(nodeList, childModel,
+                    afterModel);
         }
         return null;
     }
@@ -108,9 +108,14 @@ public abstract class AttachedNodeListToolbarLayoutEditPolicy extends ToolbarLay
         List<AttachedNode> nodeList = new hub.sam.mof.util.ListWrapper<AttachedNode>( hostModel.getNode() );
         
         if (isOwnerOfModel(newObject)) {
-            return new AttachedNodeCreateCommand(nodeList, (AttachedNode) newObject, afterModel);
+            return getEditDomain().getCommandFactory().createAttachedNodeCreateCommand(nodeList, (AttachedNode) newObject,
+                    afterModel);
         }
         return null;
+    }
+    
+    protected MaseEditDomain getEditDomain() {
+        return (MaseEditDomain) getHost().getRoot().getViewer().getEditDomain();
     }
 
 }

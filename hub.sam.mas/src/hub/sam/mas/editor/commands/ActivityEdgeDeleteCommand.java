@@ -25,31 +25,26 @@ import hub.sam.mas.model.mas.Activity;
 import hub.sam.mas.model.mas.ActivityEdge;
 import hub.sam.mas.model.mas.ActivityNode;
 
-import org.eclipse.gef.RootEditPart;
-
 public class ActivityEdgeDeleteCommand extends MofDeleteCommand {
 
     private final ActivityEdge edge;
     private final ActivityNode sourceNode;
     private final ActivityNode targetNode;
     private final Activity activity;
-    private final RootEditPart root;
 
     /**
      * 
-     * @param root RootEditPart
      * @param sourceNode source ActivityNode model
      * @param targetNode target ActivityNode model
-     * @param edge host model
+     * @param edge model element
      */
-    public ActivityEdgeDeleteCommand(RootEditPart root, ActivityNode sourceNode,
-            ActivityNode targetNode, ActivityEdge edge) {
+    protected ActivityEdgeDeleteCommand(ActivityNode sourceNode, ActivityNode targetNode,
+            ActivityEdge edge) {
         super(edge);
         this.edge = edge;
         this.sourceNode = sourceNode;
         this.targetNode = targetNode;
         this.activity = edge.getActivity();
-        this.root = root;
     }
 
     public void execute() {
@@ -61,8 +56,8 @@ public class ActivityEdgeDeleteCommand extends MofDeleteCommand {
         edge.setSource(null);
         edge.setTarget(null);
         edge.setActivity(null);
-        ActivityNodeEditPart.refreshConnections(root, sourceNode);
-        ActivityNodeEditPart.refreshConnections(root, targetNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), sourceNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), targetNode);
     }
     
     public void undo() {
@@ -70,8 +65,8 @@ public class ActivityEdgeDeleteCommand extends MofDeleteCommand {
         edge.setSource(sourceNode);
         edge.setTarget(targetNode);
         edge.setActivity(activity);
-        ActivityNodeEditPart.refreshConnections(root, sourceNode);
-        ActivityNodeEditPart.refreshConnections(root, targetNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), sourceNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), targetNode);
     }
     
 }

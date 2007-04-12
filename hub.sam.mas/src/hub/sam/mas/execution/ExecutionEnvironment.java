@@ -14,7 +14,7 @@ import cmof.reflection.Factory;
 public class ExecutionEnvironment extends AnalysisEnvironment {
 	
 	public ExecutionEnvironment(Extent m1Extent, Extent m2Extent, Repository repository) {
-		super(m2Extent, m1Extent, repository);
+		super(m1Extent, m2Extent, repository);
 	}	
 	
 	public Object evaluateInvariant(String invariant, NamedElement context, java.lang.Object self) {

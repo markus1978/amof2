@@ -35,7 +35,6 @@ import hub.sam.mas.model.mas.InitialNode;
 import hub.sam.mas.model.mas.InputPin;
 import hub.sam.mas.model.mas.JoinNode;
 import hub.sam.mas.model.mas.MaseCreationFactory;
-import hub.sam.mas.model.mas.ModelGarbageCollector;
 import hub.sam.mas.model.mas.OpaqueAction;
 import hub.sam.mas.model.mas.OutExpansionNode;
 import hub.sam.mas.model.mas.OutputPin;
@@ -350,14 +349,13 @@ public class MaseEditor extends GraphicalEditorWithPalette {
         }
         getCommandStack().removeCommandStackListener(commandStackListener);
         getEditDomain().getMasLink().setAssociatedEditor(null);
-        ModelGarbageCollector.getInstance().cleanUp();
-        ModelGarbageCollector.getInstance().dispose();
+        getEditDomain().getModelGarbageCollector().cleanUp();
         ((IMaseEditorInput) getEditorInput()).getLink().removeListener(editorInputChangeListener);
         super.dispose();
     }
 
     public void doSave(IProgressMonitor monitor) {
-        ModelGarbageCollector.getInstance().cleanUp();
+        getEditDomain().getModelGarbageCollector().cleanUp();
         try {
             getEditDomain().getMasContext().save();
         }

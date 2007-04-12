@@ -26,7 +26,7 @@ public class ValueNodeDirectEditCommand extends LabelDirectEditCommand {
     
     private final ValueNode valueNode;
     
-    public ValueNodeDirectEditCommand(String value, ValueNode valueNode) {
+    protected ValueNodeDirectEditCommand(String value, ValueNode valueNode) {
         super(value, valueNode.getName());
         this.valueNode = valueNode;
     }

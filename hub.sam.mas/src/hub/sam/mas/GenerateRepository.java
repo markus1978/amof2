@@ -1,6 +1,6 @@
 /***********************************************************************
- * MASE -- MOF Action Semantics Editor
- * Copyright (C) 2007 Andreas Blunk
+ * MAS -- MOF Action Semantics
+ * Copyright (C) 2007 Markus Scheidgen, Andreas Blunk
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -38,30 +38,34 @@ public class GenerateRepository {
         Extent m3Extent = repository.getExtent(Repository.CMOF_EXTENT_NAME);
         Package cmofPackage = (Package) m3Extent.query("Package:cmof");
 
-        Extent masExtent = repository.createExtent("masExtent");
-
-        cmofFactory masFactory = (cmofFactory) repository.createFactory(masExtent, cmofPackage);
+        Extent masExtent = repository.createExtent("masExtent", m3Extent);
+        cmofFactory cmofFactory = masExtent.getAdaptor(cmofFactory.class);
 
         try {
             repository.loadMagicDrawXmiIntoExtent(masExtent, cmofPackage, "resources/models/mas.mdxml");
 
             Package asPackage = (Package) masExtent.query("Package:mas");                   
-            MergeContext.mergePackages(asPackage, masFactory, null);
+            MergeContext.mergePackages(asPackage, cmofFactory, null);
             
-            Tag nsPrefixTag = masFactory.createTag();
-            nsPrefixTag.setName(JavaMapping.PackagePrefixTagName);
-            nsPrefixTag.setValue("hub.sam.mas.model");
-            ((Package)masExtent.query("Package:mas")).getTag().add(nsPrefixTag);
-            ((Package)masExtent.query("Package:petrinets")).getTag().add(nsPrefixTag);
+            cmof.Tag nsPrefixTag = cmofFactory.createTag();
+            nsPrefixTag.setName("org.omg.xmi.nsPrefix");
+            nsPrefixTag.setValue("mas");
+            ((Package) masExtent.query("Package:mas")).getTag().add(nsPrefixTag);
             
-            M1SemanticModel semanticModel = new M1SemanticModel(masFactory);
+            Tag packagePrefixTag = cmofFactory.createTag();
+            packagePrefixTag.setName(JavaMapping.PackagePrefixTagName);
+            packagePrefixTag.setValue("hub.sam.mas.model");
+            ((Package) masExtent.query("Package:mas")).getTag().add(packagePrefixTag);
+            ((Package) masExtent.query("Package:petrinets")).getTag().add(packagePrefixTag);
+            
+            M1SemanticModel semanticModel = new M1SemanticModel(cmofFactory);
             semanticModel.createImplicitElements(Arrays.asList(new Package[] {
             		asPackage,(Package)masExtent.query("Package:petrinets")}));
                         
             repository.generateCode(masExtent, "generated-src", Arrays.asList(
             		new String[]{"mas", "petrinets"}));           
             repository.writeExtentToXmi("resources/models/mas_merged.xml", cmofPackage, masExtent);
-            repository.generateStaticModel(masExtent, "hub.sam.mas.model.MasModel", "generated-src");
+            repository.generateStaticModel(masExtent, "hub.sam.mas.model.mas.MasModel", "generated-src");
         }
         catch (Exception e) {
             e.printStackTrace();

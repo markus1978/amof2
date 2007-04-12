@@ -7,7 +7,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import cmof.Package;
-import cmof.cmofFactory;
 import cmof.reflection.Extent;
 import cmof.reflection.Object;
 
@@ -36,12 +35,6 @@ public class Test implements PropertyChangeListener {
             e.printStackTrace();
             System.exit(-1);
         }
-        
-        cmofFactory factory = masExtent.getAdaptor(cmofFactory.class); 
-        cmof.Tag nsPrefixTag = factory.createTag();
-        nsPrefixTag.setValue("mas");
-        nsPrefixTag.setName("org.omg.xmi.nsPrefix");
-        ((Package) masExtent.query("Package:mas")).getTag().add(nsPrefixTag);
         
 //        modelExtent = repository.createExtent("modelExtent", masExtent);
 //        createXmi();

@@ -25,7 +25,6 @@ import java.util.List;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateRequest;
 
-import hub.sam.mas.editor.commands.AttachedNodeCreateCommand;
 import hub.sam.mas.editor.editparts.ActionEditPart;
 import hub.sam.mas.model.mas.Action;
 import hub.sam.mas.model.mas.AttachedNode;
@@ -46,11 +45,13 @@ public class ActionContainerEditPolicy extends AttachedNodeContainerEditPolicy {
         
         if (newObject instanceof InputPin) {
             List<AttachedNode> nodeList = new hub.sam.mof.util.ListWrapper<AttachedNode>(hostModel.getInput());
-            return new AttachedNodeCreateCommand(nodeList, (AttachedNode) newObject, null);
+            return getEditDomain().getCommandFactory().createAttachedNodeCreateCommand(nodeList, (AttachedNode) newObject,
+                    null);
         }
         else if (newObject instanceof OutputPin) {
             List<AttachedNode> nodeList = new hub.sam.mof.util.ListWrapper<AttachedNode>(hostModel.getOutput());
-            return new AttachedNodeCreateCommand(nodeList, (AttachedNode) newObject, null);
+            return getEditDomain().getCommandFactory().createAttachedNodeCreateCommand(nodeList, (AttachedNode) newObject,
+                    null);
         }
         return null;
     }

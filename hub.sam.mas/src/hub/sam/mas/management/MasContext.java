@@ -42,6 +42,16 @@ import cmof.Package;
 import cmof.cmofFactory;
 import cmof.reflection.Extent;
 
+/**
+ * the glue between a syntax and a semantic model. the context manages
+ * the connection and offers functionality for:
+ * - saving and closing models
+ * - preserving integrity betweens models
+ * - creating, deleting and retrieving links for operations and activities
+ * 
+ * a mas context can only be created via the {@link MasRepository}.
+ * 
+ */
 public class MasContext {
     
     private static Logger logger = Logger.getLogger(MasContext.class.getName());
@@ -54,11 +64,11 @@ public class MasContext {
     private Map<String, Activity> activities = new TreeMap<String, Activity>();
     private boolean syntaxModelNeedsSaving = false;
     
-    MasContext(IMasMofModelManager manager) {
+    protected MasContext(IMasModelContainer modelContainer) {
         MasPlugin.configureLog4j();
         
-        syntaxModel = manager.getSyntaxModel();
-        masModel = manager.getMasModel();
+        syntaxModel = modelContainer.getSyntaxModel();
+        masModel = modelContainer.getMasModel();
         checkMasModel();
         
         contextId = syntaxModel.getExtent();
@@ -80,7 +90,7 @@ public class MasContext {
     }
     
     /**
-     * Creates a physical link and then returns a virtual MASLink.
+     * creates a physical connection and returns a virtual mas link.
      * 
      * @param operation
      * @param activity
@@ -106,7 +116,7 @@ public class MasContext {
     }
     
     /**
-     * Returns a virtual MASLink or null if no virtual or physical link exists.
+     * returns a virtual mas link or null if no virtual link or physical connection exists.
      * 
      * @param operation
      * @return
@@ -129,7 +139,7 @@ public class MasContext {
     }
     
     /**
-     * Returns a virtual MASLink or null if no virtual or physical link exists.
+     * returns a virtual mas link or null if no virtual link or physical connection exists.
      * 
      * @param activity
      * @return
@@ -223,7 +233,7 @@ public class MasContext {
     }
     
     /**
-     * Deletes physical link in operation.
+     * destroys a physical connection at the syntax side.
      * 
      * @param operation
      */
@@ -238,7 +248,7 @@ public class MasContext {
     }
     
     /**
-     * Deletes physical link in activity.
+     * destroys a physical connection at the semantic side.
      * 
      * @param activity
      */
@@ -246,7 +256,12 @@ public class MasContext {
         activity.setLinkId(null);
         activity.delete();
     }
-    
+
+    /**
+     * destroys a physical connection on both sides (syntax and semantic model).
+     * 
+     * @param link
+     */
     protected void deleteLink(MasLink link) {
         deleteLinkId(link.getOperation());
         deleteLinkId(link.getActivity());

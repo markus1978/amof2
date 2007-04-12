@@ -26,7 +26,7 @@ public class OpaqueActionDirectEditCommand extends LabelDirectEditCommand {
     
     private final OpaqueAction action;
     
-    public OpaqueActionDirectEditCommand(String value, OpaqueAction action) {
+    protected OpaqueActionDirectEditCommand(String value, OpaqueAction action) {
         super(value, action.getActionBody());
         this.action = action;
     }

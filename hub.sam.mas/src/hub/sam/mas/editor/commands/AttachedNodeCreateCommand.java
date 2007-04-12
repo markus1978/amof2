@@ -21,7 +21,6 @@
 package hub.sam.mas.editor.commands;
 
 import hub.sam.mas.model.mas.AttachedNode;
-import hub.sam.mas.model.mas.ModelGarbageCollector;
 
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class AttachedNodeCreateCommand extends MofCreateCommand {
     private final AttachedNode node;
     private final AttachedNode after;
 
-    public AttachedNodeCreateCommand(List<AttachedNode> list, AttachedNode node, AttachedNode after) {
+    protected AttachedNodeCreateCommand(List<AttachedNode> list, AttachedNode node, AttachedNode after) {
         super(node);
         this.list = list;
         this.node = node;
@@ -39,7 +38,7 @@ public class AttachedNodeCreateCommand extends MofCreateCommand {
     }
 
     public void execute() {
-        ModelGarbageCollector.getInstance().unmark(node);
+        getModelGarbageCollector().unmark(node);
         redo();
     }
 

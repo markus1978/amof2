@@ -1,6 +1,6 @@
 /***********************************************************************
- * MASE -- MOF Action Semantics Editor
- * Copyright (C) 2007 Andreas Blunk
+ * MAS -- MOF Action Semantics
+ * Copyright (C) 2007 Markus Scheidgen, Andreas Blunk
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,6 +22,7 @@ package hub.sam.mas.management;
 
 import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.MetaModelException;
+import hub.sam.mof.reflection.ExtentImpl;
 import hub.sam.mof.xmi.XmiException;
 import hub.sam.mof.xmi.XmiImportExport;
 
@@ -34,6 +35,15 @@ import org.jdom.JDOMException;
 import cmof.Package;
 import cmof.reflection.Extent;
 
+/**
+ * manages mof models that are based on the three meta layer architecture where m3 is cmof,
+ * m2 is a meta-model as instance of cmof and m1 is a model as instance of m2.
+ * 
+ * the manager allows loading the m2 and m1 model from an xmi file or a statically created extent
+ * (you must load the m2 model first!). it then saves all useful information in a mof model object
+ * which can be retrieved by calling the methods getM2Model and getM1Model. 
+ *
+ */
 public class MofModelManager {
     
     private final Repository repository;
@@ -54,20 +64,20 @@ public class MofModelManager {
         return cmofModel;
     }
     
-    public MofModel getM2Model() {
-        return m2Model;
-    }
-    
-    public MofModel getM1Model() {
-        return m1Model;
-    }
-
-    public void loadM2ModelFromXmi(String xmiFile, String packageQuery) throws LoadException {
+    public void loadM2Model(String xmiFile, String packageQuery) throws LoadException {
         m2Model = loadModelFromXmi(getCmofModel(), xmiFile, packageQuery);
     }
+
+    public void loadM2Model(Extent modelExtent, String packageQuery) {
+        m2Model = loadStaticModel(getCmofModel(), modelExtent, packageQuery);
+    }
     
-    public void loadM1ModelFromXmi(String xmiFile, String packageQuery) throws LoadException {
-        m1Model = loadModelFromXmi(m2Model, xmiFile, packageQuery);
+    public void loadM1Model(String xmiFile) throws LoadException {
+        m1Model = loadModelFromXmi(m2Model, xmiFile, null);
+    }
+
+    public void loadM1Model(Extent modelExtent) throws LoadException {
+        m1Model = loadStaticModel(m2Model, modelExtent, null);
     }
     
     private Package getPackageFromQuery(Extent extent, String packageQuery) {
@@ -117,12 +127,53 @@ public class MofModelManager {
         return mofModel;
     }
     
+    private MofModel loadStaticModel(MofModel metaModel, Extent modelExtent, String modelPackage) {
+        assert(metaModel != null);
+        ((ExtentImpl) modelExtent).configureExtent(metaModel.getPackage());
+        return new MofModel(repository, metaModel, null, modelExtent, null, getPackageFromQuery(modelExtent, modelPackage));
+    }
+    
+    public MofModel getM2Model() {
+        return m2Model;
+    }
+    
     public void setM2Model(MofModel model) {
         this.m2Model = model;
     }
     
+    public MofModel getM1Model() {
+        return m1Model;
+    }
+
     public void setM1Model(MofModel model) {
         this.m1Model = model;
+    }
+        
+    public MofModel createM2Model(String name, String persistenceXmiFile) {
+        Extent m2Extent = repository.createExtent(name, getCmofModel().getExtent());
+        m2Model = new MofModel(repository, getM2Model(), persistenceXmiFile, m2Extent, name, null);
+        return m2Model;
+    }
+    
+    public MofModel createM2Model(String name) {
+        return createM2Model(name, null);
+    }
+    
+    /**
+     * creates a m1 model as instance of the m2 model in a new extent.
+     * 
+     * @param name
+     * @param persistenceXmiFile optional if model should be saveable
+     * @return
+     */
+    public MofModel createM1Model(String name, String persistenceXmiFile) {
+        Extent m1Extent = repository.createExtent(name, getM2Model().getExtent());
+        m1Model = new MofModel(repository, getM2Model(), persistenceXmiFile, m1Extent, name, null);
+        return m1Model;
+    }
+    
+    public MofModel createM1Model(String name) {
+        return createM1Model(name, null);
     }
 
 }

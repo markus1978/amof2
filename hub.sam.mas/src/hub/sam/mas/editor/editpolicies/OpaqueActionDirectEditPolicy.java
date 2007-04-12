@@ -23,13 +23,10 @@ package hub.sam.mas.editor.editpolicies;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.DirectEditRequest;
 
-import hub.sam.mas.editor.commands.OpaqueActionDirectEditCommand;
-import hub.sam.mas.editor.figures.OpaqueActionFigure;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.model.mas.OpaqueAction;
 
-import org.eclipse.gef.editpolicies.DirectEditPolicy;
-
-public class OpaqueActionDirectEditPolicy extends DirectEditPolicy {
+public class OpaqueActionDirectEditPolicy extends AbstractDirectEditPolicy {
     
     @Override
     protected Command getDirectEditCommand(DirectEditRequest request) {
@@ -38,17 +35,9 @@ public class OpaqueActionDirectEditPolicy extends DirectEditPolicy {
         if (newValue == null)
             return null;
 
-        return new OpaqueActionDirectEditCommand(newValue, (OpaqueAction) getHost().getModel());
-    }
-
-    @Override
-    protected void showCurrentEditValue(DirectEditRequest request) {
-        String currentValue = (String) request.getCellEditor().getValue();
-        ((OpaqueActionFigure) getHostFigure()).setText(currentValue);
-
-        // this code is recommended by a GEF comment:
-        // hack to prevent async layout from placing the cell editor twice.
-        getHostFigure().getUpdateManager().performUpdate();
+        MaseEditDomain editDomain = (MaseEditDomain) getHost().getRoot().getViewer().getEditDomain();
+        return editDomain.getCommandFactory().createOpaqueActionDirectEditCommand(newValue,
+                (OpaqueAction) getHost().getModel());
     }
 
 }

@@ -47,7 +47,8 @@ public final class AttachedNodeComponentEditPolicy extends AbstractActivityNodeC
         AttachedNodeList parentModel = getHost().getParent().getModel();
         AttachedNode hostModel = getHost().getModel();
         List<AttachedNode> removeFromList = new hub.sam.mof.util.ListWrapper<AttachedNode>( parentModel.getNode() );
-        AttachedNodeDeleteCommand command = new AttachedNodeDeleteCommand(removeFromList, hostModel);
+        AttachedNodeDeleteCommand command = getEditDomain().getCommandFactory().createAttachedNodeDeleteCommand(
+                removeFromList, hostModel);
         compound.add(command);
 
         return compound;

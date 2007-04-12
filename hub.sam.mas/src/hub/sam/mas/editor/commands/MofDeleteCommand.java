@@ -20,10 +20,6 @@
 
 package hub.sam.mas.editor.commands;
 
-import hub.sam.mas.model.mas.ModelGarbageCollector;
-
-import org.eclipse.gef.commands.Command;
-
 /**
  * A delete command that supports redo/undo operations for AMOF model objects.
  * 
@@ -33,7 +29,7 @@ import org.eclipse.gef.commands.Command;
  * 
  * @author Andreas Blunk
  */
-public abstract class MofDeleteCommand extends Command implements MofCommand {
+public abstract class MofDeleteCommand extends RootCommand implements MofCommand {
     
     private boolean redoneBefore = false;
     private cmof.reflection.Object model;
@@ -54,7 +50,7 @@ public abstract class MofDeleteCommand extends Command implements MofCommand {
      * Subclasses have to call this method.
      */
     public void redo() {
-        ModelGarbageCollector.getInstance().mark(model);
+        getModelGarbageCollector().mark(model);
         redoneBefore = true;
     }
     
@@ -63,7 +59,7 @@ public abstract class MofDeleteCommand extends Command implements MofCommand {
      */
     public void undo() {
         if (redoneBefore) {
-            ModelGarbageCollector.getInstance().unmark(model);
+            getModelGarbageCollector().unmark(model);
         }
     }
 

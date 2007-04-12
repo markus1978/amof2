@@ -30,7 +30,7 @@ public class AttachedNodeDeleteCommand extends MofDeleteCommand {
     private final AttachedNode node;
     private int oldIndex;
 
-    public AttachedNodeDeleteCommand(List<AttachedNode> list, AttachedNode node) {
+    protected AttachedNodeDeleteCommand(List<AttachedNode> list, AttachedNode node) {
         super(node);
         this.list = list;
         this.node = node;

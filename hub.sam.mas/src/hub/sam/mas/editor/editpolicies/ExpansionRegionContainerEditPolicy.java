@@ -25,7 +25,6 @@ import java.util.List;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateRequest;
 
-import hub.sam.mas.editor.commands.AttachedNodeCreateCommand;
 import hub.sam.mas.model.mas.AttachedNode;
 import hub.sam.mas.model.mas.ExpansionRegion;
 import hub.sam.mas.model.mas.InExpansionNode;
@@ -54,11 +53,13 @@ public class ExpansionRegionContainerEditPolicy extends AttachedNodeContainerEdi
 
         if (newObject instanceof InExpansionNode) {
             List<AttachedNode> nodeList = new hub.sam.mof.util.ListWrapper<AttachedNode>(hostModel.getInputElement());
-            return new AttachedNodeCreateCommand(nodeList, (AttachedNode) newObject, null);
+            return getEditDomain().getCommandFactory().createAttachedNodeCreateCommand(nodeList, (AttachedNode) newObject,
+                    null);
         }
         else if (newObject instanceof OutExpansionNode) {
             List<AttachedNode> nodeList = new hub.sam.mof.util.ListWrapper<AttachedNode>(hostModel.getOutputElement());
-            return new AttachedNodeCreateCommand(nodeList, (AttachedNode) newObject, null);
+            return getEditDomain().getCommandFactory().createAttachedNodeCreateCommand(nodeList, (AttachedNode) newObject,
+                    null);
         }
         return null;
     }

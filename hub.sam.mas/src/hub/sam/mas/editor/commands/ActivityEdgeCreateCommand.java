@@ -20,47 +20,38 @@
 
 package hub.sam.mas.editor.commands;
 
-import org.eclipse.gef.RootEditPart;
-
-import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.ActivityNodeEditPart;
 import hub.sam.mas.model.mas.Activity;
 import hub.sam.mas.model.mas.ActivityEdge;
 import hub.sam.mas.model.mas.ActivityNode;
 import hub.sam.mas.model.mas.MaseCreationFactory;
-import hub.sam.mas.model.mas.ModelGarbageCollector;
 import hub.sam.mas.model.mas.ObjectFlow;
 import hub.sam.mas.model.mas.ObjectNode;
 
 public class ActivityEdgeCreateCommand extends MofCreateCommand {
 
     private final ActivityNode sourceNode;
-    private final RootEditPart root;
     private ActivityNode targetNode;
     private ActivityEdge edge;
     private final Activity activity;
 
     /**
      * 
-     * @param root RootEditPart
-     * @param activity parent model
+     * @param activity parent model element
      * @param sourceNode source ActivityNode
-     * @param edge host model
+     * @param edge model element
      */
-    public ActivityEdgeCreateCommand(RootEditPart root, Activity activity,
-            ActivityNode sourceNode, ActivityEdge edge) {
+    protected ActivityEdgeCreateCommand(Activity activity, ActivityNode sourceNode, ActivityEdge edge) {
         super(edge);
         this.sourceNode = sourceNode;
-        this.root = root;
         this.activity = activity;
         this.edge = edge;
     }
     
     public void execute() {
         if(sourceNode instanceof ObjectNode) {
-            ModelGarbageCollector.getInstance().deleteModel(edge);
-            MaseEditDomain editDomain = (MaseEditDomain) root.getViewer().getEditDomain();
-            MaseCreationFactory factory = new MaseCreationFactory(editDomain, ObjectFlow.class);
+            getModelGarbageCollector().deleteModel(edge);
+            MaseCreationFactory factory = new MaseCreationFactory(getEditDomain(), ObjectFlow.class);
             edge = (ObjectFlow) factory.getNewObject();
             setModel(edge);
         }
@@ -72,8 +63,8 @@ public class ActivityEdgeCreateCommand extends MofCreateCommand {
         edge.setSource(sourceNode);
         edge.setTarget(targetNode);
         activity.getEdge().add(edge);
-        ActivityNodeEditPart.refreshConnections(root, sourceNode);
-        ActivityNodeEditPart.refreshConnections(root, targetNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), sourceNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), targetNode);
     }
 
     public void undo() {
@@ -81,8 +72,8 @@ public class ActivityEdgeCreateCommand extends MofCreateCommand {
         edge.setSource(null);
         edge.setTarget(null);
         activity.getEdge().remove(edge);
-        ActivityNodeEditPart.refreshConnections(root, sourceNode);
-        ActivityNodeEditPart.refreshConnections(root, targetNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), sourceNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), targetNode);
     }
     
     public ActivityNode getSourceNode() {

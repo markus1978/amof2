@@ -23,10 +23,9 @@ package hub.sam.mas.editor.commands;
 import hub.sam.mas.model.mas.AttachedNode;
 
 import org.apache.log4j.Logger;
-import org.eclipse.gef.commands.Command;
 import java.util.List;
 
-public class AttachedNodeListMoveChildCommand extends Command {
+public class AttachedNodeListMoveChildCommand extends RootCommand {
     
     private static Logger logger = Logger.getLogger(AttachedNodeListMoveChildCommand.class.getName());
 
@@ -36,7 +35,7 @@ public class AttachedNodeListMoveChildCommand extends Command {
     private int oldIndex = 0;
     private int newIndex = 0;
 
-    public AttachedNodeListMoveChildCommand(List<AttachedNode> list, AttachedNode child, AttachedNode after) {
+    protected AttachedNodeListMoveChildCommand(List<AttachedNode> list, AttachedNode child, AttachedNode after) {
         this.nodeList = list;
         this.child = child;
         this.after = after;

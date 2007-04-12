@@ -28,7 +28,7 @@ public class ActivityGroupDeleteCommand extends MofDeleteCommand {
     private final ActivityGroup group;
     private Activity activity;
 
-    public ActivityGroupDeleteCommand(ActivityGroup group) {
+    protected ActivityGroupDeleteCommand(ActivityGroup group) {
         super(group);
         this.group = group;
     }

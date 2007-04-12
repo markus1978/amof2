@@ -6,7 +6,6 @@ import java.util.List;
 
 import hub.sam.mas.management.MasContext;
 import hub.sam.mof.Repository;
-import hub.sam.mof.javamapping.JavaMapping;
 import hub.sam.mof.reflection.ExtentImpl;
 import hub.sam.mof.reflection.ImplementationsManager;
 import hub.sam.mof.reflection.ImplementationsManagerContainer;
@@ -16,11 +15,11 @@ import hub.sam.mof.runtimelayer.MultiLevelImplementationsManager;
 import hub.sam.mof.xmi.Xmi1Reader.XmiKind;
 
 import cmof.Package;
-import cmof.Tag;
 import cmof.cmofFactory;
 import cmof.reflection.Extent;
 import cmof.reflection.Factory;
 
+@Deprecated
 public class MASExecution {
 	
 	protected Repository repository;
@@ -33,7 +32,7 @@ public class MASExecution {
         Repository.getConfiguration().setGenerousXMI(true);
 	}
     
-    protected void cloneXmiModel(String xmiFile, String clonedXmiFile, Collection<String> forPackages) {
+    public static void cloneXmiModel(String xmiFile, String clonedXmiFile, Collection<String> forPackages) {
         Repository repository = Repository.getLocalRepository();
         Extent m3Extent = repository.getExtent(Repository.CMOF_EXTENT_NAME);
         Package cmofPackage = (Package) m3Extent.query("Package:cmof");
@@ -80,7 +79,7 @@ public class MASExecution {
         }
     }
     
-    private XmiKind getXmiKind(String xmiFile) {
+    private static XmiKind getXmiKind(String xmiFile) {
         if (xmiFile.endsWith(".xml")) {
             return XmiKind.mof;
         }

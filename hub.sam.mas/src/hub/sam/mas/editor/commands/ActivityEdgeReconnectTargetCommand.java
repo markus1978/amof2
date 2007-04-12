@@ -20,28 +20,22 @@
 
 package hub.sam.mas.editor.commands;
 
-import org.eclipse.gef.RootEditPart;
-import org.eclipse.gef.commands.Command;
-
 import hub.sam.mas.editor.editparts.ActivityNodeEditPart;
 import hub.sam.mas.model.mas.ActivityEdge;
 import hub.sam.mas.model.mas.ActivityNode;
 
-public class ActivityEdgeReconnectTargetCommand extends Command {
+public class ActivityEdgeReconnectTargetCommand extends RootCommand {
 
-    private final RootEditPart root;
     private final ActivityEdge edge;
     private final ActivityNode newTargetNode;
     private ActivityNode oldTargetNode;
 
     /**
      * 
-     * @param root RootEditPart
      * @param edge ActivityEdge
      * @param newTargetNode connect edge to this ActivityNode
      */
-    public ActivityEdgeReconnectTargetCommand(RootEditPart root, ActivityEdge edge, ActivityNode newTargetNode) {
-        this.root = root;
+    protected ActivityEdgeReconnectTargetCommand(ActivityEdge edge, ActivityNode newTargetNode) {
         this.edge = edge;
         this.newTargetNode = newTargetNode;
     }
@@ -53,14 +47,14 @@ public class ActivityEdgeReconnectTargetCommand extends Command {
 
     public void redo() {
         edge.setTarget(newTargetNode);
-        ActivityNodeEditPart.refreshConnections(root, newTargetNode);
-        ActivityNodeEditPart.refreshConnections(root, oldTargetNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), newTargetNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), oldTargetNode);
     }
 
     public void undo() {
         edge.setTarget(oldTargetNode);
-        ActivityNodeEditPart.refreshConnections(root, newTargetNode);
-        ActivityNodeEditPart.refreshConnections(root, oldTargetNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), newTargetNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), oldTargetNode);
     }
     
 }

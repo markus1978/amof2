@@ -39,7 +39,7 @@ public final class ExpansionRegionComponentEditPolicy extends AbstractActivityNo
         
         // delete the ExpansionRegion, which is an ActivityGroup
         ActivityGroup model = (ActivityGroup) getHost().getModel();
-        ActivityGroupDeleteCommand delete = new ActivityGroupDeleteCommand(model);
+        ActivityGroupDeleteCommand delete = getEditDomain().getCommandFactory().createActivityGroupDeleteCommand(model);
         compound.add(delete);
 
         return compound;

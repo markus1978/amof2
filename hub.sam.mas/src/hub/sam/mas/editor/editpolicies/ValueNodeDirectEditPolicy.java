@@ -22,13 +22,11 @@ package hub.sam.mas.editor.editpolicies;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.DirectEditRequest;
-import org.eclipse.gef.editpolicies.DirectEditPolicy;
 
-import hub.sam.mas.editor.commands.ValueNodeDirectEditCommand;
-import hub.sam.mas.editor.figures.ValueNodeFigure;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.model.mas.ValueNode;
 
-public class ValueNodeDirectEditPolicy extends DirectEditPolicy {
+public class ValueNodeDirectEditPolicy extends AbstractDirectEditPolicy {
 
     @Override
     protected Command getDirectEditCommand(DirectEditRequest request) {
@@ -37,17 +35,8 @@ public class ValueNodeDirectEditPolicy extends DirectEditPolicy {
         if (newValue == null)
             return null;
 
-        return new ValueNodeDirectEditCommand(newValue, (ValueNode) getHost().getModel());
+        MaseEditDomain editDomain = (MaseEditDomain) getHost().getRoot().getViewer().getEditDomain();
+        return editDomain.getCommandFactory().createValueNodeDirectEditCommand(newValue, (ValueNode) getHost().getModel());
     }
     
-    @Override
-    protected void showCurrentEditValue(DirectEditRequest request) {
-        String currentValue = (String) request.getCellEditor().getValue();
-        ((ValueNodeFigure) getHostFigure()).setText(currentValue);
-
-        // this code is recommended by a GEF comment:
-        // hack to prevent async layout from placing the cell editor twice.
-        getHostFigure().getUpdateManager().performUpdate();
-    }
-
 }

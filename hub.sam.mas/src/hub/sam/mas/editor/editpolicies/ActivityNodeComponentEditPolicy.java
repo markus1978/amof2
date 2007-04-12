@@ -38,7 +38,7 @@ public final class ActivityNodeComponentEditPolicy extends AbstractActivityNodeC
         CompoundCommand compound = super.createDeleteCommand(r);
         
         // delete the ActivityNode itself
-        ActivityNodeDeleteCommand delete = new ActivityNodeDeleteCommand(
+        ActivityNodeDeleteCommand delete = getEditDomain().getCommandFactory().createActivityNodeDeleteCommand(
                 ((ActivityNodeEditPart) getHost()).getModel());
         compound.add(delete);
 

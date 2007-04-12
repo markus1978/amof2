@@ -31,6 +31,11 @@ import hub.sam.mof.xmi.XmiImportExport;
 import cmof.Package;
 import cmof.reflection.Extent;
 
+/**
+ * a special mof model for magic draw models where diagram information
+ * is preserved on saving.
+ *
+ */
 public class MagicDrawMofModel extends MofModel {
     
     private final XmiImportExport diagramInfo;
@@ -48,7 +53,7 @@ public class MagicDrawMofModel extends MofModel {
     }
     
     @Override
-    protected void save() throws SaveException {
+    public void save() throws SaveException {
         String xmiFile = getXmiFile();
         if (xmiFile == null) {
             throw new SaveException("xmi file not specified");

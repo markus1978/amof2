@@ -24,7 +24,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.ContainerEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 
-import hub.sam.mas.editor.commands.GuardSpecificationCreateCommand;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.ActivityEdgeEditPart;
 import hub.sam.mas.model.mas.GuardSpecification;
 
@@ -34,8 +34,9 @@ public class ActivityEdgeContainerEditPolicy extends ContainerEditPolicy {
     protected Command getCreateCommand(CreateRequest request) {
         Object newObject = request.getNewObject();
         if (newObject instanceof GuardSpecification) {
-            return new GuardSpecificationCreateCommand(((ActivityEdgeEditPart) getHost()).getModel(),
-                    (GuardSpecification) newObject);
+            MaseEditDomain editDomain = (MaseEditDomain) getHost().getRoot().getViewer().getEditDomain();
+            return editDomain.getCommandFactory().createGuardSpecificationCreateCommand(
+                    ((ActivityEdgeEditPart) getHost()).getModel(), (GuardSpecification) newObject);
         }
         return null;
     }

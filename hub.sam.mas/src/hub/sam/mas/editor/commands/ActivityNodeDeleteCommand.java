@@ -28,7 +28,7 @@ public class ActivityNodeDeleteCommand extends MofDeleteCommand {
     private final ActivityNode node;
     private Activity activity;
 
-    public ActivityNodeDeleteCommand(ActivityNode node) {
+    protected ActivityNodeDeleteCommand(ActivityNode node) {
         super(node);
         this.node = node;
     }

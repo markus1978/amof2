@@ -22,7 +22,6 @@ package hub.sam.mas.editor.commands;
 
 import hub.sam.mas.model.mas.Activity;
 import hub.sam.mas.model.mas.ActivityNode;
-import hub.sam.mas.model.mas.ModelGarbageCollector;
 
 import org.apache.log4j.Logger;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -39,14 +38,14 @@ public class ActivityNodeCreateCommand extends MofCreateCommand {
     private final ActivityNode node;
     private final Rectangle constraint;
 
-    public ActivityNodeCreateCommand(Activity parent, ActivityNode node) {
+    protected ActivityNodeCreateCommand(Activity parent, ActivityNode node) {
         super(node);
         this.parent = parent;
         this.node = node;
         this.constraint = null;
     }
 
-    public ActivityNodeCreateCommand(Activity parent, ActivityNode node, Rectangle constraint) {
+    protected ActivityNodeCreateCommand(Activity parent, ActivityNode node, Rectangle constraint) {
         super(node);
         this.parent = parent;
         this.node = node;
@@ -63,7 +62,7 @@ public class ActivityNodeCreateCommand extends MofCreateCommand {
 
     public void execute() {
         logger.debug("ActivityNodeCreateCommand.execute");
-        ModelGarbageCollector.getInstance().unmark(node);
+        getModelGarbageCollector().unmark(node);
         executeOnce();
         redo();
     }

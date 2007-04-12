@@ -27,7 +27,7 @@ public class AnalysisEnvironment {
 	private final OclEnvironment oclEnvironment;
 	private final cmofFactory factory;
 	
-	public AnalysisEnvironment(Extent m2Extent, Extent m1Extent, Repository repo) {
+	public AnalysisEnvironment(Extent m1Extent, Extent m2Extent, Repository repo) {
 		this.m2Extent = m2Extent;		
 		Package cmofPackage = (cmof.Package)repo.getExtent(Repository.CMOF_EXTENT_NAME).query("Package:cmof");
 		this.factory = (cmofFactory)repo.createFactory(m2Extent, cmofPackage);

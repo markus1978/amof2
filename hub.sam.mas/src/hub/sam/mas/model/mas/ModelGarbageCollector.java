@@ -43,26 +43,6 @@ public class ModelGarbageCollector implements PropertyChangeListener {
      */
     private List<cmof.reflection.Object> garbage = new ArrayList<cmof.reflection.Object>();
     
-    private static ModelGarbageCollector instance = null;
-    
-    private ModelGarbageCollector() {
-    }
-    
-    public static ModelGarbageCollector getInstance() {
-        if (instance == null) {
-            instance = new ModelGarbageCollector();
-        }
-        return instance;
-    }
-    
-    protected void finalize() {
-        instance = null;
-    }
-    
-    public void dispose() {
-        finalize();
-    }
-    
     /**
      * Mark the model object as potential garbage + listen for changes of the specified property
      * and unmark the model if the property changes.

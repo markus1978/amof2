@@ -21,17 +21,16 @@
 package hub.sam.mas.editor.commands;
 
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.gef.commands.Command;
 
 import hub.sam.mas.model.mas.ConstrainedNode;
 
-public class ConstrainedNodeChangeConstraintCommand extends Command {
+public class ConstrainedNodeChangeConstraintCommand extends RootCommand {
 
     private final Rectangle oldConstraint;
     private final Rectangle newConstraint;
     private final ConstrainedNode node;
 
-    public ConstrainedNodeChangeConstraintCommand(ConstrainedNode node, Rectangle constraint) {
+    protected ConstrainedNodeChangeConstraintCommand(ConstrainedNode node, Rectangle constraint) {
         this.newConstraint = constraint;
         this.oldConstraint = node.getRectangle();
         this.node = node;

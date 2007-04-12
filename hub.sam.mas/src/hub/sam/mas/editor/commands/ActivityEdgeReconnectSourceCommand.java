@@ -20,22 +20,17 @@
 
 package hub.sam.mas.editor.commands;
 
-import org.eclipse.gef.RootEditPart;
-import org.eclipse.gef.commands.Command;
-
 import hub.sam.mas.editor.editparts.ActivityNodeEditPart;
 import hub.sam.mas.model.mas.ActivityEdge;
 import hub.sam.mas.model.mas.ActivityNode;
 
-public class ActivityEdgeReconnectSourceCommand extends Command {
+public class ActivityEdgeReconnectSourceCommand extends RootCommand {
 
-    private final RootEditPart root;
     private final ActivityEdge edge;
     private final ActivityNode newSourceNode;
     private ActivityNode oldSourceNode;
 
-    public ActivityEdgeReconnectSourceCommand(RootEditPart root, ActivityEdge connection, ActivityNode newSourceNode) {
-        this.root = root;
+    protected ActivityEdgeReconnectSourceCommand(ActivityEdge connection, ActivityNode newSourceNode) {
         this.edge = connection;
         this.newSourceNode = newSourceNode;
     }
@@ -47,14 +42,14 @@ public class ActivityEdgeReconnectSourceCommand extends Command {
 
     public void redo() {
         edge.setSource(newSourceNode);
-        ActivityNodeEditPart.refreshConnections(root, newSourceNode);
-        ActivityNodeEditPart.refreshConnections(root, oldSourceNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), newSourceNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), oldSourceNode);
     }
 
     public void undo() {
         edge.setSource(oldSourceNode);
-        ActivityNodeEditPart.refreshConnections(root, newSourceNode);
-        ActivityNodeEditPart.refreshConnections(root, oldSourceNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), newSourceNode);
+        ActivityNodeEditPart.refreshConnections(getEditDomain(), oldSourceNode);
     }
     
 }

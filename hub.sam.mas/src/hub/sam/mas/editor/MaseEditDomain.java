@@ -20,8 +20,11 @@
 
 package hub.sam.mas.editor;
 
+import hub.sam.mas.editor.commands.AbstractCommandFactory;
+import hub.sam.mas.editor.commands.CommandFactoryImpl;
 import hub.sam.mas.management.MasContext;
 import hub.sam.mas.management.MasLink;
+import hub.sam.mas.model.mas.ModelGarbageCollector;
 import hub.sam.mas.model.mas.masFactory;
 
 import java.util.HashMap;
@@ -29,17 +32,59 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.eclipse.gef.DefaultEditDomain;
-import org.eclipse.ui.IEditorPart;
+import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.ui.parts.GraphicalEditor;
+import org.eclipse.swt.events.MouseEvent;
 
+/**
+ * A MaseEditDomain belongs to one graphical editor which may consist of many
+ * edit part viewers (usually there is only one).
+ * There is only one edit part viewer active at a time.
+ *
+ */
 public class MaseEditDomain extends DefaultEditDomain {
     
+    private AbstractCommandFactory commandFactory = null;
+    private ModelGarbageCollector modelGarbageCollector = new ModelGarbageCollector();
     private MasLink masLink;
     private static Properties properties = null;
+    private EditPartViewer activeViewer;
 
-    public MaseEditDomain(IEditorPart editorPart) {
-        super(editorPart);
+    public ModelGarbageCollector getModelGarbageCollector() {
+        return modelGarbageCollector;
+    }
+
+    public MaseEditDomain(GraphicalEditor editor) {
+        super(editor);
     }
     
+    public AbstractCommandFactory getCommandFactory() {
+        if (commandFactory == null) {
+            commandFactory = new CommandFactoryImpl(this);
+        }
+        return commandFactory;
+    }
+    
+    public GraphicalEditor getGraphicalEditor() {
+        return (GraphicalEditor) getEditorPart();
+    }
+    
+    @Override
+    public void viewerEntered(MouseEvent mouseEvent, EditPartViewer viewer) {
+        super.viewerEntered(mouseEvent, viewer);
+        this.activeViewer = viewer;
+    }
+    
+    @Override
+    public void viewerExited(MouseEvent mouseEvent, EditPartViewer viewer) {
+        super.viewerExited(mouseEvent, viewer);
+        this.activeViewer = null;
+    }
+    
+    public EditPartViewer getActiveEditPartViewer() {
+        return activeViewer;
+    }
+
     public void setMasLink(MasLink masLink) {
         this.masLink = masLink;
     }

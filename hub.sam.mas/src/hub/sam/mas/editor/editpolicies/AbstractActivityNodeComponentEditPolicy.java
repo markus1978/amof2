@@ -20,6 +20,8 @@
 
 package hub.sam.mas.editor.editpolicies;
 
+import hub.sam.mas.editor.MaseEditDomain;
+
 import java.util.List;
 
 import org.eclipse.gef.EditPart;
@@ -77,6 +79,10 @@ public abstract class AbstractActivityNodeComponentEditPolicy extends ComponentE
         }
         
         return compound;
+    }
+    
+    protected MaseEditDomain getEditDomain() {
+        return (MaseEditDomain) getHost().getRoot().getViewer().getEditDomain();
     }
 
 }

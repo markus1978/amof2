@@ -24,7 +24,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.ConnectionEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;
 
-import hub.sam.mas.editor.commands.ActivityEdgeDeleteCommand;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.ActivityEdgeEditPart;
 
 /**
@@ -40,12 +40,9 @@ public class ActivityEdgeConnectionEditPolicy extends ConnectionEditPolicy {
 
     @Override
     protected Command getDeleteCommand(GroupRequest request) {
-        ActivityEdgeDeleteCommand delete = new ActivityEdgeDeleteCommand(
-                getHost().getRoot(),
-                getHost().getSource().getModel(),
-                getHost().getTarget().getModel(),
-                getHost().getModel());
-        return delete;
+        MaseEditDomain editDomain = (MaseEditDomain) getHost().getRoot().getViewer().getEditDomain();
+        return editDomain.getCommandFactory().createActivityEdgeDeleteCommand(
+                getHost().getSource().getModel(), getHost().getTarget().getModel(), getHost().getModel());
     }
 
 }

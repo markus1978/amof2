@@ -20,14 +20,12 @@
 
 package hub.sam.mas.editor.commands;
 
-import org.eclipse.gef.commands.Command;
-
-public abstract class LabelDirectEditCommand extends Command {
+public abstract class LabelDirectEditCommand extends RootCommand {
 	
 	private final String newValue;
 	private final String oldValue;
 
-	public LabelDirectEditCommand(String value, String oldValue) {
+	protected LabelDirectEditCommand(String value, String oldValue) {
 		this.newValue = value;
 		this.oldValue = oldValue;
 	}

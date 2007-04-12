@@ -43,12 +43,14 @@ public class ContextMenuProviderImpl extends ContextMenuProvider {
         IAction action;
         
         action = actionRegistry.getAction(CreateGuardSpecificationAction.ID);
-        if (action.isEnabled())
+        if (action.isEnabled()) {
             manager.appendToGroup(GEFActionConstants.GROUP_REST, action);
+        }
 
         action = actionRegistry.getAction(ActionFactory.DELETE.getId());
-        if (action.isEnabled())
+        if (action.isEnabled()) {
             manager.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        }
 
         action = actionRegistry.getAction(ActionFactory.UNDO.getId());
         manager.appendToGroup(GEFActionConstants.GROUP_UNDO, action);

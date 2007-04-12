@@ -28,7 +28,7 @@ public class GuardSpecificationCreateCommand extends MofCreateCommand {
     private final ActivityEdge parent;
     private final GuardSpecification guard;
 
-    public GuardSpecificationCreateCommand(ActivityEdge parent, GuardSpecification guard) {
+    protected GuardSpecificationCreateCommand(ActivityEdge parent, GuardSpecification guard) {
         super(guard);
         this.parent = parent;
         this.guard = guard;

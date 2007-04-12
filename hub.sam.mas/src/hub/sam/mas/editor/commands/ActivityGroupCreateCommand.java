@@ -22,7 +22,6 @@ package hub.sam.mas.editor.commands;
 
 import hub.sam.mas.model.mas.Activity;
 import hub.sam.mas.model.mas.ActivityGroup;
-import hub.sam.mas.model.mas.ModelGarbageCollector;
 
 import org.apache.log4j.Logger;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -39,14 +38,14 @@ public class ActivityGroupCreateCommand extends MofCreateCommand {
     private final ActivityGroup group;
     private final Rectangle constraint;
 
-    public ActivityGroupCreateCommand(Activity parent, ActivityGroup group) {
+    protected ActivityGroupCreateCommand(Activity parent, ActivityGroup group) {
         super(group);
         this.parent = parent;
         this.group = group;
         this.constraint = null;
     }
 
-    public ActivityGroupCreateCommand(Activity parent, ActivityGroup group, Rectangle constraint) {
+    protected ActivityGroupCreateCommand(Activity parent, ActivityGroup group, Rectangle constraint) {
         super(group);
         this.parent = parent;
         this.group = group;
@@ -63,7 +62,7 @@ public class ActivityGroupCreateCommand extends MofCreateCommand {
 
     public void execute() {
         logger.debug("ActivityGroupCreateCommand.execute");
-        ModelGarbageCollector.getInstance().unmark(group);
+        getModelGarbageCollector().unmark(group);
         executeOnce();
         redo();
     }

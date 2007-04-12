@@ -27,6 +27,11 @@ import hub.sam.mas.editor.MaseEditor;
 import hub.sam.mas.model.mas.Activity;
 import cmof.Operation;
 
+/**
+ * a virtual link between an operation (syntax) and an activity (semantic).
+ * the link is always based on a physical connection (reference-ids used in both models).
+ * 
+ */
 public class MasLink {
 
     private final String linkId;
@@ -55,12 +60,20 @@ public class MasLink {
     public Operation getOperation() {
         return operation;
     }
-       
+    
+    /**
+     * destroys the physical connection.
+     *
+     */
     public void delete() {
         context.deleteLink(this);
         listeners.firePropertyChange("deleted", null, null);
     }
 
+    /**
+     * returns the reference-id of the physical connection.
+     * 
+     */
     protected String getLinkId() {
         return linkId;
     }
@@ -77,6 +90,11 @@ public class MasLink {
         return associatedEditor;
     }
 
+    /**
+     * mas editor that can be associated with a single mas link.
+     * 
+     * @param associatedEditor
+     */
     public void setAssociatedEditor(MaseEditor associatedEditor) {
         this.associatedEditor = associatedEditor;
     }

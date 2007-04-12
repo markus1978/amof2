@@ -23,6 +23,7 @@ package hub.sam.mas.editor.editparts;
 import java.beans.PropertyChangeEvent;
 import java.util.List;
 
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editpolicies.ActivityNodeComponentEditPolicy;
 import hub.sam.mas.editor.editpolicies.ActivityNodeGraphicalNodeEditPolicy;
 import hub.sam.mas.model.mas.ActivityEdge;
@@ -33,7 +34,6 @@ import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.RootEditPart;
 
 public abstract class ActivityNodeEditPart extends PropertyAwareGraphicalEditPart
         implements org.eclipse.gef.NodeEditPart {
@@ -126,8 +126,8 @@ public abstract class ActivityNodeEditPart extends PropertyAwareGraphicalEditPar
      * @param node ActivityNode model
      * @deprecated
      */
-    public static void refreshConnections(RootEditPart root, ActivityNode node) {
-        ActivityNodeEditPart nodeEditPart = (ActivityNodeEditPart) root.getViewer().getEditPartRegistry().get(node);
+    public static void refreshConnections(MaseEditDomain editDomain, ActivityNode node) {
+        ActivityNodeEditPart nodeEditPart = (ActivityNodeEditPart) editDomain.getActiveEditPartViewer().getEditPartRegistry().get(node);
         if (nodeEditPart != null) {
             nodeEditPart.refreshSourceConnections();
             nodeEditPart.refreshTargetConnections();
@@ -137,9 +137,11 @@ public abstract class ActivityNodeEditPart extends PropertyAwareGraphicalEditPar
     public void propertyChange(PropertyChangeEvent ev) {
         if (ev.getPropertyName() != null) {
             if (ev.getPropertyName().equals("outgoing")) {
+                System.out.println("PropertyChangeEvent: outgoing");
                 refreshSourceConnections();
             }
             else if (ev.getPropertyName().equals("incoming")) {
+                System.out.println("PropertyChangeEvent: incoming");
                 refreshTargetConnections();
             }
         }

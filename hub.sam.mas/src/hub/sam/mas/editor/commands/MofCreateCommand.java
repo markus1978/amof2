@@ -20,16 +20,12 @@
 
 package hub.sam.mas.editor.commands;
 
-import hub.sam.mas.model.mas.ModelGarbageCollector;
-
-import org.eclipse.gef.commands.Command;
-
 /**
  * A create command that supports undo/redo operations for AMOF model objects.
  * 
  * @author Andreas Blunk
  */
-public abstract class MofCreateCommand extends Command implements MofCommand {
+public abstract class MofCreateCommand extends RootCommand implements MofCommand {
     
     private boolean undoneBefore = false;
     private cmof.reflection.Object model;
@@ -51,7 +47,7 @@ public abstract class MofCreateCommand extends Command implements MofCommand {
      */
     public void redo() {
         if (undoneBefore) {
-            ModelGarbageCollector.getInstance().unmark(model);
+            getModelGarbageCollector().unmark(model);
         }
     }
     
@@ -59,7 +55,7 @@ public abstract class MofCreateCommand extends Command implements MofCommand {
      * Subclasses have to call this method.
      */
     public void undo() {
-        ModelGarbageCollector.getInstance().mark(model);
+        getModelGarbageCollector().mark(model);
         undoneBefore = true;
     }
 

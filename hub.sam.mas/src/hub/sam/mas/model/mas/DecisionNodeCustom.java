@@ -24,7 +24,7 @@ public class DecisionNodeCustom extends DecisionNodeDlg {
 	
 	@Override
 	public void fire(NetInstance context) {		
-		System.out.println("decision " + self.getBody());
+		DebugInfo.printInfo("decision " + self.getBody());
 		Object decisionExpressionResult = OpaqueActionCustom.evaluateExpression(self, self.getBody(), self.getContext(),
 				(ActivityInstance) context);
 		for (ActivityEdge edge: self.getOutgoing()) {

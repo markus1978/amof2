@@ -20,26 +20,21 @@
 
 package hub.sam.mas.test;
 
-import hub.sam.mas.execution.MASExecution;
-import hub.sam.mas.management.MasMofModelManager;
+import hub.sam.mas.execution.MasExecutionHelper;
+import hub.sam.mas.management.MasContext;
+import hub.sam.mas.management.MasModelContainer;
 import hub.sam.mas.management.MasRepository;
 import hub.sam.mas.management.MasXmiFiles;
 import hub.sam.mas.management.MofModel;
+import hub.sam.mas.management.MofModelManager;
 import hub.sam.mas.management.SimpleMasXmiFiles;
 import hub.sam.mas.model.petrinets.Net;
 import hub.sam.mas.model.petrinets.Place;
 import hub.sam.mas.model.petrinets.Transition;
 import hub.sam.mas.model.petrinets.petrinetsFactory;
-import hub.sam.mof.javamapping.JavaMapping;
+import hub.sam.mof.Repository;
 
-import java.util.Arrays;
-
-import cmof.Package;
-import cmof.Tag;
-import cmof.cmofFactory;
-import cmof.reflection.Extent;
-
-public class TestPetrinet extends MASExecution {
+public class TestPetrinet {
 	
 	private Net createTestModel(petrinetsFactory factory) {
 		Net result = factory.createNet();
@@ -61,37 +56,35 @@ public class TestPetrinet extends MASExecution {
 	}
 	
 	public void run() throws Exception {
+        Repository repository = Repository.getLocalRepository();
+        Repository.getConfiguration().setWarnAboutForeignExtentObjectUsage(false);
+        Repository.getConfiguration().setGenerousXMI(true);
+        
+        // load xmi files for syntax and semantic from mas context file
         MasXmiFiles xmiFiles = new SimpleMasXmiFiles("resources/models/", "petrinets.masctx");
 
-        // create a new model manager
-        MasMofModelManager modelManager = new MasMofModelManager(repository);
+        // create a new mas model container
+        MasModelContainer masModelContainer = new MasModelContainer(repository);
         
-        // load mas model and mas meta-model
-        modelManager.loadMasMetaModelFromXmi(xmiFiles.getMasMetaFile(), "Package:mas");
-        modelManager.loadMasModelFromXmi(xmiFiles.getMasFile());
+        // load mas model
+        masModelContainer.loadMasModel(xmiFiles.getMasFile());
         
-        // clone syntax model
-        String clonedSyntaxFile = xmiFiles.getSyntaxFile() + "_cloned.xml";
-        cloneXmiModel(xmiFiles.getSyntaxFile(), clonedSyntaxFile, Arrays.asList(new String[] {"petrinets"}));
+        // load syntax model
+        masModelContainer.loadSyntaxModelForExecution(xmiFiles.getSyntaxFile(), "Package:petrinets");
+        masModelContainer.getSyntaxModel().addJavaPackagePrefix("hub.sam.mas.model");
         
-        // set syntax model
-        modelManager.loadSyntaxModelFromXmi(clonedSyntaxFile, "Package:petrinets");
-        Package petrinetMetaModel = (Package) modelManager.getSyntaxModel().getPackage();
+        // now we can create a mas context
+        MasContext masContext = MasRepository.getInstance().createMasContext(masModelContainer);
         
-        Tag nsPrefixTag = ((cmofFactory) modelManager.getSyntaxModel().getFactory()).createTag();
-        nsPrefixTag.setName(JavaMapping.PackagePrefixTagName);
-        nsPrefixTag.setValue("hub.sam.mas.model");
-        petrinetMetaModel.getTag().add(nsPrefixTag);
-        
-        // now the model manager is in a legal state and we can create a mas context
-        masContext = MasRepository.getInstance().createMasContext(modelManager);
-        
-        // create a test model        
-        Extent testExtent = repository.createExtent("test", modelManager.getSyntaxModel().getExtent());
-        MofModel testModel = new MofModel(repository, modelManager.getSyntaxModel(), null, testExtent, "test", null);
+        // create a test model:        
+        // here the mof model manager concept can be used to easily create a test model
+        // as instance of the syntax model.
+        MofModelManager testManager = new MofModelManager(repository);
+        testManager.setM2Model(masModelContainer.getSyntaxModel());
+        MofModel testModel = testManager.createM1Model("test");
         petrinetsFactory testFactory = (petrinetsFactory) testModel.getFactory();
         
-		prepareRun(testModel.getExtent(), testFactory);
+        MasExecutionHelper.prepareRun(repository, masContext, testModel);
 		
 		Net net = createTestModel(testFactory);
 		net.instantiate().run();		

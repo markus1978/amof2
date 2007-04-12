@@ -1,6 +1,6 @@
 /***********************************************************************
- * MASE -- MOF Action Semantics Editor
- * Copyright (C) 2007 Andreas Blunk
+ * MAS -- MOF Action Semantics
+ * Copyright (C) 2007 Markus Scheidgen, Andreas Blunk
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,11 +27,24 @@ import org.jdom.JDOMException;
 import hub.sam.mas.MasPlugin;
 import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.MetaModelException;
+import hub.sam.mof.javamapping.JavaMapping;
 import hub.sam.mof.xmi.XmiException;
 import cmof.Package;
+import cmof.Tag;
+import cmof.cmofFactory;
 import cmof.reflection.Extent;
 import cmof.reflection.Factory;
 
+/**
+ * keeps all information of a mof model together in one place:
+ * repository, meta model, xmi file, extent, extent name, factory, model package (optional)
+ * 
+ * this allows easy access to basic functions:
+ * - retrieving information (like extent, meta model, ...)
+ * - saving (to specified xmi file)
+ * - getting an appropriate factory for creating instances of meta-model elements in the model extent
+ * 
+ */
 public class MofModel {
 
     protected final Repository repository;
@@ -43,12 +56,13 @@ public class MofModel {
     private MofModel metaModel;
     
     /**
-     * Role: M2-Model or lower
+     * m2-model
      * 
+     * @param repository
      * @param metaModel
      * @param xmiFile
      * @param extent
-     * @param extentName
+     * @param modelPackage
      * @param cmofPackage
      */
     public MofModel(Repository repository, MofModel metaModel, String xmiFile, Extent extent, String extentName, Package modelPackage) {
@@ -61,19 +75,17 @@ public class MofModel {
     }
 
     /**
-     * Role: M3-Model
+     * this constructor should only be used for m3-models where the meta-model is the model itself,
+     * thus no meta-model needs to be specified.
      * 
+     * @param repository
      * @param xmiFile
      * @param extent
      * @param extentName
-     * @param cmofPackage
+     * @param modelPackage
      */
     public MofModel(Repository repository, String xmiFile, Extent extent, String extentName, Package modelPackage) {
-        this.repository = repository;
-        this.xmiFile = xmiFile;
-        this.extent = extent;
-        this.extentName = extentName;
-        this.modelPackage = modelPackage;
+        this(repository, null, xmiFile, extent, extentName, modelPackage);
     }
 
     public Extent getExtent() {
@@ -109,23 +121,36 @@ public class MofModel {
         return xmiFile;
     }
 
+    /**
+     * accessing the package is only allowed if meta-model is cmof
+     * 
+     * @return
+     */
     public Package getPackage() {
         return modelPackage;
     }
     
-    public void setPackage(Package modelPackage) {
-        this.modelPackage = modelPackage;
+    /**
+     * adding a prefix to the package is only allowed if meta-model is cmof
+     * 
+     * @return
+     */
+    public void addJavaPackagePrefix(String prefix) {
+        Factory factory = getFactory();
+        if (factory instanceof cmofFactory) {
+            cmofFactory cmofFactory = (cmofFactory) factory;
+            Tag nsPrefixTag = cmofFactory.createTag();
+            nsPrefixTag.setName(JavaMapping.PackagePrefixTagName);
+            nsPrefixTag.setValue(prefix);
+            getPackage().getTag().add(nsPrefixTag);
+        }
     }
 
     public MofModel getMetaModel() {
         return metaModel;
     }
     
-    public void setMetaModel(MofModel metaModel) {
-        this.metaModel = metaModel;
-    }
-    
-    protected void save() throws SaveException {
+    public void save() throws SaveException {
         String xmiFile = getXmiFile();
         if (xmiFile == null) {
             throw new SaveException("xmi file not specified");
@@ -148,11 +173,13 @@ public class MofModel {
         }
     }
     
-    protected void close() {
+    public void close() {
         if (getMetaModel() != null) {
             getMetaModel().close();
         }
-        repository.deleteExtent(getExtentName());
+        if (getExtentName() != null) {
+            repository.deleteExtent(getExtentName());
+        }
     }
     
 }

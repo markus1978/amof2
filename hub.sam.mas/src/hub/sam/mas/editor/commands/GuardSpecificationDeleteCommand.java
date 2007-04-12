@@ -28,7 +28,7 @@ public class GuardSpecificationDeleteCommand extends MofDeleteCommand {
     private final ActivityEdge parent;
     private GuardSpecification guard;
 
-    public GuardSpecificationDeleteCommand(ActivityEdge parent) {
+    protected GuardSpecificationDeleteCommand(ActivityEdge parent) {
         super(parent.getGuardSpecification());
         this.parent = parent;
     }

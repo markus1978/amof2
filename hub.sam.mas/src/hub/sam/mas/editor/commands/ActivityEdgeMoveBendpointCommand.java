@@ -21,18 +21,17 @@
 package hub.sam.mas.editor.commands;
 
 import org.eclipse.draw2d.Bendpoint;
-import org.eclipse.gef.commands.Command;
 
 import hub.sam.mas.model.mas.ActivityEdge;
 
-public class ActivityEdgeMoveBendpointCommand extends Command {
+public class ActivityEdgeMoveBendpointCommand extends RootCommand {
 
     private final Bendpoint oldBendpoint;
     private final Bendpoint newBendpoint;
     private final ActivityEdge edge;
     private final int bendpointIndex;
 
-    public ActivityEdgeMoveBendpointCommand(ActivityEdge edge, int bendpointIndex, Bendpoint bendpoint) {
+    protected ActivityEdgeMoveBendpointCommand(ActivityEdge edge, int bendpointIndex, Bendpoint bendpoint) {
         this.edge = edge;
         this.bendpointIndex = bendpointIndex;
         this.oldBendpoint = edge.getBendpoints().get(bendpointIndex);

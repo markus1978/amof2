@@ -27,9 +27,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.BendpointEditPolicy;
 import org.eclipse.gef.requests.BendpointRequest;
 
-import hub.sam.mas.editor.commands.ActivityEdgeCreateBendpointCommand;
-import hub.sam.mas.editor.commands.ActivityEdgeDeleteBendpointCommand;
-import hub.sam.mas.editor.commands.ActivityEdgeMoveBendpointCommand;
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.ActivityEdgeEditPart;
 import hub.sam.mas.model.mas.ActivityEdgeBendpoint;
 
@@ -61,31 +59,27 @@ public class ActivityEdgeBendpointEditPolicy extends BendpointEditPolicy {
 
         return bendpoint;
     }
+    
+    protected MaseEditDomain getEditDomain() {
+        return (MaseEditDomain) getHost().getRoot().getViewer().getEditDomain();
+    }
 
     @Override
     protected Command getCreateBendpointCommand(BendpointRequest request) {
-        ActivityEdgeCreateBendpointCommand create = new ActivityEdgeCreateBendpointCommand(
-                getHost().getModel(),
-                request.getIndex(),
-                getBendpoint(request));
-        return create;
+        return getEditDomain().getCommandFactory().createActivityEdgeCreateBendpointCommand(
+                getHost().getModel(), request.getIndex(), getBendpoint(request));
     }
 
     @Override
     protected Command getMoveBendpointCommand(BendpointRequest request) {
-        ActivityEdgeMoveBendpointCommand move = new ActivityEdgeMoveBendpointCommand(
-                getHost().getModel(),
-                request.getIndex(),
-                getBendpoint(request));
-        return move;
+        return getEditDomain().getCommandFactory().createActivityEdgeMoveBendpointCommand(
+                getHost().getModel(), request.getIndex(), getBendpoint(request));
     }
 
     @Override
     protected Command getDeleteBendpointCommand(BendpointRequest request) {
-        ActivityEdgeDeleteBendpointCommand delete = new ActivityEdgeDeleteBendpointCommand(
-                getHost().getModel(),
-                request.getIndex());
-        return delete;
+        return getEditDomain().getCommandFactory().createActivityEdgeDeleteBendpointCommand(
+                getHost().getModel(), request.getIndex());
     }
 
 }

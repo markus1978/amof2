@@ -21,17 +21,16 @@
 package hub.sam.mas.editor.commands;
 
 import org.eclipse.draw2d.Bendpoint;
-import org.eclipse.gef.commands.Command;
 
 import hub.sam.mas.model.mas.ActivityEdge;
 
-public class ActivityEdgeDeleteBendpointCommand extends Command {
+public class ActivityEdgeDeleteBendpointCommand extends RootCommand {
 
     private final ActivityEdge edge;
     private final int bendpointIndex;
     private final Bendpoint bendpoint;
 
-    public ActivityEdgeDeleteBendpointCommand(ActivityEdge edge, int bendpointIndex) {
+    protected ActivityEdgeDeleteBendpointCommand(ActivityEdge edge, int bendpointIndex) {
         this.edge = edge;
         this.bendpointIndex = bendpointIndex;
         this.bendpoint = edge.getBendpoints().get(bendpointIndex);

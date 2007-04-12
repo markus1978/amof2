@@ -27,9 +27,8 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 import org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy;
 
+import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.commands.ActivityEdgeCreateCommand;
-import hub.sam.mas.editor.commands.ActivityEdgeReconnectSourceCommand;
-import hub.sam.mas.editor.commands.ActivityEdgeReconnectTargetCommand;
 import hub.sam.mas.editor.editparts.ActivityEditPart;
 import hub.sam.mas.editor.editparts.ActivityNodeEditPart;
 import hub.sam.mas.editor.editparts.ControlFlowEditPart;
@@ -86,11 +85,9 @@ public class ActivityNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy
         if (newObject != null && newObject instanceof ActivityEdge) {
             ActivityNode sourceNode = getHostEditPart().getModel();
             if (sourceUpperLimit == -1 || sourceNode.getOutgoing().size() < sourceUpperLimit) {
-                Command command = new ActivityEdgeCreateCommand(
-                        getHostEditPart().getRoot(),
-                        getActivityEditPart().getModel(),
-                        sourceNode,
-                        (ActivityEdge) newObject);
+                MaseEditDomain editDomain = (MaseEditDomain) getHostEditPart().getRoot().getViewer().getEditDomain();
+                Command command = editDomain.getCommandFactory().createActivityEdgeCreateCommand(
+                        getActivityEditPart().getModel(), sourceNode, (ActivityEdge) newObject);
                 request.setStartCommand(command);
                 return command;
             }
@@ -103,16 +100,18 @@ public class ActivityNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy
                 (connection instanceof ControlFlowEditPart && !(target instanceof ObjectNodeEditPart)) 
                         || (connection instanceof ObjectFlowEditPart && target instanceof ObjectNodeEditPart) );
     }
+    
+    protected MaseEditDomain getEditDomain() {
+        return (MaseEditDomain) getHost().getRoot().getViewer().getEditDomain();
+    }
 
     @Override
     protected Command getReconnectSourceCommand(ReconnectRequest request) {
         ConnectionEditPart connection = request.getConnectionEditPart();
         EditPart targetEditPart = request.getTarget();
         if (legalReconnect(connection, targetEditPart)) {
-            return new ActivityEdgeReconnectSourceCommand(
-                    getHost().getRoot(),
-                    (ActivityEdge) connection.getModel(),
-                    (ActivityNode) targetEditPart.getModel());
+            return getEditDomain().getCommandFactory().createActivityEdgeReconnectSourceCommand(
+                    (ActivityEdge) connection.getModel(), (ActivityNode) targetEditPart.getModel());
         }
         return null;
     }
@@ -122,10 +121,8 @@ public class ActivityNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy
         ConnectionEditPart connection = request.getConnectionEditPart();
         EditPart targetEditPart = request.getTarget();
         if (legalReconnect(connection, targetEditPart)) {
-            return new ActivityEdgeReconnectTargetCommand(
-                    getHost().getRoot(),
-                    (ActivityEdge) connection.getModel(),
-                    (ActivityNode) targetEditPart.getModel());
+            return getEditDomain().getCommandFactory().createActivityEdgeReconnectTargetCommand(
+                    (ActivityEdge) connection.getModel(), (ActivityNode) targetEditPart.getModel());
         }
         return null;
     }
