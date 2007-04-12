@@ -41,8 +41,9 @@ public abstract class AbstractCommandFactory implements CommandFactory {
 
     public ActivityEdgeCreateBendpointCommand createActivityEdgeCreateBendpointCommand(ActivityEdge edge, int bendpointIndex,
             Bendpoint bendpoint) {
-        
-        return null;
+        ActivityEdgeCreateBendpointCommand command = new ActivityEdgeCreateBendpointCommand(edge, bendpointIndex, bendpoint);
+        initialiseCommand(command);
+        return command;
     }
 
     public ActivityEdgeCreateCommand createActivityEdgeCreateCommand(Activity activity, ActivityNode sourceNode,
