@@ -36,10 +36,10 @@ import cmof.reflection.Extent;
 import cmof.reflection.Factory;
 
 /**
- * keeps all information of a mof model together in one place:
- * repository, meta model, xmi file, extent, extent name, factory, model package (optional)
+ * Keeps all information of a MOF model together in one place:
+ * repository, meta-model, xmi file, extent, extent name, factory, model package (optional)
  * 
- * this allows easy access to basic functions:
+ * This allows easy access to basic functions:
  * - retrieving information (like extent, meta model, ...)
  * - saving (to specified xmi file)
  * - getting an appropriate factory for creating instances of meta-model elements in the model extent
@@ -56,7 +56,7 @@ public class MofModel {
     private MofModel metaModel;
     
     /**
-     * m2-model
+     * M2-model
      * 
      * @param repository
      * @param metaModel
@@ -75,8 +75,7 @@ public class MofModel {
     }
 
     /**
-     * this constructor should only be used for m3-models where the meta-model is the model itself,
-     * thus no meta-model needs to be specified.
+     * This constructor should only be used for M3-models where the meta-model is the model itself.
      * 
      * @param repository
      * @param xmiFile
@@ -122,7 +121,7 @@ public class MofModel {
     }
 
     /**
-     * accessing the package is only allowed if meta-model is cmof
+     * Accessing the package is only allowed if the meta-model is CMOF.
      * 
      * @return
      */
@@ -131,7 +130,7 @@ public class MofModel {
     }
     
     /**
-     * adding a prefix to the package is only allowed if meta-model is cmof
+     * Adding a prefix to the package is only allowed if the meta-model is CMOF.
      * 
      * @return
      */

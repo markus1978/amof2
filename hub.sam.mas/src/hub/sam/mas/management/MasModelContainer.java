@@ -33,18 +33,23 @@ import hub.sam.mof.runtimelayer.M1SemanticModel;
 import hub.sam.mof.xmi.Xmi1Reader.XmiKind;
 
 /**
- * an implementation of a mas model container. it holds a syntax and a semantic model
- * which can be used by a mas context to establish a connection between them.
+ * An implementation of a MasModelContainer. It's purpose is to hold a syntax and
+ * a semantic model, that can be used by a MasContext to establish the connection between them.
  * 
- * meta-models:
- * the syntax models meta-model is cmof which is provided by the amof repository.
- * the semantic models meta-model is the mas meta-model which is provided by the mas project.
+ * Meta-models:
+ * The syntax model's meta-model is cmof, which is provided by the AMOF repository.
+ * The semantic model's meta-model is the MAS meta-model, which is provided by the MAS project.
  * 
- * in order to use the model container in a mas context, you just need to load the appropriate
- * syntax and mas model. when loading the syntax model you must choose between loading it
- * for editing or for execution. if you decide to load it for execution, implicit execution
- * elements will be created. these elements are needed in order to execute models as instance
- * of the syntax model. they should not be saved back to the syntax model!
+ * Before you can use the MasModelContainer in a MasContext, you have to load the appropriate
+ * syntax and semantic model. When you load the syntax model, you will have to choose if you want
+ * to load it for editing or for execution. If you decide to load it for execution, implicit execution
+ * elements will be created. These elements are used internally in order to execute models as instance
+ * of the syntax model. They should not be saved back to the syntax model!
+ * 
+ * Just to make confusion perfect:
+ * The syntax model is actually a meta-model (the abstract syntax of the language) whoms instances are
+ * concrete models for that syntax (like a program based on that language). The semantic model
+ * describes the behaviour of operations from the syntax model. It's meta-model is the MAS meta-model. 
  * 
  */
 public class MasModelContainer implements IMasModelContainer {
@@ -60,7 +65,7 @@ public class MasModelContainer implements IMasModelContainer {
     }
     
     /**
-     * Loads a syntax model (as instance of cmof) from the given xmi file and prepares execution.
+     * Loads a syntax model (as instance of cmof) from the given xmi file and prepares it for execution.
      * 
      * @param xmiFile
      * @param packageQuery you must specify the models package
@@ -83,7 +88,7 @@ public class MasModelContainer implements IMasModelContainer {
     
     /**
      * Loads a syntax model (as instance of cmof) from the given xmi file.
-     * Instances of the syntax can not be executed!
+     * Instances of the syntax model cannot be executed!
      * 
      */
     public void loadSyntaxModelForEditing(String xmiFile, String packageQuery) throws LoadException {
@@ -91,8 +96,7 @@ public class MasModelContainer implements IMasModelContainer {
     }
 
     /**
-     * Loads a mas model (as instance of the mas meta-model) from the given xmi file.
-     * You must load the mas meta-model before calling this method!
+     * Loads a MAS model (as instance of the MAS meta-model) from the given xmi file.
      * 
      */
     public void loadMasModel(String xmiFile) throws LoadException {

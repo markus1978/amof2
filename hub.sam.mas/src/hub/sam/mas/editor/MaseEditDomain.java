@@ -94,7 +94,7 @@ public class MaseEditDomain extends DefaultEditDomain {
     }
     
     public MasContext getMasContext() {
-        return masLink.getMASContext();
+        return masLink.getMasContext();
     }
     
     public masFactory getFactory() {

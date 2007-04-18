@@ -36,12 +36,13 @@ import cmof.Package;
 import cmof.reflection.Extent;
 
 /**
- * manages mof models that are based on the three meta layer architecture where m3 is cmof,
- * m2 is a meta-model as instance of cmof and m1 is a model as instance of m2.
+ * Manages MofModels that are based on the three meta layer architecture where M3 is CMOF,
+ * M2 is a meta-model as instance of CMOF and M1 is a model as instance of M2.
  * 
- * the manager allows loading the m2 and m1 model from an xmi file or a statically created extent
- * (you must load the m2 model first!). it then saves all useful information in a mof model object
- * which can be retrieved by calling the methods getM2Model and getM1Model. 
+ * The manager allows loading M2 and M1 model from an xmi file or a statically created extent.
+ * Please note, that you have to load the M2 model first!
+ * When you load a particular model, all useful information will be saved in a MofModel object.
+ * It can be retrieved by calling the methods getM2Model or getM1Model. 
  *
  */
 public class MofModelManager {

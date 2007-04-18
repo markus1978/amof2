@@ -32,7 +32,7 @@ import cmof.Package;
 import cmof.reflection.Extent;
 
 /**
- * a special mof model for magic draw models where diagram information
+ * A special MofModel for MagicDraw where the model's diagram information
  * is preserved on saving.
  *
  */

@@ -21,8 +21,8 @@
 package hub.sam.mas.management;
 
 /**
- * interface for a mas model container which is used by a mas context to establish
- * the connection between syntax and semantic (mas) model.
+ * Interface for a MasModelContainer, that is used by a MasContext to establish
+ * a connection between a syntax and a semantic (mas) model.
  * 
  */
 public interface IMasModelContainer {

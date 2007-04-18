@@ -28,8 +28,8 @@ import hub.sam.mas.model.mas.Activity;
 import cmof.Operation;
 
 /**
- * a virtual link between an operation (syntax) and an activity (semantic).
- * the link is always based on a physical connection (reference-ids used in both models).
+ * A virtual link between an operation (syntax) and an activity (semantic).
+ * Links are always based on physical connections (reference-ids that are used in both models).
  * 
  */
 public class MasLink {
@@ -49,7 +49,7 @@ public class MasLink {
         this.activity = activity;
     }
     
-    public MasContext getMASContext() {
+    public MasContext getMasContext() {
         return context;
     }
     
@@ -62,7 +62,7 @@ public class MasLink {
     }
     
     /**
-     * destroys the physical connection.
+     * Destroys the physical connection.
      *
      */
     public void delete() {
@@ -71,7 +71,7 @@ public class MasLink {
     }
 
     /**
-     * returns the reference-id of the physical connection.
+     * Returns the reference-id of the physical connection.
      * 
      */
     protected String getLinkId() {
@@ -91,7 +91,7 @@ public class MasLink {
     }
 
     /**
-     * mas editor that can be associated with a single mas link.
+     * Associates a MAS editor with this MasLink.
      * 
      * @param associatedEditor
      */

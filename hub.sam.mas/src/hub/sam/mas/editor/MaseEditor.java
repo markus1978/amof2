@@ -67,6 +67,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -283,10 +284,15 @@ public class MaseEditor extends GraphicalEditorWithPalette {
     
     protected void setInput(IEditorInput input) {
         super.setInput(input);
-        editorInputChangeListener = new EditorInputChangeListener(this);
-        ((IMaseEditorInput) input).getLink().addListener(editorInputChangeListener);
-        String partName = ((IMaseEditorInput) input).getName();
-        setPartName(partName);
+        if (input instanceof IMaseEditorInput) {
+            editorInputChangeListener = new EditorInputChangeListener(this);
+            ((IMaseEditorInput) input).getLink().addListener(editorInputChangeListener);
+            String partName = ((IMaseEditorInput) input).getName();
+            setPartName(partName);
+        }
+        else if (input instanceof IFileEditorInput) {
+            // TODO
+        }
     }
     
     private EditorInputChangeListener editorInputChangeListener;

@@ -43,13 +43,13 @@ import cmof.cmofFactory;
 import cmof.reflection.Extent;
 
 /**
- * the glue between a syntax and a semantic model. the context manages
- * the connection and offers functionality for:
+ * A MasContext manages the connection between a syntax and a semantic model.
+ * It offers functionality for:
  * - saving and closing models
  * - preserving integrity betweens models
  * - creating, deleting and retrieving links for operations and activities
  * 
- * a mas context can only be created via the {@link MasRepository}.
+ * A MasContext can only be created via the {@link MasRepository}.
  * 
  */
 public class MasContext {
@@ -90,7 +90,7 @@ public class MasContext {
     }
     
     /**
-     * creates a physical connection and returns a virtual mas link.
+     * Creates a physical connection and returns a virtual MasLink.
      * 
      * @param operation
      * @param activity
@@ -116,7 +116,7 @@ public class MasContext {
     }
     
     /**
-     * returns a virtual mas link or null if no virtual link or physical connection exists.
+     * Returns a virtual MasLink or null if no virtual link or physical connection exists.
      * 
      * @param operation
      * @return
@@ -139,7 +139,7 @@ public class MasContext {
     }
     
     /**
-     * returns a virtual mas link or null if no virtual link or physical connection exists.
+     * Returns a virtual MasLink or null if no virtual link or physical connection exists.
      * 
      * @param activity
      * @return
@@ -202,7 +202,7 @@ public class MasContext {
     }
     
     /**
-     * preserves reference integrity between a set of operations and activities
+     * Preserves reference integrity between a set of operations and activities.
      * 
      * @param syntaxExtent
      * @param semanticExtent
@@ -233,7 +233,7 @@ public class MasContext {
     }
     
     /**
-     * destroys a physical connection at the syntax side.
+     * Destroys a physical connection at the syntax side.
      * 
      * @param operation
      */
@@ -248,7 +248,7 @@ public class MasContext {
     }
     
     /**
-     * destroys a physical connection at the semantic side.
+     * Destroys a physical connection at the semantic side.
      * 
      * @param activity
      */
@@ -258,7 +258,7 @@ public class MasContext {
     }
 
     /**
-     * destroys a physical connection on both sides (syntax and semantic model).
+     * Destroys a physical connection on both sides (syntax and semantic model).
      * 
      * @param link
      */
@@ -277,7 +277,7 @@ public class MasContext {
     }
     
     /**
-     * returns a TreeMap that maps ids to operations
+     * Returns a TreeMap that maps ids to operations.
      * 
      * @param syntaxExtent
      * @return
@@ -305,7 +305,7 @@ public class MasContext {
     }
 
     /**
-     * returns a TreeMap that maps ids to activities
+     * Returns a TreeMap that maps ids to activities.
      * 
      * @param semanticExtent
      * @return
@@ -333,7 +333,8 @@ public class MasContext {
     }
     
     /**
-     * Always saves the semantic model, but only saves the syntax model if needed.
+     * Saves the syntax and semantic model.
+     * (the semantic model is always saved, whereas the syntax model is only saved if needed)
      * 
      * @throws SaveException 
      */

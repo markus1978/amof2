@@ -27,8 +27,8 @@ import java.util.Map;
 import cmof.reflection.Extent;
 
 /**
- * manages many different connections between syntax and semantic models in different mas contexts.
- * it allows creating mas contexts by providing an appropriate mof model manager.
+ * Manages many MasContexts. The repository is a singleton. It allows creating a MasContext
+ * by providing a MofModelManager.
  *
  */
 public class MasRepository {

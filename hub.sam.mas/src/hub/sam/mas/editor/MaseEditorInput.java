@@ -64,7 +64,7 @@ public class MaseEditorInput implements IMaseEditorInput {
     }
 
     public String getToolTipText() {
-        return link.getMASContext().getMasModel().getExtentName();
+        return link.getMasContext().getMasModel().getExtentName();
     }
 
     public Object getAdapter(Class adapter) {
