@@ -1,0 +1,101 @@
+/* Stylesheet for "Lehrstuhl Systemanalyse"
+ *
+ * Copyright (c) 2002, 2003, 2004 Michael Piefel
+ */
+
+#Header {
+    margin: 0px;
+}   
+
+#Main {}
+#right-portal-logo    { background: url("images/husiegel_systemanalyse.gif") no-repeat; margin: 10px; padding: 0; z-index: 4; border: 0 }
+#right-portal-logo a  { text-decoration: none; cursor: pointer; display: block; margin: 0; padding: 120px 0 0; width: 340px; height: 0 !important; overflow: hidden; border: 0; height /**/: 120px }
+#left-portal-logo    { 
+	background: url(images/meta-logo.jpg) no-repeat; 
+	margin: 0; 
+	padding: 0; 
+	z-index: 4; 
+	border: 0 
+}
+#left-portal-logo table {
+    text-decoration: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    cellpadding: 0;
+    cellmargin: 0;
+}
+#left-portal-logo td { 
+	padding-bottom: 0px; 
+	text-align: right;
+}
+
+/*
+#Content  { 
+	text-decoration: none; 
+	text-align: left; 
+	float: left; 
+	margin: 0 0 0 0; 
+	padding: 0; 
+	z-index: 4; 
+	border: 0 
+}   
+
+#Content table {
+    text-decoration: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    cellpadding: 0;
+    cellmargin: 0;
+    cellspacing: 0;
+}*/
+
+#Tab {text-align: center; vertical-align: bottom; }
+#Tab a  {  
+	font-size: 1em; 
+	font-weight: normal; 
+	background: #7f9bb5;	
+	text-transform: none; 
+	white-space: nowrap; 
+	margin: 0 2px; 
+	padding: 0.3em 1em 0; 
+	height: 1.5em !important;
+	border-style: solid solid none; 
+	border-width: 1px 1px 0; 
+	border-color: #00376c;
+    text-decoration: none;    
+}
+#Tab span {
+	font-size: 1em; 
+	font-weight: normal; 
+	background: #6a8db2;	
+    color: #D5D5D5;
+	text-transform: none; 
+	white-space: nowrap; 
+	margin: 0 2px; 
+	padding: 0.3em 1em 0; 
+	height: 1.5em !important;
+	border-style: solid solid none; 
+	border-width: 1px 1px 0; 
+	border-color: #00376c;
+    text-decoration: none;    
+}
+#Tab a:link    { color: white; }
+#Tab a:visited { color: white; }
+#Tab a:active  { color: #690e13; }
+#Tab a:hover   { color: #335f89; background-color: #cdc27b; }
+
+#Code  { 
+	font-family: "Courier New", Courier, Monaco, monospace; 
+	text-align: left;
+	width: 500px;
+}
+/*
+#Navigation  { 
+    margin: 0; 
+    padding: 0; 
+    width: 195px; 
+    float: left;
+}
+*/

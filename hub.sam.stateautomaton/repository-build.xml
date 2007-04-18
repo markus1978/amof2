@@ -1,0 +1,35 @@
+<project name="StateAutomaton" basedir="." default="generate-repository">
+
+    <property name="src-dir" value="${basedir}/src"/>
+    <property name="gen-src-dir" value="${basedir}/generated-src"/>
+    <property name="bin-dir" value="${basedir}/bin"/>
+
+	<path id="classpath">
+		<pathelement path="${bin-dir}"/>
+		<fileset dir="${basedir}/resources/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+	<target name="init">
+		<mkdir dir="${bin-dir}"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="${bin-dir}"/>
+	    <delete includeemptydirs="true">
+	      <fileset dir="${gen-src-dir}" includes="**/*"/>
+	    </delete>
+	</target>
+
+	<target name="generate-repository" depends="clean,init">
+		<javac debug="on" destdir="${bin-dir}" source="1.5" nowarn="yes" srcdir="${src-dir}">
+			<include name="hub/sam/stateautomaton/GenerateRepository.java"/>
+			<classpath refid="classpath"/>
+	    </javac>
+		<java classname="hub.sam.stateautomaton.GenerateRepository" fork="false">
+			<classpath refid="classpath"/>
+	    </java>
+	</target>
+	
+</project>

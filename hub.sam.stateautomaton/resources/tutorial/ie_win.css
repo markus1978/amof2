@@ -1,0 +1,36 @@
+/* Fix thanks to Eric Bednarz (http://devnull.tagsoup.com/fixed/) */
+html
+{
+    overflow-y: hidden;
+}
+body
+{
+    height: 100%;
+    overflow: auto;
+}
+
+td, th { font-size:90%; }
+
+#Header { width:100%; }
+
+.box span.topLeft,
+.box span.topRight,
+.box span.botLeft,
+.box span.botRight {
+    display:none;
+}
+
+#Navigation {
+    padding-top: 20px;
+}
+
+.box {
+    background:none;
+    margin: 0px 5px 5px 10px;
+}
+
+.box .body {
+    border-style: solid;
+    padding: 3px 1em;
+}
+

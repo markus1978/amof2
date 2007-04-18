@@ -1,0 +1,38 @@
+<XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:cmof="http://schema.omg.org/spec/mof/2.0/cmof.xmi">
+    <cmof:Package name="warehouse">
+        <packageImport importedPackage="primitivetypes"/>
+        <ownedType xmi:id="Element" xmi:type="Class" name="Element" isAbstract="true">
+            <ownedAttribute name="identifier" type="String"/>
+            <ownedAttribute name="position" type="String" isDerived="true"/>
+            <ownedAttribute xmi:id="container" name="container" type="Container" opposite="content" association="Contains"/>
+        </ownedType>
+        <ownedType xmi:id="Container" xmi:type="Class" name="Container" isAbstract="true" superClass="Element">
+            <ownedAttribute xmi:id="content" name="content" type="Element" upper="-1" lower="0" opposite="container" association="Contains" isComposite="true" />
+        </ownedType>
+        <ownedType xmi:id="Contains" xmi:type="Association" name="Contains" isAbstract="true"/>
+        <ownedType xmi:id="Rack" xmi:type="Class" name="Rack" superClass="Container">
+            <ownedAttribute xmi:id="containsBox" name="box" type="Box" upper="-1" lower="0" opposite="rack" association="RackContains" isComposite="true" subsettedProperty="content"/>
+        </ownedType>
+        <ownedType xmi:id="RackContains" xmi:type="Association" name="RackContains">
+            <ownedEnd xmi:id="rack" name="rack" type="Rack" opposite="containsBox"/>            
+        </ownedType>
+        <ownedType xmi:id="Box" xmi:type="Class" name="Box" superClass="Container">
+            <ownedAttribute xmi:id="containsItem" name="item" type="Item" upper="-1" lower="0" opposite="box" association="BoxContains" isComposite="true" subsettedProperty="content"/>
+            <ownedAttribute name="weight" type="Integer" isDerived="true"/>
+        </ownedType>
+        <ownedType xmi:id="BoxContains" xmi:type="Association" name="BoxContains">
+            <ownedEnd xmi:id="box" name="box" type="Box" opposite="containsItem"/>            
+        </ownedType>
+        <ownedType xmi:id="Item" xmi:type="Class" name="Item" superClass="Element">
+            <ownedAttribute name="weight" type="Integer"/>
+        </ownedType>
+    </cmof:Package>
+    <cmof:Package name="core">
+      <nestedPackage xmi:id="primitivetypes" name="primitivetypes">
+        <ownedType xmi:type="PrimitiveType" xmi:id="Integer" name="Integer"/>
+        <ownedType xmi:type="PrimitiveType" xmi:id="Boolean" name="Boolean"/>
+        <ownedType xmi:type="PrimitiveType" xmi:id="String" name="String"/>
+        <ownedType xmi:type="PrimitiveType" xmi:id="UnlimitedNatural" name="UnlimitedNatural"/>
+      </nestedPackage>
+    </cmof:Package>
+</XMI>

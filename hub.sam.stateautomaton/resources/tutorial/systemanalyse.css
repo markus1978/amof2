@@ -1,0 +1,356 @@
+/* Stylesheet for "Lehrstuhl Systemanalyse"
+ *
+ * Copyright (c) 2002, 2003, 2004 Michael Piefel
+ */
+
+body {
+    background-color:#f9fbfc;
+    color:#000000;
+    font-family:ScalaSans,"Scala Sans",Myriad,Verdana,Helvetica,Arial,sans-serif;
+    font-size:80%;
+    margin: 0px;
+}
+
+p,pre	{ margin-left:20px; margin-right:20px; text-align:justify; }
+p.lastmod  { font-size:xx-small; font-style:italic; }
+li p	{ margin-left:0px; }
+dt	{ font-style:italic; }
+ol ol	{ list-style-type:lower-latin; }
+
+a:link    { color: #0c387b; }
+a:visited { color: #6279ac; }
+a:active  { color: #0C784F; }
+a:hover   { color: #105031; background-color:#cdc27b; }
+
+/* These percentages are _relative_ to the body font size */
+h1	{ color:#00376c; font-size:180%; margin-top:1ex; }
+h2	{ color:#00376c; font-size:150%; }
+h3	{ color:#00376c; font-size:120%; }
+h4	{ color:#00376c; font-size:100%; margin-left:20px; }
+h5	{ color:#00376c; font-size:80%;  margin-left:20px; }
+
+table	{ margin-left:20px; margin-right:20px; text-align:justify; }
+table.noindent	{ margin-left:0px; margin-right:0px; }
+table.noindent th h3 { margin:0px; }
+table.noindent td p { margin:0px; }
+th, td  { vertical-align:top; padding:5px; }
+th	{ text-align:left; }
+.verthead    { background-color:#cdc27b; padding:3px 10px; }
+
+img	{ border:0px; }
+
+#Header {
+    padding:0px;
+    background-color:#6687a6;
+    border-bottom: #00376c 1px solid;
+}   
+#innerHeader {
+    position: absolute;
+    top: 45px;
+    right: 1.5em;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    text-transform: none;
+    width: 50%;
+    white-space: nowrap;
+    z-index: 2;
+}
+#portal-logo {
+    background: url(images/husiegel_systemanalyse.gif) no-repeat;
+    border: 0;
+    margin: 10px 0em 10px 10px;
+    padding: 0;
+    z-index:4;
+}
+#portal-logo a {
+    display: block;
+    text-decoration: none;
+    overflow: hidden;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    padding-top: 120px;
+    height: 0px !important;
+    height /**/: 120px;
+    width: 340px;
+    cursor: pointer;
+}
+
+#Header { color:white; }
+#Header a:link    { color: #b2c3d2; }
+#Header a:visited { color: #e5ebf0; }
+#Header a:active  { color: #690e13; }
+#Header a:hover   { color: #335f89; background-color:transparent; }
+
+#Content {
+    padding:20px 0px 0px 180px;
+}   
+#Content img {
+    color: #000000;
+    border-color: #000000;
+}
+.no_a_ul a { text-decoration: none; }
+
+
+#Navigation {
+    padding:0px;
+    width:160px;
+    float:left;
+    margin: 0px;
+}
+.box {
+    background: url(images/portlet_shadow.gif) top right repeat-y;
+    padding: 0px;
+    margin: 20px 5px 10px 10px;
+}
+
+.box h2 {
+    background: #99afc4;
+    border: 1px solid #335f89;
+    border-style: solid solid none solid;
+    margin:0px 8px 0px 0px;
+    text-transform: none;
+    font-size: 1em;
+    height: 1em;
+    font-weight: normal;
+    white-space: nowrap;
+    color: White;
+    padding: 0.3em 0.5em 0em 1em;
+    height: 1.5em !important;
+    height: 1.8em;
+    height/**/:/**/1.5em;
+}
+
+.box .body {
+    border-collapse: collapse;
+    border: 1px solid #335f89;
+    border-style: solid solid none solid;
+    margin:0px 8px 0px 0px;
+    padding: 1em;
+    background: transparent;
+    font-size:90%;
+}
+
+.box p {
+    margin:5px 0px;
+    text-align:left;
+}
+
+/* .box a {
+    text-decoration: none;
+    border:solid thin #6279ac;
+    padding:2px 5px;
+    margin:1px 2px;
+}*/
+.box a {
+    text-decoration: none;
+}
+
+.box span.topLeft {
+    float:left;
+    height: 4px;
+    width: 4px;
+    border: 0;
+    top: 0;
+    left: 0;
+    background: transparent url(images/portlet_tl.gif) top left no-repeat;
+}
+.box span.topRight {
+    float:right;
+    height: 9px;
+    width: 12px;
+    border: 0;
+    top: 0;
+    right: 0;
+    background: transparent url(images/portlet_tr.gif) top right no-repeat;
+}
+.box span.botRight {
+    float:right;
+    bottom: 0;
+    right: 0;
+    height: 12px;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: -12px;
+    background: transparent url(images/portlet_br.gif) bottom right no-repeat;
+}
+.box span.botLeft {
+    float:left;
+    height: 12px;
+    width: 9px;
+    border: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    background: transparent url(images/portlet_bl.gif) bottom left no-repeat;
+    margin-bottom: -12px;
+}
+
+
+/* navh?, HUContent and HUNavigation are for the SITE site */
+p.navh1 {
+    text-align:left;
+    margin:5px 0px;
+}
+
+p.navh2 {
+    text-align:left;
+    margin:5px 5px;
+    font-size:80%;
+}
+
+#HUContent {
+    position:absolute;
+    top:0px;
+    right:140px;
+    left:8px;
+}
+
+#HUNavigation {
+    position:absolute;
+    top:0px;
+    bottom:0px;
+    right:0px;
+    width:120px;
+    background-image:url(http://www.hu-berlin.de/bilder/backgr.gif);
+    background-color: #003366;
+    color: #ffffff;
+}
+
+#HUNavigation p {
+    margin:5px 5px 5px 10px;
+    font-size:90%;
+}
+
+#HUNavigation a:link    { color: #ffffff; }
+#HUNavigation a:visited { color: #cdc27b; }
+#HUNavigation a:active  { color: #0C784F; }
+#HUNavigation a:hover   { color: #003366; background-color:#cdc27b; }
+
+@media print {
+    #Header {
+	visibility:hidden;
+	display:none;
+	width:0px;
+	margin:0px;
+    }   
+
+    #Content {
+	padding:0px;
+    }   
+       
+    #Navigation {
+	visibility:hidden;
+	display:none;
+	width:0px;
+	margin:0px;
+    }
+    body {
+	font-size:9pt;
+    }
+    @page {
+	size:portrait;
+	margin:2cm 3cm 4cm 3cm;
+    }
+}
+
+/* The new form elements */
+
+fieldset {
+    border: 1px solid #335f89;
+    margin: 1em;
+    padding: 0em 1em 1em 1em;
+    line-height: 1.3em;
+    width: auto;
+}
+legend {
+    padding: 0.5em;
+    font-size: 90%;
+}
+form {
+    border: none;
+    margin: 0;
+}
+textarea {
+    /* font: 110% "Computer Modern Typewriter", "Courier New", Courier, monospace; */
+    font-family:ScalaSans,"Scala Sans",Myriad,Verdana,Helvetica,Arial,sans-serif;
+    border: 1px solid #335f89;  
+    color: Black;
+    background-color: white;
+    width: 95%;
+}
+input {
+    font-family:ScalaSans,"Scala Sans",Myriad,Verdana,Helvetica,Arial,sans-serif;
+    visibility: visible;
+    border: 1px solid #335f89;  
+    color: Black;
+    background-color: white;
+    vertical-align: middle;
+}
+select {
+    border: 1px solid #335f89;
+    color: Black;
+    vertical-align: top;
+}
+
+.field {
+    top: 0;
+    left: 0;
+    margin: 0 1em 2em 0;    
+}
+
+.field .field {
+    margin: 1em 0 0 0;
+}
+
+.field label {
+    font-size: 100%;
+    font-weight: bold;
+}
+
+.formHelp {
+    font-size: 90%;
+    color: #949ea5;
+    margin: 0 0 0.2em 0;
+}
+
+.formHelp a {
+    text-decoration: underline;
+}
+
+.formHelp:hover {
+    color: Black;
+    cursor: default;
+}
+
+.formControls {
+   margin: 1em 0 0 0; 
+}
+
+.error {
+    /* Class for error indication in forms */
+    background-color: #f0e6e7;
+    border: 1px solid #e1cecf;
+    padding: 1em;
+    margin: 0 0 1em 0;
+    width: 68% !important;
+}
+
+
+
+.hiddenStructure {
+    display: block;
+    background: transparent;
+    background-image: none; /* safari bug */
+    color:#6687a6; /* safari bug */
+    border: none;
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    margin: -1px 0 0 -1px;
+    width: 1px;
+}
+
+

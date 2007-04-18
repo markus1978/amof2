@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<!-- #BeginTemplate "../../web-data/Templates/aMOF2.0forJava-template.html" -->
+
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+  <meta name="generator" content="Adobe GoLive">
+
+
+
+
+  <title>Developing Languages with HUB Meta-Modelling Tools</title>
+<!-- #BeginHeadLocked "" -->
+  <meta name="robots" content="index,follow">
+
+
+  <meta name="keywords" content="metamodelling, metamodelling, language oriented programming, LOP, domain specific languages, repository, mof, uml, modelling, modeling">
+
+
+  <meta name="description" content="This site presents a way of modelling languages, using MOF based meta-modelling. It shows how you can use our tools to give a custom semantic to UML and applies them to language oriented programming and the design of domain specific languages.">
+
+
+<link rel="stylesheet" type="text/css" href="../systemanalyse.css">
+  <link rel="stylesheet" type="text/css" href="highlight.css">
+
+
+  <link rel="stylesheet" type="text/css" href="../site.css">
+
+
+<!--[if IE]>
+	<link href="../ie_win.css" rel="stylesheet" type="text/css" media="screen">
+	<![endif]--><!-- #EndHeadLocked --><!-- Start of StatCounter Code -->
+
+
+  <script type="text/javascript" language="javascript">
+<!--
+var sc_project=907104;
+var sc_invisible=1;
+var sc_partition=7;
+var sc_security="ac5982e7";
+//-->
+  </script>
+  <script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><!-- End of StatCounter Code -->
+</head>
+
+
+
+
+
+
+
+
+
+
+<noscript> <a href="http://www.statcounter.com/" target="_blank"><img
+src="http://c8.statcounter.com/counter.php?sc_project=907104&amp;java=0&amp;security=ac5982e7&amp;invisible=1"
+alt="frontpage hit counter" border="0"/></a> </noscript>
+
+
+
+		<body>
+
+
+<div id="Header">
+
+<table id="left-portal-logo" cellpadding="0" cellspacing="0" height="190" width="850">
+
+					<tbody>
+    <tr>
+
+						<td nowrap="width=&quot;400&quot;" width="410"><a id="_top"><!-- Seitenanfang --></a><a href="#Content" class="hiddenStructure">Skip to content.</a> <!--<h1 id="site-logo"><a href="index.html">da Vinci MOF</a></h1>--></td>
+
+						<td nowrap="nowrap">
+
+      <h1 id="right-portal-logo"><a href="http://www.informatik.hu-berlin.de/sam/">Lehrstuhl Systemanalyse</a></h1>
+
+						</td>
+
+					</tr>
+
+					<tr>
+
+<td colspan="2" id="Tab" valign="bottom" nowrap="nowrap"><span>Language Modelling Home</span><a href="../aMOF2.0forJava/index.html">A MOF 2.0 for Java</a><a href="../tef/index.html">Textual Editing Framework</a><a href="../mopa/index.html">Model Pattern</a></td>
+
+					</tr>
+
+
+  </tbody>
+</table>
+
+			</div>
+
+
+<div id="Content">
+				<!-- #BeginEditable "Region" -->
+
+<h1>Tutorial: Using our Tools for Model Driven Language Development</h1>
+
+<p>written by <a href="mailto:blunk@informatik.hu-berlin.de">Andreas Blunk</a>, April 2007</p>
+
+<p>This tutorial demonstrates the usage of our language modelling tools by creating an example language for state automatons. We begin with an overview of our language modelling method.</p>
+
+<h2>Overview</h2>
+
+<p>Computer languages consist of different aspects like structure, static constraints, notation and execution semantics. Like any other piece of software, they can be modelled. Language modelling reduces language development to modelling each language aspect, so that tools and specifications can automatically be derived.</p>
+
+<table border="0"><tr>
+		<td><br><img src="images/language-aspects-300.png" alt="the different language aspects"></td>
+		<td>&nbsp;</td>
+		<td>
+
+			<p>Structural models of the language concepts are the basis for all other language aspects. They define the language's abstract syntax in a language meta-model (they define the models the user can write). All other language aspects are based on the language meta-model. They provide meta-model elements with additional information that is needed to describe them, e.g. for aspects like notation and semantic.</p>
+
+			<p>Many languages are more than static structure, they describe dynamic processes. If we want to execute, interpret or simulate models in these languages, we have to define their execution semantics. Our approach is to define static structures (language concepts) and dynamic structures (runtime concepts), and then apply behaviour descriptions to them. Static structures define the model the user can write, while dynamic structures define additional data structures where runtime information is saved. This information allows execution of different runtime models based on the same static model. We augment structure models with operations to describe the behaviour of a model in a defined language. These behaviour models describe state changes in the language model. Different possibilities exist to specify behaviour, e.g. pure Java code, activity diagrams from UML or abstract state machines.</p>
+
+<p>Please refer to the following articles and papers whenever you need detailed information in order to understand the following sections:
+<ul>
+	<li>(overview) <a href="../index.html">Language Modelling Home</a>
+	<li>(structure) <a href="../aMOF2.0forJava/index.html">A MOF 2.0 for Java</a></li>
+	<li>(structure) <a href="http://www2.informatik.hu-berlin.de/~scheidge/downloads/OnMof2.pdf">Markus Scheidgen: On Implementing MOF 2.0: New Features for Modelling Abstractions</a></li>
+	<li>(semantic) <a href="">Markus Scheidgen, Joachim Fischer: Human Comprehensible and Machine Processable Specifications of Operational Semantics</a> </li>
+</ul>
+</p>
+
+		</td>
+</tr></table>
+
+<h2>An Example Language: State Automatons</h2>
+
+<p>In this section we demonstrate the tools for using our method by creating a language for state automatons. The language consists of several models that describe the different language aspects. The basis is a language meta-model that describes the structure of state automatons. The basic concepts that are needed for this language are: automaton, transition and state. We further specialised state into initial state and final state.</p>
+
+<p>Based on these concepts, the structure model should reflect the following rules:</p>
+
+<p>An automaton has a name. It may have many states and many transitions. There has to be one intial state and one or more final states. Each state has a name and outgoing as well as incoming transitions. A state may contain a sub-automaton. Transitions describe state changes by defining on which input token a transition fires. A transition must have one source and one target state. States can consume input tokens. Consuming a token results in the firing of an outgoing transition. An automaton can consume a sequence of input tokens.</p>
+
+<h3>Modelling structure: MagicDraw UML</h3>
+
+<h4>Static structure</h4>
+
+<p>These structure concepts can be modelled with <a href="http://www.magicdraw.com">MagicDraw UML</a>. We support loading and saving MagicDraw models in our other modelling tools which allows us to use MagicDraw as the basis for all structural modelling tasks. But we are not dependend on MagicDraw UML, you can use any UML tool that can load and save a model in XMI 2.0 format.</p>
+
+<img src="images/static-structure.png" alt="static part of the structure model">
+<p><b>TODO:</b> remove operations from diagram</p>
+
+<h4>Runtime structure</h4>
+
+<p>Executing the model requires runtime information that could be stored in the model itself. But this approach has flaws. We often need several runtime representations of the same model element. E.g. in our language, each automaton instance has to remember its current state. If we have an automaton with two states and each of them contains the same sub-automaton X, then each instance of X could be in another state at runtime. We model runtime representations with an UML realisation arrow which has no predefined meaning in MOF. Below you can see the complete structural model with static structure and dynamic structure.</p>
+
+<img src="images/complete-structure.png" alt="complete structure model">
+<p><b>TODO:</b> remove operations from diagram</p>
+
+<h4>Static constraints</h4>
+
+<p>...</p>
+
+<h4>Structure meta-model: CMOF</h4>
+
+<p>The structure model is our language's meta-model. It is based on a meta-meta-model in the CMOF language. CMOF can be used for object-oriented modelling of language structure. It provides enhanced features like subsetting and redefinition that allow a flexible design and embrace reuse of common language concepts.</p>
+
+<h3>Programming with CMOF-based models: A MOF 2.0 for Java</h3>
+
+<p>In order to work with CMOF-based models, we developed a programming framework: <a href="">A MOF 2.0 for Java</a> (abbreviated AMOF). We need our language meta-model in a format that AMOF can understand, and this is XMI. AMOF currently understands XMI 2.0 and file formats of several proprietary UML modelling tools. One of them is <a href="http://www.magicdraw.com">MagicDraw UML</a> which is our preferred tool for modelling structure. So you could easily create the model for our language with MagicDraw. If you do not want to try MagicDraw now, you can download the model as <a href="resources/stateautomaton.syntax.mdxml">MagicDraw-XML here</a>.</p>
+
+<h4>Generating repository code</h4>
+
+<p>The following source code shows how we can use AMOF to generate code for meta-model elements. This allows allows type-safe programming with models in the repository.</p>
+
+<pre class="hl"><span class="line">    1 </span><span class="com">/***********************************************************************</span>
+<span class="line">    2 </span><span class="com"> * State Automaton Language</span>
+<span class="line">    3 </span><span class="com"> * Copyright (C) 2007 Andreas Blunk</span>
+<span class="line">    4 </span><span class="com"> *</span>
+<span class="line">    5 </span><span class="com"> * This library is free software; you can redistribute it and/or</span>
+<span class="line">    6 </span><span class="com"> * modify it under the terms of the GNU Lesser General Public</span>
+<span class="line">    7 </span><span class="com"> * License as published by the Free Software Foundation; either</span>
+<span class="line">    8 </span><span class="com"> * version 2.1 of the License, or (at your option) any later version.</span>
+<span class="line">    9 </span><span class="com"> *</span>
+<span class="line">   10 </span><span class="com"> * This library is distributed in the hope that it will be useful,</span>
+<span class="line">   11 </span><span class="com"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="line">   12 </span><span class="com"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span>
+<span class="line">   13 </span><span class="com"> * Lesser General Public License for more details.</span>
+<span class="line">   14 </span><span class="com"> *</span>
+<span class="line">   15 </span><span class="com"> * You should have received a copy of the GNU Lesser General Public</span>
+<span class="line">   16 </span><span class="com"> * License along with this library; if not, write to the Free Software</span>
+<span class="line">   17 </span><span class="com"> * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,</span>
+<span class="line">   18 </span><span class="com"> * MA  02110-1301  USA</span>
+<span class="line">   19 </span><span class="com"> ***********************************************************************/</span>
+<span class="line">   20 </span>
+<span class="line">   21 </span><span class="kwa">package</span> hub<span class="sym">.</span>sam<span class="sym">.</span>stateautomaton<span class="sym">;</span>
+<span class="line">   22 </span>
+<span class="line">   23 </span><span class="kwa">import</span> java<span class="sym">.</span>util<span class="sym">.</span><span class="kwc">Arrays</span><span class="sym">;</span>
+<span class="line">   24 </span>
+<span class="line">   25 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>mof<span class="sym">.</span>Repository<span class="sym">;</span>
+<span class="line">   26 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>mof<span class="sym">.</span>javamapping<span class="sym">.</span>JavaMapping<span class="sym">;</span>
+<span class="line">   27 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>mof<span class="sym">.</span>runtimelayer<span class="sym">.</span>M1SemanticModel<span class="sym">;</span>
+<span class="line">   28 </span><span class="kwa">import</span> cmof<span class="sym">.</span><span class="kwc">Package</span><span class="sym">;</span>
+<span class="line">   29 </span><span class="kwa">import</span> cmof<span class="sym">.</span>Tag<span class="sym">;</span>
+<span class="line">   30 </span><span class="kwa">import</span> cmof<span class="sym">.</span>cmofFactory<span class="sym">;</span>
+<span class="line">   31 </span><span class="kwa">import</span> cmof<span class="sym">.</span>reflection<span class="sym">.</span>Extent<span class="sym">;</span>
+<span class="line">   32 </span>
+<span class="line">   33 </span><span class="kwa">public class</span> GenerateRepository <span class="sym">{</span>
+<span class="line">   34 </span>
+<span class="line">   35 </span>    <span class="kwa">public static</span> <span class="kwb">void</span> <span class="kwd">main</span><span class="sym">(</span><span class="kwc">String</span><span class="sym">[]</span> args<span class="sym">) {</span>
+<span class="line">   36 </span>        Repository repository <span class="sym">=</span> Repository<span class="sym">.</span><span class="kwd">getLocalRepository</span><span class="sym">();</span>
+<span class="line">   37 </span>        Extent m3Extent <span class="sym">=</span> repository<span class="sym">.</span><span class="kwd">getExtent</span><span class="sym">(</span>Repository<span class="sym">.</span>CMOF_EXTENT_NAME<span class="sym">);</span>
+<span class="line">   38 </span>        <span class="kwc">Package</span> cmofPackage <span class="sym">= (</span><span class="kwc">Package</span><span class="sym">)</span> m3Extent<span class="sym">.</span><span class="kwd">query</span><span class="sym">(</span><span class="str">&quot;Package:cmof&quot;</span><span class="sym">);</span>
+<span class="line">   39 </span>
+<span class="line">   40 </span>        Extent stateAutomatonExtent <span class="sym">=</span> repository<span class="sym">.</span><span class="kwd">createExtent</span><span class="sym">(</span><span class="str">&quot;stateautomaton&quot;</span><span class="sym">,</span> m3Extent<span class="sym">);</span>
+<span class="line">   41 </span>        cmofFactory stateAutomatonFactory <span class="sym">=</span> stateAutomatonExtent<span class="sym">.</span><span class="kwd">getAdaptor</span><span class="sym">(</span>cmofFactory<span class="sym">.</span><span class="kwa">class</span><span class="sym">);</span>
+<span class="line">   42 </span>
+<span class="line">   43 </span>        <span class="kwa">try</span> <span class="sym">{</span>
+<span class="line">   44 </span>            repository<span class="sym">.</span><span class="kwd">loadMagicDrawXmiIntoExtent</span><span class="sym">(</span>stateAutomatonExtent<span class="sym">,</span> cmofPackage<span class="sym">,</span> <span class="str">&quot;resources/StateAutomaton.syntax.mdxml&quot;</span><span class="sym">);</span>
+</pre><p>Loads the state automaton meta-model into an extent.</p><pre class="hl">
+<span class="line">   45 </span>
+<span class="line">   46 </span>            <span class="kwc">Package</span> stateAutomatonModel <span class="sym">= (</span><span class="kwc">Package</span><span class="sym">)</span> stateAutomatonExtent<span class="sym">.</span><span class="kwd">query</span><span class="sym">(</span><span class="str">&quot;Package:model&quot;</span><span class="sym">);</span>
+<span class="line">   47 </span>
+<span class="line">   48 </span>            Tag nsPrefixTag <span class="sym">=</span> stateAutomatonFactory<span class="sym">.</span><span class="kwd">createTag</span><span class="sym">();</span>
+<span class="line">   49 </span>            nsPrefixTag<span class="sym">.</span><span class="kwd">setName</span><span class="sym">(</span>JavaMapping<span class="sym">.</span>PackagePrefixTagName<span class="sym">);</span>
+<span class="line">   50 </span>            nsPrefixTag<span class="sym">.</span><span class="kwd">setValue</span><span class="sym">(</span><span class="str">&quot;hub.sam.stateautomaton&quot;</span><span class="sym">);</span>
+<span class="line">   51 </span>            stateAutomatonModel<span class="sym">.</span><span class="kwd">getTag</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>nsPrefixTag<span class="sym">);</span>
+</pre><p>The meta-model is located in CMOF package "model". We add a prefix to the model's package so that code will be generated in Java package "hub.sam.stateautomaton.model" (instead of just "model").</p><pre class="hl">
+<span class="line">   52 </span>
+<span class="line">   53 </span>            M1SemanticModel semanticModel <span class="sym">=</span> <span class="kwa">new</span> <span class="kwd">M1SemanticModel</span><span class="sym">(</span>stateAutomatonFactory<span class="sym">);</span>
+<span class="line">   54 </span>            semanticModel<span class="sym">.</span><span class="kwd">createImplicitElements</span><span class="sym">(</span><span class="kwc">Arrays</span><span class="sym">.</span><span class="kwd">asList</span><span class="sym">(</span><span class="kwa">new</span> <span class="kwc">Package</span><span class="sym">[] {</span>stateAutomatonModel<span class="sym">}));</span>
+</pre><p>These lines instruct AMOF to generate extra code for classes that are related to each other via runtime-representation-of-relationships. An example: For our language this generates a method metaCreateStateRuntime() for class State which we could use to create instances of StateRuntime.</p><pre class="hl">
+<span class="line">   55 </span>
+<span class="line">   56 </span>            repository<span class="sym">.</span><span class="kwd">generateCode</span><span class="sym">(</span>stateAutomatonExtent<span class="sym">,</span> <span class="str">&quot;generated-src&quot;</span><span class="sym">);</span>
+</pre><p>Finally we generate the code in directory "generated-src/".</p><pre class="hl">
+<span class="line">   57 </span>        <span class="sym">}</span>
+<span class="line">   58 </span>        <span class="kwa">catch</span> <span class="sym">(</span><span class="kwc">Exception</span> e<span class="sym">) {</span>
+<span class="line">   59 </span>            e<span class="sym">.</span><span class="kwd">printStackTrace</span><span class="sym">();</span>
+<span class="line">   60 </span>            <span class="kwc">System</span><span class="sym">.</span><span class="kwd">exit</span><span class="sym">(-</span><span class="num">1</span><span class="sym">);</span>
+<span class="line">   61 </span>        <span class="sym">}</span>
+<span class="line">   62 </span>    <span class="sym">}</span>
+<span class="line">   63 </span>
+<span class="line">   64 </span><span class="sym">}</span>
+</pre>
+
+<h4>Creating a state automaton model</h4>
+
+<p>Now we are able to create a model in the state automaton language. We use a factory for instantiating meta-model elements and associate the created model elements with each other.</p>
+
+<p><b>source code: instantiating a sample language model</b></p>
+<p><b>figure: sample language model</b></p>
+
+<p><b>end.</b></p>
+
+<h3>Modelling operational semantics: Java and/or MOF Action Semantics</h3>
+
+We could now add semantic to the model by augmenting it with operations. These operations describe transitions between model states by executing behaviour that changes the model. We describe behaviour with respect to instances of the corresponding meta-model class. We can use pure Java code or MOF Action Semantics (MAS) to model operational semantics. The latter defines a set of atomic actions which we use in UML activities. Each activity models the behaviour of an operation. If the model is executed, the corresponding activities will be interpreted in the context of a model instance.
+
+For our state automaton language, there should be an operation to fire a transition, to consume input tokens in a particular state and to run the whole automaton for a sequence of input tokens. The last operation serves as our dedicated entry point to initiate model execution.
+
+Just as the language for our state automatons, activities are also based on a meta-model that consists of structure and semantic. It allows activity models to be executed and is what makes up a language. We call this language \textit{Mof Action Semantics}. It is a subset of UML activities, designed to describe behaviour in CMOF-based models.
+
+We could model activities by simply using our programming framework (\textit{A MOF 2.0 for Java}) to create all necessary elements. This would lead to a model whose representation (in Java) is very difficult to understand. So we decided to develop a graphical editor that is based on Eclipse's GEF: the MAS Editor. In conjunction with the MOF Browser Plugin it can be used to model activities graphically.
+
+So lets model the behaviour of operation fire with an activity.
+% show how to use the mas editor to model the behaviour of operation fire
+
+% figure: simple fire activity
+
+You may have noticed that we often need additional runtime information in order to execute a model. This information could be stored in the model itself. But ...
+
+We define a model's dynamic structure by augmenting static structure elements with runtime elements. We relate syntax classes and runtime classes with a runtime-representation-of-relationship. It is notated by an UML realisation arrow.
+
+
+<h3>Executing a model in the created language: MAS tooling</h3>
+
+<h2>Summary</h2>
+
+<h2>Future Tools</h2>
+
+<h3>Modelling textual notation: Textual Editing Framework (TEF)</h3>
+
+<h3>Debugging semantics: MAS Debugger (DeMAS)</h3>
+
+
+
+				<!-- #EndEditable -->
+			</div>
+
+		<!-- #EndTemplate -->
+
+        <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+        </script>
+        <script type="text/javascript">
+        _uacct = "UA-740721-1";
+        urchinTracker();
+        </script>
+</body>
+</html>
