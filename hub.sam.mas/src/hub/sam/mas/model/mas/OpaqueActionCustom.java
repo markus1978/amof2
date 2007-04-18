@@ -153,6 +153,14 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 				throw new SemanticException("Illegal argument count for expression.");
 			}
 			return;
+		} else {
+			OutputPin pin = self.getOutput().get(0);
+			for (ActivityEdge edge: pin.getOutgoing()) {
+				ActivityNode target = edge.getTarget();
+				if (target instanceof ValueNode && "return".equals(((ValueNode)target).getName())) {
+					context.setReturn(value);
+				}
+			}
 		}
 		for(Place place: self.getOutputPlaces()) {
 			if (place instanceof InputPin) {

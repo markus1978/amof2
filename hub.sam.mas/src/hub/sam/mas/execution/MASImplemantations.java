@@ -46,7 +46,8 @@ public class MASImplemantations extends ImplementationsImpl {
 		Activity activity = masContext.getLink(operation).getActivity();
 		ActivityInstance activityInstance = activity.instantiate();
 		activityInstance.setOclContext(object);
-		activityInstance.setEnv(env);
+		activityInstance.setEnv(env);		
+		boolean hasReturn = false;
 		int i = 0;
 		for (Parameter param: operation.getFormalParameter()) {
 			if (param.getDirection() != ParameterDirectionKind.RETURN) {
@@ -60,11 +61,17 @@ public class MASImplemantations extends ImplementationsImpl {
 					}
 				}
 				i++;
+			} else {
+				hasReturn = true;
 			}
 		}
-		activityInstance.run();
+		activityInstance.run();		
 		activityInstance.delete();
-		return null; // TODO return parameters
+		if (hasReturn) {
+			return activityInstance.getReturn();
+		} else {
+			return null;
+		}
 	}
 
 	@Override
