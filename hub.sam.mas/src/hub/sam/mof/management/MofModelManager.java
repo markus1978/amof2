@@ -18,7 +18,7 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.management;
+package hub.sam.mof.management;
 
 import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.MetaModelException;

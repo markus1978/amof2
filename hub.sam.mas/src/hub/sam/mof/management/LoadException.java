@@ -18,7 +18,8 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.management;
+package hub.sam.mof.management;
+
 
 /**
  * Signals that loading an xmi file failed and that a MofModel could not be created.

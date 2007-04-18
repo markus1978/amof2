@@ -20,6 +20,8 @@
 
 package hub.sam.mas.management;
 
+import hub.sam.mof.management.MofModel;
+
 /**
  * Interface for a MasModelContainer, that is used by a MasContext to establish
  * a connection between a syntax and a semantic (mas) model.

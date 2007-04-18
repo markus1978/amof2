@@ -18,7 +18,7 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.management;
+package hub.sam.mof.management;
 
 import java.io.IOException;
 
@@ -56,7 +56,7 @@ public class MofModel {
     private MofModel metaModel;
     
     /**
-     * M2-model
+     * Constructor for M2 or M1-models.
      * 
      * @param repository
      * @param metaModel
@@ -75,7 +75,7 @@ public class MofModel {
     }
 
     /**
-     * This constructor should only be used for M3-models where the meta-model is the model itself.
+     * Constructor for M3-models where the meta-model is the model itself.
      * 
      * @param repository
      * @param xmiFile

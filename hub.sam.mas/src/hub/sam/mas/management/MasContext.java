@@ -23,6 +23,8 @@ package hub.sam.mas.management;
 import hub.sam.mas.MasPlugin;
 import hub.sam.mas.editor.MaseEditor;
 import hub.sam.mas.model.mas.Activity;
+import hub.sam.mof.management.MofModel;
+import hub.sam.mof.management.SaveException;
 
 import java.util.Map;
 import java.util.TreeMap;

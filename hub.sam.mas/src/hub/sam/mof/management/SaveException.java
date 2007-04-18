@@ -18,22 +18,23 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.management;
+package hub.sam.mof.management;
 
-public class MofModelException extends Exception {
+
+/**
+ * Signals that saving an xmi file failed.
+ * 
+ */
+public class SaveException extends MofModelException {
 
     private static final long serialVersionUID = 1L;
 
-    public MofModelException() {
-        super();
+    public SaveException(String file, Throwable cause) {
+        super(file, cause);
     }
-
-    public MofModelException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public MofModelException(String message) {
-        super(message);
+    
+    public SaveException(String file) {
+        super(file);
     }
     
 }

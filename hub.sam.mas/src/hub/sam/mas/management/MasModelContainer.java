@@ -29,6 +29,9 @@ import cmof.reflection.Extent;
 
 import hub.sam.mas.model.mas.MasModel;
 import hub.sam.mof.Repository;
+import hub.sam.mof.management.LoadException;
+import hub.sam.mof.management.MofModel;
+import hub.sam.mof.management.MofModelManager;
 import hub.sam.mof.runtimelayer.M1SemanticModel;
 import hub.sam.mof.xmi.Xmi1Reader.XmiKind;
 

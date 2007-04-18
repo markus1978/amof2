@@ -25,14 +25,14 @@ import hub.sam.mas.management.MasContext;
 import hub.sam.mas.management.MasModelContainer;
 import hub.sam.mas.management.MasRepository;
 import hub.sam.mas.management.MasXmiFiles;
-import hub.sam.mas.management.MofModel;
-import hub.sam.mas.management.MofModelManager;
 import hub.sam.mas.management.SimpleMasXmiFiles;
 import hub.sam.mas.model.petrinets.Net;
 import hub.sam.mas.model.petrinets.Place;
 import hub.sam.mas.model.petrinets.Transition;
 import hub.sam.mas.model.petrinets.petrinetsFactory;
 import hub.sam.mof.Repository;
+import hub.sam.mof.management.MofModel;
+import hub.sam.mof.management.MofModelManager;
 
 public class TestPetrinet {
 	
