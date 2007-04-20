@@ -580,6 +580,10 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         metaModelList.add(metaModel);
         configureExtent(metaModelList);
     }
+    
+    public boolean isConfigured() {
+    	return fMetaModel != null;
+    }
 
 	public <T> T getAdaptor(Class<T> adaptorClass) {
 		if (OclEnvironment.class == adaptorClass) {

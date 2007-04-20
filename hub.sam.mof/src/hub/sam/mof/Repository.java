@@ -160,16 +160,16 @@ public class Repository extends hub.sam.util.Identity {
     public Extent addXmiModel(InputStream xmi, String name, int type)
             throws JDOMException, IOException, XmiException, MetaModelException {
         Extent result;
-        result = createExtent(name);
+        Package metaModel = (cmof.Package)getExtent(CMOF_EXTENT_NAME).query("Package:cmof");
+        result = createExtent(name, metaModel);
         if (type == XMI2) {
-            hub.sam.mof.xmi.Xmi2Reader.readMofXmi(prepareXmiFileMap(xmi), result,
-                    (cmof.Package)getExtent(CMOF_EXTENT_NAME).query("Package:cmof"), XmiKind.mof);
+            hub.sam.mof.xmi.Xmi2Reader.readMofXmi(prepareXmiFileMap(xmi), result,metaModel, XmiKind.mof);
         } else if (type == UNISYS) {
             Xmi1Reader.readMofXmi(
-                    xmi, result, (cmof.Package)getExtent(CMOF_EXTENT_NAME).query("Package:cmof"), XmiKind.unisys);
+                    xmi, result, metaModel, XmiKind.unisys);
         } else if (type == MD) {
             hub.sam.mof.xmi.Xmi2Reader.readMofXmi(prepareXmiFileMap(xmi), result,
-                    (cmof.Package)getExtent(CMOF_EXTENT_NAME).query("Package:cmof"), XmiKind.md);
+            		metaModel, XmiKind.md);
         }
         return result;
     }
