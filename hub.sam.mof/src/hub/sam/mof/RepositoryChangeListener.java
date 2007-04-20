@@ -6,7 +6,7 @@ public abstract class RepositoryChangeListener {
 	public void extendAdded(Extent extent) {
 		
 	}
-	public void extendRemoved(Extent extent) {
+	public void extendAboutToBeRemoved(String name, Extent extent) {
 		
 	}	
 }

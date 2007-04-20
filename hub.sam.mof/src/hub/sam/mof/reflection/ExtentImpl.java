@@ -581,6 +581,16 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         configureExtent(metaModelList);
     }
     
+    public void fireExtentAboutToBeRemoved() {
+    	Collection<ExtentChangeListener> toBeInformed = new Vector<ExtentChangeListener>();
+    	for (ExtentChangeListener listener: fListeners) {
+    		toBeInformed.add(listener);    		
+    	}
+    	for (ExtentChangeListener listener: toBeInformed) {
+    		listener.extendAboutToBeRemoved();
+    	}
+    }
+    
     public boolean isConfigured() {
     	return fMetaModel != null;
     }

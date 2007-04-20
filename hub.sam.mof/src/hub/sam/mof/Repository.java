@@ -236,12 +236,12 @@ public class Repository extends hub.sam.util.Identity {
         if (extent == null) {
         	throw new ModelException("Extent with name " + name + " does not exist.");
         }
-        fireExtentRemovedRepositoryChange(extent);
+        fireExtentAboutToBeRemovedRepositoryChange(name, extent);
         extents.remove(name);
         if (extent != null) {
         	((ExtentImpl)extent).myFinalize();
         }
-        System.gc();
+        System.gc();        
     }
     
     public void deleteExtent(Extent extent) {
@@ -595,9 +595,10 @@ public class Repository extends hub.sam.util.Identity {
     	}
     }
     
-    private void fireExtentRemovedRepositoryChange(Extent extent) {
+    private void fireExtentAboutToBeRemovedRepositoryChange(String name, Extent extent) {    	
     	for (RepositoryChangeListener listener: fRepositoryChangeListener) {
-    		listener.extendRemoved(extent);
+    		listener.extendAboutToBeRemoved(name, extent);
     	}
+    	((ExtentImpl)extent).fireExtentAboutToBeRemoved();
     }
 }
