@@ -5,6 +5,8 @@ package hub.sam.mof.plugin.modelview.tree;
 
 import hub.sam.mof.plugin.properties.MOF2PropertySource;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -13,6 +15,7 @@ import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IActionFilter;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.properties.IPropertySource;
 
 public class TreeObject extends PlatformObject implements IAdaptable, IActionFilter {
@@ -25,11 +28,37 @@ public class TreeObject extends PlatformObject implements IAdaptable, IActionFil
 	private final IPropertySource propertySource;
 	private final TreeViewer fView;	
 	
+	private final MyPropertyChangeListener fPropertyChangeListener = new MyPropertyChangeListener();
+	
+	class MyPropertyChangeListener implements PropertyChangeListener {
+		public void propertyChange(PropertyChangeEvent evt) {		
+			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {				
+				private void refresh() {		
+					if (TreeObject.this.getParent() != null) {
+						TreeObject.this.getParent().refresh();
+						getView().refresh(TreeObject.this.getParent());
+ 					} else {
+ 						TreeObject.this.refresh();
+						getView().refresh(TreeObject.this);
+ 					}
+				}			
+				public void run() {			
+					refresh();
+				}				
+			});
+		}
+	}
+	
+	
 	public TreeObject(java.lang.Object element, TreeParent parent, TreeViewer view) {
 		this.element = element;
 		this.fParent = parent;
 		this.propertySource = new MOF2PropertySource(element);
 		this.fView = view;
+		
+		if (element instanceof cmof.reflection.Object) {		
+			((cmof.reflection.Object)element).addListener(fPropertyChangeListener);
+		}
 	}
 	
 	public Object getElement() {
@@ -131,6 +160,13 @@ public class TreeObject extends PlatformObject implements IAdaptable, IActionFil
     }
     
     public void delete() {
+		if (element instanceof cmof.reflection.Object) {
+			((cmof.reflection.Object)element).removeListener(fPropertyChangeListener);
+		}
     	fParent = null;
+    }
+    
+    public void refresh() {
+    	// emtpy
     }
 }

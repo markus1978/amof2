@@ -3,7 +3,6 @@ package hub.sam.mof.plugin.modelview.tree;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Collection;
-import java.util.Collections;
 
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.PlatformUI;
@@ -14,31 +13,13 @@ public abstract class  TreeParent extends TreeObject {
 	private Collection<TreeObject> children = null;
 	private boolean isCacheValid = false;
 	private final MyObjectChangeListener fObjectChangeListener = new MyObjectChangeListener();
-	private final MyPropertyChangeListener fPropertyChangeListener = new MyPropertyChangeListener();
-	
-	private boolean deleted = false;
-	
-	class MyPropertyChangeListener implements PropertyChangeListener {
-		public void propertyChange(PropertyChangeEvent evt) {		
-			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {				
-				private void refresh() {
-					System.out.println("DELETED " + TreeParent.this.deleted);
-					TreeParent.this.refresh();						
-					getView().refresh(TreeParent.this);
-				}			
-				public void run() {			
-					refresh();
-				}				
-			});
-		}
-	}
 	
 	class MyObjectChangeListener implements ObjectChangeListener {
 
 		public void handleDelete(cmof.reflection.Object object) {
 			if (getParent() != null) {
 				getParent().removeChild(TreeParent.this);
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {	
+				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {	
 					public void run() {			
 						getView().refresh(getParent());
 					}				
@@ -51,7 +32,6 @@ public abstract class  TreeParent extends TreeObject {
 		super(element, parent, view);		
 		if (element instanceof cmof.reflection.Object) {
 			((cmof.reflection.Object)element).addObjectEventHandler(fObjectChangeListener);
-			((cmof.reflection.Object)element).addListener(fPropertyChangeListener);
 		} else {
 			if (element != null && 
 					element.getClass().getCanonicalName().equals(cmof.reflection.Object.class.getCanonicalName())) {
@@ -104,7 +84,6 @@ public abstract class  TreeParent extends TreeObject {
 	public void delete() {
 		Object element = getElement();
 		if (element instanceof cmof.reflection.Object) {
-			((cmof.reflection.Object)element).removeListener(fPropertyChangeListener);
             ((cmof.reflection.Object)element).removeObjectEventHandler(fObjectChangeListener);
 		}
 		if (children != null) {
@@ -113,8 +92,5 @@ public abstract class  TreeParent extends TreeObject {
 			}
 		}
 		super.delete();
-		deleted = true;
 	}	
-	
-	
 }

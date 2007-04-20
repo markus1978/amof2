@@ -31,7 +31,7 @@ public class PackageBuilder extends NamespaceBuilder {
 						new Point(bounds.height, bounds.width));
 				to.setImage(Images.getDefault().get(newImage));
 				to.setCategory(Categories.MERGED);
-			} else {
+			} else if (ownedMember != null) {
 				mgr.addChild(ownedMember);
 			}
 		}
