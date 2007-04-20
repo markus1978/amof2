@@ -243,6 +243,15 @@ public class Repository extends hub.sam.util.Identity {
         }
         System.gc();
     }
+    
+    public void deleteExtent(Extent extent) {
+    	for (String name: extents.keySet()) {
+    		if (extents.get(name) == extent) {
+    			deleteExtent(name);
+    			return;
+    		}    		
+    	}    	    	
+    }
 
     /**
      * Gives a factory for the meta-elements in a meta-package. The actual
