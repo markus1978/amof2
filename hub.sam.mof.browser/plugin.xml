@@ -31,7 +31,7 @@
          point="org.eclipse.ui.editors">
       <editor
             class="hub.sam.mof.plugin.modeleditor.ModelEditor"
-            extensions="xml"
+            extensions="xml,mdxml"
             icon="icons/sample.gif"
             id="hub.sam.mof.plugin.modeleditor.ModelEditor"
             name="Model Editor">

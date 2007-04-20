@@ -4,7 +4,6 @@ import hub.sam.mof.Repository;
 import hub.sam.mof.plugin.modelview.IModelTreeContentContentProvider;
 import hub.sam.mof.plugin.modelview.ModelViewActionManager;
 
-import org.eclipse.core.commands.operations.ObjectUndoContext;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -27,7 +26,6 @@ public class ModelEditor extends EditorPart {
 	private final ModelViewActionManager actions = new ModelViewActionManager();
 
 	private Extent extent;
-	private ObjectUndoContext undoContext;
 	
 	/**
 	 * 
@@ -53,7 +51,10 @@ public class ModelEditor extends EditorPart {
 			
 			extent = REPOSITORY.createExtent(path, CMOF_EXTENT);
 			try{
-				REPOSITORY.loadXmiIntoExtent(extent, CMOF_PACKAGE, path);
+				if (path.endsWith(".xml"))
+					REPOSITORY.loadXmiIntoExtent(extent, CMOF_PACKAGE, path);
+				else if (path.endsWith(".mdxml"))
+					REPOSITORY.loadMagicDrawXmiIntoExtent(extent, CMOF_PACKAGE, path);
 			} catch (Exception e) {
 				throw new PartInitException("Could not load file into extent.", e);
 			}
@@ -90,7 +91,7 @@ public class ModelEditor extends EditorPart {
 	@Override
 	public boolean isDirty() {
 		
-		return false;
+		return true;
 	}
 
 	/**
@@ -103,7 +104,10 @@ public class ModelEditor extends EditorPart {
 		if(output instanceof IPathEditorInput)
 			try{
 				String path = ((IPathEditorInput) output).getPath().toOSString();
-				REPOSITORY.writeExtentToXmi(path, CMOF_PACKAGE, extent);
+				if (path.endsWith(".xml"))
+					REPOSITORY.writeExtentToXmi(path, CMOF_PACKAGE, extent);
+				else if (path.endsWith(".mdxml"))
+					REPOSITORY.writeExtentToMagicDrawXmi(path, CMOF_PACKAGE, extent);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -130,7 +134,8 @@ public class ModelEditor extends EditorPart {
 	 */
 	@Override
 	public void dispose() {		
-		Repository.getLocalRepository().deleteExtent(extent.toString());
+		
+		REPOSITORY.deleteExtent(extent);
 		super.dispose();
 	}
 }
