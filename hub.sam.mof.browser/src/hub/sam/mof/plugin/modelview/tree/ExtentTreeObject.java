@@ -57,7 +57,11 @@ public class ExtentTreeObject extends ManTreeObject {
 			if (change) {
 				change();
 			}
-		}		
+		}
+
+		public void extendAboutToBeRemoved() {
+			ExtentTreeObject.this.delete();		
+		}						
 	}
 	
 	public ExtentTreeObject(Extent extent, String extentName, TreeParent parent, TreeViewer view) {
@@ -98,7 +102,7 @@ public class ExtentTreeObject extends ManTreeObject {
 	}
 	
 	@Override
-	protected void delete() {
+	public void delete() {
 		extent.removeExtentChangeListener(listener);
 		super.delete();
 	}	

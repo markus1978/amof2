@@ -1,5 +1,7 @@
 package hub.sam.mof.plugin.modeleditor;
 
+import hub.sam.mof.Repository;
+import hub.sam.mof.RepositoryChangeListener;
 import hub.sam.mof.plugin.modelview.Filter;
 import hub.sam.mof.plugin.modelview.tree.ExtentTreeObject;
 import hub.sam.mof.plugin.modelview.tree.TreeObject;
@@ -14,6 +16,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.PlatformUI;
 
 import cmof.reflection.Extent;
 
@@ -92,6 +95,9 @@ public class ExtentViewContentProvider implements IStructuredContentProvider, IT
 			children.add(child);
 		}
 		
+		void removeChild(TreeObject child) {
+			children.remove(child);
+		}
 	}
 
 	private void initialize() {
@@ -99,8 +105,27 @@ public class ExtentViewContentProvider implements IStructuredContentProvider, IT
 			throw new RuntimeException("Extent must not be null");
 		}
 		invisibleRoot = new RootTreeParent(view);		
-		extentNode = new ExtentTreeObject(extent, "Model", invisibleRoot, view);
-		invisibleRoot.addChild(extentNode);		
+		extentNode = new ExtentTreeObject(extent, editorPart.getEditorInput().getName(), invisibleRoot, view);
+		invisibleRoot.addChild(extentNode);	
+		
+		Repository.getLocalRepository().addRepositoryChangeListener(new RepositoryChangeListener() {
+			@Override
+			public void extendAboutToBeRemoved(String name, Extent extent) {
+				if (name.endsWith(editorPart.getEditorInput().getName())) {
+					invisibleRoot.removeChild(extentNode);
+					extentNode.delete();
+					PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {				
+						private void refresh() {
+							invisibleRoot.refresh();					
+							view.refresh(invisibleRoot);
+						}			
+						public void run() {			
+							refresh();
+						}				
+					});
+				}
+			}			
+		});
 	}
 	
 	public TreeParent getRoot() {
@@ -108,8 +133,8 @@ public class ExtentViewContentProvider implements IStructuredContentProvider, IT
 	}
 
 	public void dispose() {
-		// empty
-		
+		invisibleRoot.delete();
+		extentNode.delete();
 	}
 
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {

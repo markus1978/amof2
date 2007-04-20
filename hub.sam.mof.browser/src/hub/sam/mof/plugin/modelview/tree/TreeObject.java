@@ -130,7 +130,7 @@ public class TreeObject extends PlatformObject implements IAdaptable, IActionFil
     	return fView;
     }
     
-    protected void delete() {
+    public void delete() {
     	fParent = null;
     }
 }

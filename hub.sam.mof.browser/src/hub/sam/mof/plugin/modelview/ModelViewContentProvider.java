@@ -29,7 +29,7 @@ public class ModelViewContentProvider implements IStructuredContentProvider, ITr
 	}
 	
 	public void dispose() {
-		// empty
+		invisibleRoot.delete();
 	}
 	
 	public Object[] getElements(Object parent) {

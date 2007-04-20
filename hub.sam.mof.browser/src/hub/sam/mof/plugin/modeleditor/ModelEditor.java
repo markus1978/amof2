@@ -133,9 +133,8 @@ public class ModelEditor extends EditorPart {
 	 * @see org.eclipse.ui.part.WorkbenchPart#dispose()
 	 */
 	@Override
-	public void dispose() {		
-		
-		REPOSITORY.deleteExtent(extent);
+	public void dispose() {						
 		super.dispose();
+		REPOSITORY.deleteExtent(extent);
 	}
 }

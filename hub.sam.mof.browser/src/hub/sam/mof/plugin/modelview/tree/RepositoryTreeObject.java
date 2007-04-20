@@ -17,7 +17,15 @@ import cmof.reflection.Extent;
 
 public class RepositoryTreeObject extends TreeParent {
 
-	private final Repository repository;	
+	private final Repository repository;
+	
+	/**
+	 * For the case an extent is removed, it has to be marked as removed because it will still exist when the
+	 * view refreshes for the extent remove. So the extentAboutToBeRemoved event is caught, the extent marked as
+	 * removed, and in the following refresh it is ignored.
+	 */
+	private String removed = null;
+	
 	private final RepositoryChangeListener fChangeListener = new RepositoryChangeListener() {
 		@Override
 		public void extendAdded(Extent extent) {
@@ -31,6 +39,21 @@ public class RepositoryTreeObject extends TreeParent {
 				}				
 			});
 		}		
+		
+		@Override
+		public void extendAboutToBeRemoved(final String name, Extent extent) {
+			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {				
+				private void refresh() {
+					removed = name;
+					RepositoryTreeObject.this.refresh();						
+					getView().refresh(RepositoryTreeObject.this);
+					removed = null;
+				}			
+				public void run() {			
+					refresh();
+				}				
+			});
+		}
 	};
 		
 	public RepositoryTreeObject(Repository repository, TreeParent parent, TreeViewer view) {
@@ -46,7 +69,9 @@ public class RepositoryTreeObject extends TreeParent {
 		Collection<TreeObject> result = new ArrayList<TreeObject>(extentNames.size());
 		
 		for (String extentName: extentNames) {
-			result.add(new ExtentTreeObject(repository.getExtent(extentName), extentName, this, getView()));
+			if (!extentName.equals(removed)) {
+				result.add(new ExtentTreeObject(repository.getExtent(extentName), extentName, this, getView()));
+			}
 		}
 		return result;
 	}
@@ -102,7 +127,7 @@ public class RepositoryTreeObject extends TreeParent {
     }
 
 	@Override
-	protected void delete() {
+	public void delete() {
 		repository.removeRepositoryChangeListener(fChangeListener);
 		super.delete();
 	}

@@ -3,6 +3,7 @@ package hub.sam.mof.plugin.modelview.tree;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Collection;
+import java.util.Collections;
 
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.PlatformUI;
@@ -15,10 +16,13 @@ public abstract class  TreeParent extends TreeObject {
 	private final MyObjectChangeListener fObjectChangeListener = new MyObjectChangeListener();
 	private final MyPropertyChangeListener fPropertyChangeListener = new MyPropertyChangeListener();
 	
+	private boolean deleted = false;
+	
 	class MyPropertyChangeListener implements PropertyChangeListener {
 		public void propertyChange(PropertyChangeEvent evt) {		
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {				
 				private void refresh() {
+					System.out.println("DELETED " + TreeParent.this.deleted);
 					TreeParent.this.refresh();						
 					getView().refresh(TreeParent.this);
 				}			
@@ -44,7 +48,7 @@ public abstract class  TreeParent extends TreeObject {
 	}
 	
 	public TreeParent(java.lang.Object element, TreeParent parent, TreeViewer view) {
-		super(element, parent, view);
+		super(element, parent, view);		
 		if (element instanceof cmof.reflection.Object) {
 			((cmof.reflection.Object)element).addObjectEventHandler(fObjectChangeListener);
 			((cmof.reflection.Object)element).addListener(fPropertyChangeListener);
@@ -97,7 +101,7 @@ public abstract class  TreeParent extends TreeObject {
 	}
 
 	@Override
-	protected void delete() {
+	public void delete() {
 		Object element = getElement();
 		if (element instanceof cmof.reflection.Object) {
 			((cmof.reflection.Object)element).removeListener(fPropertyChangeListener);
@@ -109,6 +113,8 @@ public abstract class  TreeParent extends TreeObject {
 			}
 		}
 		super.delete();
+		deleted = true;
 	}	
+	
 	
 }
