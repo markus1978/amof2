@@ -20,9 +20,6 @@
 
 package hub.sam.mas.editor.figures;
 
-//import org.eclipse.draw2d.PolygonDecoration;
-import hub.sam.mas.editor.MaseEditDomain;
-
 import org.eclipse.draw2d.PolylineDecoration;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.MidpointLocator;
@@ -36,10 +33,10 @@ public class ActivityEdgeFigure extends PolylineConnection {
     public ActivityEdgeFigure(Color color) {
         setLineWidth(1);
         
-        if (MaseEditDomain.isDebugMode()) {
+        //if (MaseEditDomain.isDebugMode()) {
             setBackgroundColor(color);
             setForegroundColor(color);
-        }
+        //}
         
         PolylineDecoration dec = new PolylineDecoration();
         //PolygonDecoration dec = new PolygonDecoration();

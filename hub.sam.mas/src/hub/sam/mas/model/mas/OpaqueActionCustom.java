@@ -170,7 +170,9 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 	}
 
 	protected static Type getTypeForObject(Object object) {
-		if (object instanceof cmof.reflection.Object) {
+        if (object == null) {
+            return null;
+        } else if (object instanceof cmof.reflection.Object) {
 			return ((cmof.reflection.Object)object).getMetaClass();
 		} else {
 			throw new SemanticException("non object contexts types not allowed yet.");
@@ -215,7 +217,7 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 		} else if (value instanceof Boolean) {
 			return "Core.PrimitiveTypes.Boolean";
 		} else if (value instanceof String) {
-			return "Core.PrimitiveTypes.String";
+			return "String";
 		} else if (value instanceof Long) {
 			return "Core.PrimitiveTypes.Long";
 		} else {

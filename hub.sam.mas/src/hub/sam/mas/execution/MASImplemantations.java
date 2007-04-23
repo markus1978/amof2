@@ -66,12 +66,12 @@ public class MASImplemantations extends ImplementationsImpl {
 			}
 		}
 		activityInstance.run();		
-		activityInstance.delete();
-		if (hasReturn) {
-			return activityInstance.getReturn();
-		} else {
-			return null;
-		}
+        Object returnValue = null;
+        if (hasReturn) {
+          returnValue = activityInstance.getReturn();  
+        }         
+        activityInstance.delete();
+		return returnValue;
 	}
 
 	@Override

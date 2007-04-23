@@ -20,19 +20,14 @@
 
 package hub.sam.mas.editor.editparts;
 
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.swt.graphics.Color;
+import org.eclipse.draw2d.ColorConstants;
 
-import hub.sam.mas.editor.figures.ActivityEdgeFigure;
 import hub.sam.mas.model.mas.ObjectFlow;
 
 public class ObjectFlowEditPart extends ActivityEdgeEditPart {
     
-    private static final Color color = new Color(null, 204, 0, 153);
-
     public ObjectFlowEditPart() {
-        super(color);
+        super(ColorConstants.blue);
     }
     
     public ObjectFlow getModel() {
@@ -47,10 +42,10 @@ public class ObjectFlowEditPart extends ActivityEdgeEditPart {
         return (ObjectNodeEditPart) super.getTarget();
     }
     
-    protected IFigure createFigure() {
-        ActivityEdgeFigure figure = new ActivityEdgeFigure(color);
-        figure.setLineStyle(Graphics.LINE_DASH);
-        return figure;
-    }
+//    protected IFigure createFigure() {
+//        ActivityEdgeFigure figure = new ActivityEdgeFigure(color);
+//        figure.setLineStyle(Graphics.LINE_DASH);
+//        return figure;
+//    }
     
 }

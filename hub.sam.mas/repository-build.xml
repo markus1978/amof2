@@ -21,9 +21,7 @@
 	    <delete includeemptydirs="true">
 	      <fileset dir="${gen-src-dir}" includes="**/*"/>
 	    </delete>
-	    <delete includeemptydirs="true">
-	      <fileset dir="${doc-dir}" includes="**/*"/>
-	    </delete>
+	    <delete dir="${doc-dir}"/>
 	</target>
 
 	<target name="generate-repository" depends="clean,init">
@@ -37,9 +35,8 @@
 	</target>
 
 	<target name="javadoc">
-	    <delete includeemptydirs="true">
-	      <fileset dir="${doc-dir}" includes="**/*"/>
-	    </delete>
+	    <delete dir="${doc-dir}"/>
+	    <mkdir dir="${doc-dir}"/>
 		<javadoc windowtitle="Mase" source="1.5" destdir="${doc-dir}" sourcepath="${src-dir}" packagenames="hub.sam.mas.*">
 			<classpath refid="classpath"/>
 		</javadoc>
