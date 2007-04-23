@@ -20,6 +20,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 package hub.sam.mof.reflection;
 
 import hub.sam.mof.PlugInActivator;
+import hub.sam.mof.codegeneration.wrapper.OperationWrapper;
 import hub.sam.mof.instancemodel.ClassInstance;
 import hub.sam.mof.instancemodel.ClassifierSemantics;
 import hub.sam.mof.instancemodel.StructureSlot;
@@ -528,14 +529,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
     }
 
     private String getOperationNameForOperation(cmof.Operation op) {
-        StringBuffer opName = new StringBuffer(op.getName());
-        for (Parameter parameter : op.getFormalParameter()) {
-            if (!parameter.getDirection().equals(ParameterDirectionKind.RETURN)) {
-                opName.append("_");
-                opName.append(parameter.getType().getQualifiedName());
-            }
-        }
-        return opName.toString();
+        return new OperationWrapper(op).getUnambigousName();        
     }
 
     public synchronized java.lang.Object invokeOperation(cmof.Operation op, ReflectiveSequence<Argument> arguments) {

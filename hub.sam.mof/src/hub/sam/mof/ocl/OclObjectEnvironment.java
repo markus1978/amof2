@@ -3,6 +3,7 @@ package hub.sam.mof.ocl;
 import org.oslo.ocl20.synthesis.RuntimeEnvironment;
 
 import cmof.Type;
+import cmof.UmlClass;
 
 public class OclObjectEnvironment {
 
@@ -34,8 +35,9 @@ public class OclObjectEnvironment {
 	
 	public Object execute(String expression) throws OclException {
 		try {
-			return OclProcessor.evaluateExpression(fEnvironment.analyseOclExpression(expression, fSelf.getMetaClass()), 
-					expression, fSelf.getMetaClass(),  fRuntimeEnvironment);
+            UmlClass metaClass = (fSelf == null ? null : fSelf.getMetaClass()); 
+			return OclProcessor.evaluateExpression(fEnvironment.analyseOclExpression(expression, metaClass), 
+					expression, metaClass, fRuntimeEnvironment);
 		} catch (Exception ex) {
 			throw new OclException("Exception during evaluation of ocl.", ex);
 		}

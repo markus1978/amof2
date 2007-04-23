@@ -3,6 +3,8 @@ package hub.sam.mof.ocl.oslobridge;
 import hub.sam.mof.javamapping.JavaMapping;
 import hub.sam.mof.ocl.OclException;
 import hub.sam.mof.util.AssertionException;
+
+import org.oslo.ocl20.generation.lib.OclAnyModelElementImpl;
 import org.oslo.ocl20.semantics.bridge.Classifier;
 import org.oslo.ocl20.semantics.bridge.EnumLiteral;
 import org.oslo.ocl20.semantics.bridge.ModelElement;
@@ -80,8 +82,8 @@ public class MofEvaluationAdaptor implements ModelEvaluationAdapter {
 		throw new AssertionException("not implemented");
 	}
 
-	public boolean OclModelElement_oclIsUndefined(OclAny o1) {
-		throw new AssertionException("not implemented");
+	public boolean OclModelElement_oclIsUndefined(OclAny o1) {        
+        return o1 == null;        
 	}
 
 	public Object OclModelElement_oclAsType(OclAny obj, OclType type) {

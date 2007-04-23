@@ -204,7 +204,12 @@ public class OperationWrapper extends TypedElementWrapper {
             if (parameter.getDirection() != ParameterDirectionKind.RETURN) {
                 ParameterWrapper parameterWrapper = new ParameterWrapper(parameter);
                 result.append("_");
-                result.append(parameterWrapper.getUmlType().getQualifiedName());
+                Type type = parameterWrapper.getUmlType();
+                if ("String".equals(type.getName())) {
+                    result.append("String");
+                } else {
+                    result.append(type.getQualifiedName());
+                }
             }
         }
         return result.toString();

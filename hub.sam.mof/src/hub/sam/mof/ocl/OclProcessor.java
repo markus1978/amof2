@@ -58,6 +58,8 @@ import cmof.reflection.Extent;
 
 public class OclProcessor {
 
+    public static final String OCL_CONTEXT_UNDEFINED = "OclContextUndefined";
+    
 	private static final ILog myLog = new MofLog(System.out);
 	private static final org.oslo.ocl20.OclProcessor myProcessor = new MofOclProcessor(myLog);	
 
@@ -146,7 +148,7 @@ public class OclProcessor {
 		OclAny oclResult = evaluateAsOcl(cs,  runEnv, evalLog);
 		if (evalLog.hasErrors()) {
 			evalLog.finalReport();
-			throw new OclException("Errors during evaluation of '" + invariant + "' in context: " + context.getQualifiedName());
+			throw new OclException("Errors during evaluation of '" + invariant + "' in context: " + (context == null ? "null" : context.getQualifiedName()));
 		}
 		if (oclResult instanceof OclUndefined) {
 			throw new OclException("evluated to undefined: " + invariant);
@@ -197,7 +199,7 @@ public class OclProcessor {
 		PackageDeclarationAS parseResult = myProcessor.getParser().parse(new StringReader(oclForInvariant(expression, context)), parseLog, false);
 		if (parseLog.hasErrors()) {
 			parseLog.finalReport();
-			throw new OclException("Errors during parse of '" + expression + "' in context: " + context.getQualifiedName());
+			throw new OclException("Errors during parse of '" + expression + "' in context: " + (context == null ? "null" : context.getQualifiedName()));
 		}
 
 		ILog analyzeLog = new MofLog(System.out);
@@ -205,7 +207,7 @@ public class OclProcessor {
 
 		if (analyzeLog.hasErrors()) {
 			analyzeLog.finalReport();
-			throw new OclException("Errors during analysis of '" + expression + "' in context: " + context.getQualifiedName());
+			throw new OclException("Errors during analysis of '" + expression + "' in context: " + (context == null ? "null" : context.getQualifiedName()));
 		} else {
 			analyzeLog.finalReport();
 		}
@@ -304,8 +306,17 @@ public class OclProcessor {
 
 
 	private static String oclForInvariant(String invariant, NamedElement context) {
+        String contextString = null;
+        if (context == null) {
+            /* This is a hack. The ocl interpreter needs a context in all cases. Unfortunatly when
+             * we want to evaluate an expression on null.
+             */        
+            contextString = OCL_CONTEXT_UNDEFINED;
+        } else {
+            contextString = context.getQualifiedName().replaceAll("\\.","::");
+        }
 		StringBuffer constraint = new StringBuffer("context ");
-		constraint.append(context.getQualifiedName().replaceAll("\\.","::"));
+		constraint.append(contextString);
 		constraint.append("\ninv: ");
 		constraint.append(invariant);
 		return constraint.toString();

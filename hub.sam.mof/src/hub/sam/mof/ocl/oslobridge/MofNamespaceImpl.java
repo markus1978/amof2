@@ -12,6 +12,7 @@ import org.oslo.ocl20.semantics.bridge.Namespace;
 import cmof.Package;
 import cmof.PackageableElement;
 import cmof.Type;
+import cmof.UmlClass;
 
 public class MofNamespaceImpl implements Namespace {
 
@@ -26,12 +27,14 @@ public class MofNamespaceImpl implements Namespace {
 	Map<String, ModelElement> _elements = new HashMap<String, ModelElement>();
 	
 	public ModelElement lookupOwnedElement(String name) {
+        System.out.println("2222" + name);
 		ModelElement mel = _elements.get(name);
 		if (mel == null) {
-			Type result = null;
+			Type result = null;             
 			loop: for (PackageableElement element: pkg.getPackagedElement()) {
-				if (element instanceof Type) {
-					if (name.equals(element.getName())) {
+				if (element instanceof Type) {                    
+                    if (name.equals(element.getName()) || 
+                            (name.equals(hub.sam.mof.ocl.OclProcessor.OCL_CONTEXT_UNDEFINED) && element instanceof UmlClass)) {
 						result = (Type)element;
 						break loop;
 					}

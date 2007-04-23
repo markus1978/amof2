@@ -62,6 +62,9 @@ public class MofClassSemantics extends MofClassifierSemantics {
         for (Element e: classifier.getMember()) {
             if (e instanceof Operation) {
                 Operation op = (Operation)e;
+                if (op.getName().equals("getEnabledTransition")) {
+                    System.out.println("hallo");
+                }
                 addOperation(op);
                 for (Operation redefinedOp: op.getRedefinedOperation()) {
                 	addOperation(redefinedOp);
