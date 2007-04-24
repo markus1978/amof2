@@ -213,13 +213,13 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 		if (value instanceof cmof.reflection.Object) {
 			return ((cmof.reflection.Object)value).getMetaClass().getQualifiedName();
 		} else if (value instanceof Integer) {
-			return "Core.PrimitiveTypes.Integer";
+			return core.primitivetypes.Integer.class.getSimpleName();
 		} else if (value instanceof Boolean) {
-			return "Core.PrimitiveTypes.Boolean";
+			return core.primitivetypes.Boolean.class.getSimpleName();
 		} else if (value instanceof String) {
-			return "String";
+			return core.primitivetypes.String.class.getSimpleName();
 		} else if (value instanceof Long) {
-			return "Core.PrimitiveTypes.Long";
+			return core.primitivetypes.UnlimitedNatural.class.getSimpleName();
 		} else {
 			return value.getClass().getCanonicalName();
 		}
