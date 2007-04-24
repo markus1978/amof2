@@ -19,6 +19,9 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.codegeneration.wrapper;
 
+import core.primitivetypes.Integer;
+import core.primitivetypes.Boolean;
+import core.primitivetypes.UnlimitedNatural;
 import cmof.Element;
 import cmof.Operation;
 import cmof.Parameter;
@@ -205,8 +208,17 @@ public class OperationWrapper extends TypedElementWrapper {
                 ParameterWrapper parameterWrapper = new ParameterWrapper(parameter);
                 result.append("_");
                 Type type = parameterWrapper.getUmlType();
-                if ("String".equals(type.getName())) {
-                    result.append("String");
+                String typeName = type.getName();              
+                if (core.primitivetypes.String.class.getSimpleName().equals(typeName)) {
+                    result.append(core.primitivetypes.String.class.getSimpleName());
+                } else if (Boolean.class.getSimpleName().equals(typeName)) {
+                	result.append(Boolean.class.getSimpleName());
+                } else if (Integer.class.getSimpleName().equals(typeName)) {
+                	result.append(Integer.class.getSimpleName());
+                } else if (UnlimitedNatural.class.getSimpleName().equals(typeName)) {
+                	result.append(UnlimitedNatural.class.getSimpleName());
+                } else if (core.primitivetypes.Object.class.getSimpleName().equals(typeName)) {
+                	result.append(core.primitivetypes.Object.class.getSimpleName());
                 } else {
                     result.append(type.getQualifiedName());
                 }

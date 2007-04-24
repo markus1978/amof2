@@ -138,7 +138,7 @@ public class M1SemanticModel {
                 add(genericCreate.getRedefinedOperation(),
                         // TODO very ugly coding of the operation name
                         parent.getFinalOperation(getGenericCreateOperationName((UmlClass)metaInstances) + "_" +
-                                getStringType(classifierClassifier).getQualifiedName()));
+                                getStringType(classifierClassifier).getName()));
             }
         }
 

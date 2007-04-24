@@ -27,7 +27,6 @@ public class MofNamespaceImpl implements Namespace {
 	Map<String, ModelElement> _elements = new HashMap<String, ModelElement>();
 	
 	public ModelElement lookupOwnedElement(String name) {
-        System.out.println("2222" + name);
 		ModelElement mel = _elements.get(name);
 		if (mel == null) {
 			Type result = null;             
