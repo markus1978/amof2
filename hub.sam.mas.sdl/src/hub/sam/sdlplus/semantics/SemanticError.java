@@ -8,7 +8,11 @@ import hub.sam.sdlplus.*;
  */
 public class SemanticError extends Exception implements Comparable {
 
-    private String msg;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String msg;
     private cmof.reflection.Object context;
 
     public String getMessage() {
