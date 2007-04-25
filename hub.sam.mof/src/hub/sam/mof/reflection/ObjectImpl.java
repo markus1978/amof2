@@ -213,7 +213,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
                 throw new IllegalArgumentException("qualifiers not allowed for derived properties");
             }
             return implementation.invokeImplementationFor(semantics.getFinalProperty(property), this, semantics);
-        }
+        }        
         checkQualifierType(qualifier, property);
         ValueSpecificationList<UmlClass, Property, java.lang.Object> values = instance.get(property).
                 getValuesAsList(extent.specificationForValue(qualifier));

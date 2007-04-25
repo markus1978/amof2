@@ -1,5 +1,12 @@
 package hub.sam.mof.ocl;
 
+import hub.sam.mof.ocl.oslobridge.MofOclModelElementTypeImpl;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.oslo.ocl20.synthesis.RuntimeEnvironment;
 
 import cmof.Type;
@@ -41,5 +48,29 @@ public class OclObjectEnvironment {
 		} catch (Exception ex) {
 			throw new OclException("Exception during evaluation of ocl.", ex);
 		}
+	}
+	
+	private Map<String, Type> additionalContextAttributes = new HashMap<String, Type>();
+	
+	public void addAdditionalContextAttribute(String name, Object value, Type attributeType, Type contextType) {	
+		List<String> contextName = Arrays.asList(contextType.getQualifiedName().split("\\."));		
+		MofOclModelElementTypeImpl contextOclModelElementType = (MofOclModelElementTypeImpl)fEnvironment.getEnvironment().lookupPathName(contextName);
+		if (contextOclModelElementType == null) {
+			throw new OclException("Cannot resolve context (" + contextName + ") of action " + this.toString());
+		}
+		additionalContextAttributes.put(name, contextType);	
+		contextOclModelElementType.addAdditionalProperty(name, value, attributeType);		
+	}
+	
+	public void removeAdditionalAttributes() {
+		for (String name: additionalContextAttributes.keySet()) {
+			List<String> contextName = Arrays.asList(additionalContextAttributes.get(name).getQualifiedName().split("\\."));		
+			MofOclModelElementTypeImpl contextOclModelElementType = (MofOclModelElementTypeImpl)fEnvironment.getEnvironment().lookupPathName(contextName);
+			if (contextOclModelElementType == null) {
+				throw new OclException("Cannot resolve context of action " + this.toString());
+			}			
+			contextOclModelElementType.removeAdditionalProperty(name);			
+		}
+		additionalContextAttributes.clear();
 	}
 }
