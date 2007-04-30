@@ -78,30 +78,20 @@
 			<classpath refid="classpath"/>
 		</javac>
 	</target>
-
-	<target name="build-jar" depends="compile">
+ 
+    <target name="build-jar" depends="compile">
 	    <jar destfile="${jar-file}" basedir="${build-dir}">
-		<manifest>
-		    <attribute name="Main-Class" value="hub.sam.mof.Repository"/>
-		</manifest>
+			<manifest>
+			    <attribute name="Main-Class" value="hub.sam.mof.Repository"/>
+			</manifest>
+	        <zipfileset src="${basedir}/resources/lib/mopa.jar"/>
+	        <zipfileset src="${basedir}/resources/lib/jdom.jar"/>
+	        <zipfileset src="${basedir}/resources/lib/oslo.jar"/>
+	        <zipfileset src="${basedir}/resources/lib/draw2d.jar"/>
+	        <zipfileset src="${basedir}/resources/lib/org.eclipse.core.runtime_3.2.0.v20060603.jar"/>
+	        <zipfileset src="${basedir}/resources/lib/org.eclipse.equinox.common_3.2.0.v20060603.jar"/>
+	        <zipfileset src="${basedir}/resources/lib/org.eclipse.osgi_3.2.1.R32x_v20060919.jar"/>
 	    </jar>
-        <mkdir dir="${basedir}/resources/lib/mopa"/>
-        <unjar dest="${basedir}/resources/lib/mopa" src="${basedir}/resources/lib/mopa.jar"/>
-        <jar destfile="${jar-file}" basedir="${basedir}/resources/lib/mopa" update="true"/>
-        <mkdir dir="${basedir}/resources/lib/jdom"/>
-        <unjar dest="${basedir}/resources/lib/jdom" src="${basedir}/resources/lib/jdom.jar"/>
-        <jar destfile="${jar-file}" basedir="${basedir}/resources/lib/jdom" update="true"/>
-        <mkdir dir="${basedir}/resources/lib/oslo"/>
-        <unjar dest="${basedir}/resources/lib/oslo" src="${basedir}/resources/lib/oslo.jar"/>
-        <jar destfile="${jar-file}" basedir="${basedir}/resources/lib/oslo" update="true"/>
-
-        <mkdir dir="${basedir}/resources/lib/eclipse"/>
-		<unjar dest="${basedir}/resources/lib/eclipse" src="${basedir}/resources/lib/draw2d.jar"/>
-        <unjar dest="${basedir}/resources/lib/eclipse" src="${basedir}/resources/lib/org.eclipse.core.runtime_3.2.0.v20060603.jar"/>
-        <unjar dest="${basedir}/resources/lib/eclipse" src="${basedir}/resources/lib/org.eclipse.equinox.common_3.2.0.v20060603.jar"/>
-        <unjar dest="${basedir}/resources/lib/eclipse" src="${basedir}/resources/lib/org.eclipse.osgi_3.2.1.R32x_v20060919.jar"/>
-		
-        <jar destfile="${jar-file}" basedir="${basedir}/resources/lib/eclipse" update="true"/>
 	</target>
 
 	<target name="doc" depends="compile">
