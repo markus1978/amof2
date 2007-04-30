@@ -84,13 +84,12 @@
 			<manifest>
 			    <attribute name="Main-Class" value="hub.sam.mof.Repository"/>
 			</manifest>
-	        <zipfileset src="${basedir}/resources/lib/mopa.jar"/>
-	        <zipfileset src="${basedir}/resources/lib/jdom.jar"/>
-	        <zipfileset src="${basedir}/resources/lib/oslo.jar"/>
-	        <zipfileset src="${basedir}/resources/lib/draw2d.jar"/>
-	        <zipfileset src="${basedir}/resources/lib/org.eclipse.core.runtime_3.2.0.v20060603.jar"/>
-	        <zipfileset src="${basedir}/resources/lib/org.eclipse.equinox.common_3.2.0.v20060603.jar"/>
-	        <zipfileset src="${basedir}/resources/lib/org.eclipse.osgi_3.2.1.R32x_v20060919.jar"/>
+	        <zipgroupfileset dir="${basedir}/resources/lib">
+                <include name="*.jar" />
+                <exclude name="ant.jar"/>
+                <exclude name="ejb-api.jar"/>
+                <exclude name="jbossall-client.jar"/>
+            </zipgroupfileset>
 	    </jar>
 	</target>
 

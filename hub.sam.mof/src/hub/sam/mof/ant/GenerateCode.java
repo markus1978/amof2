@@ -6,6 +6,7 @@ import cmof.Package;
 import hub.sam.mof.Repository;
 import hub.sam.mof.codegeneration.GenerationException;
 import hub.sam.mof.codegeneration.CodeGenerationConfiguration;
+import hub.sam.mof.javamapping.JavaMapping;
 import hub.sam.mof.runtimelayer.M1SemanticModel;
 import hub.sam.mof.xmi.XmiException;
 import hub.sam.util.AbstractClusterableException;
@@ -13,7 +14,9 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Vector;
 
 public class GenerateCode extends Task {
@@ -30,6 +33,7 @@ public class GenerateCode extends Task {
     private File destdir = null;
     private boolean remote = true;
     private boolean ocl = false;
+    private List<hub.sam.mof.ant.Package> packages = new Vector<hub.sam.mof.ant.Package>();
 
     @SuppressWarnings({"OverlyLongMethod"})
     @Override
@@ -75,7 +79,7 @@ public class GenerateCode extends Task {
             cmof.Package cmof = (cmof.Package)repository.getExtent(Repository.CMOF_EXTENT_NAME).
                     query("Package:cmof");
 
-            Extent extent = repository.createExtent("extent");
+            Extent extent = repository.createExtent("extent", cmof);
             if (library) {
                 System.out.println("Reading library.");
                 repository.loadXmiIntoExtent(extent, cmof, libraryFile.toString());
@@ -91,6 +95,23 @@ public class GenerateCode extends Task {
             } else if (md) {
                 repository.loadMagicDrawXmiIntoExtent(extent, cmof, src.toString());
             }
+            
+            cmofFactory factory = (cmofFactory)repository.createFactory(extent, cmof);
+            
+            for(hub.sam.mof.ant.Package pkg: packages) {
+                if (pkg.getNsPrefix() != null) {
+                    cmof.Tag nsPrefixTag = factory.createTag();
+                    nsPrefixTag.setName("org.omg.xmi.nsPrefix");
+                    nsPrefixTag.setValue(pkg.getNsPrefix());
+                    applyTag(extent, pkg, nsPrefixTag);
+                }
+                if (pkg.getJavaPackagePrefix() != null) {
+                    Tag nsPrefixTag = factory.createTag();
+                    nsPrefixTag.setName(JavaMapping.PackagePrefixTagName);
+                    nsPrefixTag.setValue(pkg.getJavaPackagePrefix());
+                    applyTag(extent, pkg, nsPrefixTag);
+                }
+            }
 
             if (instances) {
                 System.out.println("Creating semantic elements.");
@@ -100,12 +121,20 @@ public class GenerateCode extends Task {
                         packages.add((cmof.Package)o);
                     }
                 }
-                cmofFactory factory = (cmofFactory)repository.createFactory(extent, cmof);
                 new M1SemanticModel(factory).createImplicitElements(packages);
             }
 
             System.out.println("Generating code.");
-            repository.generateCode(extent, destdir.toString(), false);
+            if (packages.size() > 0) {
+                List<String> forPackages = new ArrayList<String>();
+                for(hub.sam.mof.ant.Package pkg: packages) {
+                    forPackages.add(pkg.getName());
+                }
+                repository.generateCode(extent, destdir.toString(), forPackages);
+            }
+            else {
+                repository.generateCode(extent, destdir.toString(), false);
+            }
             if (staticModel != null) {
                 System.out.println("Generating code for static model.");
                 repository.generateStaticModel(extent, staticModel, destdir.toString());
@@ -120,6 +149,14 @@ public class GenerateCode extends Task {
             e.printStackTrace(System.err);
             throw new BuildException(e);
         }
+    }
+
+    private void applyTag(Extent extent, hub.sam.mof.ant.Package pkg, Tag nsPrefixTag) {
+        Package modelPackage = (Package) extent.query("Package:" + pkg.getName());
+        if (modelPackage == null) {
+            throw new BuildException(pkg.getName() + " is not a package in the model");
+        }
+        modelPackage.getTag().add(nsPrefixTag);
     }
 
     public void setDestdir(File destdir) {
@@ -176,6 +213,10 @@ public class GenerateCode extends Task {
 
     public void setOcl(boolean ocl) {
         this.ocl = ocl;
+    }
+    
+    public void addPackage(hub.sam.mof.ant.Package pkg) {
+        this.packages.add(pkg);
     }
 
     public static void main(String[] args) {
