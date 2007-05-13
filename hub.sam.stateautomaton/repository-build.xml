@@ -13,23 +13,20 @@
 
 	<target name="init">
 		<mkdir dir="${bin-dir}"/>
+	    <mkdir dir="${gen-src-dir}"/>
+        <typedef name="package" classname="hub.sam.mof.ant.Package" classpathref="classpath"/>
+	    <taskdef name="generatecode" classname="hub.sam.mof.ant.GenerateCode" classpathref="classpath"/>
 	</target>
 
 	<target name="clean">
 		<delete dir="${bin-dir}"/>
-	    <delete includeemptydirs="true">
-	      <fileset dir="${gen-src-dir}" includes="**/*"/>
-	    </delete>
+	    <delete dir="${gen-src-dir}"/>
 	</target>
 
 	<target name="generate-repository" depends="clean,init">
-		<javac debug="on" destdir="${bin-dir}" source="1.5" nowarn="yes" srcdir="${src-dir}">
-			<include name="hub/sam/stateautomaton/GenerateRepository.java"/>
-			<classpath refid="classpath"/>
-	    </javac>
-		<java classname="hub.sam.stateautomaton.GenerateRepository" fork="false">
-			<classpath refid="classpath"/>
-	    </java>
+	    <generatecode src="resources/StateAutomaton.syntax.mdxml" md="true" destDir="./generated-src" instances="true">
+	        <package name="model" javaPackagePrefix="hub.sam.stateautomaton"/>
+	    </generatecode>
 	</target>
 	
 </project>

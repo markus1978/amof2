@@ -1,0 +1,4 @@
+Automaton automaton = createLargeTestModel(testFactory);
+AutomatonRuntime automatonRuntime = automaton.instantiate();
+automatonRuntime.run("dbdecacf");
+automatonRuntime.remove();

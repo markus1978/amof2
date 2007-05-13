@@ -1,0 +1,26 @@
+package hub.sam.stateautomaton.model;
+
+import hub.sam.stateautomaton.StateAutomaton;
+
+public class AutomatonRuntimeCustom extends AutomatonRuntimeDlg {
+
+    // ..
+    
+    @Override
+    public void run(java.lang.String input) {
+        initialise();
+        
+        while (input.length() > 0) {
+            StateRuntime stateRuntime = getCurrentState();
+            
+            java.lang.String chr = input.substring(0, 1);
+            boolean consumed = stateRuntime.consume(chr);
+            input = input.substring(1);
+            if (!consumed) {
+                // ignore token
+                System.out.println("ignoring input token '" + chr + "'");
+            }
+        }
+    }
+    
+}
