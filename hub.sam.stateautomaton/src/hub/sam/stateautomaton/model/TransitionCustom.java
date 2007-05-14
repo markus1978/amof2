@@ -23,22 +23,22 @@ package hub.sam.stateautomaton.model;
 public class TransitionCustom extends TransitionDlg {
 
     @Override
-    public void fire(StateRuntime context)  {
-        AutomatonRuntime currentAutomatonRuntime = context.getAutomaton();
+    public void fire(AutomatonRuntime context)  {
+        System.out.println(AutomatonRuntimeCustom.getDebugName(context) + " consumes input '"
+                + getInput() + "' in state " + context.getCurrentState().getName() + ".");
 
-        System.out.println(AutomatonRuntimeCustom.getDebugName(currentAutomatonRuntime) + " consumes input '"
-                + getInput() + "' in state " + context.getMetaClassifierState().getName() + ".");
-
-        StateRuntime targetStateRuntime = context.getTargetStateRuntime(self);
-        context.createInnerAutomatonRuntime();
-        
         // make transition
-        context.getAutomaton().setCurrentState(targetStateRuntime);
+        context.setCurrentState(getTarget());
+        
+        // create runtime information if target is a composite state
+        if (getTarget().getSubAutomaton() != null && context.getCompositeState(getTarget()) == null) {
+            context.createCompositeState(getTarget());
+        }
 
-        System.out.println(AutomatonRuntimeCustom.getDebugName(currentAutomatonRuntime)
+        System.out.println(AutomatonRuntimeCustom.getDebugName(context)
                 + " transitions to state " + getTarget().getName() + ".");
         if (getTarget() instanceof FinalState) {
-            System.out.println(AutomatonRuntimeCustom.getDebugName(currentAutomatonRuntime) + " reached a final state.");
+            System.out.println(AutomatonRuntimeCustom.getDebugName(context) + " reached a final state.");
         }
     }
 

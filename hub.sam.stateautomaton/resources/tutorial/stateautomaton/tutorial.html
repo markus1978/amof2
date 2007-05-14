@@ -132,44 +132,45 @@ alt="frontpage hit counter" border="0"/></a> </noscript>
 
 <h2>An Example Language</h2>
 
-<p>We choose to create a language for modelling and executing state automatons because state automatons are perfectly suited for demonstrating all language aspects. We first describe the process for creating the language structure and continue with the definition of execution semantics.</p>
+<p>We choose to create a language for modelling and executing state automatons because they are perfectly suited for demonstrating all the language aspects. We first describe the process for creating the language structure and then continue with the definition of execution semantics.</p>
 
 <p>The central language aspect is a meta-model that describes the structure of state automatons. The basic concepts are: automaton, transition and state with a special initial state and final state. Based on these concepts, the structure model should reflect the following rules:</p>
 
 <p>An automaton has a name. It may have many states and many transitions. There has to be one intial state and one or more final states. Each state has a name and outgoing as well as incoming transitions. Transitions describe state changes by defining on which input token a transition fires. A transition must have one source and one target state. States can consume input tokens. Consuming a token results in the firing of an outgoing transition. An automaton can consume a sequence of input tokens.</p>
 
-<p>Furthermore a state may contain a sub-automaton. This is a language feature that can be compared to types in computer languages. We define an automaton (the type) and use it as sub-automaton in many different states (instances of the type). Each sub-automaton may reside in a different inner state at runtime. Thus extra runtime information is needed to execute the language model. This feature can be compared to an object instance of a type that has its own identity and its own state. Whenever we have such a type concept in a language, we need dynamic structures that deal with runtime information. Composite state automatons are a perfect example to show this modelling aspect here. But lets concentrate on static structure first and then go over to dynamic structures.</p>
+<p>Furthermore a state may contain a sub-automaton. This is a language feature that can be compared to types in computer languages. We define an automaton (the type) and use it as a sub-automaton in many different states (instances of the type). Each sub-automaton may reside in a different inner state at runtime. Thus extra runtime information is needed to execute the language model. This feature can be compared to an object instance of a type that has its own identity and its own state. Whenever we have such a type concept in a language, we need runtime structures that deal with runtime information. Composite state automatons are a perfect example to show this modelling aspect here. But lets concentrate on the syntax and then go over to runtime structures.</p>
 
 <h3>Modelling Structure</h3>
 
-<h4>Static Structure</h4>
+<p>The structural concepts can be modelled with <a href="http://www.magicdraw.com">MagicDraw UML</a>. We support loading and saving MagicDraw models within our modelling tools. This allows us to use MagicDraw as the basis for modelling structure. But we are not dependend on MagicDraw UML, you can use any UML tool that can load and save a model in XMI format version 2.0. However, further explanation will refer to MagicDraw UML. You will be given the complete structure model as MagicDraw-XMI at the end of the section.</p>
 
-<p>The structure concepts can be modelled with <a href="http://www.magicdraw.com">MagicDraw UML</a>. We support loading and saving MagicDraw models within our modelling tools. This allows us to use MagicDraw as the basis for all structural modelling tasks. But we are not dependend on MagicDraw UML, you can use any UML tool that can load and save a model in XMI format version 2.0. However, further explanation will refer to MagicDraw UML. You will be given the complete structure model as MagicDraw-XMI at the end of the section.</p>
+<h4>Syntax</h4>
 
-<p><i>Figure: language meta-model with only static structure as MagicDraw model (click to view larger image)</i></p>
+<p>We first model the syntax of the state automaton language with respect to the basic state automaton concepts we identified before (see figure below).
 
-<p><a href="images/static.png"><img src="images/static_thumb.png" alt="static part of the structure model"></a></p>
+<p><i>Figure: syntax part of the language meta-model in MagicDraw format (click to view larger image)</i></p>
 
-<h4>Runtime Structure (or Dynamic Structure)</h4>
-
-<p>Executing the model requires runtime information that could be stored in the model itself. But this approach has flaws. One problem is that we will lose the model's initial state if we execute it. Furthermore we often need several runtime representations of the same model element. E.g. in our language, each automaton instance has to remember its current state. If we have an automaton with two states and each of them contains the same sub-automaton X, then each instance of X could be in another state at runtime. We create a runtime class AutomatonRuntime for the static class Automaton and relate the two classes via an UML realisation arrow. This model element represents a runtime-representation-of relationship which we can use because there is no predefined meaning in CMOF (our meta-meta-model). The next step is to establish an association to class State with the association end named currentState. This will save the current state of different runtime representations of the same automaton instance.</p>
-
-<p>But how do we create runtime instances and how are they connected to static instances? Whenever we need a new runtime instance, we simply invoke a create method at the static side, e.g. metaCreateAutomatonRuntime() or we can invoke metaDelete() on the runtime element to destroy runtime information. These methods are created by a modelling framework that also manages runtime relationships. We are going to show this framework later. The next figure illustrates what we just explained.</p>
-
-<p><i>Figure: Relations between static and dynamic structure and the model layers. M3 is CMOF, M2 is the language meta-model and M1 is a model in the language. Unlabeled UML realisation arrows represent instance-of relationships between model layers.</i></p>
-<p><img src="images/structure-relations.png"></p>
-
-<p>We will need additional runtime information to actually execute a state automaton model. You can see the required elements in the figure below. These elements are not discussed here. Explanation will be continued when we define execution semantics that use runtime information.</p>
-
-<p><i>Figure: language meta-model with static and dynamic structure as MagicDraw model (click to view larger image)</i></p>
-
-<p><a href="images/dynamic.png"><img src="images/dynamic_thumb.png" alt="complete structure model"></a></p>
+<p><a href="images/syntax.png"><img src="images/syntax_thumb.png" alt="syntax part of the structure model"></a></p>
 
 <h4>Static Constraints</h4>
 
 <p><font color="red"><b>TODO</b></font></p>
 
-<p>The complete structure model will be needed in the next sections. You can download it as <a href="resources/StateAutomaton.syntax.mdxml">MagicDraw-XML here</a>.</p>
+<h4>Runtime Structure (part of the Semantic)</h4>
+
+<p>
+In our approach, executing a model requires the definition of operational semantics. Part of the semantic description is a behaviour model that works on an instance of the syntax model. It executes this instance by changing the instance's state. The syntax model defines all the models a user can write and execute. But execution requires additional runtime information (e.g. the currentState of an automaton). Such runtime information could be stored in the model itself. But this approach has flaws. One problem is that we will lose the model's initial state if we execute it. Furthermore we often need several runtime representations of the same model element. E.g. in our language, each automaton instance has to remember its current state. If we have an automaton with two states and each of them contains the same sub-automaton X, then each instance of X could be in another state at runtime. We create a runtime class AutomatonRuntime for the static class Automaton and relate the two classes via an UML realisation arrow. This model element represents a runtime-representation-of relationship which we can use because there is no predefined meaning in CMOF (our meta-meta-model). The next step is to establish an association to class State with the association end named currentState. This will save the current state of different runtime representations of the same automaton instance.</p>
+
+<p>But how do we instantiate runtime classes and how are they connected to syntax classes? Whenever we need a new runtime representation, we simply invoke a create method at the syntax class, e.g. metaCreateAutomatonRuntime(). We may also invoke metaDelete() on the runtime class to destroy runtime information. These operations are created by a modelling framework that also manages runtime relationships. We are going to present this framework later. The next figure illustrates what we just explained.</p>
+
+<p><i>Figure: Relations between syntax and runtime structure and the meta layers. M3 is CMOF, M2 is the language meta-model and M1 is a model in the language. Unlabeled UML realisation arrows represent instance-of relationships between model layers.</i></p>
+<p><img src="images/structure-relations.png"></p>
+
+<p>For our example language we will need more runtime information to actually execute a model. You can see the required elements in the figure below. <font color="red"><b>TODO</b></font></p>
+
+<p><i>Figure: complete structure of the language - syntax and runtime structure (click to view larger image)</i></p>
+
+<p><a href="images/dynamic.png"><img src="images/dynamic_thumb.png" alt="complete structure model"></a></p>
 
 <h3>Programming with CMOF-based Models</h3>
 
@@ -238,113 +239,7 @@ alt="frontpage hit counter" border="0"/></a> </noscript>
 
 <p><img src="images/model.png"></p>
 
-<p>In the next section we will execute the automaton X for a sequence of input tokens like "dbdecacf". This will show that automaton Y resides in two different states at runtime, one for state A and one for state B.</p>
-
-<p>The source code below uses generated repository code for creating the necessary model elements and associates them with each other.</p>
-
-<p><i>Figure: source code from src/hub/sam/stateautomaton/StateAutomaton.java</i></p>
-
-<pre class="hl"><span class="line">    1 </span><span class="kwa">package</span> hub<span class="sym">.</span>sam<span class="sym">.</span>stateautomaton<span class="sym">;</span>
-<span class="line">    2 </span>
-<span class="line">    3 </span><span class="kwa">public class</span> StateAutomaton
-<span class="line">    4 </span>
-<span class="line">    5 </span>    <span class="slc">// ...</span>
-<span class="line">    6 </span>
-<span class="line">    7 </span>    <span class="kwa">private</span> Automaton <span class="kwd">createLargeTestModel</span><span class="sym">(</span>modelFactory factory<span class="sym">) {</span>
-<span class="line">    8 </span>
-<span class="line">    9 </span>        <span class="slc">// main automaton X</span>
-<span class="line">   10 </span>
-<span class="line">   11 </span>        Automaton automatonX <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createAutomaton</span><span class="sym">();</span>
-<span class="line">   12 </span>        automatonX<span class="sym">.</span><span class="kwd">setName</span><span class="sym">(</span><span class="str">&quot;X&quot;</span><span class="sym">);</span>
-<span class="line">   13 </span>
-<span class="line">   14 </span>        InitialState startX <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createInitialState</span><span class="sym">();</span>
-<span class="line">   15 </span>        startX<span class="sym">.</span><span class="kwd">setName</span><span class="sym">(</span><span class="str">&quot;startX&quot;</span><span class="sym">);</span>
-<span class="line">   16 </span>        State stateA <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createState</span><span class="sym">();</span>
-<span class="line">   17 </span>        stateA<span class="sym">.</span><span class="kwd">setName</span><span class="sym">(</span><span class="str">&quot;A&quot;</span><span class="sym">);</span>
-<span class="line">   18 </span>        State stateB <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createState</span><span class="sym">();</span>
-<span class="line">   19 </span>        stateB<span class="sym">.</span><span class="kwd">setName</span><span class="sym">(</span><span class="str">&quot;B&quot;</span><span class="sym">);</span>
-<span class="line">   20 </span>        FinalState stopX <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createFinalState</span><span class="sym">();</span>
-<span class="line">   21 </span>        stopX<span class="sym">.</span><span class="kwd">setName</span><span class="sym">(</span><span class="str">&quot;stopX&quot;</span><span class="sym">);</span>
-<span class="line">   22 </span>
-<span class="line">   23 </span>        automatonX<span class="sym">.</span><span class="kwd">setInitialState</span><span class="sym">(</span>startX<span class="sym">);</span>
-<span class="line">   24 </span>        automatonX<span class="sym">.</span><span class="kwd">getState</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>stateA<span class="sym">);</span>
-<span class="line">   25 </span>        automatonX<span class="sym">.</span><span class="kwd">getState</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>stateB<span class="sym">);</span>
-<span class="line">   26 </span>        automatonX<span class="sym">.</span><span class="kwd">getFinalState</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>stopX<span class="sym">);</span>
-<span class="line">   27 </span>
-<span class="line">   28 </span>        Transition tstartX <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createTransition</span><span class="sym">();</span>
-<span class="line">   29 </span>        Transition ta <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createTransition</span><span class="sym">();</span>
-<span class="line">   30 </span>        ta<span class="sym">.</span><span class="kwd">setInput</span><span class="sym">(</span><span class="str">&quot;a&quot;</span><span class="sym">);</span>
-<span class="line">   31 </span>        Transition tb <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createTransition</span><span class="sym">();</span>
-<span class="line">   32 </span>        tb<span class="sym">.</span><span class="kwd">setInput</span><span class="sym">(</span><span class="str">&quot;b&quot;</span><span class="sym">);</span>
-<span class="line">   33 </span>        Transition tf <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createTransition</span><span class="sym">();</span>
-<span class="line">   34 </span>        tf<span class="sym">.</span><span class="kwd">setInput</span><span class="sym">(</span><span class="str">&quot;f&quot;</span><span class="sym">);</span>
-<span class="line">   35 </span>
-<span class="line">   36 </span>        automatonX<span class="sym">.</span><span class="kwd">getTransition</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>tstartX<span class="sym">);</span>
-<span class="line">   37 </span>        automatonX<span class="sym">.</span><span class="kwd">getTransition</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>ta<span class="sym">);</span>
-<span class="line">   38 </span>        automatonX<span class="sym">.</span><span class="kwd">getTransition</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>tb<span class="sym">);</span>
-<span class="line">   39 </span>        automatonX<span class="sym">.</span><span class="kwd">getTransition</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>tf<span class="sym">);</span>
-<span class="line">   40 </span>
-<span class="line">   41 </span>        tstartX<span class="sym">.</span><span class="kwd">setSource</span><span class="sym">(</span>startX<span class="sym">);</span>
-<span class="line">   42 </span>        tstartX<span class="sym">.</span><span class="kwd">setTarget</span><span class="sym">(</span>stateA<span class="sym">);</span>
-<span class="line">   43 </span>        tb<span class="sym">.</span><span class="kwd">setSource</span><span class="sym">(</span>stateA<span class="sym">);</span>
-<span class="line">   44 </span>        tb<span class="sym">.</span><span class="kwd">setTarget</span><span class="sym">(</span>stateB<span class="sym">);</span>
-<span class="line">   45 </span>        ta<span class="sym">.</span><span class="kwd">setSource</span><span class="sym">(</span>stateB<span class="sym">);</span>
-<span class="line">   46 </span>        ta<span class="sym">.</span><span class="kwd">setTarget</span><span class="sym">(</span>stateA<span class="sym">);</span>
-<span class="line">   47 </span>        tf<span class="sym">.</span><span class="kwd">setSource</span><span class="sym">(</span>stateA<span class="sym">);</span>
-<span class="line">   48 </span>        tf<span class="sym">.</span><span class="kwd">setTarget</span><span class="sym">(</span>stopX<span class="sym">);</span>
-<span class="line">   49 </span>
-<span class="line">   50 </span>        <span class="slc">// inner automaton Y</span>
-<span class="line">   51 </span>
-<span class="line">   52 </span>        Automaton automatonY <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createAutomaton</span><span class="sym">();</span>
-<span class="line">   53 </span>        automatonY<span class="sym">.</span><span class="kwd">setName</span><span class="sym">(</span><span class="str">&quot;Y&quot;</span><span class="sym">);</span>
-<span class="line">   54 </span>
-<span class="line">   55 </span>        stateA<span class="sym">.</span><span class="kwd">setSubAutomaton</span><span class="sym">(</span>automatonY<span class="sym">);</span>
-<span class="line">   56 </span>        stateB<span class="sym">.</span><span class="kwd">setSubAutomaton</span><span class="sym">(</span>automatonY<span class="sym">);</span>
-<span class="line">   57 </span>
-<span class="line">   58 </span>        InitialState startY <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createInitialState</span><span class="sym">();</span>
-<span class="line">   59 </span>        startY<span class="sym">.</span><span class="kwd">setName</span><span class="sym">(</span><span class="str">&quot;startY&quot;</span><span class="sym">);</span>
-<span class="line">   60 </span>
-<span class="line">   61 </span>        State stateC <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createState</span><span class="sym">();</span>
-<span class="line">   62 </span>        stateC<span class="sym">.</span><span class="kwd">setName</span><span class="sym">(</span><span class="str">&quot;C&quot;</span><span class="sym">);</span>
-<span class="line">   63 </span>
-<span class="line">   64 </span>        State stateD <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createState</span><span class="sym">();</span>
-<span class="line">   65 </span>        stateD<span class="sym">.</span><span class="kwd">setName</span><span class="sym">(</span><span class="str">&quot;D&quot;</span><span class="sym">);</span>
-<span class="line">   66 </span>
-<span class="line">   67 </span>        FinalState stopY <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createFinalState</span><span class="sym">();</span>
-<span class="line">   68 </span>        stopY<span class="sym">.</span><span class="kwd">setName</span><span class="sym">(</span><span class="str">&quot;stopY&quot;</span><span class="sym">);</span>
-<span class="line">   69 </span>
-<span class="line">   70 </span>        automatonY<span class="sym">.</span><span class="kwd">setInitialState</span><span class="sym">(</span>startY<span class="sym">);</span>
-<span class="line">   71 </span>        automatonY<span class="sym">.</span><span class="kwd">getState</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>stateC<span class="sym">);</span>
-<span class="line">   72 </span>        automatonY<span class="sym">.</span><span class="kwd">getState</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>stateD<span class="sym">);</span>
-<span class="line">   73 </span>        automatonY<span class="sym">.</span><span class="kwd">getFinalState</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>stopY<span class="sym">);</span>
-<span class="line">   74 </span>
-<span class="line">   75 </span>        Transition tstartY <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createTransition</span><span class="sym">();</span>
-<span class="line">   76 </span>        Transition td <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createTransition</span><span class="sym">();</span>
-<span class="line">   77 </span>        td<span class="sym">.</span><span class="kwd">setInput</span><span class="sym">(</span><span class="str">&quot;d&quot;</span><span class="sym">);</span>
-<span class="line">   78 </span>        Transition tc <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createTransition</span><span class="sym">();</span>
-<span class="line">   79 </span>        tc<span class="sym">.</span><span class="kwd">setInput</span><span class="sym">(</span><span class="str">&quot;c&quot;</span><span class="sym">);</span>
-<span class="line">   80 </span>        Transition te <span class="sym">=</span> factory<span class="sym">.</span><span class="kwd">createTransition</span><span class="sym">();</span>
-<span class="line">   81 </span>        te<span class="sym">.</span><span class="kwd">setInput</span><span class="sym">(</span><span class="str">&quot;e&quot;</span><span class="sym">);</span>
-<span class="line">   82 </span>
-<span class="line">   83 </span>        automatonY<span class="sym">.</span><span class="kwd">getTransition</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>tstartY<span class="sym">);</span>
-<span class="line">   84 </span>        automatonY<span class="sym">.</span><span class="kwd">getTransition</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>td<span class="sym">);</span>
-<span class="line">   85 </span>        automatonY<span class="sym">.</span><span class="kwd">getTransition</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>tc<span class="sym">);</span>
-<span class="line">   86 </span>        automatonY<span class="sym">.</span><span class="kwd">getTransition</span><span class="sym">().</span><span class="kwd">add</span><span class="sym">(</span>te<span class="sym">);</span>
-<span class="line">   87 </span>
-<span class="line">   88 </span>        tstartY<span class="sym">.</span><span class="kwd">setSource</span><span class="sym">(</span>startY<span class="sym">);</span>
-<span class="line">   89 </span>        tstartY<span class="sym">.</span><span class="kwd">setTarget</span><span class="sym">(</span>stateC<span class="sym">);</span>
-<span class="line">   90 </span>        td<span class="sym">.</span><span class="kwd">setSource</span><span class="sym">(</span>stateC<span class="sym">);</span>
-<span class="line">   91 </span>        td<span class="sym">.</span><span class="kwd">setTarget</span><span class="sym">(</span>stateD<span class="sym">);</span>
-<span class="line">   92 </span>        tc<span class="sym">.</span><span class="kwd">setSource</span><span class="sym">(</span>stateD<span class="sym">);</span>
-<span class="line">   93 </span>        tc<span class="sym">.</span><span class="kwd">setTarget</span><span class="sym">(</span>stateC<span class="sym">);</span>
-<span class="line">   94 </span>        te<span class="sym">.</span><span class="kwd">setSource</span><span class="sym">(</span>stateD<span class="sym">);</span>
-<span class="line">   95 </span>        te<span class="sym">.</span><span class="kwd">setTarget</span><span class="sym">(</span>stopY<span class="sym">);</span>
-<span class="line">   96 </span>
-<span class="line">   97 </span>        <span class="kwa">return</span> automatonX<span class="sym">;</span>
-<span class="line">   98 </span>    <span class="sym">}</span>
-<span class="line">   99 </span>
-<span class="line">  100 </span><span class="sym">}</span>
-</pre>
+<p>You can find the source code for creating this model in package hub.sam.stateautomaton, class StateAutomaton, method createLargeTest. The next section explains how the automaton X can be executed for a sequence of input tokens like "dbdecacf". We will see that automaton Y resides in two different states at runtime, one for state A and one for state B.</p>
 
 <h3>Modelling Execution Semantics</h3>
 

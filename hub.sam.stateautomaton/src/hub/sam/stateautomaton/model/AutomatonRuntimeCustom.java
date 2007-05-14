@@ -35,39 +35,54 @@ public class AutomatonRuntimeCustom extends AutomatonRuntimeDlg {
         StateAutomaton.evaluateInvariant("initialState.outgoing->size() = 1",
                 self.getMetaClassifierAutomaton());
 
-        InitialState initialState = (InitialState) getCurrentState().getMetaClassifierState();
-        Transition initialTransition = initialState.getOutgoing().iterator().next();
-        initialTransition.fire(getCurrentState());
+        setCurrentState(getMetaClassifierAutomaton().getInitialState());
+        Transition initialTransition = getCurrentState().getOutgoing().iterator().next();
+        initialTransition.fire(self);
     }
     
     @Override
     public void run(java.lang.String input) {
-        initialise();
-        
         while (input.length() > 0) {
-            StateRuntime stateRuntime = getCurrentState();
-            
             java.lang.String chr = input.substring(0, 1);
-            boolean consumed = stateRuntime.consume(chr);
+            boolean consumed = consume(chr);
             input = input.substring(1);
             if (!consumed) {
                 // ignore token
-                System.out.println("ignoring input token '" + chr + "'");
+                System.out.println("ignoring token '" + chr + "'");
             }
         }
     }
     
     @Override
-    public void remove()  {
+    public boolean consume(java.lang.String token)  {
+        Transition transition = getCurrentState().getEnabledTransition(token);
+        if (transition != null) {
+            // try to consume in current state first
+            transition.fire(self);
+            return true;
+        }
+        else {
+            // else try to consume in sub automaton
+            if (getCurrentState().getSubAutomaton() != null) {
+                return getCompositeState(getCurrentState()).consume(token);
+            }
+        }
+        return false;
+    }
+    
+    @Override
+    public void createCompositeState(State state)  {
+        Automaton subAutomaton = state.getSubAutomaton();
+        setCompositeState(state, subAutomaton.instantiate());
+    }
+    
+    @Override
+    public void destroy()  {
         System.out.println(getDebugName(self) + ": deleting instances ...");
         for (State state: getMetaClassifierAutomaton().getState()) {
-            StateRuntime stateRuntime = getState(state);
-            if (stateRuntime != null) {
-                if (stateRuntime.getSubAutomaton() != null) {
-                    stateRuntime.getSubAutomaton().remove();
-                }
-                stateRuntime.metaDelete();
-                System.out.println(getDebugName(self) + ": deleted instance of state '" + state.getName() + "'");
+            AutomatonRuntime runtime = getCompositeState(state);
+            if (runtime != null) {
+                runtime.destroy();
             }
         }
         System.out.println("deleted: " + getDebugName(self));

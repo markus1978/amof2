@@ -24,16 +24,10 @@ public class AutomatonCustom extends AutomatonDlg {
 
     @Override
     public AutomatonRuntime instantiate() {
-        AutomatonRuntime automatonRuntime = self.metaCreateAutomatonRuntime();
-        
-        // set currentState in automatonRuntime to initial state
-        StateRuntime initialStateRuntime = getInitialState().metaCreateStateRuntime();
-        automatonRuntime.setState(getInitialState(), initialStateRuntime);
-        automatonRuntime.setCurrentState(initialStateRuntime);
-
-        System.out.println("instantiated: " + AutomatonRuntimeCustom.getDebugName(automatonRuntime));
-
-        return automatonRuntime;
+        AutomatonRuntime runtime = self.metaCreateAutomatonRuntime();
+        runtime.initialise();
+        System.out.println("instantiated: " + AutomatonRuntimeCustom.getDebugName(runtime));
+        return runtime;
     }
     
 }
