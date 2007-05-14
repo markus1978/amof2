@@ -1,200 +1,261 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:mas="http://www.foo.org/mas" xmi:version="2.1">
-  <mas:Activity xmi:id="4772" linkId="mas-id--1732854566">
-    <edge xmi:id="4773" activity="4772" target="4775" source="4774" xsi:type="ControlFlow" />
-    <edge xmi:id="4836" activity="4772" target="4835" source="4776" xsi:type="ObjectFlow" />
-    <edge xmi:id="4813" activity="4772" target="4815" source="4811" xsi:type="ControlFlow">
-      <guardSpecification xmi:id="4814" body="true" xsi:type="GuardSpecification" />
+  <mas:Activity xmi:id="8465" linkId="mas-id-721296520">
+    <node xmi:id="8493" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAGcAAAA0&#xA;" activityAsNode="8465" initialTokesn="1" outgoing="8492" xsi:type="InitialNode" />
+    <node xmi:id="8489" actionBody="transition executed ..." rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAEAAAABu&#xA;" incoming="8492" actionKind="print" activityAsNode="8465" margin="8" initialTokesn="0" outgoing="8488" xsi:type="OpaqueAction">
+      <outputList xmi:id="8490" action="8489" xsi:type="OutputPinList" />
+      <inputList xmi:id="8491" action="8489" xsi:type="InputPinList" />
+    </node>
+    <node xmi:id="8485" actionBody="source state:" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEAAAACm&#xA;" incoming="8488" actionKind="print" activityAsNode="8465" margin="8" initialTokesn="0" outgoing="8484" xsi:type="OpaqueAction">
+      <outputList xmi:id="8486" action="8485" xsi:type="OutputPinList" />
+      <inputList xmi:id="8487" action="8485" xsi:type="InputPinList" />
+    </node>
+    <node xmi:id="8481" actionBody="source.name" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEAAAADe&#xA;" incoming="8484" actionKind="print_expression" activityAsNode="8465" margin="8" initialTokesn="0" outgoing="8480" xsi:type="OpaqueAction">
+      <outputList xmi:id="8482" action="8481" xsi:type="OutputPinList" />
+      <inputList xmi:id="8483" action="8481" xsi:type="InputPinList" />
+    </node>
+    <node xmi:id="8477" actionBody="target state:" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEEAAAEV&#xA;" incoming="8480" actionKind="print" activityAsNode="8465" margin="8" initialTokesn="0" outgoing="8476" xsi:type="OpaqueAction">
+      <outputList xmi:id="8478" action="8477" xsi:type="OutputPinList" />
+      <inputList xmi:id="8479" action="8477" xsi:type="InputPinList" />
+    </node>
+    <node xmi:id="8473" actionBody="target.name" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEEAAAE+&#xA;" incoming="8476" actionKind="print_expression" activityAsNode="8465" margin="8" initialTokesn="0" outgoing="8472" xsi:type="OpaqueAction">
+      <outputList xmi:id="8474" action="8473" xsi:type="OutputPinList" />
+      <inputList xmi:id="8475" action="8473" xsi:type="InputPinList" />
+    </node>
+    <node xmi:id="8469" actionBody="input:" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEEAAAF0&#xA;" incoming="8472" actionKind="print" activityAsNode="8465" margin="8" initialTokesn="0" outgoing="8468" xsi:type="OpaqueAction">
+      <outputList xmi:id="8470" action="8469" xsi:type="OutputPinList" />
+      <inputList xmi:id="8471" action="8469" xsi:type="InputPinList" />
+    </node>
+    <node xmi:id="8467" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAfAAAADcAAAGx&#xA;" body="input.oclIsUndefined()" incoming="8468" activityAsNode="8465" initialTokesn="0" outgoing="8495 8466" xsi:type="DecisionNode">
+      <contextList xmi:id="8494" decisionNode="8467" xsi:type="ContextPinList" />
+    </node>
+    <node xmi:id="8497" actionBody="null" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAPEAAAIa&#xA;" incoming="8495" actionKind="print" activityAsNode="8465" margin="8" initialTokesn="0" outgoing="8500" xsi:type="OpaqueAction">
+      <outputList xmi:id="8498" action="8497" xsi:type="OutputPinList" />
+      <inputList xmi:id="8499" action="8497" xsi:type="InputPinList" />
+    </node>
+    <node xmi:id="8503" actionBody="input" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEYAAAIb&#xA;" incoming="8466" actionKind="print_expression" activityAsNode="8465" margin="8" initialTokesn="0" outgoing="8502" xsi:type="OpaqueAction">
+      <outputList xmi:id="8504" action="8503" xsi:type="OutputPinList" />
+      <inputList xmi:id="8505" action="8503" xsi:type="InputPinList" />
+    </node>
+    <node xmi:id="8501" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAL4AAAJi&#xA;" incoming="8502 8500" activityAsNode="8465" initialTokesn="0" xsi:type="FinalNode" />
+    <edge xmi:id="8466" source="8467" target="8503" activity="8465" xsi:type="ControlFlow">
+      <guardSpecification xmi:id="8506" body="false" xsi:type="GuardSpecification" />
     </edge>
-    <edge xmi:id="4817" activity="4772" target="4818" source="4816" xsi:type="ObjectFlow" />
-    <edge xmi:id="4824" activity="4772" target="4823" source="4825" xsi:type="ObjectFlow" />
-    <edge xmi:id="4826" activity="4772" target="4827" source="4825" xsi:type="ObjectFlow" />
-    <edge xmi:id="4777" activity="4772" target="4778" source="4776" xsi:type="ObjectFlow" />
-    <edge xmi:id="4843" activity="4772" target="4785" source="4779" xsi:type="ControlFlow" />
-    <edge xmi:id="4787" activity="4772" target="4789" source="4785" xsi:type="ControlFlow">
-      <guardSpecification xmi:id="4788" body="false" xsi:type="GuardSpecification" />
+    <edge xmi:id="8502" source="8503" target="8501" activity="8465" xsi:type="ControlFlow" />
+    <edge xmi:id="8500" source="8497" target="8501" activity="8465" xsi:type="ControlFlow" />
+    <edge xmi:id="8495" source="8467" target="8497" activity="8465" xsi:type="ControlFlow">
+      <guardSpecification xmi:id="8496" body="true" xsi:type="GuardSpecification" />
     </edge>
-    <edge xmi:id="4791" activity="4772" target="4792" source="4790" bendpoints="rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAAAcAAABsc3EAfgAD////0f///+A=&#xA;" xsi:type="ObjectFlow" />
-    <edge xmi:id="4796" activity="4772" target="4795" source="4782" xsi:type="ObjectFlow" />
-    <edge xmi:id="4783" activity="4772" target="4784" source="4782" xsi:type="ObjectFlow" />
-    <edge xmi:id="4781" activity="4772" target="4782" source="4780" xsi:type="ObjectFlow" />
-    <edge xmi:id="4797" activity="4772" target="4798" source="4793" xsi:type="ControlFlow" />
-    <edge xmi:id="4808" activity="4772" target="4807" source="4798" xsi:type="ControlFlow" />
-    <edge xmi:id="4806" activity="4772" target="4807" source="4804" xsi:type="ControlFlow" />
-    <edge xmi:id="4802" activity="4772" target="4801" source="4803" xsi:type="ObjectFlow" />
-    <edge xmi:id="4800" activity="4772" target="4801" source="4799" xsi:type="ObjectFlow" />
-    <edge xmi:id="4821" activity="4772" target="4801" source="4820" xsi:type="ObjectFlow" />
-    <edge xmi:id="4810" activity="4772" target="4804" source="4811" xsi:type="ControlFlow">
-      <guardSpecification xmi:id="4837" body="false" xsi:type="GuardSpecification" />
-    </edge>
-    <edge xmi:id="4833" activity="4772" target="4811" source="4785" xsi:type="ControlFlow">
-      <guardSpecification xmi:id="4834" body="true" xsi:type="GuardSpecification" />
-    </edge>
-    <edge xmi:id="4828" activity="4772" target="4829" source="4819" xsi:type="ControlFlow" />
-    <node xmi:id="4775" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAlAAAAgQAAADsAAACJ&#xA;" initialTokesn="0" actionBody="metaClassifierState" actionKind="expression" incoming="4773" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4846" action="4775" xsi:type="InputPinList" />
-      <output xmi:id="4776" num="0" outgoing="4777 4836" xsi:type="OutputPin" />
-      <outputList xmi:id="4847" action="4775" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4811" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAhgAAABwAAAH1&#xA;" outgoing="4810 4813" initialTokesn="0" incoming="4833" body="subAutomaton-&gt;notEmpty()" xsi:type="DecisionNode">
-      <contextList xmi:id="4812" decisionNode="4811" xsi:type="ContextPinList" />
-      <context xmi:id="4835" num="0" initialTokesn="0" incoming="4836" xsi:type="ContextPin" />
-    </node>
-    <node xmi:id="4815" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAqwAAACgAAAKC&#xA;" initialTokesn="0" actionBody="subAutomaton.currentState" actionKind="expression" incoming="4813" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4831" action="4815" xsi:type="InputPinList" />
-      <output xmi:id="4816" num="0" outgoing="4817" xsi:type="OutputPin" />
-      <outputList xmi:id="4832" action="4815" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4819" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEEAAALj&#xA;" initialTokesn="0" outgoing="4828" actionBody="consume" actionKind="call" margin="8" xsi:type="OpaqueAction">
-      <input xmi:id="4818" num="0" initialTokesn="0" incoming="4817" xsi:type="ContextPin" />
-      <input xmi:id="4823" num="1" initialTokesn="0" incoming="4824" xsi:type="InputPin" />
-      <inputList xmi:id="4822" action="4819" xsi:type="InputPinList" />
-      <output xmi:id="4820" num="0" outgoing="4821" xsi:type="OutputPin" />
-      <outputList xmi:id="4830" action="4819" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4825" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAW/////wAAAOoAAACK&#xA;" outgoing="4826 4824" name="inputToken" margin="8" xsi:type="ValueNode" />
-    <node xmi:id="4779" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAiAAAAGIAAADa&#xA;" initialTokesn="0" outgoing="4843" actionBody="getEnabledTransition" actionKind="call" margin="8" xsi:type="OpaqueAction">
-      <input xmi:id="4778" num="0" initialTokesn="0" incoming="4777" xsi:type="ContextPin" />
-      <input xmi:id="4827" num="1" initialTokesn="0" incoming="4826" xsi:type="InputPin" />
-      <inputList xmi:id="4844" action="4779" xsi:type="InputPinList" />
-      <output xmi:id="4780" num="0" outgoing="4781" xsi:type="OutputPin" />
-      <outputList xmi:id="4845" action="4779" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4785" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAABNAAAAagAAAIAAAAGB&#xA;" outgoing="4787 4833" initialTokesn="0" incoming="4843" body="self.oclIsUndefined()" xsi:type="DecisionNode">
-      <contextList xmi:id="4786" decisionNode="4785" xsi:type="ContextPinList" />
-      <context xmi:id="4784" num="0" initialTokesn="0" incoming="4783" xsi:type="ContextPin" />
-    </node>
-    <node xmi:id="4789" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAATAAAAGc&#xA;" initialTokesn="0" actionBody="self" actionKind="expression" incoming="4787" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4841" action="4789" xsi:type="InputPinList" />
-      <output xmi:id="4790" num="0" outgoing="4791" xsi:type="OutputPin" />
-      <outputList xmi:id="4842" action="4789" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4793" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAa8AAAHc&#xA;" initialTokesn="0" outgoing="4797" actionBody="fire" actionKind="call" margin="8" xsi:type="OpaqueAction">
-      <input xmi:id="4795" num="0" initialTokesn="0" incoming="4796" xsi:type="ContextPin" />
-      <input xmi:id="4792" num="1" initialTokesn="0" incoming="4791" xsi:type="InputPin" />
-      <inputList xmi:id="4794" action="4793" xsi:type="InputPinList" />
-      <outputList xmi:id="4840" action="4793" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4782" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAW/////wAAATUAAAET&#xA;" outgoing="4783 4796" incoming="4781" name="transition" margin="8" xsi:type="ValueNode" />
-    <node xmi:id="4798" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAaoAAAIu&#xA;" initialTokesn="0" outgoing="4808" actionBody="true" actionKind="expression" incoming="4797" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4838" action="4798" xsi:type="InputPinList" />
-      <output xmi:id="4799" num="0" outgoing="4800" xsi:type="OutputPin" />
-      <outputList xmi:id="4839" action="4798" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4807" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAWoAAAJe&#xA;" initialTokesn="0" incoming="4808 4806" xsi:type="FinalNode" />
-    <node xmi:id="4804" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAANQAAAJN&#xA;" initialTokesn="0" outgoing="4806" actionBody="false" actionKind="expression" incoming="4810" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4805" action="4804" xsi:type="InputPinList" />
-      <output xmi:id="4803" num="0" outgoing="4802" xsi:type="OutputPin" />
-      <outputList xmi:id="4809" action="4804" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4801" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAW/////wAAAUUAAAMK&#xA;" incoming="4800 4802 4821" name="return" margin="8" xsi:type="ValueNode" />
-    <node xmi:id="4829" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAGUAAANZ&#xA;" initialTokesn="0" incoming="4828" xsi:type="FinalNode" />
-    <node xmi:id="4774" activityAsNode="4772" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAIUAAAA/&#xA;" outgoing="4773" initialTokesn="0" xsi:type="InitialNode" />
+    <edge xmi:id="8468" source="8469" target="8467" activity="8465" xsi:type="ControlFlow" />
+    <edge xmi:id="8472" source="8473" target="8469" activity="8465" xsi:type="ControlFlow" />
+    <edge xmi:id="8476" source="8477" target="8473" activity="8465" xsi:type="ControlFlow" />
+    <edge xmi:id="8480" source="8481" target="8477" activity="8465" xsi:type="ControlFlow" />
+    <edge xmi:id="8484" source="8485" target="8481" activity="8465" xsi:type="ControlFlow" />
+    <edge xmi:id="8488" source="8489" target="8485" activity="8465" xsi:type="ControlFlow" />
+    <edge xmi:id="8492" source="8493" target="8489" activity="8465" xsi:type="ControlFlow" />
   </mas:Activity>
-  <mas:Activity xmi:id="4848" linkId="mas-id-721296520">
-    <edge xmi:id="4849" activity="4848" target="4851" source="4850" xsi:type="ControlFlow" />
-    <edge xmi:id="4853" activity="4848" target="4854" source="4851" xsi:type="ControlFlow" />
-    <edge xmi:id="4856" activity="4848" target="4857" source="4854" xsi:type="ControlFlow" />
-    <edge xmi:id="4859" activity="4848" target="4860" source="4857" xsi:type="ControlFlow" />
-    <edge xmi:id="4862" activity="4848" target="4863" source="4860" xsi:type="ControlFlow" />
-    <edge xmi:id="4865" activity="4848" target="4866" source="4863" xsi:type="ControlFlow" />
-    <edge xmi:id="4868" activity="4848" target="4869" source="4866" xsi:type="ControlFlow" />
-    <edge xmi:id="4881" activity="4848" target="4878" source="4869" xsi:type="ControlFlow">
-      <guardSpecification xmi:id="4882" body="false" xsi:type="GuardSpecification" />
+  <mas:Activity xmi:id="8551" linkId="mas-id-1647757452">
+    <node xmi:id="8602" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAGoAAAAt&#xA;" activityAsNode="8551" initialTokesn="0" outgoing="8601" xsi:type="InitialNode" />
+    <node xmi:id="8553" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAV/////wAAAMkAAAAr&#xA;" activityAsNode="8551" name="transition" margin="8" outgoing="8552" xsi:type="ValueNode" />
+    <node xmi:id="8555" actionBody="target" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEoAAABt&#xA;" incoming="8601" actionKind="expression" activityAsNode="8551" margin="8" initialTokesn="0" xsi:type="OpaqueAction">
+      <input xmi:id="8554" incoming="8552" num="1" initialTokesn="0" xsi:type="ContextPin" />
+      <outputList xmi:id="8556" action="8555" xsi:type="OutputPinList" />
+      <inputList xmi:id="8600" action="8555" xsi:type="InputPinList" />
+      <output xmi:id="8557" num="0" outgoing="8558" xsi:type="OutputPin" />
+    </node>
+    <node xmi:id="8559" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAV/////wAAAMoAAACv&#xA;" incoming="8558" activityAsNode="8551" name="target" margin="8" outgoing="8560 8594 8581" xsi:type="ValueNode" />
+    <node xmi:id="8562" actionBody="automaton.state[target]" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAmAAAAEIAAADX&#xA;" actionKind="expression" activityAsNode="8551" margin="8" initialTokesn="0" xsi:type="OpaqueAction">
+      <input xmi:id="8561" incoming="8560" num="0" extensionName="target" initialTokesn="0" xsi:type="ContextExtensionPin" />
+      <outputList xmi:id="8563" action="8562" xsi:type="OutputPinList" />
+      <inputList xmi:id="8599" action="8562" xsi:type="InputPinList" />
+      <output xmi:id="8564" num="0" outgoing="8565 8588" xsi:type="OutputPin" />
+    </node>
+    <node xmi:id="8585" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAVAAAAHIAAAFs&#xA;" body="oclIsUndefined()" activityAsNode="8551" initialTokesn="0" outgoing="8584 8589" xsi:type="DecisionNode">
+      <contextList xmi:id="8586" decisionNode="8585" xsi:type="ContextPinList" />
+      <context xmi:id="8587" incoming="8588" num="0" initialTokesn="0" xsi:type="ContextPin" />
+    </node>
+    <node xmi:id="8591" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAI0AAAHu&#xA;" incoming="8589" activityAsNode="8551" initialTokesn="0" xsi:type="FinalNode" />
+    <node xmi:id="8579" actionBody="StateRuntime" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAcwAAAQ4AAAHn&#xA;" incoming="8584" actionKind="create_object" activityAsNode="8551" margin="8" initialTokesn="0" outgoing="8578" xsi:type="OpaqueAction">
+      <input xmi:id="8580" incoming="8581" num="0" initialTokesn="0" xsi:type="ContextPin" />
+      <outputList xmi:id="8582" action="8579" xsi:type="OutputPinList" />
+      <inputList xmi:id="8583" action="8579" xsi:type="InputPinList" />
+      <output xmi:id="8568" num="0" outgoing="8569 8567" xsi:type="OutputPin" />
+    </node>
+    <node xmi:id="8575" actionBody="automaton" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAdQAAAQwAAAJN&#xA;" incoming="8578" actionKind="expression" activityAsNode="8551" margin="8" initialTokesn="0" xsi:type="OpaqueAction">
+      <outputList xmi:id="8576" action="8575" xsi:type="OutputPinList" />
+      <inputList xmi:id="8577" action="8575" xsi:type="InputPinList" />
+      <output xmi:id="8574" num="0" outgoing="8573" xsi:type="OutputPin" />
+    </node>
+    <node xmi:id="8571" actionBody="state" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAARYAAAKs&#xA;" actionKind="write_structural_feature" activityAsNode="8551" margin="8" initialTokesn="0" outgoing="8597" xsi:type="OpaqueAction">
+      <input xmi:id="8572" incoming="8573" num="0" initialTokesn="0" xsi:type="ContextPin" />
+      <input xmi:id="8593" incoming="8594" num="1" initialTokesn="0" xsi:type="InputPin" />
+      <input xmi:id="8570" incoming="8569" num="2" initialTokesn="0" xsi:type="InputPin" />
+      <outputList xmi:id="8595" action="8571" xsi:type="OutputPinList" />
+      <inputList xmi:id="8596" action="8571" xsi:type="InputPinList" />
+    </node>
+    <node xmi:id="8598" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAUEAAAMA&#xA;" incoming="8597" activityAsNode="8551" initialTokesn="0" xsi:type="FinalNode" />
+    <node xmi:id="8566" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAV/////wAAABYAAAJZ&#xA;" incoming="8565 8567" activityAsNode="8551" name="return" margin="8" xsi:type="ValueNode" />
+    <edge xmi:id="8552" source="8553" target="8554" activity="8551" xsi:type="ObjectFlow" />
+    <edge xmi:id="8588" source="8564" target="8587" activity="8551" xsi:type="ObjectFlow" />
+    <edge xmi:id="8589" source="8585" target="8591" activity="8551" xsi:type="ControlFlow">
+      <guardSpecification xmi:id="8590" body="false" xsi:type="GuardSpecification" />
     </edge>
-    <edge xmi:id="4877" activity="4848" target="4876" source="4878" xsi:type="ControlFlow" />
-    <edge xmi:id="4875" activity="4848" target="4876" source="4873" xsi:type="ControlFlow" />
-    <edge xmi:id="4871" activity="4848" target="4873" source="4869" xsi:type="ControlFlow">
-      <guardSpecification xmi:id="4872" body="true" xsi:type="GuardSpecification" />
+    <edge xmi:id="8584" source="8585" target="8579" activity="8551" xsi:type="ControlFlow">
+      <guardSpecification xmi:id="8592" body="true" xsi:type="GuardSpecification" />
     </edge>
-    <node xmi:id="4851" activityAsNode="4848" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAEAAAABu&#xA;" initialTokesn="0" outgoing="4853" actionBody="transition executed ..." actionKind="print" incoming="4849" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4852" action="4851" xsi:type="InputPinList" />
-      <outputList xmi:id="4889" action="4851" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4854" activityAsNode="4848" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEAAAACm&#xA;" initialTokesn="0" outgoing="4856" actionBody="source state:" actionKind="print" incoming="4853" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4855" action="4854" xsi:type="InputPinList" />
-      <outputList xmi:id="4888" action="4854" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4857" activityAsNode="4848" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEAAAADe&#xA;" initialTokesn="0" outgoing="4859" actionBody="source.name" actionKind="print_expression" incoming="4856" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4858" action="4857" xsi:type="InputPinList" />
-      <outputList xmi:id="4887" action="4857" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4860" activityAsNode="4848" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEEAAAEV&#xA;" initialTokesn="0" outgoing="4862" actionBody="target state:" actionKind="print" incoming="4859" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4861" action="4860" xsi:type="InputPinList" />
-      <outputList xmi:id="4886" action="4860" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4863" activityAsNode="4848" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEEAAAE+&#xA;" initialTokesn="0" outgoing="4865" actionBody="target.name" actionKind="print_expression" incoming="4862" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4864" action="4863" xsi:type="InputPinList" />
-      <outputList xmi:id="4885" action="4863" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4866" activityAsNode="4848" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEEAAAF0&#xA;" initialTokesn="0" outgoing="4868" actionBody="input:" actionKind="print" incoming="4865" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4867" action="4866" xsi:type="InputPinList" />
-      <outputList xmi:id="4884" action="4866" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4869" activityAsNode="4848" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAbAAAAD4AAAGx&#xA;" outgoing="4871 4881" initialTokesn="0" incoming="4868" body="input.oclIsUndefined()" xsi:type="DecisionNode">
-      <contextList xmi:id="4870" decisionNode="4869" xsi:type="ContextPinList" />
-    </node>
-    <node xmi:id="4878" activityAsNode="4848" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEYAAAIb&#xA;" initialTokesn="0" outgoing="4877" actionBody="input" actionKind="print_expression" incoming="4881" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4879" action="4878" xsi:type="InputPinList" />
-      <outputList xmi:id="4880" action="4878" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4876" activityAsNode="4848" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAL4AAAJi&#xA;" initialTokesn="0" incoming="4877 4875" xsi:type="FinalNode" />
-    <node xmi:id="4873" activityAsNode="4848" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAPEAAAIa&#xA;" initialTokesn="0" outgoing="4875" actionBody="null" actionKind="print" incoming="4871" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4874" action="4873" xsi:type="InputPinList" />
-      <outputList xmi:id="4883" action="4873" xsi:type="OutputPinList" />
-    </node>
-    <node xmi:id="4850" activityAsNode="4848" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAGcAAAA0&#xA;" outgoing="4849" initialTokesn="1" xsi:type="InitialNode" />
+    <edge xmi:id="8578" source="8579" target="8575" activity="8551" xsi:type="ControlFlow" />
+    <edge xmi:id="8573" source="8574" target="8572" activity="8551" xsi:type="ObjectFlow" />
+    <edge xmi:id="8594" source="8559" target="8593" bendpoints="rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAAY8AAADIc3EAfgAD////lQAAAH0=&#xA;" activity="8551" xsi:type="ObjectFlow" />
+    <edge xmi:id="8597" source="8571" target="8598" activity="8551" xsi:type="ControlFlow" />
+    <edge xmi:id="8569" source="8568" target="8570" activity="8551" xsi:type="ObjectFlow" />
+    <edge xmi:id="8567" source="8568" target="8566" activity="8551" xsi:type="ObjectFlow" />
+    <edge xmi:id="8565" source="8564" target="8566" activity="8551" xsi:type="ObjectFlow" />
+    <edge xmi:id="8560" source="8559" target="8561" activity="8551" xsi:type="ObjectFlow" />
+    <edge xmi:id="8558" source="8557" target="8559" activity="8551" xsi:type="ObjectFlow" />
+    <edge xmi:id="8601" source="8602" target="8555" activity="8551" xsi:type="ControlFlow" />
+    <edge xmi:id="8581" source="8559" target="8580" activity="8551" xsi:type="ObjectFlow" />
   </mas:Activity>
-  <mas:Activity xmi:id="4890" linkId="mas-id--1937772982">
-    <edge xmi:id="4891" activity="4890" target="4915" source="4892" xsi:type="ObjectFlow" />
-    <edge xmi:id="4917" activity="4890" target="4916" source="4918" xsi:type="ObjectFlow" />
-    <edge xmi:id="4922" activity="4890" target="4919" source="4923" xsi:type="ControlFlow" />
-    <edge xmi:id="4910" activity="4890" target="4906" source="4911" bendpoints="rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAAC/////kc3EAfgAD////m////+E=&#xA; rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAAHX////lc3EAfgAD////4f///+I=&#xA;" xsi:type="ControlFlow" />
-    <edge xmi:id="4904" activity="4890" target="4905" source="4903" xsi:type="ObjectFlow" />
-    <edge xmi:id="4902" activity="4890" target="4901" source="4903" bendpoints="rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAAM/////qc3EAfgAD////3wAAAEs=&#xA;" xsi:type="ObjectFlow" />
-    <edge xmi:id="4897" activity="4890" target="4898" source="4896" xsi:type="ObjectFlow" />
-    <edge xmi:id="4893" activity="4890" target="4894" source="4892" bendpoints="rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAAPQAAAALc3EAfgAD////2v///5o=&#xA;" xsi:type="ObjectFlow" />
-    <edge xmi:id="4908" activity="4890" target="4895" source="4906" bendpoints="rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAABsAAAAac3EAfgAD////vwAAACE=&#xA; rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAAEIAAAAWc3EAfgAD////5gAAAB0=&#xA;" xsi:type="ControlFlow" />
-    <edge xmi:id="4925" activity="4890" target="4926" source="4899" xsi:type="ControlFlow" />
-    <edge xmi:id="4928" activity="4890" target="4929" source="4926" xsi:type="ControlFlow" />
-    <edge xmi:id="4913" activity="4890" target="4903" source="4912" xsi:type="ObjectFlow" />
-    <node xmi:id="4911" activityAsNode="4890" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAmwAAAK0AAACz&#xA;" initialTokesn="0" outgoing="4910" actionBody="getTargetStateRuntime" actionKind="call" margin="8" xsi:type="OpaqueAction">
-      <input xmi:id="4915" num="0" initialTokesn="0" incoming="4891" xsi:type="ContextPin" />
-      <input xmi:id="4916" num="1" initialTokesn="0" incoming="4917" xsi:type="InputPin" />
-      <inputList xmi:id="4914" action="4911" xsi:type="InputPinList" />
-      <output xmi:id="4912" num="0" outgoing="4913" xsi:type="OutputPin" />
-      <outputList xmi:id="4924" action="4911" xsi:type="OutputPinList" />
+  <mas:Activity xmi:id="8603" linkId="mas-id--1732854566">
+    <node xmi:id="8676" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAIUAAAA/&#xA;" activityAsNode="8603" initialTokesn="0" outgoing="8675" xsi:type="InitialNode" />
+    <node xmi:id="8672" actionBody="metaClassifierState" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAlAAAAgQAAADsAAACJ&#xA;" incoming="8675" actionKind="expression" activityAsNode="8603" margin="8" initialTokesn="0" xsi:type="OpaqueAction">
+      <outputList xmi:id="8673" action="8672" xsi:type="OutputPinList" />
+      <inputList xmi:id="8674" action="8672" xsi:type="InputPinList" />
+      <output xmi:id="8608" num="0" outgoing="8607 8609" xsi:type="OutputPin" />
     </node>
-    <node xmi:id="4919" activityAsNode="4890" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAANsAAABf&#xA;" initialTokesn="0" actionBody="self" actionKind="expression" incoming="4922" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4920" action="4919" xsi:type="InputPinList" />
-      <output xmi:id="4918" num="0" outgoing="4917" xsi:type="OutputPin" />
-      <outputList xmi:id="4921" action="4919" xsi:type="OutputPinList" />
+    <node xmi:id="8662" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAW/////wAAAOoAAACK&#xA;" activityAsNode="8603" name="inputToken" margin="8" outgoing="8663 8661" xsi:type="ValueNode" />
+    <node xmi:id="8613" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAABNAAAAagAAAIAAAAGB&#xA;" body="self.oclIsUndefined()" incoming="8604" activityAsNode="8603" initialTokesn="0" outgoing="8629 8612" xsi:type="DecisionNode">
+      <contextList xmi:id="8614" decisionNode="8613" xsi:type="ContextPinList" />
+      <context xmi:id="8615" incoming="8616" num="0" initialTokesn="0" xsi:type="ContextPin" />
     </node>
-    <node xmi:id="4923" activityAsNode="4890" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAP0AAAAh&#xA;" outgoing="4922" initialTokesn="1" xsi:type="InitialNode" />
-    <node xmi:id="4906" activityAsNode="4890" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAswAAAKQAAAFH&#xA;" initialTokesn="0" outgoing="4908" actionBody="createInnerAutomatonRuntime" actionKind="call" incoming="4910" margin="8" xsi:type="OpaqueAction">
-      <input xmi:id="4905" num="0" initialTokesn="0" incoming="4904" xsi:type="ContextPin" />
-      <inputList xmi:id="4907" action="4906" xsi:type="InputPinList" />
-      <outputList xmi:id="4909" action="4906" xsi:type="OutputPinList" />
+    <node xmi:id="8617" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAW/////wAAATUAAAET&#xA;" incoming="8618" activityAsNode="8603" name="transition" margin="8" outgoing="8616 8620" xsi:type="ValueNode" />
+    <node xmi:id="8626" actionBody="self" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAATAAAAGc&#xA;" incoming="8629" actionKind="expression" activityAsNode="8603" margin="8" initialTokesn="0" xsi:type="OpaqueAction">
+      <outputList xmi:id="8627" action="8626" xsi:type="OutputPinList" />
+      <inputList xmi:id="8628" action="8626" xsi:type="InputPinList" />
+      <output xmi:id="8625" num="0" outgoing="8624" xsi:type="OutputPin" />
     </node>
-    <node xmi:id="4903" activityAsNode="4890" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAWAAAAZQAAATMAAAEQ&#xA;" outgoing="4902 4904" incoming="4913" name="targetStateRuntime" margin="8" xsi:type="ValueNode" />
-    <node xmi:id="4899" activityAsNode="4890" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAcgAAAL8AAAIE&#xA;" initialTokesn="0" outgoing="4925" actionBody="currentState" actionKind="write_structural_feature" comment="makes the transition" margin="8" xsi:type="OpaqueAction">
-      <input xmi:id="4898" num="0" initialTokesn="0" incoming="4897" xsi:type="ContextPin" />
-      <input xmi:id="4901" num="1" initialTokesn="0" incoming="4902" xsi:type="InputPin" />
-      <inputList xmi:id="4900" action="4899" xsi:type="InputPinList" />
-      <outputList xmi:id="4931" action="4899" xsi:type="OutputPinList" />
+    <node xmi:id="8622" actionBody="fire" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAa8AAAHc&#xA;" actionKind="call" activityAsNode="8603" margin="8" initialTokesn="0" outgoing="8633" xsi:type="OpaqueAction">
+      <input xmi:id="8621" incoming="8620" num="0" initialTokesn="0" xsi:type="ContextPin" />
+      <input xmi:id="8623" incoming="8624" num="1" initialTokesn="0" xsi:type="InputPin" />
+      <outputList xmi:id="8631" action="8622" xsi:type="OutputPinList" />
+      <inputList xmi:id="8632" action="8622" xsi:type="InputPinList" />
     </node>
-    <node xmi:id="4895" activityAsNode="4890" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAMAAAAGi&#xA;" initialTokesn="0" actionBody="automaton" actionKind="expression" incoming="4908" margin="8" xsi:type="OpaqueAction">
-      <input xmi:id="4894" num="0" initialTokesn="0" incoming="4893" xsi:type="ContextPin" />
-      <inputList xmi:id="4932" action="4895" xsi:type="InputPinList" />
-      <output xmi:id="4896" num="0" outgoing="4897" xsi:type="OutputPin" />
-      <outputList xmi:id="4933" action="4895" xsi:type="OutputPinList" />
+    <node xmi:id="8634" actionBody="true" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAaoAAAIu&#xA;" incoming="8633" actionKind="expression" activityAsNode="8603" margin="8" initialTokesn="0" outgoing="8646" xsi:type="OpaqueAction">
+      <outputList xmi:id="8635" action="8634" xsi:type="OutputPinList" />
+      <inputList xmi:id="8669" action="8634" xsi:type="InputPinList" />
+      <output xmi:id="8636" num="0" outgoing="8637" xsi:type="OutputPin" />
     </node>
-    <node xmi:id="4892" activityAsNode="4890" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAW/////wAAAE4AAACE&#xA;" outgoing="4891 4893" name="context" margin="8" xsi:type="ValueNode" />
-    <node xmi:id="4926" activityAsNode="4890" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAWAAAAaAAAAMEAAAJp&#xA;" initialTokesn="0" outgoing="4928" actionBody="printDebugInfo" actionKind="call" incoming="4925" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="4927" action="4926" xsi:type="InputPinList" />
-      <outputList xmi:id="4930" action="4926" xsi:type="OutputPinList" />
+    <node xmi:id="8641" actionBody="false" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAANQAAAJN&#xA;" incoming="8647" actionKind="expression" activityAsNode="8603" margin="8" initialTokesn="0" outgoing="8644" xsi:type="OpaqueAction">
+      <outputList xmi:id="8642" action="8641" xsi:type="OutputPinList" />
+      <inputList xmi:id="8643" action="8641" xsi:type="InputPinList" />
+      <output xmi:id="8640" num="0" outgoing="8639" xsi:type="OutputPin" />
     </node>
-    <node xmi:id="4929" activityAsNode="4890" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAOwAAAKk&#xA;" initialTokesn="0" incoming="4928" xsi:type="FinalNode" />
+    <node xmi:id="8645" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAWoAAAJe&#xA;" incoming="8646 8644" activityAsNode="8603" initialTokesn="0" xsi:type="FinalNode" />
+    <node xmi:id="8638" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAW/////wAAAUUAAAMK&#xA;" incoming="8637 8639 8649" activityAsNode="8603" name="return" margin="8" xsi:type="ValueNode" />
+    <node xmi:id="8611" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAhgAAABwAAAH1&#xA;" body="subAutomaton-&gt;notEmpty()" incoming="8612" activityAsNode="8603" initialTokesn="0" outgoing="8647 8658" xsi:type="DecisionNode">
+      <contextList xmi:id="8671" decisionNode="8611" xsi:type="ContextPinList" />
+      <context xmi:id="8610" incoming="8609" num="0" initialTokesn="0" xsi:type="ContextPin" />
+    </node>
+    <node xmi:id="8655" actionBody="subAutomaton.currentState" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAqwAAACgAAAKC&#xA;" incoming="8658" actionKind="expression" activityAsNode="8603" margin="8" initialTokesn="0" xsi:type="OpaqueAction">
+      <outputList xmi:id="8656" action="8655" xsi:type="OutputPinList" />
+      <inputList xmi:id="8657" action="8655" xsi:type="InputPinList" />
+      <output xmi:id="8654" num="0" outgoing="8653" xsi:type="OutputPin" />
+    </node>
+    <node xmi:id="8651" actionBody="consume" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAEEAAALj&#xA;" actionKind="call" activityAsNode="8603" margin="8" initialTokesn="0" outgoing="8667" xsi:type="OpaqueAction">
+      <input xmi:id="8652" incoming="8653" num="0" initialTokesn="0" xsi:type="ContextPin" />
+      <input xmi:id="8660" incoming="8661" num="1" initialTokesn="0" xsi:type="InputPin" />
+      <outputList xmi:id="8665" action="8651" xsi:type="OutputPinList" />
+      <inputList xmi:id="8666" action="8651" xsi:type="InputPinList" />
+      <output xmi:id="8650" num="0" outgoing="8649" xsi:type="OutputPin" />
+    </node>
+    <node xmi:id="8668" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAGUAAANZ&#xA;" incoming="8667" activityAsNode="8603" initialTokesn="0" xsi:type="FinalNode" />
+    <node xmi:id="8605" actionBody="getEnabledTransition" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAiAAAAGIAAADa&#xA;" actionKind="call" activityAsNode="8603" margin="8" initialTokesn="0" outgoing="8604" xsi:type="OpaqueAction">
+      <input xmi:id="8606" incoming="8607" num="0" initialTokesn="0" xsi:type="ContextPin" />
+      <input xmi:id="8664" incoming="8663" num="1" initialTokesn="0" xsi:type="InputPin" />
+      <outputList xmi:id="8677" action="8605" xsi:type="OutputPinList" />
+      <inputList xmi:id="8678" action="8605" xsi:type="InputPinList" />
+      <output xmi:id="8619" num="0" outgoing="8618" xsi:type="OutputPin" />
+    </node>
+    <edge xmi:id="8604" source="8605" target="8613" activity="8603" xsi:type="ControlFlow" />
+    <edge xmi:id="8618" source="8619" target="8617" activity="8603" xsi:type="ObjectFlow" />
+    <edge xmi:id="8629" source="8613" target="8626" activity="8603" xsi:type="ControlFlow">
+      <guardSpecification xmi:id="8630" body="false" xsi:type="GuardSpecification" />
+    </edge>
+    <edge xmi:id="8624" source="8625" target="8623" bendpoints="rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAAAcAAABsc3EAfgAD////0f///+A=&#xA;" activity="8603" xsi:type="ObjectFlow" />
+    <edge xmi:id="8647" source="8611" target="8641" activity="8603" xsi:type="ControlFlow">
+      <guardSpecification xmi:id="8648" body="false" xsi:type="GuardSpecification" />
+    </edge>
+    <edge xmi:id="8646" source="8634" target="8645" activity="8603" xsi:type="ControlFlow" />
+    <edge xmi:id="8644" source="8641" target="8645" activity="8603" xsi:type="ControlFlow" />
+    <edge xmi:id="8639" source="8640" target="8638" activity="8603" xsi:type="ObjectFlow" />
+    <edge xmi:id="8649" source="8650" target="8638" activity="8603" xsi:type="ObjectFlow" />
+    <edge xmi:id="8637" source="8636" target="8638" activity="8603" xsi:type="ObjectFlow" />
+    <edge xmi:id="8633" source="8622" target="8634" activity="8603" xsi:type="ControlFlow" />
+    <edge xmi:id="8620" source="8617" target="8621" activity="8603" xsi:type="ObjectFlow" />
+    <edge xmi:id="8616" source="8617" target="8615" activity="8603" xsi:type="ObjectFlow" />
+    <edge xmi:id="8612" source="8613" target="8611" activity="8603" xsi:type="ControlFlow">
+      <guardSpecification xmi:id="8670" body="true" xsi:type="GuardSpecification" />
+    </edge>
+    <edge xmi:id="8609" source="8608" target="8610" activity="8603" xsi:type="ObjectFlow" />
+    <edge xmi:id="8658" source="8611" target="8655" activity="8603" xsi:type="ControlFlow">
+      <guardSpecification xmi:id="8659" body="true" xsi:type="GuardSpecification" />
+    </edge>
+    <edge xmi:id="8653" source="8654" target="8652" activity="8603" xsi:type="ObjectFlow" />
+    <edge xmi:id="8667" source="8651" target="8668" activity="8603" xsi:type="ControlFlow" />
+    <edge xmi:id="8661" source="8662" target="8660" activity="8603" xsi:type="ObjectFlow" />
+    <edge xmi:id="8663" source="8662" target="8664" activity="8603" xsi:type="ObjectFlow" />
+    <edge xmi:id="8607" source="8608" target="8606" activity="8603" xsi:type="ObjectFlow" />
+    <edge xmi:id="8675" source="8676" target="8672" activity="8603" xsi:type="ControlFlow" />
+  </mas:Activity>
+  <mas:Activity xmi:id="8507" linkId="mas-id--1937772982">
+    <node xmi:id="8518" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAW/////wAAAE4AAACE&#xA;" activityAsNode="8507" name="context" margin="8" outgoing="8517 8519" xsi:type="ValueNode" />
+    <node xmi:id="8509" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAP0AAAAh&#xA;" activityAsNode="8507" initialTokesn="1" outgoing="8508" xsi:type="InitialNode" />
+    <node xmi:id="8510" actionBody="self" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAANsAAABf&#xA;" incoming="8508" actionKind="expression" activityAsNode="8507" margin="8" initialTokesn="0" xsi:type="OpaqueAction">
+      <outputList xmi:id="8511" action="8510" xsi:type="OutputPinList" />
+      <inputList xmi:id="8550" action="8510" xsi:type="InputPinList" />
+      <output xmi:id="8512" num="0" outgoing="8513" xsi:type="OutputPin" />
+    </node>
+    <node xmi:id="8515" actionBody="getTargetStateRuntime" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAmwAAAK0AAACz&#xA;" actionKind="call" activityAsNode="8507" margin="8" initialTokesn="0" outgoing="8538" xsi:type="OpaqueAction">
+      <input xmi:id="8516" incoming="8517" num="0" initialTokesn="0" xsi:type="ContextPin" />
+      <input xmi:id="8514" incoming="8513" num="1" initialTokesn="0" xsi:type="InputPin" />
+      <outputList xmi:id="8548" action="8515" xsi:type="OutputPinList" />
+      <inputList xmi:id="8549" action="8515" xsi:type="InputPinList" />
+      <output xmi:id="8531" num="0" outgoing="8530" xsi:type="OutputPin" />
+    </node>
+    <node xmi:id="8529" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAVAAAAbAAAATMAAAEQ&#xA;" incoming="8530" activityAsNode="8507" name="targetStateRuntime" margin="8" outgoing="8528 8532" xsi:type="ValueNode" />
+    <node xmi:id="8534" actionBody="createInnerAutomatonRuntime" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAswAAAKQAAAFH&#xA;" incoming="8538" actionKind="call" activityAsNode="8507" margin="8" initialTokesn="0" outgoing="8537" xsi:type="OpaqueAction">
+      <input xmi:id="8533" incoming="8532" num="0" initialTokesn="0" xsi:type="ContextPin" />
+      <outputList xmi:id="8535" action="8534" xsi:type="OutputPinList" />
+      <inputList xmi:id="8536" action="8534" xsi:type="InputPinList" />
+    </node>
+    <node xmi:id="8521" actionBody="automaton" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAZAAAAMAAAAGi&#xA;" incoming="8537" actionKind="expression" activityAsNode="8507" margin="8" initialTokesn="0" xsi:type="OpaqueAction">
+      <input xmi:id="8520" incoming="8519" num="0" initialTokesn="0" xsi:type="ContextPin" />
+      <outputList xmi:id="8522" action="8521" xsi:type="OutputPinList" />
+      <inputList xmi:id="8547" action="8521" xsi:type="InputPinList" />
+      <output xmi:id="8523" num="0" outgoing="8524" xsi:type="OutputPin" />
+    </node>
+    <node xmi:id="8526" actionBody="currentState" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD/////AAAAcgAAAL8AAAIE&#xA;" actionKind="write_structural_feature" activityAsNode="8507" margin="8" comment="makes the transition" initialTokesn="0" outgoing="8541" xsi:type="OpaqueAction">
+      <input xmi:id="8525" incoming="8524" num="0" initialTokesn="0" xsi:type="ContextPin" />
+      <input xmi:id="8527" incoming="8528" num="1" initialTokesn="0" xsi:type="InputPin" />
+      <outputList xmi:id="8539" action="8526" xsi:type="OutputPinList" />
+      <inputList xmi:id="8540" action="8526" xsi:type="InputPinList" />
+    </node>
+    <node xmi:id="8542" actionBody="printDebugInfo" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHAAAAAWAAAAaAAAAMEAAAJp&#xA;" incoming="8541" actionKind="call" activityAsNode="8507" margin="8" initialTokesn="0" outgoing="8545" xsi:type="OpaqueAction">
+      <outputList xmi:id="8543" action="8542" xsi:type="OutputPinList" />
+      <inputList xmi:id="8544" action="8542" xsi:type="InputPinList" />
+    </node>
+    <node xmi:id="8546" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAOwAAAKk&#xA;" incoming="8545" activityAsNode="8507" initialTokesn="0" xsi:type="FinalNode" />
+    <edge xmi:id="8508" source="8509" target="8510" activity="8507" xsi:type="ControlFlow" />
+    <edge xmi:id="8513" source="8512" target="8514" activity="8507" xsi:type="ObjectFlow" />
+    <edge xmi:id="8538" source="8515" target="8534" bendpoints="rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAAC/////kc3EAfgAD////m////+E=&#xA; rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAAHX////lc3EAfgAD////4f///+I=&#xA;" activity="8507" xsi:type="ControlFlow" />
+    <edge xmi:id="8532" source="8529" target="8533" activity="8507" xsi:type="ObjectFlow" />
+    <edge xmi:id="8537" source="8534" target="8521" bendpoints="rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAABsAAAAac3EAfgAD////vwAAACE=&#xA; rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAAEIAAAAWc3EAfgAD////5gAAAB0=&#xA;" activity="8507" xsi:type="ControlFlow" />
+    <edge xmi:id="8519" source="8518" target="8520" bendpoints="rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAAPQAAAALc3EAfgAD////2v///5o=&#xA;" activity="8507" xsi:type="ObjectFlow" />
+    <edge xmi:id="8524" source="8523" target="8525" activity="8507" xsi:type="ObjectFlow" />
+    <edge xmi:id="8545" source="8542" target="8546" activity="8507" xsi:type="ControlFlow" />
+    <edge xmi:id="8541" source="8526" target="8542" activity="8507" xsi:type="ControlFlow" />
+    <edge xmi:id="8528" source="8529" target="8527" bendpoints="rO0ABXNyACtodWIuc2FtLm1hcy5tb2RlbC5tYXMuQWN0aXZpdHlFZGdlQmVuZHBvaW50AAAAAAAA&#xA;AAECAANGAAZ3ZWlnaHRMAAJkMXQAJ0xvcmcvZWNsaXBzZS9kcmF3MmQvZ2VvbWV0cnkvRGltZW5z&#xA;aW9uO0wAAmQycQB+AAF4cD8AAABzcgAlb3JnLmVjbGlwc2UuZHJhdzJkLmdlb21ldHJ5LkRpbWVu&#xA;c2lvbgAAAAAAAAABAgACSQAGaGVpZ2h0SQAFd2lkdGh4cAAAAM/////qc3EAfgAD////3wAAAEs=&#xA;" activity="8507" xsi:type="ObjectFlow" />
+    <edge xmi:id="8530" source="8531" target="8529" activity="8507" xsi:type="ObjectFlow" />
+    <edge xmi:id="8517" source="8518" target="8516" activity="8507" xsi:type="ObjectFlow" />
   </mas:Activity>
 </xmi:XMI>
 
