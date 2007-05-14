@@ -6,6 +6,7 @@ import hub.sam.mas.model.petrinets.Place;
 import hub.sam.mas.model.petrinets.Transition;
 import hub.sam.mof.mofinstancemodel.MofClassSemantics;
 import hub.sam.mof.reflection.ArgumentImpl;
+import hub.sam.mof.runtimelayer.M1SemanticModel;
 import hub.sam.mof.util.ListImpl;
 
 import java.util.Collection;
@@ -65,18 +66,35 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
                 DebugInfo.printInfo("set " + self.getActionBody());
 				contextValue = context.getOclContext();
 				Object featureValue = null;
+				Object qualifierValue = null;
 				for(InputPin pin: self.getInput()) {
 					if (pin instanceof ContextPin) {
 						contextValue = ((PinInstance)context.getPlaces(pin)).getValue();
 					} else {
 						if (featureValue != null) {
-							throw new SemanticException("To much input pins for a write structural feature action.");
+							if (qualifierValue != null) {
+								throw new SemanticException("To much input pins for a write structural feature action.");	
+							}
+							qualifierValue = featureValue;
 						}
 						featureValue = ((PinInstance)context.getPlaces(pin)).getValue();
+						if (featureValue instanceof MofClassSemantics) {
+							System.out.println("Fehler!!!");
+						}
 					}
 				}				
 				Property feature = resolveFeature(contextValue);				
-				((cmof.reflection.Object)contextValue).set(feature, featureValue);
+				if (qualifierValue != null) {
+					if (feature.getQualifier() == null) {
+						throw new SemanticException("To much input pins for a write structural feature action without qualifier.");
+					}
+					((cmof.reflection.Object)contextValue).set(feature, qualifierValue, featureValue);
+				} else {
+					if (feature.getQualifier() != null) {
+						throw new SemanticException("Not enough input pins for a write structural feature action with qualifier.");
+					}
+					((cmof.reflection.Object)contextValue).set(feature, featureValue);
+				}
 				break;
 			case WRITE_STRUCTURAL_FEATURE_VALUE:
                 DebugInfo.printInfo("add " + self.getActionBody());
@@ -114,17 +132,36 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 				break;
 			case CREATE_OBJECT:
                 DebugInfo.printInfo("create " + self.getActionBody());
+                boolean hasContextClass = false;
                 contextValue = context.getOclContext();
                 for(InputPin pin: self.getInput()) {
                     if (pin instanceof ContextPin) {
                         contextValue = ((PinInstance)context.getPlaces(pin)).getValue();
+                        hasContextClass = true;
                     } else {                     
                         throw new SemanticException("Only a single context pin is allowed for a create action.");                      
                     }
+                }                
+                if (hasContextClass) {
+	                UmlClass syntaxClass = (UmlClass)getTypeForObject(contextValue);
+	                String className = self.getActionBody();
+	                UmlClass runtimeClass = null;
+	                for (Type classAsType: syntaxClass.getPackage().getOwnedType()) {
+	                	if (classAsType instanceof UmlClass && className.equals(classAsType.getName())) {
+	                		runtimeClass = (UmlClass)classAsType;
+	                	}
+	                }
+	                if (runtimeClass == null) {
+	                	throw new SemanticException("Class with name " + className + " does not exist in package " +
+	                			syntaxClass.getPackage().getQualifiedName() + ".");
+	                }
+	                semantics = MofClassSemantics.createClassClassifierForUmlClass(syntaxClass);
+	                Operation op = semantics.getFinalOperation(M1SemanticModel.getCreateOperationName(runtimeClass));
+	                result = ((cmof.reflection.Object)contextValue).invokeOperation(op, new ListImpl<Argument>());
+	                propagateOutput(result, false, context);
+                } else {
+                	throw new SemanticException("not implemented yet.");
                 }
-                semantics = MofClassSemantics.createClassClassifierForUmlClass((UmlClass)
-                        getTypeForObject(contextValue));
-                propagateOutput(semantics, false, context);
                 break;
 			case PRINT_EXPRESSION:
                 System.out.println(evaluateExpression(self, self.getActionBody(), self.getInput(), context));
