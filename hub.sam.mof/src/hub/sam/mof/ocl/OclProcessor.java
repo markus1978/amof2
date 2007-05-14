@@ -119,7 +119,8 @@ public class OclProcessor {
 			throw new OclException("Errors during evaluation of '" + invariant + "' in context: " + context.getQualifiedName());
 		}
 		if (oclResult instanceof OclUndefined) {
-			throw new OclException("evluated to undefined: " + invariant);
+			//throw new OclException("evluated to undefined: " + invariant);
+			return null;
 		} else {
 		    if (oclResult instanceof OclReal) {
 				return ((OclReal)oclResult).round().asJavaObject();
@@ -151,7 +152,8 @@ public class OclProcessor {
 			throw new OclException("Errors during evaluation of '" + invariant + "' in context: " + (context == null ? "null" : context.getQualifiedName()));
 		}
 		if (oclResult instanceof OclUndefined) {
-			throw new OclException("evluated to undefined: " + invariant);
+			// throw new OclException("evluated to undefined: " + invariant);
+			return null;
 		} else {
 		    if (oclResult instanceof OclReal) {
 				return ((OclReal)oclResult).round().asJavaObject();
