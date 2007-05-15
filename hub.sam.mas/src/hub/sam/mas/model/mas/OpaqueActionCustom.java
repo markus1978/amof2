@@ -43,6 +43,9 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 						arguments.add(new ArgumentImpl(null, ((PinInstance)context.getPlaces(pin)).getValue()));
 					}
 				}
+				if (contextValue == null) {
+					throw new SemanticException("Context must not be null for call " + self.getActionBody());
+				}
 				semantics = MofClassSemantics.createClassClassifierForUmlClass((UmlClass)
 						getTypeForObject(contextValue));
 				
@@ -231,17 +234,16 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 				throw new SemanticException("no non context input pins for expressions allowed.");
 			}
 		}
-		boolean additionalAttribute = false;
+		
 		for (ContextExtensionPin pin: extensions) {
 			Object contextExtensionValue = ((PinInstance)context.getPlaces(pin)).getValue();
 			env.addAdditionalContextAttribute(pin.getExtensionName(), 
 					contextExtensionValue, OpaqueActionCustom.getTypeForObject(contextExtensionValue), 
-					OpaqueActionCustom.getTypeForObject(contextValue));
-			additionalAttribute = true;
+					OpaqueActionCustom.getTypeForObject(contextValue));		
 		}
 		Object result = env.evaluateInvariant(body, OpaqueActionCustom.getTypeForObject(contextValue), contextValue);
-		if (additionalAttribute) {
-			env.removeAdditionalAttribute();
+		for (ContextExtensionPin pin: extensions) {			
+			env.removeAdditionalContextAttribute(pin.getExtensionName(), OpaqueActionCustom.getTypeForObject(contextValue)); 		
 		}
 		return result;
 	}

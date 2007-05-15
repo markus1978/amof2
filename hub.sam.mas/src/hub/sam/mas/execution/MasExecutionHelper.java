@@ -23,6 +23,7 @@ package hub.sam.mas.execution;
 import hub.sam.mas.management.MasContext;
 import hub.sam.mof.Repository;
 import hub.sam.mof.management.MofModel;
+import hub.sam.mof.ocl.OclImplementationsManager;
 import hub.sam.mof.reflection.ExtentImpl;
 import hub.sam.mof.reflection.ImplementationsManager;
 import hub.sam.mof.reflection.ImplementationsManagerContainer;
@@ -45,9 +46,10 @@ public class MasExecutionHelper {
         
         // MultiLevelImplementationsManager creates runtime instances
         ((ExtentImpl) m1Model.getExtent()).setCustomImplementationsManager(new ImplementationsManagerContainer(
-                new ImplementationsManager[] {
+                new ImplementationsManager[] {                		
                         new MASImplementationsManager(masContext, env),
                         new MultiLevelImplementationsManager(m1Model.getFactory()),
+                        new OclImplementationsManager(),
                         new ImplementationsManagerImpl() }
         ));               
     }

@@ -18,10 +18,6 @@ import cmof.cmofFactory;
 import cmof.reflection.Extent;
 
 public class AnalysisEnvironment {
-
-	private String additionalContextAttribute = null;
-	private Type additionalContextType = null;
-	private boolean additionalContext = false;
 	
 	private final Extent m2Extent;
 	private final OclEnvironment oclEnvironment;
@@ -51,29 +47,23 @@ public class AnalysisEnvironment {
 		}
 	}
 	
-	public void addAdditionalContextAttribute(String name, Object value, Type attributeType, Type contextType) {
-		additionalContextType = contextType;
-		additionalContext = true;
-		additionalContextAttribute = name;
+	public void addAdditionalContextAttribute(String name, Object value, Type attributeType, Type contextType) {			
 		List<String> contextName = Arrays.asList(contextType.getQualifiedName().split("\\."));		
 		MofOclModelElementTypeImpl contextOclModelElementType = (MofOclModelElementTypeImpl)oclEnvironment.getEnvironment().lookupPathName(contextName);
 		if (contextOclModelElementType == null) {
 			throw new SemanticException("Cannot resolve context (" + contextName + ") of action " + this.toString());
 		}
 						
-		contextOclModelElementType.addAdditionalProperty(additionalContextAttribute, value, attributeType);		
+		contextOclModelElementType.addAdditionalProperty(name, value, attributeType);		
 	}
 	
-	public void removeAdditionalAttribute() {
-		if (additionalContext) {
-			List<String> contextName = Arrays.asList(additionalContextType.getQualifiedName().split("\\."));		
-			MofOclModelElementTypeImpl contextOclModelElementType = (MofOclModelElementTypeImpl)oclEnvironment.getEnvironment().lookupPathName(contextName);
-			if (contextOclModelElementType == null) {
-				throw new SemanticException("Cannot resolve context of action " + this.toString());
-			}			
-			contextOclModelElementType.removeAdditionalProperty(additionalContextAttribute);
-			additionalContext = false;
-		}
+	public void removeAdditionalContextAttribute(String name, Type contextType) {		
+		List<String> contextName = Arrays.asList(contextType.getQualifiedName().split("\\."));		
+		MofOclModelElementTypeImpl contextOclModelElementType = (MofOclModelElementTypeImpl)oclEnvironment.getEnvironment().lookupPathName(contextName);
+		if (contextOclModelElementType == null) {
+			throw new SemanticException("Cannot resolve context of action " + this.toString());
+		}			
+		contextOclModelElementType.removeAdditionalProperty(name);			
 	}
 
 	public cmofFactory getFactory() {
