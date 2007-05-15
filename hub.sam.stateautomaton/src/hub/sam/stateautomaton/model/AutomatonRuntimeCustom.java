@@ -42,9 +42,15 @@ public class AutomatonRuntimeCustom extends AutomatonRuntimeDlg {
     
     @Override
     public void run(java.lang.String input) {
+    	if (self.getCurrentState() == null) {
+    		System.out.println("FEHLER");
+    	}
         while (input.length() > 0) {
             java.lang.String chr = input.substring(0, 1);
-            boolean consumed = consume(chr);
+            if (self.getCurrentState() == null) {
+        		System.out.println("FEHLER");
+        	}
+            boolean consumed = consume(chr);            
             input = input.substring(1);
             if (!consumed) {
                 // ignore token
