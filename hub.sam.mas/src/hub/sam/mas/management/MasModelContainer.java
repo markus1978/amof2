@@ -20,6 +20,7 @@
 
 package hub.sam.mas.management;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +68,11 @@ public class MasModelContainer implements IMasModelContainer {
         this.masModelManager.loadM2Model(MasModel.createModel(), "Package:mas");
     }
     
+    private String getFilename(String path) {
+        File file = new File(path);
+        return file.getName();
+    }
+       
     /**
      * Loads a syntax model (as instance of cmof) from the given xmi file and prepares it for execution.
      * 
@@ -77,8 +83,8 @@ public class MasModelContainer implements IMasModelContainer {
     public void loadSyntaxModelForExecution(String xmiFile, String packageQuery) throws LoadException {
         // clone syntax model - prevents saving runtime-instance-of-association
         String clonedSyntaxFile = xmiFile + "_cloned.xml";
-        cloneXmiModel(xmiFile, clonedSyntaxFile);        
-        syntaxModelManager.loadM2Model(clonedSyntaxFile, packageQuery);
+        cloneXmiModel(xmiFile, clonedSyntaxFile);
+        syntaxModelManager.loadM2Model(clonedSyntaxFile, "Syntax: " + getFilename(xmiFile),packageQuery);
         
         // create implicit elements in models package
         if (getSyntaxModel().getPackage() != null) {
@@ -95,7 +101,7 @@ public class MasModelContainer implements IMasModelContainer {
      * 
      */
     public void loadSyntaxModelForEditing(String xmiFile, String packageQuery) throws LoadException {
-        syntaxModelManager.loadM2Model(xmiFile, packageQuery);
+        syntaxModelManager.loadM2Model(xmiFile, "Syntax: " + getFilename(xmiFile), packageQuery);
     }
 
     /**
@@ -103,7 +109,7 @@ public class MasModelContainer implements IMasModelContainer {
      * 
      */
     public void loadMasModel(String xmiFile) throws LoadException {
-        masModelManager.loadM1Model(xmiFile);
+        masModelManager.loadM1Model(xmiFile, "Semantic: " + getFilename(xmiFile));
     }
 
     public MofModel getMasModel() {

@@ -25,6 +25,7 @@ import hub.sam.mof.instancemodel.MetaModelException;
 import hub.sam.mof.reflection.ExtentImpl;
 import hub.sam.mof.xmi.XmiException;
 import hub.sam.mof.xmi.XmiImportExport;
+import hub.sam.util.Unique;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -51,6 +52,7 @@ public class MofModelManager {
     private MofModel m2Model;
     private MofModel m1Model;
     private MofModel cmofModel;
+    private static int uniqueExtentId = 0;
     
     public MofModelManager(Repository repository) {
         this.repository = repository;
@@ -65,16 +67,16 @@ public class MofModelManager {
         return cmofModel;
     }
     
-    public void loadM2Model(String xmiFile, String packageQuery) throws LoadException {
-        m2Model = loadModelFromXmi(getCmofModel(), xmiFile, packageQuery);
+    public void loadM2Model(String xmiFile, String extentName, String packageQuery) throws LoadException {
+        m2Model = loadModelFromXmi(getCmofModel(), xmiFile, extentName, packageQuery);
     }
 
     public void loadM2Model(Extent modelExtent, String packageQuery) {
         m2Model = loadStaticModel(getCmofModel(), modelExtent, packageQuery);
     }
     
-    public void loadM1Model(String xmiFile) throws LoadException {
-        m1Model = loadModelFromXmi(m2Model, xmiFile, null);
+    public void loadM1Model(String xmiFile, String extentName) throws LoadException {
+        m1Model = loadModelFromXmi(m2Model, xmiFile, extentName, null);
     }
 
     public void loadM1Model(Extent modelExtent) throws LoadException {
@@ -87,10 +89,16 @@ public class MofModelManager {
         }
         return null;
     }
-       
-    private MofModel loadModelFromXmi(MofModel metaModel, String xmiFile, String modelPackage) throws LoadException {
+    
+    private static String getUniqueExtentId() {
+        return new Integer(uniqueExtentId++).toString();
+    }
+
+    private MofModel loadModelFromXmi(MofModel metaModel, String xmiFile, String extentName, String modelPackage) throws LoadException {
         assert(metaModel != null);
-        Extent modelExtent = repository.createExtent(xmiFile, metaModel.getExtent());
+        // TODO: reuse existing model extent or generate unique extent name ?
+        extentName = extentName + " " + getUniqueExtentId();
+        Extent modelExtent = repository.createExtent(extentName, metaModel.getExtent());
         MofModel mofModel = null;
         
         try {

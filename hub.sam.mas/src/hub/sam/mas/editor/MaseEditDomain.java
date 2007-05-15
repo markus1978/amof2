@@ -73,12 +73,17 @@ public class MaseEditDomain extends DefaultEditDomain {
     public void viewerEntered(MouseEvent mouseEvent, EditPartViewer viewer) {
         super.viewerEntered(mouseEvent, viewer);
         this.activeViewer = viewer;
+        System.out.println("viewerEntered");
     }
     
     @Override
     public void viewerExited(MouseEvent mouseEvent, EditPartViewer viewer) {
         super.viewerExited(mouseEvent, viewer);
-        this.activeViewer = null;
+        /* This is a hack. We assume that there is only one viewer that belongs to this editor.
+           We always lose the active viewer here when a context menu is opened on the viewer.
+           This is prevented by uncommenting the next line. */
+        //this.activeViewer = null;
+        System.out.println("viewerExited");
     }
     
     public EditPartViewer getActiveEditPartViewer() {

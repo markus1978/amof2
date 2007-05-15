@@ -31,6 +31,7 @@ import cmof.Tag;
 import cmof.cmofFactory;
 import cmof.reflection.Extent;
 
+@Deprecated
 public class GenerateRepository {
 
     public static void main(String[] args) {
