@@ -17,13 +17,16 @@ import org.oslo.ocl20.standard.lib.OclType;
 import org.oslo.ocl20.standard.lib.OclUndefined;
 import org.oslo.ocl20.synthesis.ModelEvaluationAdapter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Vector;
 
 public class MofEvaluationAdaptor implements ModelEvaluationAdapter {
 
-	public static Object currentValue = null;
+	public static List<Object> currentValue = new ArrayList<Object>();
 
 	private final MofOclProcessor processor;
 	private Map<Property, Boolean> hasExtraGetter = new HashMap<Property, Boolean>();
@@ -43,7 +46,8 @@ public class MofEvaluationAdaptor implements ModelEvaluationAdapter {
 
 	public String getGetterName(Property property) {
 		if (property instanceof MofAdditionalPropertyImpl) {
-			return "getOclAdditionalValue";
+			int index = ((MofAdditionalPropertyImpl)property).getIndex();
+			return "getOclAdditionalValue" + index;
 		}
 
 		String result = JavaMapping.mapping.getJavaGetMethodNameForProperty((cmof.Property)property.getDelegate());

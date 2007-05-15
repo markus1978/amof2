@@ -59,13 +59,35 @@ public class MofOclModelElementTypeImpl extends OclAnyTypeImpl implements OclMod
     }
     
     public void addAdditionalProperty(String name, Object value, Type propertyType) {
-    	MofEvaluationAdaptor.currentValue = value;
-    	MofAdditionalPropertyImpl additionalProperty = new MofAdditionalPropertyImpl(name, processor.getBridgeFactory().buildClassifier(propertyType));	
-    	mofProperties.put(name, additionalProperty);
+    	int index = 0;
+    	int i = 0;
+    	boolean newSlot = true;
+    	for (Object obj: MofEvaluationAdaptor.currentValue) {
+    		if (obj == null) {
+    			index = i;
+    			newSlot = false;
+    		}
+    		i++;
+    	}    	
+    	if (newSlot) {
+    		index = MofEvaluationAdaptor.currentValue.size();
+    	}
+    	
+    	if (index > 2) {
+    		throw new OclException("To many additional context attributes for this implementation.");
+    	}
+    	if (index >= MofEvaluationAdaptor.currentValue.size()) {
+    		MofEvaluationAdaptor.currentValue.add(value);
+    	} else {
+    		MofEvaluationAdaptor.currentValue.set(index, value);
+    	}
+    	MofAdditionalPropertyImpl additionalProperty = new MofAdditionalPropertyImpl(name, processor.getBridgeFactory().buildClassifier(propertyType), index);	
+    	mofProperties.put(name, additionalProperty);    	
     }
     
     public void removeAdditionalProperty(String name) {
-    	MofEvaluationAdaptor.currentValue = null;
+    	int index = ((MofAdditionalPropertyImpl)mofProperties.get(name)).getIndex();    	
+    	MofEvaluationAdaptor.currentValue.set(index, null);
     	mofProperties.remove(name);
     }
                   
@@ -89,6 +111,9 @@ public class MofOclModelElementTypeImpl extends OclAnyTypeImpl implements OclMod
             } else if (mofElementType instanceof DataType) {
             	// empty
             }
+        }
+        if (prop == null) {
+        	System.out.println("fehler");
         }
         return prop;
     }

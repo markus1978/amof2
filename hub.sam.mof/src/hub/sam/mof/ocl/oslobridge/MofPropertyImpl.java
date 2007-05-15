@@ -1,6 +1,5 @@
 package hub.sam.mof.ocl.oslobridge;
 
-import hub.sam.mof.mofinstancemodel.MofClassSemantics;
 import hub.sam.mof.mofinstancemodel.MofClassifierSemantics;
 
 import org.oslo.ocl20.OclProcessor;

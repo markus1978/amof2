@@ -937,9 +937,19 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
       * a value. Because oslo only uses a getter method identified by name to access properties and Java simply
       * cannot have temporary methods, this solution has to work for it. For additional values the ocl interpreter
       * will use this getter method; the actual property to access and its values are stores staticly.
+      * 
+      * Is only called with java reflection.
       */
-    public Object getOclAdditionalValue() {
-        return MofEvaluationAdaptor.currentValue;
+    public Object getOclAdditionalValue0() {
+        return MofEvaluationAdaptor.currentValue.get(0);
+    }
+    
+    public Object getOclAdditionalValue1() {
+    	return MofEvaluationAdaptor.currentValue.get(1);
+    }
+    
+    public Object getOclAdditionalValue2() {
+    	return MofEvaluationAdaptor.currentValue.get(2);
     }
 
     /**
