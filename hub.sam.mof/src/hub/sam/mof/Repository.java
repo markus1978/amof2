@@ -209,6 +209,9 @@ public class Repository extends hub.sam.util.Identity {
     public Extent createExtent(String name) {
         Extent newextent = new hub.sam.mof.reflection.ExtentImpl(name);
         ((hub.sam.util.Identity)newextent).setParentIdentity(this);
+        if (extents.get(name) != null) {
+            throw new IllegalArgumentException("Cannot create extent. Extent " + name + " already exists.");
+        }
         extents.put(name, newextent);
         fireExtentAddedRepositoryChange(newextent);
         return newextent;
