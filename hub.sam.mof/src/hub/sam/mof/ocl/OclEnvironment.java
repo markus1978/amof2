@@ -9,19 +9,22 @@ import org.oslo.ocl20.semantics.bridge.Environment;
 import cmof.NamedElement;
 import cmof.Package;
 import cmof.Type;
+import cmof.reflection.Extent;
 
 public class OclEnvironment {
 	
 	private final Environment fEnvironment;
+	private final Extent fExtent;
 	private final Map<ExpressionWithContext, List> fExpressionCache =  new HashMap<ExpressionWithContext, List>();
 	
-	private OclEnvironment(final Environment environment) {
+	private OclEnvironment(Extent extent, final Environment environment) {
 		super();
+		this.fExtent = extent;
 		fEnvironment = environment;
 	}
 
-	public static OclEnvironment createOclEnvironment(Iterable<? extends Package> packages) {
-		return new OclEnvironment(OclProcessor.createEnvironment(packages));
+	public static OclEnvironment createOclEnvironment(Extent extent, Iterable<? extends Package> packages) {
+		return new OclEnvironment(extent, OclProcessor.createEnvironment(packages));
 	}
 	
 	public Environment getEnvironment() {
@@ -49,6 +52,14 @@ public class OclEnvironment {
 			fExpressionCache.put(expressionWithContext, result);
 		} 
 		return result; 
+	}
+	
+	public boolean checkAllInvariantsOnAllObjects() throws OclException {
+		boolean result = true;
+		for (cmof.reflection.Object obj: fExtent.getObject()) {
+			result &= obj.getAdaptor(OclObjectEnvironment.class).checkAllInvariants();
+		}
+		return result;
 	}
 		
 	class ExpressionWithContext {

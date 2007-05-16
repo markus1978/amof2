@@ -1,5 +1,6 @@
 package hub.sam.mof.ocl;
 
+import hub.sam.mof.ocl.OclImplementations.Implementation;
 import hub.sam.mof.ocl.oslobridge.MofOclModelElementTypeImpl;
 
 import java.util.Arrays;
@@ -9,8 +10,12 @@ import java.util.Map;
 
 import org.oslo.ocl20.synthesis.RuntimeEnvironment;
 
+import cmof.Constraint;
+import cmof.OpaqueExpression;
+import cmof.Property;
 import cmof.Type;
 import cmof.UmlClass;
+import cmof.ValueSpecification;
 
 public class OclObjectEnvironment {
 
@@ -48,6 +53,34 @@ public class OclObjectEnvironment {
 		} catch (Exception ex) {
 			throw new OclException("Exception during evaluation of ocl.", ex);
 		}
+	}
+	
+	public boolean checkAllInvariants() throws OclException {
+		UmlClass metaClass = fSelf.getMetaClass();
+		boolean result = true;
+		for (Object content: metaClass.getMember()) {
+			if (content instanceof Constraint) {
+				Constraint constraint = (Constraint)content;
+				for (Object constraintElement: constraint.getConstrainedElement()) {					
+					if (constraintElement == metaClass) {
+						ValueSpecification specification = constraint.getSpecification();						
+						if (specification instanceof OpaqueExpression) {
+							OpaqueExpression opaqueSpecification = (OpaqueExpression)specification;			
+							String language = opaqueSpecification.getLanguage();
+							if (language != null && language.startsWith("OCL")) {
+								String expression = opaqueSpecification.getBody();
+								try {
+									result &= (Boolean)execute(expression);
+								} catch (ClassCastException ex) {
+									throw new OclException("Invariant " + expression + " is not of type boolean");
+								}
+							} 
+						}						
+					}
+				}
+			}
+		}
+		return result;
 	}
 	
 	private Map<String, Type> additionalContextAttributes = new HashMap<String, Type>();
