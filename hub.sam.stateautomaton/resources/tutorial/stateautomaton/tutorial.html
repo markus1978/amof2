@@ -100,24 +100,24 @@ alt="frontpage hit counter" border="0"/></a> </noscript>
 
 <p>written by <a href="mailto:blunk@informatik.hu-berlin.de">Andreas Blunk</a>, May 2007</p>
 
-<p>This tutorial shows how our language modelling tools can be used together to create all aspects of a computer language. The demonstration is based on an example language for modelling and executing simple state automatons. Before you continue reading, you should download the complete language definition <a href=="">as a jar-archive from here</a> or check it out from <a href="">SVN</a>. It contains an Eclipse project that includes all the necessary resources we are using in this tutorial (e.g. all models that make up the language). You may use the archive without Eclipse at first, but in the last part, a working Eclipse 3.2 installation will be required. So you should install <a href="">Eclipse 3.2</a> now and then import the archive as an Eclipse project. When you have finished, we can proceed with the tutorial.</p>
+<p>This tutorial shows how our language modelling tools can be used in combination to create all aspects of a computer language. The demonstration is based on an example language for modelling and executing composite state automatons. But before we start, you should download the complete language definition <a href=="">from here (JAR-archive)</a> or check it out <a href="">from SVN</a>. It contains an Eclipse project that includes all the necessary resources we are using in this tutorial (e.g. all models that make up the language). You may use the archive without Eclipse at first, but in the last part of the tutorial, a working Eclipse 3.2 installation will be required. So you should install <a href="">Eclipse 3.2</a> now and then import the archive as an Eclipse project. Further tools and Eclipse plugins will ne needed during the tutorial, but you can install them later. When you have finished installing Eclipse and set up the project, you may proceed with the tutorial.</p>
 
-<h2>Overview</h2>
+<p>We begin with an introduction into our language modelling method and then construct the example language by using the various tools.</p>
 
-<p>We begin with an overview of our language modelling method and then construct the example language by using the various tools.</p>
+<h2>Introduction</h2>
 
-<p>Computer languages consist of different aspects like structure, static constraints, notation and execution semantics. Like any other piece of software, they can be modelled. Language modelling reduces language development to modelling each language aspect, so that tools and specifications can automatically be derived.</p>
+<p>Computer languages consist of different aspects like structure, static constraints, notation and semantics. Like any other piece of software, they can be modelled. Language modelling reduces language development to modelling each language aspect, so that tools and specifications can automatically be derived.</p>
 
 <table border="0"><tr>
 		<td><br><img src="images/language-aspects-300.png" alt="the different language aspects"></td>
 		<td>&nbsp;</td>
 		<td>
 
-			<p>Structural models of the language concepts are the basis for all other language aspects. They define the language's abstract syntax in a language meta-model (they define the models the user can write). All other language aspects are based on the language meta-model. They provide meta-model elements with additional information that is needed to describe certain language aspects, e.g. notation and semantic.</p>
+			<p>Structure models of the language concepts are the basis for all other language aspects. They define the language's abstract syntax in a language meta-model (they define the models the user can write). All other language aspects are based on the language meta-model. They provide meta-model elements with additional information that is needed to describe them, e.g. notation and semantic.</p>
 
 <p>For modelling structure, we use the CMOF language as a meta-meta-model. It allows object-oriented modelling and provides enhanced features like subsetting and redefinition that allow a flexible design and embrace reuse of common language concepts.</p>
 
-			<p>But structure is just one aspect of a language and many languages are more than just static structure. They describe dynamic processes. If we want to execute, interpret or simulate models in these languages, we have to define their execution semantics. Our approach is to define static structures (language concepts) and dynamic structures (runtime concepts), and then apply behaviour descriptions to them. Static structures define the model the user can write, while dynamic structures define additional data structures where runtime information is saved. This information allows execution of different runtime models based on the same static model. We augment structure models with operations to describe the behaviour of a model in a defined language. These behaviour models describe state changes in the language model. Different possibilities exist to specify behaviour, e.g. pure Java code, activity diagrams from UML or abstract state machines.</p>
+<p><font color="grey">(todo: say that we want to execute languages)</font> But structure is just one aspect of a language. Many languages are more than just static structure. They describe dynamic processes. If we want to execute, interpret or simulate models in these languages, we have to define their execution semantics. Our approach is to define the language syntax (basic concepts) first. Then extend it with runtime structures that define additional data structures where runtime information is saved. This information allows execution of different runtime models based on the same syntax model. We then augment the model with operatios and apply behaviour descriptions to operations which describe state changes in the language model. Different possibilities exist to specify behaviour, e.g. pure Java code or activity diagrams from UML.</p>
 
 <p>In order to understand this tutorial, you should be familiar with our CMOF-based programming framework <i>A MOF 2.0 for Java</i>. Further knowledge of our operational approach to define execution semantics is not required but may be helpful. Please refer to the following articles and papers for detailed information:
 <ul>
@@ -130,55 +130,68 @@ alt="frontpage hit counter" border="0"/></a> </noscript>
 		</td>
 </tr></table>
 
-<h2>An Example Language</h2>
+<h2>Developing an Example Language</h2>
 
-<p>We choose to create a language for modelling and executing state automatons because they are perfectly suited for demonstrating all the language aspects. We first describe the process for creating the language structure and then continue with the definition of execution semantics.</p>
+<p>We deciced to create a language for modelling and executing composite state automatons. The reason for our choice is that composite state automatons are a perfect example of a language that actually uses all language aspects. We first describe the process for creating the language structure and then continue with the definition of execution semantics.</p>
 
-<p>The central language aspect is a meta-model that describes the structure of state automatons. The basic concepts are: automaton, transition and state with a special initial state and final state. Based on these concepts, the structure model should reflect the following rules:</p>
+<p>The basic concepts of the language are described in a syntax meta-model. These are: automaton, transition and state with a special initial state and final state. Based on these concepts, the syntax model should reflect the following rules:</p>
 
-<p>An automaton has a name. It may have many states and many transitions. There has to be one intial state and one or more final states. Each state has a name and outgoing as well as incoming transitions. Transitions describe state changes by defining on which input token a transition fires. A transition must have one source and one target state. States can consume input tokens. Consuming a token results in the firing of an outgoing transition. An automaton can consume a sequence of input tokens.</p>
+<p>An automaton has a name. It may have many states and many transitions. There has to be one intial state and one or more final states. Each state has a name and outgoing as well as incoming transitions. Transitions describe state changes by specifying on which input token a transition can fire. A transition must have one source and one target state. Later, we execute an automaton on a sequence of input tokens, but this is part of the semantics.</p>
 
-<p>Furthermore a state may contain a sub-automaton. This is a language feature that can be compared to types in computer languages. We define an automaton (the type) and use it as a sub-automaton in many different states (instances of the type). Each sub-automaton may reside in a different inner state at runtime. Thus extra runtime information is needed to execute the language model. This feature can be compared to an object instance of a type that has its own identity and its own state. Whenever we have such a type concept in a language, we need runtime structures that deal with runtime information. Composite state automatons are a perfect example to show this modelling aspect here. But lets concentrate on the syntax and then go over to runtime structures.</p>
+<p>Furthermore a state may contain a sub-automaton. This is a language feature that can be compared to types in computer languages. We define an automaton (the type) and use it as a sub-automaton (instances of the type) in many different states. It must be possible for each sub-automaton to reside in a different state at runtime. Thus extra runtime information is needed to execute the language. This feature can be compared to an object instance of a class. Each object has its own identity and its own state. Whenever we have such a type concept in a language, we need runtime structures that deal with runtime information. Composite state automatons are a perfect example to show this modelling aspect here. But lets concentrate on modelling the syntax first and then go over to runtime structures.</p>
 
 <h3>Modelling Structure</h3>
 
-<p>The structural concepts can be modelled with <a href="http://www.magicdraw.com">MagicDraw UML</a>. We support loading and saving MagicDraw models within our modelling tools. This allows us to use MagicDraw as the basis for modelling structure. But we are not dependend on MagicDraw UML, you can use any UML tool that can load and save a model in XMI format version 2.0. However, further explanation will refer to MagicDraw UML. You will be given the complete structure model as MagicDraw-XMI at the end of the section.</p>
+<p>All parts of the structure can be modelled with the UML modelling tool <a href="http://www.magicdraw.com">MagicDraw UML</a>. We support loading and saving MagicDraw models within our modelling tools. This allows us to use MagicDraw UML as the basis for modelling structure. But we are not dependend on it, you can use any UML tool that can load and save a model in XMI format version 2.0. However, further explanation will refer to MagicDraw UML, so you should get it now and then proceed.</p>
 
 <h4>Syntax</h4>
 
-<p>We first model the syntax of the state automaton language with respect to the basic state automaton concepts we identified before (see figure below).
+<p>We first model the state automaton syntax with respect to the basic concepts we identified before. As modelling with MagicDraw UML is straightforward, we instantly present the syntax model in the figure below. You may open the model in MagicDraw UML. It is named <i>StateAutomaton.syntax.mdxml</i> and can be found in the resources-directory.</p>
 
-<p><i>Figure: syntax part of the language meta-model in MagicDraw format (click to view larger image)</i></p>
+<p><i>Figure: syntax meta-model in MagicDraw format</i></p>
 
-<p><a href="images/syntax.png"><img src="images/syntax_thumb.png" alt="syntax part of the structure model"></a></p>
+<p><img src="images/stateautomaton_syntax.png" alt="syntax"></p>
 
 <h4>Static Constraints</h4>
 
-<p><font color="red"><b>TODO</b></font></p>
+<p><font color="red">TODO: augment meta-model elements with OCL invariants that may be checked at some point</font></p>
 
-<h4>Runtime Structure (part of the Semantic)</h4>
+<table border="0">
+<tr>
+<td>
 
-<p>
-In our approach, executing a model requires the definition of operational semantics. Part of the semantic description is a behaviour model that works on an instance of the syntax model. It executes this instance by changing the instance's state. The syntax model defines all the models a user can write and execute. But execution requires additional runtime information (e.g. the currentState of an automaton). Such runtime information could be stored in the model itself. But this approach has flaws. One problem is that we will lose the model's initial state if we execute it. Furthermore we often need several runtime representations of the same model element. E.g. in our language, each automaton instance has to remember its current state. If we have an automaton with two states and each of them contains the same sub-automaton X, then each instance of X could be in another state at runtime. We create a runtime class AutomatonRuntime for the static class Automaton and relate the two classes via an UML realisation arrow. This model element represents a runtime-representation-of relationship which we can use because there is no predefined meaning in CMOF (our meta-meta-model). The next step is to establish an association to class State with the association end named currentState. This will save the current state of different runtime representations of the same automaton instance.</p>
+<h4>Runtime Structure</h4>
 
-<p>But how do we instantiate runtime classes and how are they connected to syntax classes? Whenever we need a new runtime representation, we simply invoke a create method at the syntax class, e.g. metaCreateAutomatonRuntime(). We may also invoke metaDelete() on the runtime class to destroy runtime information. These operations are created by a modelling framework that also manages runtime relationships. We are going to present this framework later. The next figure illustrates what we just explained.</p>
+<p>Model execution requires additional runtime information (e.g. the currentState of an automaton). Such runtime information could be stored in the model itself. But this approach has several flaws. One problem is that we will lose the model's initial state if we execute it. A stronger argument against this approach is that during model execution we often need several runtime representations of the same model element. E.g. in our language, each automaton has to remember its current state. When we reuse automatons as sub-automatons in composite states, each runtime instance of a sub-automaton can reside in a different state.</p>
 
-<p><i>Figure: Relations between syntax and runtime structure and the meta layers. M3 is CMOF, M2 is the language meta-model and M1 is a model in the language. Unlabeled UML realisation arrows represent instance-of relationships between model layers.</i></p>
+<p>So for our example language a runtime element for automatons is needed. We create a class AutomatonRuntime and model the relationship to class Automaton as a runtime-representation-of relationship with an UML realisation arrow. Instances of AutomatonRuntime represent running automatons with distinct runtime information.</p>
+
+<p>We need an association from class AutomatonRuntime to class State with an association end named currentState. This allows us to remember the current state in each automaton runtime instance.</p>
+
+<p>But saving just the current state is not enough runtime information for composite state automatons. We also have to take care of runtime instances of sub-automatons in composite states. So when we enter a composite state A, then there is a runtime instance of the corresponding sub-automaton of A that is in some inner state. At some point, we will leave the state A and when we come back to A, the same runtime instance auf A's sub-automaton must still be present. A itself is part of an automaton whose runtime instance represents the current state of execution. Besides the current state information, we also have to save instances of AutomatonRuntime for every composite state. This is a reflexive association in class AutomatonRuntime that can be modelled with a qualified access to one association end named compositeState. The qualifier is a composite state of type State.</p>
+
+<p>But how are runtime classes instantiated and who manages the connection to syntax classes? Well, there has to be some kind of modelling framework that takes responsibility. We present our modelling framework in the next section. When we load a model with runtime-representation-of relationships and instruct the framework to look for them, then some magic happens and additional operations are added to syntax and runtime classes. E.g., the framework will generate an operation metaCreateAutomatonRuntime in class Automaton and an operation metaDelete in class AutomatonRuntime. Implementations of these operations are supplied by the modelling framework. So in a semantic description we can invoke these operations and the modelling framework takes care of the connection between syntax and runtime instances.</p>
+
+</td>
+<td>&nbsp;</td>
+<td>
+<p><i>Figure: Relations between syntax and runtime classes and the meta layers. M3 is CMOF, M2 is the language meta-model and M1 is a model in the language. Unlabeled UML realisation arrows represent instance-of relationships between meta layers.</i></p>
 <p><img src="images/structure-relations.png"></p>
+</td>
+</tr>
+</table>
 
-<p>For our example language we will need more runtime information to actually execute a model. You can see the required elements in the figure below. <font color="red"><b>TODO</b></font></p>
+<p><i>Figure: syntax meta-model extended with runtime information</i></p>
 
-<p><i>Figure: complete structure of the language - syntax and runtime structure (click to view larger image)</i></p>
-
-<p><a href="images/dynamic.png"><img src="images/dynamic_thumb.png" alt="complete structure model"></a></p>
+<p><img src="images/stateautomaton_runtime.png" alt="complete structure model"></a></p>
 
 <h3>Programming with CMOF-based Models</h3>
 
-<p>Our language meta-model is based on CMOF. In order to work with CMOF-based models, we developed a programming framework: <a href="">A MOF 2.0 for Java</a> (abbreviated AMOF). It allows storing and managing languages (meta-models) and programs (models). Our language meta-model has to be in a format that AMOF can understand. AMOF currently understands XMI version 2.0 and file formats of several proprietary UML modelling tools. One of them is <a href="http://www.magicdraw.com">MagicDraw UML</a> which we have already used in the last section. In order to use the model with AMOF we have to generate a repository.</p>
+<p>Our language meta-model is based on CMOF. In order to work with CMOF-based models, we developed a programming framework: <a href="">A MOF 2.0 for Java</a> (abbreviated AMOF2). It allows storing and managing meta-models and models. A binary version of AMOF2 is already supplied with the example language (located in <i>resources/lib/aMOF2.0forJava.jar</i>). Our language meta-model has to be in a format that AMOF2 can understand. It currently understands XMI version 2.0 and file formats of several proprietary UML modelling tools. One of them is <a href="http://www.magicdraw.com">MagicDraw UML</a> which we have already used to model the language structure. Programming with the model in Java requires the generation of a model repository with AMOF2.</p>
 
-<h4>Generating Repository Code</h4>
+<h4>Repository Generation</h4>
 
-<p>The generation of repositories is a general task that has to be repeated everytime the model changes. Therefore AMOF supplies several Ant tasks. We can use them in an Ant file to generate the repository.</p>
+<p>The generation of repositories is a general task that has to be repeated everytime meta-models change. Therefore we supply several Ant tasks with AMOF2. We can use them in an Ant file to generate the repository code.</p>
 
 <p><i>Figure: repository-build.xml</i></p>
 
@@ -192,7 +205,6 @@ In our approach, executing a model requires the definition of operational semant
 <span class="line">    7 </span>    <span class="kwa">&lt;path id=</span><span class="str">&quot;classpath&quot;</span><span class="kwa">&gt;</span>
 <span class="line">    8 </span>        <span class="kwa">&lt;pathelement path=</span><span class="str">&quot;${bin-dir}&quot;</span><span class="kwa">/&gt;</span>
 <span class="line">    9 </span>        <span class="kwa">&lt;fileset dir=</span><span class="str">&quot;${basedir}/resources/lib&quot;</span><span class="kwa">&gt;</span>
-</pre><p>Directory where Ant looks for the AMOF binaries.</p><pre class="hl">
 <span class="line">   10 </span>            <span class="kwa">&lt;include name=</span><span class="str">&quot;**/*.jar&quot;</span><span class="kwa">/&gt;</span>
 <span class="line">   11 </span>        <span class="kwa">&lt;/fileset&gt;</span>
 <span class="line">   12 </span>    <span class="kwa">&lt;/path&gt;</span>
@@ -201,7 +213,7 @@ In our approach, executing a model requires the definition of operational semant
 <span class="line">   15 </span>        <span class="kwa">&lt;mkdir dir=</span><span class="str">&quot;${bin-dir}&quot;</span><span class="kwa">/&gt;</span>
 <span class="line">   16 </span>        <span class="kwa">&lt;typedef name=</span><span class="str">&quot;package&quot;</span><span class="kwa"> classname=</span><span class="str">&quot;hub.sam.mof.ant.Package&quot;</span><span class="kwa"> classpathref=</span><span class="str">&quot;classpath&quot;</span><span class="kwa">/&gt;</span>
 <span class="line">   17 </span>        <span class="kwa">&lt;taskdef name=</span><span class="str">&quot;generatecode&quot;</span><span class="kwa"> classname=</span><span class="str">&quot;hub.sam.mof.ant.GenerateCode&quot;</span><span class="kwa"> classpathref=</span><span class="str">&quot;classpath&quot;</span><span class="kwa">/&gt;</span>
-</pre><p>Here we declare new Ant tasks from AMOF which we use in subsequent targets.</p><pre class="hl">
+</pre><p>Here we declare new Ant tasks from AMOF2 which we use in subsequent targets.</p><pre class="hl">
 <span class="line">   18 </span>    <span class="kwa">&lt;/target&gt;</span>
 <span class="line">   19 </span>
 <span class="line">   20 </span>    <span class="kwa">&lt;target name=</span><span class="str">&quot;clean&quot;</span><span class="kwa">&gt;</span>
@@ -213,161 +225,122 @@ In our approach, executing a model requires the definition of operational semant
 <span class="line">   26 </span>
 <span class="line">   27 </span>    <span class="kwa">&lt;target name=</span><span class="str">&quot;generate-repository&quot;</span><span class="kwa"> depends=</span><span class="str">&quot;clean,init&quot;</span><span class="kwa">&gt;</span>
 <span class="line">   28 </span>        <span class="kwa">&lt;generatecode src=</span><span class="str">&quot;resources/StateAutomaton.syntax.mdxml&quot;</span><span class="kwa"> md=</span><span class="str">&quot;true&quot;</span><span class="kwa"> destDir=</span><span class="str">&quot;./generated-src&quot;</span><span class="kwa"> instances=</span><span class="str">&quot;true&quot;</span><span class="kwa">&gt;</span>
-</pre><p>This task generates the repository code. The parameters used here have the following meaning.
+</pre><p>This task generates the repository code. The parameters have the following meaning.
 <ul>
 <li><b>src:</b> the language meta-model as input</li>
-<li><b>md:</b> indicates that the model file is in MagicDraw-XMI format</li>
+<li><b>md:</b> indicates that the model file is a MagicDraw file</li>
 <li><b>destDir:</b> a directory where repository code will be placed</li>
-<li><b>instances:</b> instructs AMOF to generate extra code for classes that are related to each other via runtime-representation-of-relationships (e.g. methods for creating and destroying runtime classes)</li>
+<li><b>instances:</b> instructs AMOF2 to generate extra code for runtime representations</li>
 </ul>
 </p><pre class="hl">
 <span class="line">   29 </span>            <span class="kwa">&lt;package name=</span><span class="str">&quot;model&quot;</span><span class="kwa"> javaPackagePrefix=</span><span class="str">&quot;hub.sam.stateautomaton&quot;</span><span class="kwa">/&gt;</span>
-</pre><p>The meta-model is located in CMOF package "model". We add a prefix to the model's package so that code will be generated in Java package "hub.sam.stateautomaton.model" instead of just "model".</p><pre class="hl">
+</pre><p>The meta-model is located in the CMOF package "model". We add a prefix to the model's package so that code will be generated in Java package "hub.sam.stateautomaton.model" instead of just "model".</p><pre class="hl">
 <span class="line">   30 </span>        <span class="kwa">&lt;/generatecode&gt;</span>
 <span class="line">   31 </span>    <span class="kwa">&lt;/target&gt;</span>
 <span class="line">   32 </span>
 <span class="line">   33 </span><span class="kwa">&lt;/project&gt;</span>
 </pre>
 
-<p><b>[DO]</b> You should now generate the state automaton repository by executing the generate-repository target with Ant.</p>
+<p><b>Now its time for you to become active!</b> You should now generate the state automaton repository by executing the generate-repository target in the file <i>repository-build.xml</i>.</p>
 
-<h4>Creating a State Automaton Model</h4>
+<h4>Creating a Model</h4>
 
-<p>Now we are able to create a state automaton model as instance of the language meta-model. This is referred to as a program in traditional computer languages. For demonstration purposes the model must use some important language features. It has to be a model with several runtime representations of the same automaton at runtime. Therefore we create a model that consists of an automaton X with states A and B and both states contain a sub-automaton Y. The automaton Y has two states C and D. All of the automatons have initial and final states and transitions between them (see figure below).</p>
+<p>Now we are able to create an instance of the language meta-model, a state automaton model. This can be compared to to a program in traditional computer languages. For demonstration purposes the model must use some composite states. Therefore we create a model that consists of an automaton X with composite states A and B and both states contain a sub-automaton Y. The automaton Y has two (simple) states C and D. Additionally all automatons have initial and final states and transitions between them (see figure below).</p>
 
 <p><i>Figure: example state automaton model</i></p>
 
 <p><img src="images/model.png"></p>
 
-<p>You can find the source code for creating this model in package hub.sam.stateautomaton, class StateAutomaton, method createLargeTest. The next section explains how the automaton X can be executed for a sequence of input tokens like "dbdecacf". We will see that automaton Y resides in two different states at runtime, one for state A and one for state B.</p>
+<p>You can find the source code for creating this model in class hub.sam.stateautomaton.StateAutomaton, method createLargeTest. The next section explains how the automaton X can be executed for a sequence of input tokens like "dbdecacf". We will see that automaton Y resides in two different states at runtime, one for state A and one for state B.</p>
 
 <h3>Modelling Execution Semantics</h3>
 
-<h4>Abstract</h4>
+<h4>Introduction</h4>
 
 <p><b>The first question is: What does it mean to execute a model in the language?</b><br>
-The answer is different from language to language. In this case, executing a model means: consume a sequence of input tokens in a dedicated initial automaton by transitioning between the automaton's states. Each transition consumes one input token and changes the automaton's current state. If there is a sub-automaton in a state and there is no transition in the current state that can consume this token, then the sub-automaton's state tries to consume it. The token is disgarded, if it cannot be consumed. This explanation is referred to as <i>execution semantics</i>.</p>
+The answer is different from language to language. In this case, executing a model means: consume a sequence of input tokens in a dedicated automaton by transitioning between the automaton's states. Each firing of a transition changes the automaton's current state. If there is no transition in the current state and the current state is a composite state, then the sub-automaton's tries to consume the token. The token is disgarded, if it cannot be consumed. This explanation is referred to as <i>the execution semantic</i> of this language.</p>
 
-<p><b>The second question is: How do we model execution semantics?</b><br>
-There are transformational and operational approaches. Our approch is to use operational semantics. We add semantic to the model by augmenting it with operations. These operations describe transitions between model states by executing behaviour that changes the model. We describe behaviour with respect to instances of the corresponding meta-model class.</p>
+<p><b>The next question is: How do we model execution semantics?</b><br>
+Our approch is to use operational semantics. We augment the meta-model with operations and then add semantic descriptions to them. We can describe semantics by programming Java code, modelling behaviour with UML like activities or writing query expressions with OCL. Executing semantics might perform transitions between model states and in this way changes a model. </p>
 
-<p>For our example language we define the following operations:
+<p>For our example language we add the following operations:
 <ul>
-	<li><font color="green">Automaton::instantiate</font> creates an new instance of AutomatonRuntime</li>
+	<li><font color="green">Automaton::run(inputSequence: String)</font><br>
+	<ul>
+		<li>create a new runtime instance
+		<li>initialise the runtime automaton</li>
+		<li>iterate over the sequence of input tokens and try to consume them
+		<li>destroy runtime information</li>
+	</ul>
+	</li>
 </ul>
 <ul>
-	<li><font color="green">AutomatonRuntime::run</font> executes a sequence of input tokens on the automaton</li>
-	<li><font color="green">AutomatonRuntime::initialise</font> makes the transition from an initial state to the first real state</li>
-	<li><font color="green">AutomatonRuntime::remove</font> destroys runtime information for this runtime representation of an automaton</li>
+	<li><font color="green">AutomatonRuntime::initialise()</font><br>
+	makes the initial transition</li>
+	<li><font color="green">AutomatonRuntime::consume(token: String): Boolean</font><br>
+	tries to consume an input token by firing an active transition, returns true on success, else false</li>
+	<li><font color="green">AutomatonRuntime::incarnateCompositeState(state: State)</font><br>
+	incarnates the composite state by creating a runtime instance of the sub-automaton in the supplied composite state, saves runtime information in property compositeState</li>
+	<li><font color="green">AutomatonRuntime::destroy()</font><br>
+	deletes the runtime instance of this automaton and all runtime instances in composite states</li>
 </ul>
 <ul>
-	<li><font color="green">State::getEnabledTransition</font> is a query operation that returns the transitions that could fire in this state</li>
+	<li><font color="green">State::getEnabledTransition(input: String) : Transition</font><br>
+	query operation that returns the active transitions in this state</li>
 </ul>
 <ul>
-	<li><font color="green">Transition::fire</font> makes the transition and changes the automaton's current state to the target state</li>
-	<li><font color="green">Transition::printDebugInfo</font> is a helper operation that prints debug information when the transition fires (source state, target state, input token consumed)</li>
-</ul>
-<ul>
-	<li><font color="green">StateRuntime::consume</font> tries to find a transition that can fire or forwards consumation to a sub-automaton</li>
-	<li><font color="green">StateRuntime::getTargetStateRuntime</font> ...</li>
-	<li><font color="green">StateRuntime::createInnerAutomatonRuntime</font> ...</li>
+	<li><font color="green">Transition::fire(context: AutomatonRuntime)</font><br>
+	makes the transition and changes the current state of the runtime instance supplied by context to the target state</li>
+	<li><font color="green">Transition::printDebugInfo</font><br>
+	a helper operation that prints debug information for this transition (source, target, input)</li>
 </ul>
 </p>
 
-<p>We can use pure Java code or an UML like activity language to describe the behaviour of these operations.</p>
+<p><i>Figure: complete structure meta-model</i></p>
 
-<h4>Custom Java Implementations</h4>
+<p><img src="images/stateautomaton_complete.png"></p>
 
-<p>Lets begin with writing pure Java code. AMOF lets us define custom implementations of a model's operations in a Java class named <font color="green">&lt;meta-model-class&gt;Custom</font>. The class has to be placed in the same package as the meta-model class. We start by writing implementations of the operations <font color="green">Automaton::instantiate</font> and <font color="green">AutomatonRuntime::run</font>.</p>
+<p>We can use Java code or an UML like activity language to describe the behaviour of these operations.</p>
 
-<p>The purpose of <font color="green">Automaton::instantiate</font> is to create a new runtime instance AutomatonRuntime (using the generated operation metaCreateAutomatonRuntime) and then change its current state to the automaton's initial state.</p>
+<h4>Custom Java Code</h4>
 
-<p><i>Figure: source code AutomatonCustom.java</i></p>
+<p>Lets begin with Java code. AMOF2 lets us define custom implementations of a model's operations in a Java class named <font color="green">&lt;meta-model-class&gt;Custom</font>, placed in the same package as the meta-model class. Java implementations for all the operations above are supplied with the Eclipse project. We present two of them here and you may look at the others yourself. The two operations are <font color="green">Automaton::instantiate</font> and <font color="green">AutomatonRuntime::run</font>.</p>
 
-<pre class="hl"><span class="line">    1 </span><span class="kwa">package</span> hub<span class="sym">.</span>sam<span class="sym">.</span>stateautomaton<span class="sym">.</span>model<span class="sym">;</span>
-<span class="line">    2 </span>
-<span class="line">    3 </span><span class="kwa">public class</span> AutomatonCustom <span class="kwa">extends</span> AutomatonDlg <span class="sym">{</span>
-<span class="line">    4 </span>
-<span class="line">    5 </span>    &#64;Override
-<span class="line">    6 </span>    <span class="kwa">public</span> AutomatonRuntime <span class="kwd">instantiate</span><span class="sym">() {</span>
-<span class="line">    7 </span>        AutomatonRuntime automatonRuntime <span class="sym">=</span> self<span class="sym">.</span><span class="kwd">metaCreateAutomatonRuntime</span><span class="sym">();</span>
-<span class="line">    8 </span>
-<span class="line">    9 </span>        <span class="slc">// set currentState in automatonRuntime to initial state</span>
-<span class="line">   10 </span>        StateRuntime initialStateRuntime <span class="sym">=</span> <span class="kwd">getInitialState</span><span class="sym">().</span><span class="kwd">metaCreateStateRuntime</span><span class="sym">();</span>
-<span class="line">   11 </span>        automatonRuntime<span class="sym">.</span><span class="kwd">setState</span><span class="sym">(</span><span class="kwd">getInitialState</span><span class="sym">(),</span> initialStateRuntime<span class="sym">);</span>
-<span class="line">   12 </span>        automatonRuntime<span class="sym">.</span><span class="kwd">setCurrentState</span><span class="sym">(</span>initialStateRuntime<span class="sym">);</span>
-<span class="line">   13 </span>
-<span class="line">   14 </span>        <span class="kwc">System</span><span class="sym">.</span>out<span class="sym">.</span><span class="kwd">println</span><span class="sym">(</span><span class="str">&quot;instantiated: &quot;</span> <span class="sym">+</span> AutomatonRuntimeCustom<span class="sym">.</span><span class="kwd">getDebugName</span><span class="sym">(</span>automatonRuntime<span class="sym">));</span>
-<span class="line">   15 </span>
-<span class="line">   16 </span>        <span class="kwa">return</span> automatonRuntime<span class="sym">;</span>
-<span class="line">   17 </span>    <span class="sym">}</span>
-<span class="line">   18 </span>
-<span class="line">   19 </span><span class="sym">}</span>
-</pre>
+<p><i><font color="red">Figure: source code AutomatonCustom.java</font></i></p>
 
-<p>The operation <font color="green">AutomatonRuntime::run</font> calls <font color="green">initialise</font> first and then tries to consume each input token in the current state.</p>
-
-<p><i>Figure: source code AutomatonRuntimeCustom.java</i></p>
-
-<pre class="hl"><span class="line">    1 </span><span class="kwa">package</span> hub<span class="sym">.</span>sam<span class="sym">.</span>stateautomaton<span class="sym">.</span>model<span class="sym">;</span>
-<span class="line">    2 </span>
-<span class="line">    3 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>stateautomaton<span class="sym">.</span>StateAutomaton<span class="sym">;</span>
-<span class="line">    4 </span>
-<span class="line">    5 </span><span class="kwa">public class</span> AutomatonRuntimeCustom <span class="kwa">extends</span> AutomatonRuntimeDlg <span class="sym">{</span>
-<span class="line">    6 </span>
-<span class="line">    7 </span>    <span class="slc">// ..</span>
-<span class="line">    8 </span>
-<span class="line">    9 </span>    &#64;Override
-<span class="line">   10 </span>    <span class="kwa">public</span> <span class="kwb">void</span> <span class="kwd">run</span><span class="sym">(</span>java<span class="sym">.</span>lang<span class="sym">.</span><span class="kwc">String</span> input<span class="sym">) {</span>
-<span class="line">   11 </span>        <span class="kwd">initialise</span><span class="sym">();</span>
-<span class="line">   12 </span>
-<span class="line">   13 </span>        <span class="kwa">while</span> <span class="sym">(</span>input<span class="sym">.</span><span class="kwd">length</span><span class="sym">() &gt;</span> <span class="num">0</span><span class="sym">) {</span>
-<span class="line">   14 </span>            StateRuntime stateRuntime <span class="sym">=</span> <span class="kwd">getCurrentState</span><span class="sym">();</span>
-<span class="line">   15 </span>
-<span class="line">   16 </span>            java<span class="sym">.</span>lang<span class="sym">.</span><span class="kwc">String</span> chr <span class="sym">=</span> input<span class="sym">.</span><span class="kwd">substring</span><span class="sym">(</span><span class="num">0</span><span class="sym">,</span> <span class="num">1</span><span class="sym">);</span>
-<span class="line">   17 </span>            <span class="kwb">boolean</span> consumed <span class="sym">=</span> stateRuntime<span class="sym">.</span><span class="kwd">consume</span><span class="sym">(</span>chr<span class="sym">);</span>
-<span class="line">   18 </span>            input <span class="sym">=</span> input<span class="sym">.</span><span class="kwd">substring</span><span class="sym">(</span><span class="num">1</span><span class="sym">);</span>
-<span class="line">   19 </span>            <span class="kwa">if</span> <span class="sym">(!</span>consumed<span class="sym">) {</span>
-<span class="line">   20 </span>                <span class="slc">// ignore token</span>
-<span class="line">   21 </span>                <span class="kwc">System</span><span class="sym">.</span>out<span class="sym">.</span><span class="kwd">println</span><span class="sym">(</span><span class="str">&quot;ignoring input token '&quot;</span> <span class="sym">+</span> chr <span class="sym">+</span> <span class="str">&quot;'&quot;</span><span class="sym">);</span>
-<span class="line">   22 </span>            <span class="sym">}</span>
-<span class="line">   23 </span>        <span class="sym">}</span>
-<span class="line">   24 </span>    <span class="sym">}</span>
-<span class="line">   25 </span>
-<span class="line">   26 </span><span class="sym">}</span>
-</pre>
-
-<p>Custom implementations for the other operations are not much different. You should now look at them and get familiar with how execution semantic for our example language is implemented with Java. <font color="gray">(should we describe the example language's semantic in more detail?)</font></p>
+<p><i><font color="red">Figure: source code AutomatonRuntimeCustom.java</font></i></p>
 
 <p>After having written custom implementations for all operations, we can execute a state automaton model as follows:<br>(source code extracted from main method in StateAutomaton.java)</p>
 
 <pre class="hl"><span class="line">    1 </span>Automaton automaton <span class="sym">=</span> <span class="kwd">createLargeTestModel</span><span class="sym">(</span>testFactory<span class="sym">);</span>
-<span class="line">    2 </span>AutomatonRuntime automatonRuntime <span class="sym">=</span> automaton<span class="sym">.</span><span class="kwd">instantiate</span><span class="sym">();</span>
-<span class="line">    3 </span>automatonRuntime<span class="sym">.</span><span class="kwd">run</span><span class="sym">(</span><span class="str">&quot;dbdecacf&quot;</span><span class="sym">);</span>
-<span class="line">    4 </span>automatonRuntime<span class="sym">.</span><span class="kwd">remove</span><span class="sym">();</span>
+<span class="line">    2 </span>automatonRuntime<span class="sym">.</span><span class="kwd">run</span><span class="sym">(</span><span class="str">&quot;dbdecacf&quot;</span><span class="sym">);</span>
 </pre>
+
+<h4>OCL Queries</h4>
+
+<p><font color="red">TODO</font></p>
 
 <h4>Activities</h4>
 
-<p>The problem with Java code is that its not model based and so tools cannot be derived (e.g. a debugger). What we need is a model based specification of the language semantics. Our approach is to use an activity language that is similar to UML activities. Actually our activity language is a subset of UML activities and its semantic is based on well-known petrinets. It is designed to describe semantic in CMOF-based models, and so we named it <i>MOF Action Semantics</i> (abbreviated MAS). It defines a set of atomic actions that can be used to describe operational semantics. Activities are composed of these actions plus some more elements. Each activity models the behaviour of an operation. If the model is executed, the corresponding activities will be interpreted in the context of a model instance. We now present our tools for modelling such activities, but without going into the details of the activity language. We then show you how to use the tools and explain one activity in detail.</p>
+<p>The problem with Java code is that its not model based and so tools cannot be derived (e.g. a debugger). What we need is a model based specification of the language semantics. Our approach is to use an activity language that is similar to UML activities. Actually it is a subset of UML activities and its semantic is based on well-known petrinets. It is designed to describe semantic in CMOF-based models, and so we named it <i>MOF Action Semantics</i> (abbreviated MAS). It defines a set of atomic actions that can be used to describe operational semantics. Activities are composed of these actions plus some more elements to model control and object flow. Each activity models the behaviour of an operation. If the model is executed, the corresponding activities will be interpreted in the context of a model instance. Without going into the details of the activity language, we now present our tools for modelling them.</p>
 
-<p>In the past, we just had a parser that could transform a textual notation of an activity into a model instance of the MAS language model. The notation was very cryptic and difficult to understand. Therefore we decided to develop a graphical editor that is based on Eclipse's GEF. This editor is known as MASE (MAS Editor).</p>
+<p>In the past, we just had a parser that could transform a textual notation of an activity in a model. The notation was very cryptic and difficult to understand. Therefore we decided to develop a graphical editor that is based on Eclipse's GEF. This editor is known as MASE (MAS Editor).</p>
 
-<p><img src="images/mase_part.png"></p>
+<p><img src="images/activities_mase.png"></p>
 
-<p>At first, we had seperate files for the activities. Each file contained one activity model in XMI format. The connection between operation and activity was simply based on the operation's name. The activity files had to be named the same with a special ending (e.g. operation run with activity file run.asxml). The activity interpreter then loaded this file into AMOF and executed it in an instance of a corresponding structure model. This approach had several flaws. We compensated them by using an Eclipse plugin that we had already developed. You may know the plugin from the <a href="">AMOF Tutorial page</a>. Its the <i>MOF2-Browser Plugin</i>. It can be used to browse through a CMOF-based model in an Eclipse Tree View.</p>
+<p>At first, we stored activity models in seperate files. The connection between an operation and an activity was simply based on the operation's name. The activity files had to be named the same with a special ending (e.g. operation run with activity file run.asxml). The MAS execution engine then loaded this file into AMOF2 and executed it in an instance of a corresponding structure model. This approach had several flaws. We compensated them by using an Eclipse plugin that we had already developed. You may know the plugin from the <a href="">AMOF Tutorial page</a>. Its the <i>MOF2-Browser Plugin</i> (abbreviated MOF2B). It can be used to browse through a CMOF-based model in an Eclipse Tree View.</p>
 
-<p><img src="images/mof2browser.png"></p>
+<p><img src="images/activities_mof2b.png"></p>
 
 <p>We now use it together with MASE to provide language developers with a simple interface for modelling activities. You can browse through a structure model, right-click on an operation und choose "Create Behaviour" or "Edit Behaviour" to open a MASE editor.</p>
 
-<p><img src="images/mof2browser_mase.png"></p>
+<p><img src="images/activities_mase_mof2b.png"></p>
 
-<p>Multiple editors can be opened at the same time. The activities are saved together in one XML file. More details will follow later. At this point, we want you to install the needed plugins. We then show you how to use them.</p>
+<p>Multiple editors can be opened at the same time. The activities are saved together in one XML file. At this point, we want you to install the needed plugins. We then show you how to use them.</p>
 
 <ul>
 	<p><b>Installing required Eclipse Plugins:</b></p>
-	<p>We combined the various Eclipse Plugins into an Eclipse Feature. It includes AMOF (as a plugin), MASE and the MOF2 Browser Plugin. Please install this feature by following our instructions.</p>
+	<p>Out Eclipse plugins for meta-modelling are combined as an Eclipse Feature. It includes AMOF (as a plugin), MASE and the MOF2B. Please install this feature by following these instructions:</p>
 	<p>Open the Eclipse Installation Wizard ...</p>
 	<p><img src="images/eclipse_install.png"></p>
 	<p>Select "Search for new features to install" ...</p>
@@ -380,7 +353,7 @@ There are transformational and operational approaches. Our approch is to use ope
 	<p>Click "Finish" to start installation.</p>
 </ul>
 
-<p>Lets play with the installed plugins. We want to open the semantic specification that we provided with the example language. Please switch to the Eclipse perspective "Mof Action Semantics Editor" first. This opens a special editing perspective with the MOF2 Browser Plugin at the left, MAS Editors at the right and a properties view at the bottom.</p>
+<p>Lets work with the installed plugins. We want to open the semantics that we provided with the example language. Please switch to the Eclipse perspective "Mof Action Semantics Editor" first. This opens a special editing perspective with the MOF2 Browser Plugin at the left, MAS Editors at the right and a properties view at the bottom.</p>
 
 <p><img src="images/mase_perspective.png"></p>
 
@@ -388,30 +361,15 @@ There are transformational and operational approaches. Our approch is to use ope
 
 <p><img src="images/choose_mas_context_2.png"></p>
 
-<p><img src="images/choose_run.png"></p>
+<p><img src="images/activities_edit.png"></p>
 
-<p><img src="images/run_opened.png"></p>
+<p><img src="images/activities_edit2.png"></p>
 
-<p><font color="red"><b>TODO:</b> mas context file, describe one activity in detail</font></p>
-
-<!--
-We could model activities by simply using our programming framework (\textit{A MOF 2.0 for Java}) to create all necessary elements. This would lead to a model whose representation (in Java) is very difficult to understand. So we decided to develop a graphical editor that is based on Eclipse's GEF: the MAS Editor. In conjunction with the MOF Browser Plugin it can be used to model activities graphically.
-
-So lets model the behaviour of operation fire with an activity.
-% show how to use the mas editor to model the behaviour of operation fire
-
-% figure: simple fire activity
-
-You may have noticed that we often need additional runtime information in order to execute a model. This information could be stored in the model itself. But ...
-
-We define a model's dynamic structure by augmenting static structure elements with runtime elements. We relate syntax classes and runtime classes with a runtime-representation-of-relationship. It is notated by an UML realisation arrow.
-//-->
+<p><font color="red">TODO: mas context file</font></p>
 
 <h3>Executing the State Automaton Model</h3>
 
-<p>creating a MasContext ...</p>
-
-<h2>Summary</h2>
+<p>using the new model management interface, implementation managers, creating a mas context ...</p>
 
 <h2>Future Tools</h2>
 
@@ -419,9 +377,9 @@ We define a model's dynamic structure by augmenting static structure elements wi
 
 <p>Textual Editing Framework (TEF) ...</p>
 
-<h3>Debugging Operational Semantics</h3>
+<h3>Debugging MAS</h3>
 	
-<p>MAS Debugger (DeMAS) ...</p>
+<p>MAS Debugger ...</p>
 
 
 

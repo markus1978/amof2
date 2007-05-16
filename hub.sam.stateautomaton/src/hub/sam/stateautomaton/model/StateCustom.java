@@ -22,14 +22,14 @@ package hub.sam.stateautomaton.model;
 
 public class StateCustom extends StateDlg {
 
-    @Override
-    public Transition getEnabledTransition(java.lang.String input) {
-        for (Transition transition: getOutgoing()) {
-            if (transition.getInput().equals(input)) {
-                return transition;
-            }
-        }
-        return null;
-    }
-    
+//    @Override
+//    public Transition getEnabledTransition(java.lang.String input) {
+//        for (Transition transition: getOutgoing()) {
+//            if (transition.getInput().equals(input)) {
+//                return transition;
+//            }
+//        }
+//        return null;
+//    }
+  
 }

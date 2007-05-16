@@ -21,13 +21,23 @@
 package hub.sam.stateautomaton.model;
 
 public class AutomatonCustom extends AutomatonDlg {
-
+    
     @Override
-    public AutomatonRuntime instantiate() {
+    public void run(java.lang.String input) {
         AutomatonRuntime runtime = self.metaCreateAutomatonRuntime();
         runtime.initialise();
-        System.out.println("instantiated: " + AutomatonRuntimeCustom.getDebugName(runtime));
-        return runtime;
+
+        while (input.length() > 0) {
+            java.lang.String chr = input.substring(0, 1);
+            boolean consumed = runtime.consume(chr);            
+            input = input.substring(1);
+            if (!consumed) {
+                // ignore token
+                System.out.println("ignoring token '" + chr + "'");
+            }
+        }
+        
+        runtime.destroy();
     }
     
 }

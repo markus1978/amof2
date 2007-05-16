@@ -75,9 +75,7 @@ public class StateAutomaton {
         //automaton.instantiate().run("baba");
         
         Automaton automaton = createLargeTestModel(testFactory);
-        AutomatonRuntime automatonRuntime = automaton.instantiate();
-        automatonRuntime.run("dbdecacf");
-        automatonRuntime.destroy();
+        automaton.run("dbdecacf");
     }
     
     public static boolean evaluateInvariant(String invariant, cmof.reflection.Object forObject) {

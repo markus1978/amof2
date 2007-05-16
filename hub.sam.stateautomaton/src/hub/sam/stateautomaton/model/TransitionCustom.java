@@ -32,7 +32,7 @@ public class TransitionCustom extends TransitionDlg {
         
         // create runtime information if target is a composite state
         if (getTarget().getSubAutomaton() != null && context.getCompositeState(getTarget()) == null) {
-            context.createCompositeState(getTarget());
+            context.incarnateCompositeState(getTarget());
         }
 
         System.out.println(AutomatonRuntimeCustom.getDebugName(context)

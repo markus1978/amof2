@@ -41,25 +41,6 @@ public class AutomatonRuntimeCustom extends AutomatonRuntimeDlg {
     }
     
     @Override
-    public void run(java.lang.String input) {
-    	if (self.getCurrentState() == null) {
-    		System.out.println("FEHLER");
-    	}
-        while (input.length() > 0) {
-            java.lang.String chr = input.substring(0, 1);
-            if (self.getCurrentState() == null) {
-        		System.out.println("FEHLER");
-        	}
-            boolean consumed = consume(chr);            
-            input = input.substring(1);
-            if (!consumed) {
-                // ignore token
-                System.out.println("ignoring token '" + chr + "'");
-            }
-        }
-    }
-    
-    @Override
     public boolean consume(java.lang.String token)  {
         Transition transition = getCurrentState().getEnabledTransition(token);
         if (transition != null) {
@@ -77,9 +58,11 @@ public class AutomatonRuntimeCustom extends AutomatonRuntimeDlg {
     }
     
     @Override
-    public void createCompositeState(State state)  {
+    public void incarnateCompositeState(State state)  {
         Automaton subAutomaton = state.getSubAutomaton();
-        setCompositeState(state, subAutomaton.instantiate());
+        AutomatonRuntime runtime = subAutomaton.metaCreateAutomatonRuntime();
+        runtime.initialise();
+        setCompositeState(state, runtime);
     }
     
     @Override
