@@ -154,13 +154,22 @@ alt="frontpage hit counter" border="0"/></a> </noscript>
 
 <h4>Static Constraints</h4>
 
-<p><font color="red">TODO: augment meta-model elements with OCL invariants that may be checked at some point</font></p>
+<p>The syntax meta-model defines the models a user can create. But this does not prevent the user model to be in some illegal state although it follows all the syntax rules. E.g. we would say that it is illegal if a user model does not define an initial state in our example language. We can avoid these illegal models by defining static constraints for meta-model classes that may be checked at some later point, e.g. when a user model is loaded from an XMI file or when it is to be executed or interpreted. This is known as static analysis of languages which is another language aspect. We attach OCL invariants to meta-model classes for the specification of static constraints.</p>
+
+<p>For the state automaton example we added the following invariant (named automaton-invariant) to the meta-model class Automaton:</p>
+
+<pre class="hl"><span class="line">     </span>self.state->size() > 0 and initialState->size() = 1 and finalState->size() > 0 and initialState.outgoing->size() = 1
+</pre>
+
+<p>You may add more static constraints with MagicDraw UML by opening a class' specification and then create a new constraint as shown in the figure below. You have to take care to choose "OCL 2.0" as the constraints' language. We will show you later how to check these constraints.</p>
+
+<p><img src="images/invariant_body.png"></p>
+
+<h4>Runtime Structure</h4>
 
 <table border="0">
 <tr>
 <td>
-
-<h4>Runtime Structure</h4>
 
 <p>Model execution requires additional runtime information (e.g. the currentState of an automaton). Such runtime information could be stored in the model itself. But this approach has several flaws. One problem is that we will lose the model's initial state if we execute it. A stronger argument against this approach is that during model execution we often need several runtime representations of the same model element. E.g. in our language, each automaton has to remember its current state. When we reuse automatons as sub-automatons in composite states, each runtime instance of a sub-automaton can reside in a different state.</p>
 
@@ -253,7 +262,7 @@ alt="frontpage hit counter" border="0"/></a> </noscript>
 
 <p>You can find the source code for creating this model in class hub.sam.stateautomaton.StateAutomaton, method createLargeTest. The next section explains how the automaton X can be executed for a sequence of input tokens like "dbdecacf". We will see that automaton Y resides in two different states at runtime, one for state A and one for state B.</p>
 
-<h3>Modelling Execution Semantics</h3>
+<h3>Execution Semantics</h3>
 
 <h4>Introduction</h4>
 
@@ -300,11 +309,35 @@ Our approch is to use operational semantics. We augment the meta-model with oper
 
 <p><img src="images/stateautomaton_complete.png"></p>
 
-<p>We can use Java code or an UML like activity language to describe the behaviour of these operations.</p>
+<p>We may use OCL expressions to describe the behaviour of query operations that do not change the model and Java code or an UML like activity language to describe those operations that change the model.</p>
+
+<h4>OCL Queries</h4>
+
+<p>The operation getEnabledTransition from our example language is such a query operation. But how do we attach an OCL expression with MagicDraw UML?</p>
+
+<p>First, we have to open the specification of the operation and then check that we see all properties.</p>
+
+<p><img src="images/ocl_query_all.png"></p>
+
+<p>The properties page has to mark the operation as a query.</p>
+
+<p><img src="images/ocl_query_isquery.png"></p>
+
+<p>We look for the body condition property and expand it on the right.</p>
+
+<p><img src="images/ocl_query_body.png"></p>
+
+<p>A dialog opens where we can enter the OCL expression. We have to select "OCL 2.0" as the language.</p>
+
+<p><img src="images/ocl_query_language.png"></p>
+
+<p>The OCL query is then added as an owned rule to this operations properties.</p>
+
+<p><img src="images/ocl_query_owned_rule.png"></p>
 
 <h4>Custom Java Code</h4>
 
-<p>Lets begin with Java code. AMOF2 lets us define custom implementations of a model's operations in a Java class named <font color="green">&lt;meta-model-class&gt;Custom</font>, placed in the same package as the meta-model class. Java implementations for all the operations above are supplied with the Eclipse project. We present two of them here and you may look at the others yourself. The two operations are <font color="green">Automaton::instantiate</font> and <font color="green">AutomatonRuntime::run</font>.</p>
+<p>Lets go on with Java code. AMOF2 lets us define custom implementations of a model's operations in a Java class named <font color="green">&lt;meta-model-class&gt;Custom</font>, placed in the same package as the meta-model class. Java implementations for all the operations above are supplied with the Eclipse project. We present two of them here and you may look at the others yourself. The two operations are <font color="green">Automaton::instantiate</font> and <font color="green">AutomatonRuntime::run</font>.</p>
 
 <p><i><font color="red">Figure: source code AutomatonCustom.java</font></i></p>
 
@@ -316,15 +349,11 @@ Our approch is to use operational semantics. We augment the meta-model with oper
 <span class="line">    2 </span>automatonRuntime<span class="sym">.</span><span class="kwd">run</span><span class="sym">(</span><span class="str">&quot;dbdecacf&quot;</span><span class="sym">);</span>
 </pre>
 
-<h4>OCL Queries</h4>
-
-<p><font color="red">TODO</font></p>
-
 <h4>Activities</h4>
 
 <p>The problem with Java code is that its not model based and so tools cannot be derived (e.g. a debugger). What we need is a model based specification of the language semantics. Our approach is to use an activity language that is similar to UML activities. Actually it is a subset of UML activities and its semantic is based on well-known petrinets. It is designed to describe semantic in CMOF-based models, and so we named it <i>MOF Action Semantics</i> (abbreviated MAS). It defines a set of atomic actions that can be used to describe operational semantics. Activities are composed of these actions plus some more elements to model control and object flow. Each activity models the behaviour of an operation. If the model is executed, the corresponding activities will be interpreted in the context of a model instance. Without going into the details of the activity language, we now present our tools for modelling them.</p>
 
-<p>In the past, we just had a parser that could transform a textual notation of an activity in a model. The notation was very cryptic and difficult to understand. Therefore we decided to develop a graphical editor that is based on Eclipse's GEF. This editor is known as MASE (MAS Editor).</p>
+<p>In the past, we just had a parser that could transform a textual notation of an activity into a model. The notation was very cryptic and difficult to understand. Therefore we decided to develop a graphical editor that is based on Eclipse's GEF. This editor is known as MASE (MAS Editor).</p>
 
 <p><img src="images/activities_mase.png"></p>
 
@@ -340,7 +369,7 @@ Our approch is to use operational semantics. We augment the meta-model with oper
 
 <ul>
 	<p><b>Installing required Eclipse Plugins:</b></p>
-	<p>Out Eclipse plugins for meta-modelling are combined as an Eclipse Feature. It includes AMOF (as a plugin), MASE and the MOF2B. Please install this feature by following these instructions:</p>
+	<p>We assembled our Eclipse Plugins for meta-modelling as an Eclipse Feature. It includes AMOF (as a plugin), MAS (execution + editor) and MOF2B. Please install this feature now by following these instructions:</p>
 	<p>Open the Eclipse Installation Wizard ...</p>
 	<p><img src="images/eclipse_install.png"></p>
 	<p>Select "Search for new features to install" ...</p>
@@ -353,33 +382,154 @@ Our approch is to use operational semantics. We augment the meta-model with oper
 	<p>Click "Finish" to start installation.</p>
 </ul>
 
-<p>Lets work with the installed plugins. We want to open the semantics that we provided with the example language. Please switch to the Eclipse perspective "Mof Action Semantics Editor" first. This opens a special editing perspective with the MOF2 Browser Plugin at the left, MAS Editors at the right and a properties view at the bottom.</p>
+<p>Now we would like to use the installed plugins to create and edit activities for our operations. While operations are part of a syntax meta-model that is based on the CMOF meta-meta-model, activities are part of a semantic model that is based on the MAS meta-model. We cannot hold the two models in one XMI file without losing the ability to load syntax with MagicDraw UML. So we have two seperate model files, <i>StateAutomaton.syntax.mdxml</i> and <i>StateAutomaton.semantic.xml</i>. The activities defined the semantic model are fairly useless without a reference to a syntax model. They make only sense in the context of a syntax model that defines the operations for the activities. Therefore we connect a syntax and a semantic model in a MAS context file. This file is a simple Java properties file. It defines the properties syntax and semantic that refer to the two model files. The next figure shows the MAS context file for our example language that is located in <i>resources/StateAutomaton.masctx</i>.</p>
 
-<p><img src="images/mase_perspective.png"></p>
+<pre class="hl"><span class="line">     </span><span class="sym">syntax</span> = StateAutomaton.syntax.mdxml
+<span class="line">     </span><span class="sym">semantic</span> = StateAutomaton.semantic.xml
+</pre>
+
+<p>A MAS context file can be loaded with our MOF 2.0 Browser Plugin. Please switch to the Eclipse perspective "Mof Action Semantics Editor". This opens a special editing perspective with the MOF 2.0 Browser Plugin at the left, MAS Editors at the right and a properties view at the bottom.</p>
+
+<p>You can now add a new MAS context to the repository in the Model View at the left.</p>
 
 <p><img src="images/choose_mas_context.png"></p>
 
+<p>Open the MAS context file in <i>resources/StateAutomaton.masctx</i>. <font color="red">(we need this screenshot from an english windows version)</font></p>
+
 <p><img src="images/choose_mas_context_2.png"></p>
+
+<p>The syntax and semantic model are loaded into two seperate extents in the AMOF2 repository. We can browse the syntax model tree and apply behaviour in the form of MAS activities to operations.</p>
 
 <p><img src="images/activities_edit.png"></p>
 
+<p>This opens a new MAS editor for the operation model.Transition.fire.</p>
+
 <p><img src="images/activities_edit2.png"></p>
 
-<p><font color="red">TODO: mas context file</font></p>
+<p>The MAS language itself is not explained in this tutorial. Please read our paper <a href="">Human Comprehensible and Machine Processable Specifications of Operational Semantics</a> if you want to learn how to model activities with MAS.</p>
 
 <h3>Executing the State Automaton Model</h3>
 
-<p>using the new model management interface, implementation managers, creating a mas context ...</p>
+<p>The last step is to actually execute a model in the language. The next figure shows the required Java code.</p>
+
+<pre class="hl"><span class="line">    1 </span><span class="kwa">package</span> hub<span class="sym">.</span>sam<span class="sym">.</span>stateautomaton<span class="sym">;</span>
+<span class="line">    2 </span>
+<span class="line">    3 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>stateautomaton<span class="sym">.</span>model<span class="sym">.</span>Automaton<span class="sym">;</span>
+<span class="line">    4 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>stateautomaton<span class="sym">.</span>model<span class="sym">.</span>FinalState<span class="sym">;</span>
+<span class="line">    5 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>stateautomaton<span class="sym">.</span>model<span class="sym">.</span>InitialState<span class="sym">;</span>
+<span class="line">    6 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>stateautomaton<span class="sym">.</span>model<span class="sym">.</span><span class="kwc">State</span><span class="sym">;</span>
+<span class="line">    7 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>stateautomaton<span class="sym">.</span>model<span class="sym">.</span>Transition<span class="sym">;</span>
+<span class="line">    8 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>stateautomaton<span class="sym">.</span>model<span class="sym">.</span>modelFactory<span class="sym">;</span>
+<span class="line">    9 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>mas<span class="sym">.</span>execution<span class="sym">.</span>MasExecutionHelper<span class="sym">;</span>
+<span class="line">   10 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>mas<span class="sym">.</span>management<span class="sym">.</span>MasContext<span class="sym">;</span>
+<span class="line">   11 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>mas<span class="sym">.</span>management<span class="sym">.</span>MasModelContainer<span class="sym">;</span>
+<span class="line">   12 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>mas<span class="sym">.</span>management<span class="sym">.</span>MasRepository<span class="sym">;</span>
+<span class="line">   13 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>mas<span class="sym">.</span>management<span class="sym">.</span>MasXmiFiles<span class="sym">;</span>
+<span class="line">   14 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>mas<span class="sym">.</span>management<span class="sym">.</span>SimpleMasXmiFiles<span class="sym">;</span>
+<span class="line">   15 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>mof<span class="sym">.</span>Repository<span class="sym">;</span>
+<span class="line">   16 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>mof<span class="sym">.</span>management<span class="sym">.</span>MofModel<span class="sym">;</span>
+<span class="line">   17 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>mof<span class="sym">.</span>management<span class="sym">.</span>MofModelManager<span class="sym">;</span>
+<span class="line">   18 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>mof<span class="sym">.</span>ocl<span class="sym">.</span>OclEnvironment<span class="sym">;</span>
+<span class="line">   19 </span><span class="kwa">import</span> hub<span class="sym">.</span>sam<span class="sym">.</span>mof<span class="sym">.</span>ocl<span class="sym">.</span>OclObjectEnvironment<span class="sym">;</span>
+<span class="line">   20 </span>
+<span class="line">   21 </span><span class="kwa">public class</span> StateAutomaton <span class="sym">{</span>
+<span class="line">   22 </span>
+<span class="line">   23 </span>    <span class="kwa">public</span> <span class="kwb">void</span> <span class="kwd">execute</span><span class="sym">()</span> <span class="kwa">throws</span> <span class="kwc">Exception</span> <span class="sym">{</span>
+<span class="line">   24 </span>        Repository repository <span class="sym">=</span> Repository<span class="sym">.</span><span class="kwd">getLocalRepository</span><span class="sym">();</span>
+<span class="line">   25 </span>        Repository<span class="sym">.</span><span class="kwd">getConfiguration</span><span class="sym">().</span><span class="kwd">setWarnAboutForeignExtentObjectUsage</span><span class="sym">(</span>false<span class="sym">);</span>
+<span class="line">   26 </span>        Repository<span class="sym">.</span><span class="kwd">getConfiguration</span><span class="sym">().</span><span class="kwd">setGenerousXMI</span><span class="sym">(</span>true<span class="sym">);</span>
+<span class="line">   27 </span>
+<span class="line">   28 </span>        MasXmiFiles xmiFiles <span class="sym">=</span> <span class="kwa">new</span> <span class="kwd">SimpleMasXmiFiles</span><span class="sym">(</span><span class="str">&quot;resources/&quot;</span><span class="sym">,</span> <span class="str">&quot;StateAutomaton.masctx&quot;</span><span class="sym">);</span>
+</pre><p>Loads XMI file locations for a syntax and a semantic model from a MAS context file. The path of the model files is always relative to the MAS context file.</p><pre class="hl">
+<span class="line">   29 </span>
+<span class="line">   30 </span>        MasModelContainer masModelContainer <span class="sym">=</span> <span class="kwa">new</span> <span class="kwd">MasModelContainer</span><span class="sym">(</span>repository<span class="sym">);</span>
+</pre><p>Creates a new container object for the syntax and the semantic model.</p><pre class="hl">
+<span class="line">   31 </span>
+<span class="line">   32 </span>        masModelContainer<span class="sym">.</span><span class="kwd">loadMasModel</span><span class="sym">(</span>xmiFiles<span class="sym">.</span><span class="kwd">getMasFile</span><span class="sym">());</span>
+</pre><p>Loads the semantic model from the XMI file location into the container.</p><pre class="hl">
+<span class="line">   33 </span>
+<span class="line">   34 </span>        masModelContainer<span class="sym">.</span><span class="kwd">loadSyntaxModelForExecution</span><span class="sym">(</span>xmiFiles<span class="sym">.</span><span class="kwd">getSyntaxFile</span><span class="sym">(),</span> <span class="str">&quot;Package:model&quot;</span><span class="sym">);</span>
+</pre><p>Loads the syntax model for execution. This form of loading the syntax model creates implicit elements for runtime-representation-of relationships. In the execution case we need these elements but we do not want to see them when editing the model, and so there is also a loadSyntaxModelForEditing method.</p><pre class="hl">
+<span class="line">   35 </span>        masModelContainer<span class="sym">.</span><span class="kwd">getSyntaxModel</span><span class="sym">().</span><span class="kwd">addJavaPackagePrefix</span><span class="sym">(</span><span class="str">&quot;hub.sam.stateautomaton&quot;</span><span class="sym">);</span>
+</pre><p>Adds the Java package prefix to the model again. We already added this prefix when the repository was generated, but MagicDraw UML does not allow us to save this information with its XMI files.</p><pre class="hl">
+<span class="line">   36 </span>
+<span class="line">   37 </span>        MasContext masContext <span class="sym">=</span> MasRepository<span class="sym">.</span><span class="kwd">getInstance</span><span class="sym">().</span><span class="kwd">createMasContext</span><span class="sym">(</span>masModelContainer<span class="sym">);</span>
+</pre><p>Creates a MAS context object for the models in the container. The context object manages the connection between operations and activities. Basically it allows the MAS implementations manager to find activities for operations and the editing environment to create and delete links.</p><pre class="hl">
+<span class="line">   38 </span>
+<span class="line">   39 </span>        MofModelManager testManager <span class="sym">=</span> <span class="kwa">new</span> <span class="kwd">MofModelManager</span><span class="sym">(</span>repository<span class="sym">);</span>
+<span class="line">   40 </span>        testManager<span class="sym">.</span><span class="kwd">setM2Model</span><span class="sym">(</span>masModelContainer<span class="sym">.</span><span class="kwd">getSyntaxModel</span><span class="sym">());</span>
+<span class="line">   41 </span>        MofModel testModel <span class="sym">=</span> testManager<span class="sym">.</span><span class="kwd">createM1Model</span><span class="sym">(</span><span class="str">&quot;test&quot;</span><span class="sym">);</span>
+<span class="line">   42 </span>        modelFactory testFactory <span class="sym">= (</span>modelFactory<span class="sym">)</span> testModel<span class="sym">.</span><span class="kwd">getFactory</span><span class="sym">();</span>
+</pre><p>Creates an environment for the test model by using our new model management interface. The interface will be described in detail in the <a href="">AMOF2 tutorial</a> as soon as possible. For now, we give the following explanation: We first create a test model manager that can manage models of different meta-layers. We then set the syntax model from the model container as the M2 model and create our test model as the M1 model. We retrieve a factory for the test model which we use later to create elements. In the past there was no such structure like a model manager that could keep all the important information together in one place, e.g. references to model extents or the meta-model of an extent's model.</p><pre class="hl">
+<span class="line">   43 </span>
+<span class="line">   44 </span>        MasExecutionHelper<span class="sym">.</span><span class="kwd">prepareRun</span><span class="sym">(</span>repository<span class="sym">,</span> masContext<span class="sym">,</span> testModel<span class="sym">);</span>
+</pre><p>Prepares the test model for execution within the MAS context and installs implementations managers for activities, ocl queries and Java code (in order).</p><pre class="hl">
+<span class="line">   45 </span>
+<span class="line">   46 </span>        Automaton automaton <span class="sym">=</span> <span class="kwd">createLargeTestModel</span><span class="sym">(</span>testFactory<span class="sym">);</span>
+<span class="line">   47 </span>
+<span class="line">   48 </span>        <span class="kwb">boolean</span> invariantCheckResult <span class="sym">=</span> testModel<span class="sym">.</span><span class="kwd">getExtent</span><span class="sym">().</span><span class="kwd">getAdaptor</span><span class="sym">(</span>OclEnvironment<span class="sym">.</span><span class="kwa">class</span><span class="sym">).</span><span class="kwd">checkAllInvariantsOnAllObjects</span><span class="sym">();</span>
+<span class="line">   49 </span>        <span class="kwa">if</span> <span class="sym">(!</span>invariantCheckResult<span class="sym">) {</span>
+<span class="line">   50 </span>            <span class="kwc">System</span><span class="sym">.</span>out<span class="sym">.</span><span class="kwd">println</span><span class="sym">(</span><span class="str">&quot;Warning: Meta-model invariants evaluated to false.&quot;</span><span class="sym">);</span>
+<span class="line">   51 </span>        <span class="sym">}</span>
+</pre><p>Checks the static constraints that we defined in the beginning of the tutorial. All OCL invariants defined in the meta-model are checked against the test model.</p><pre class="hl">
+<span class="line">   52 </span>
+<span class="line">   53 </span>        automaton<span class="sym">.</span><span class="kwd">run</span><span class="sym">(</span><span class="str">&quot;dbdecacf&quot;</span><span class="sym">);</span>
+</pre><p>Finally: executes the test model.</p><pre class="hl">
+<span class="line">   54 </span>    <span class="sym">}</span>
+<span class="line">   55 </span>
+<span class="line">   56 </span>    <span class="kwa">public static</span> <span class="kwb">void</span> <span class="kwd">main</span><span class="sym">(</span><span class="kwc">String</span><span class="sym">[]</span> args<span class="sym">)</span> <span class="kwa">throws</span> <span class="kwc">Exception</span> <span class="sym">{</span>
+<span class="line">   57 </span>        <span class="kwa">new</span> <span class="kwd">StateAutomaton</span><span class="sym">().</span><span class="kwd">execute</span><span class="sym">();</span>
+<span class="line">   58 </span>    <span class="sym">}</span>
+<span class="line">   59 </span>
+<span class="line">   60 </span>    <span class="kwa">private</span> Automaton <span class="kwd">createLargeTestModel</span><span class="sym">(</span>modelFactory factory<span class="sym">) {</span>
+<span class="line">   61 </span>        <span class="slc">// ...</span>
+<span class="line">   62 </span>    <span class="sym">}</span>
+<span class="line">   63 </span>
+<span class="line">   64 </span><span class="sym">}</span>
+</pre>
+
+<h4>Background information: AMOF2 Implementations Managers</h4>
+
+<p>When an operation is invoked on an object in the AMOF2 repository, AMOF2 looks for installed implementations managers and asks them if they can supply an implementation. Different implementations managers exist. Lets take a look at the source code of method MasExecutionHelper.prepareRun which we have used above.</p>
+
+<pre class="hl">
+<span class="line">    1 </span><span class="kwa">public class</span> MasExecutionHelper <span class="sym">{</span>
+<span class="line">    2 </span>
+<span class="line">    3 </span>    <span class="kwa">public static</span> <span class="kwb">void</span> <span class="kwd">prepareRun</span><span class="sym">(</span>Repository repository<span class="sym">,</span> MasContext masContext<span class="sym">,</span> MofModel m1Model<span class="sym">)</span> <span class="kwa">throws</span> <span class="kwc">Exception</span> <span class="sym">{</span>
+<span class="line">    4 </span>        ExecutionEnvironment env <span class="sym">=</span> <span class="kwa">new</span> <span class="kwd">ExecutionEnvironment</span><span class="sym">(</span>m1Model<span class="sym">.</span><span class="kwd">getExtent</span><span class="sym">(),</span>
+<span class="line">    5 </span>                masContext<span class="sym">.</span><span class="kwd">getMasModel</span><span class="sym">().</span><span class="kwd">getMetaModel</span><span class="sym">().</span><span class="kwd">getExtent</span><span class="sym">(),</span> repository<span class="sym">);</span>
+<span class="line">    6 </span>
+<span class="line">    7 </span>        Extent semanticExtent <span class="sym">=</span> masContext<span class="sym">.</span><span class="kwd">getMasModel</span><span class="sym">().</span><span class="kwd">getExtent</span><span class="sym">();</span>
+<span class="line">    8 </span>        <span class="sym">((</span>ExtentImpl<span class="sym">)</span> semanticExtent<span class="sym">).</span><span class="kwd">setCustomImplementationsManager</span><span class="sym">(</span><span class="kwa">new</span> <span class="kwd">ImplementationsManagerContainer</span><span class="sym">(</span>
+<span class="line">    9 </span>                <span class="kwa">new</span> ImplementationsManager<span class="sym">[] {</span>
+<span class="line">   10 </span>                        <span class="kwa">new</span> <span class="kwd">MultiLevelImplementationsManager</span><span class="sym">(</span>masContext<span class="sym">.</span><span class="kwd">getMasModel</span><span class="sym">().</span><span class="kwd">getFactory</span><span class="sym">()),</span>
+<span class="line">   11 </span>                        <span class="kwa">new</span> <span class="kwd">ImplementationsManagerImpl</span><span class="sym">() }</span>
+<span class="line">   12 </span>        <span class="sym">));</span>
+</pre><p>At this point, things become complicated :) We install implementations managers for activities in our language's semantic extent. We have to do this because MAS itself is a language and we use this language for modelling the behaviour of other languages (e.g. the state automatons). It consists of a syntax meta-model and execution semantics with an implementation in Java code. You can think of its execution semantics as the engine that interprets a given activity of your language. We install a MultiLevelImplementationsManager first. It handles implementations for runtime operations (e.g. metaCreateAutomatonRuntime, metaDelete). Next, we install a ImplementationsManagerImpl which handles implementations in Java code.</p><pre class="hl">
+<span class="line">   13 </span>
+<span class="line">   14 </span>        <span class="slc">// MultiLevelImplementationsManager creates runtime instances</span>
+<span class="line">   15 </span>        <span class="sym">((</span>ExtentImpl<span class="sym">)</span> m1Model<span class="sym">.</span><span class="kwd">getExtent</span><span class="sym">()).</span><span class="kwd">setCustomImplementationsManager</span><span class="sym">(</span><span class="kwa">new</span> <span class="kwd">ImplementationsManagerContainer</span><span class="sym">(</span>
+<span class="line">   16 </span>                <span class="kwa">new</span> ImplementationsManager<span class="sym">[] {</span>
+<span class="line">   17 </span>                        <span class="kwa">new</span> <span class="kwd">MASImplementationsManager</span><span class="sym">(</span>masContext<span class="sym">,</span> env<span class="sym">),</span>
+<span class="line">   18 </span>                        <span class="kwa">new</span> <span class="kwd">MultiLevelImplementationsManager</span><span class="sym">(</span>m1Model<span class="sym">.</span><span class="kwd">getFactory</span><span class="sym">()),</span>
+<span class="line">   19 </span>                        <span class="kwa">new</span> <span class="kwd">OclImplementationsManager</span><span class="sym">(),</span>
+<span class="line">   20 </span>                        <span class="kwa">new</span> <span class="kwd">ImplementationsManagerImpl</span><span class="sym">() }</span>
+<span class="line">   21 </span>        <span class="sym">));</span>
+<span class="line">   22 </span>    <span class="sym">}</span>
+</pre><p>The order in which we install implementations managers matters. The first manager is checked first and then the second and so on. This way we could model one operation's implementation with an activity and all the others with Java code. We just have to guarantee that there is one implementation that can be found. The OclImplementationsManager is new here. It looks for OCL queries attached to operations in the meta-model.</p><pre class="hl">
+<span class="line">   23 </span>
+<span class="line">   24 </span><span class="sym">}</span>
+</pre>
 
 <h2>Future Tools</h2>
 
 <h3>Modelling Notation</h3>
 
-<p>Textual Editing Framework (TEF) ...</p>
+<p>Textual Editing Framework (TEF)</p>
 
 <h3>Debugging MAS</h3>
 	
-<p>MAS Debugger ...</p>
+<p>MAS Debugger</p>
 
 
 

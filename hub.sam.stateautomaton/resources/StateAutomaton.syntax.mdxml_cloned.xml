@@ -1,86 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:cmof="http://www.foo.org/cmof" xmi:version="2.1">
-  <cmof:Package xmi:id="5265" visibility="public" name="model">
-    <ownedType xmi:id="5266" visibility="public" isAbstract="false" name="State" package="5265" xsi:type="Class">
-      <ownedAttribute xmi:id="5268" visibility="public" isDerived="false" type="5272" class="5266" association="5269" isComposite="false" isDerivedUnion="false" upper="-1" opposite="5270" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="outgoing" xsi:type="Property" />
-      <ownedAttribute xmi:id="5275" visibility="public" isDerived="false" type="5272" class="5266" association="5274" isComposite="false" isDerivedUnion="false" upper="-1" opposite="5273" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="incoming" xsi:type="Property" />
-      <ownedAttribute xmi:id="5331" visibility="public" isDerived="false" type="5309" class="5266" association="5332" isComposite="false" isDerivedUnion="false" upper="1" opposite="5333" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="subAutomaton" xsi:type="Property" />
-      <ownedAttribute xmi:id="5334" isDerivedUnion="false" visibility="private" upper="1" isDerived="false" lower="1" type="5284" class="5266" isReadOnly="false" isOrdered="false" isUnique="true" name="name" isComposite="true" xsi:type="Property" />
-      <ownedOperation xmi:id="5335" isQuery="true" visibility="public" upper="1" lower="1" class="5266" isOrdered="false" isUnique="true" concurrency="sequential" name="getEnabledTransition" xsi:type="Operation">
-        <formalParameter xmi:id="5336" visibility="public" upper="1" lower="1" direction="return" type="5272" isOrdered="false" isUnique="true" operation="5335" xsi:type="Parameter" />
-        <formalParameter xmi:id="5337" visibility="public" upper="1" lower="1" direction="in" type="5284" isOrdered="false" isUnique="true" name="input" operation="5335" xsi:type="Parameter" />
-        <bodyCondition xmi:id="5338" namespace="5335" visibility="public" name="unbenannt1" xsi:type="Constraint">
-          <specification xmi:id="5339" visibility="public" language="OCL2.0" body="outgoing-&gt;select(t | t.input = input)-&gt;asOrderedSet()-&gt;first()" xsi:type="OpaqueExpression" />
+  <cmof:Package xmi:id="5275" visibility="public" name="model">
+    <ownedType xmi:id="5276" visibility="public" isAbstract="false" name="State" package="5275" xsi:type="Class">
+      <ownedAttribute xmi:id="5278" visibility="public" isDerived="false" type="5282" class="5276" association="5279" isComposite="false" isDerivedUnion="false" upper="-1" opposite="5280" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="outgoing" xsi:type="Property" />
+      <ownedAttribute xmi:id="5285" visibility="public" isDerived="false" type="5282" class="5276" association="5284" isComposite="false" isDerivedUnion="false" upper="-1" opposite="5283" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="incoming" xsi:type="Property" />
+      <ownedAttribute xmi:id="5344" visibility="public" isDerived="false" type="5319" class="5276" association="5345" isComposite="false" isDerivedUnion="false" upper="1" opposite="5346" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="subAutomaton" xsi:type="Property" />
+      <ownedAttribute xmi:id="5347" isDerivedUnion="false" visibility="private" upper="1" isDerived="false" lower="1" type="5294" class="5276" isReadOnly="false" isOrdered="false" isUnique="true" name="name" isComposite="true" xsi:type="Property" />
+      <ownedOperation xmi:id="5348" isQuery="true" visibility="public" upper="1" lower="1" class="5276" isOrdered="false" isUnique="true" concurrency="sequential" name="getEnabledTransition" xsi:type="Operation">
+        <formalParameter xmi:id="5349" visibility="public" upper="1" lower="1" direction="return" type="5282" isOrdered="false" isUnique="true" operation="5348" xsi:type="Parameter" />
+        <formalParameter xmi:id="5350" visibility="public" upper="1" lower="1" direction="in" type="5294" isOrdered="false" isUnique="true" name="input" operation="5348" xsi:type="Parameter" />
+        <bodyCondition xmi:id="5351" namespace="5348" visibility="public" name="unbenannt1" xsi:type="Constraint">
+          <specification xmi:id="5352" visibility="public" language="OCL2.0" body="outgoing-&gt;select(t | t.input = input)-&gt;asOrderedSet()-&gt;first()" xsi:type="OpaqueExpression" />
         </bodyCondition>
       </ownedOperation>
     </ownedType>
-    <ownedType xmi:id="5309" metaInstances="5287" visibility="public" isAbstract="false" name="Automaton" package="5265" xsi:type="Class">
-      <ownedAttribute xmi:id="5310" visibility="public" isDerived="false" type="5272" class="5309" association="5311" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5312" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="transition" xsi:type="Property" />
-      <ownedAttribute xmi:id="5313" isDerivedUnion="false" visibility="private" upper="1" isDerived="false" lower="1" type="5284" class="5309" isReadOnly="false" isOrdered="false" isUnique="true" name="name" isComposite="true" xsi:type="Property" />
-      <ownedAttribute xmi:id="5314" visibility="public" isDerived="false" subsettedProperty="5317" type="5320" class="5309" association="5315" isComposite="false" isDerivedUnion="false" upper="1" opposite="5316" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="initialState" xsi:type="Property" />
-      <ownedAttribute xmi:id="5317" visibility="public" isDerived="false" type="5266" class="5309" association="5318" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5319" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="state" xsi:type="Property" />
-      <ownedAttribute xmi:id="5321" visibility="public" isDerived="false" subsettedProperty="5317" type="5324" class="5309" association="5322" isComposite="false" isDerivedUnion="false" upper="-1" opposite="5323" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="finalState" xsi:type="Property" />
-      <ownedOperation xmi:id="5325" isQuery="false" visibility="public" upper="1" lower="1" class="5309" isOrdered="false" isUnique="true" concurrency="sequential" name="run" xsi:type="Operation">
-        <formalParameter xmi:id="5326" visibility="public" upper="1" lower="1" direction="in" type="5284" isOrdered="false" isUnique="true" name="inputSequence" operation="5325" xsi:type="Parameter" />
+    <ownedType xmi:id="5319" metaInstances="5297" visibility="public" isAbstract="false" name="Automaton" package="5275" xsi:type="Class">
+      <ownedRule xmi:id="5338" namespace="5319" visibility="public" name="automaton-invariant" constrainedElement="5319" xsi:type="Constraint">
+        <specification xmi:id="5339" visibility="public" language="OCL2.0" body="self.state-&gt;size() &gt; 0 and initialState-&gt;size() = 1 and finalState-&gt;size() &gt; 0 and initialState.outgoing-&gt;size() = 1" xsi:type="OpaqueExpression" />
+      </ownedRule>
+      <ownedAttribute xmi:id="5320" visibility="public" isDerived="false" type="5282" class="5319" association="5321" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5322" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="transition" xsi:type="Property" />
+      <ownedAttribute xmi:id="5323" isDerivedUnion="false" visibility="private" upper="1" isDerived="false" lower="1" type="5294" class="5319" isReadOnly="false" isOrdered="false" isUnique="true" name="name" isComposite="true" xsi:type="Property" />
+      <ownedAttribute xmi:id="5324" visibility="public" isDerived="false" subsettedProperty="5327" type="5330" class="5319" association="5325" isComposite="false" isDerivedUnion="false" upper="1" opposite="5326" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="initialState" xsi:type="Property" />
+      <ownedAttribute xmi:id="5327" visibility="public" isDerived="false" type="5276" class="5319" association="5328" isComposite="true" isDerivedUnion="false" upper="-1" opposite="5329" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="state" xsi:type="Property" />
+      <ownedAttribute xmi:id="5331" visibility="public" isDerived="false" subsettedProperty="5327" type="5334" class="5319" association="5332" isComposite="false" isDerivedUnion="false" upper="-1" opposite="5333" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="finalState" xsi:type="Property" />
+      <ownedOperation xmi:id="5335" isQuery="false" visibility="public" upper="1" lower="1" class="5319" isOrdered="false" isUnique="true" concurrency="sequential" name="run" xsi:type="Operation">
+        <formalParameter xmi:id="5336" visibility="public" upper="1" lower="1" direction="in" type="5294" isOrdered="false" isUnique="true" name="inputSequence" operation="5335" xsi:type="Parameter" />
       </ownedOperation>
     </ownedType>
-    <ownedType xmi:id="5272" visibility="public" isAbstract="false" name="Transition" package="5265" xsi:type="Class">
-      <ownedAttribute xmi:id="5270" visibility="public" isDerived="false" type="5266" class="5272" association="5269" isComposite="false" isDerivedUnion="false" upper="1" opposite="5268" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="source" xsi:type="Property" />
-      <ownedAttribute xmi:id="5273" visibility="public" isDerived="false" type="5266" class="5272" association="5274" isComposite="false" isDerivedUnion="false" upper="1" opposite="5275" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="target" xsi:type="Property" />
-      <ownedAttribute xmi:id="5283" isDerivedUnion="false" visibility="private" upper="1" isDerived="false" lower="1" type="5284" class="5272" isReadOnly="false" isOrdered="false" isUnique="true" name="input" isComposite="true" xsi:type="Property" />
-      <ownedOperation xmi:id="5285" isQuery="false" visibility="public" upper="1" lower="1" class="5272" isOrdered="false" isUnique="true" concurrency="sequential" name="fire" xsi:type="Operation">
-        <formalParameter xmi:id="5286" visibility="public" upper="1" lower="1" direction="in" type="5287" isOrdered="false" isUnique="true" name="context" operation="5285" xsi:type="Parameter" />
-        <ownedComment xmi:id="5328" body="mas-id--1937772982" xsi:type="Comment" />
+    <ownedType xmi:id="5282" visibility="public" isAbstract="false" name="Transition" package="5275" xsi:type="Class">
+      <ownedAttribute xmi:id="5280" visibility="public" isDerived="false" type="5276" class="5282" association="5279" isComposite="false" isDerivedUnion="false" upper="1" opposite="5278" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="source" xsi:type="Property" />
+      <ownedAttribute xmi:id="5283" visibility="public" isDerived="false" type="5276" class="5282" association="5284" isComposite="false" isDerivedUnion="false" upper="1" opposite="5285" lower="1" isReadOnly="false" isUnique="true" isOrdered="false" name="target" xsi:type="Property" />
+      <ownedAttribute xmi:id="5293" isDerivedUnion="false" visibility="private" upper="1" isDerived="false" lower="1" type="5294" class="5282" isReadOnly="false" isOrdered="false" isUnique="true" name="input" isComposite="true" xsi:type="Property" />
+      <ownedOperation xmi:id="5295" isQuery="false" visibility="public" upper="1" lower="1" class="5282" isOrdered="false" isUnique="true" concurrency="sequential" name="fire" xsi:type="Operation">
+        <formalParameter xmi:id="5296" visibility="public" upper="1" lower="1" direction="in" type="5297" isOrdered="false" isUnique="true" name="context" operation="5295" xsi:type="Parameter" />
+        <ownedComment xmi:id="5341" body="mas-id--1937772982" xsi:type="Comment" />
       </ownedOperation>
-      <ownedOperation xmi:id="5329" isQuery="false" visibility="public" upper="1" lower="1" class="5272" isOrdered="false" isUnique="true" concurrency="sequential" name="printDebugInfo" xsi:type="Operation">
-        <ownedComment xmi:id="5330" body="mas-id-721296520" xsi:type="Comment" />
+      <ownedOperation xmi:id="5342" isQuery="false" visibility="public" upper="1" lower="1" class="5282" isOrdered="false" isUnique="true" concurrency="sequential" name="printDebugInfo" xsi:type="Operation">
+        <ownedComment xmi:id="5343" body="mas-id-721296520" xsi:type="Comment" />
       </ownedOperation>
     </ownedType>
-    <ownedType xmi:id="5311" visibility="public" isDerived="false" memberEnd="5310" isAbstract="false" package="5265" xsi:type="Association">
-      <ownedEnd xmi:id="5312" isDerivedUnion="false" owningAssociation="5311" visibility="private" opposite="5310" upper="1" isDerived="false" lower="1" type="5309" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    <ownedType xmi:id="5321" visibility="public" isDerived="false" memberEnd="5320" isAbstract="false" package="5275" xsi:type="Association">
+      <ownedEnd xmi:id="5322" isDerivedUnion="false" owningAssociation="5321" visibility="private" opposite="5320" upper="1" isDerived="false" lower="1" type="5319" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
     </ownedType>
-    <ownedType xmi:id="5269" visibility="public" isDerived="false" memberEnd="5270 5268" isAbstract="false" package="5265" xsi:type="Association" />
-    <ownedType xmi:id="5274" visibility="public" isDerived="false" memberEnd="5273 5275" isAbstract="false" package="5265" xsi:type="Association" />
-    <ownedType xmi:id="5287" metaClassifier="5309" visibility="public" isAbstract="false" name="AutomatonRuntime" package="5265" xsi:type="Class">
-      <ownedAttribute xmi:id="5288" visibility="public" isDerived="false" type="5266" class="5287" association="5289" isComposite="false" isDerivedUnion="false" upper="1" opposite="5290" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="currentState" xsi:type="Property" />
-      <ownedAttribute xmi:id="5292" visibility="public" isDerived="false" type="5287" class="5287" association="5293" isComposite="true" isDerivedUnion="false" upper="1" opposite="5294" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="compositeState" xsi:type="Property">
-        <qualifier xmi:id="5295" isDerivedUnion="false" visibility="public" upper="1" isDerived="false" lower="1" type="5266" isReadOnly="false" isOrdered="false" isUnique="true" name="state" isComposite="false" xsi:type="Property" />
+    <ownedType xmi:id="5279" visibility="public" isDerived="false" memberEnd="5280 5278" isAbstract="false" package="5275" xsi:type="Association" />
+    <ownedType xmi:id="5284" visibility="public" isDerived="false" memberEnd="5283 5285" isAbstract="false" package="5275" xsi:type="Association" />
+    <ownedType xmi:id="5297" metaClassifier="5319" visibility="public" isAbstract="false" name="AutomatonRuntime" package="5275" xsi:type="Class">
+      <ownedAttribute xmi:id="5298" visibility="public" isDerived="false" type="5276" class="5297" association="5299" isComposite="false" isDerivedUnion="false" upper="1" opposite="5300" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="currentState" xsi:type="Property" />
+      <ownedAttribute xmi:id="5302" visibility="public" isDerived="false" type="5297" class="5297" association="5303" isComposite="true" isDerivedUnion="false" upper="1" opposite="5304" lower="0" isReadOnly="false" isUnique="true" isOrdered="false" name="compositeState" xsi:type="Property">
+        <qualifier xmi:id="5305" isDerivedUnion="false" visibility="public" upper="1" isDerived="false" lower="1" type="5276" isReadOnly="false" isOrdered="false" isUnique="true" name="state" isComposite="false" xsi:type="Property" />
       </ownedAttribute>
-      <ownedOperation xmi:id="5296" isQuery="false" visibility="public" upper="1" lower="1" class="5287" isOrdered="false" isUnique="true" concurrency="sequential" name="initialise" xsi:type="Operation" />
-      <ownedOperation xmi:id="5297" isQuery="false" visibility="public" upper="1" lower="1" class="5287" isOrdered="false" isUnique="true" concurrency="sequential" name="destroy" xsi:type="Operation">
-        <ownedComment xmi:id="5298" body="mas-id--690545127" xsi:type="Comment" />
+      <ownedOperation xmi:id="5306" isQuery="false" visibility="public" upper="1" lower="1" class="5297" isOrdered="false" isUnique="true" concurrency="sequential" name="initialise" xsi:type="Operation" />
+      <ownedOperation xmi:id="5307" isQuery="false" visibility="public" upper="1" lower="1" class="5297" isOrdered="false" isUnique="true" concurrency="sequential" name="destroy" xsi:type="Operation">
+        <ownedComment xmi:id="5308" body="mas-id--690545127" xsi:type="Comment" />
       </ownedOperation>
-      <ownedOperation xmi:id="5299" isQuery="false" visibility="public" upper="1" lower="1" class="5287" isOrdered="false" isUnique="true" concurrency="sequential" name="incarnateCompositeState" xsi:type="Operation">
-        <formalParameter xmi:id="5300" visibility="public" upper="1" lower="1" direction="in" type="5266" isOrdered="false" isUnique="true" name="state" operation="5299" xsi:type="Parameter" />
-        <ownedComment xmi:id="5303" body="mas-id-1425116839" xsi:type="Comment" />
+      <ownedOperation xmi:id="5309" isQuery="false" visibility="public" upper="1" lower="1" class="5297" isOrdered="false" isUnique="true" concurrency="sequential" name="incarnateCompositeState" xsi:type="Operation">
+        <formalParameter xmi:id="5310" visibility="public" upper="1" lower="1" direction="in" type="5276" isOrdered="false" isUnique="true" name="state" operation="5309" xsi:type="Parameter" />
+        <ownedComment xmi:id="5313" body="mas-id-1425116839" xsi:type="Comment" />
       </ownedOperation>
-      <ownedOperation xmi:id="5304" isQuery="false" visibility="public" upper="1" lower="1" class="5287" isOrdered="false" isUnique="true" concurrency="sequential" name="consume" xsi:type="Operation">
-        <formalParameter xmi:id="5305" visibility="public" upper="1" lower="1" direction="in" type="5284" isOrdered="false" isUnique="true" name="token" operation="5304" xsi:type="Parameter" />
-        <formalParameter xmi:id="5306" visibility="public" upper="1" lower="1" direction="return" type="5307" isOrdered="false" isUnique="true" operation="5304" xsi:type="Parameter" />
-        <ownedComment xmi:id="5308" body="mas-id--1296401893" xsi:type="Comment" />
+      <ownedOperation xmi:id="5314" isQuery="false" visibility="public" upper="1" lower="1" class="5297" isOrdered="false" isUnique="true" concurrency="sequential" name="consume" xsi:type="Operation">
+        <formalParameter xmi:id="5315" visibility="public" upper="1" lower="1" direction="in" type="5294" isOrdered="false" isUnique="true" name="token" operation="5314" xsi:type="Parameter" />
+        <formalParameter xmi:id="5316" visibility="public" upper="1" lower="1" direction="return" type="5317" isOrdered="false" isUnique="true" operation="5314" xsi:type="Parameter" />
+        <ownedComment xmi:id="5318" body="mas-id--1296401893" xsi:type="Comment" />
       </ownedOperation>
     </ownedType>
-    <ownedType xmi:id="5284" visibility="public" isAbstract="false" name="String" package="5265" xsi:type="PrimitiveType" />
-    <ownedType xmi:id="5307" visibility="public" isAbstract="false" name="Boolean" package="5265" xsi:type="PrimitiveType" />
-    <ownedType xmi:id="5320" visibility="public" isAbstract="false" name="InitialState" package="5265" superClass="5266" xsi:type="Class" />
-    <ownedType xmi:id="5324" visibility="public" isAbstract="false" name="FinalState" package="5265" superClass="5266" xsi:type="Class" />
-    <ownedType xmi:id="5315" visibility="public" isDerived="false" memberEnd="5314" isAbstract="false" package="5265" xsi:type="Association">
-      <ownedEnd xmi:id="5316" isDerivedUnion="false" owningAssociation="5315" visibility="private" opposite="5314" upper="1" isDerived="false" lower="1" type="5309" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    <ownedType xmi:id="5294" visibility="public" isAbstract="false" name="String" package="5275" xsi:type="PrimitiveType" />
+    <ownedType xmi:id="5317" visibility="public" isAbstract="false" name="Boolean" package="5275" xsi:type="PrimitiveType" />
+    <ownedType xmi:id="5330" visibility="public" isAbstract="false" name="InitialState" package="5275" superClass="5276" xsi:type="Class" />
+    <ownedType xmi:id="5334" visibility="public" isAbstract="false" name="FinalState" package="5275" superClass="5276" xsi:type="Class" />
+    <ownedType xmi:id="5325" visibility="public" isDerived="false" memberEnd="5324" isAbstract="false" package="5275" xsi:type="Association">
+      <ownedEnd xmi:id="5326" isDerivedUnion="false" owningAssociation="5325" visibility="private" opposite="5324" upper="1" isDerived="false" lower="1" type="5319" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
     </ownedType>
-    <ownedType xmi:id="5332" visibility="public" isDerived="false" memberEnd="5331" isAbstract="false" package="5265" xsi:type="Association">
-      <ownedEnd xmi:id="5333" isDerivedUnion="false" owningAssociation="5332" visibility="private" opposite="5331" upper="1" isDerived="false" lower="1" type="5266" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    <ownedType xmi:id="5345" visibility="public" isDerived="false" memberEnd="5344" isAbstract="false" package="5275" xsi:type="Association">
+      <ownedEnd xmi:id="5346" isDerivedUnion="false" owningAssociation="5345" visibility="private" opposite="5344" upper="1" isDerived="false" lower="1" type="5276" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
     </ownedType>
-    <ownedType xmi:id="5318" visibility="public" isDerived="false" memberEnd="5317" isAbstract="false" package="5265" xsi:type="Association">
-      <ownedEnd xmi:id="5319" isDerivedUnion="false" owningAssociation="5318" visibility="public" opposite="5317" upper="1" isDerived="false" lower="1" type="5309" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    <ownedType xmi:id="5328" visibility="public" isDerived="false" memberEnd="5327" isAbstract="false" package="5275" xsi:type="Association">
+      <ownedEnd xmi:id="5329" isDerivedUnion="false" owningAssociation="5328" visibility="public" opposite="5327" upper="1" isDerived="false" lower="1" type="5319" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
     </ownedType>
-    <ownedType xmi:id="5322" visibility="public" isDerived="false" memberEnd="5321" isAbstract="false" package="5265" xsi:type="Association">
-      <ownedEnd xmi:id="5323" isDerivedUnion="false" owningAssociation="5322" visibility="private" opposite="5321" upper="1" isDerived="false" lower="1" type="5309" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    <ownedType xmi:id="5332" visibility="public" isDerived="false" memberEnd="5331" isAbstract="false" package="5275" xsi:type="Association">
+      <ownedEnd xmi:id="5333" isDerivedUnion="false" owningAssociation="5332" visibility="private" opposite="5331" upper="1" isDerived="false" lower="1" type="5319" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
     </ownedType>
-    <ownedType xmi:id="5289" visibility="public" isDerived="false" memberEnd="5288" isAbstract="false" package="5265" xsi:type="Association">
-      <ownedEnd xmi:id="5290" isDerivedUnion="false" owningAssociation="5289" visibility="private" opposite="5288" upper="1" isDerived="false" lower="1" type="5287" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    <ownedType xmi:id="5299" visibility="public" isDerived="false" memberEnd="5298" isAbstract="false" package="5275" xsi:type="Association">
+      <ownedEnd xmi:id="5300" isDerivedUnion="false" owningAssociation="5299" visibility="private" opposite="5298" upper="1" isDerived="false" lower="1" type="5297" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
     </ownedType>
-    <ownedType xmi:id="5293" visibility="public" isDerived="false" memberEnd="5292" isAbstract="false" package="5265" xsi:type="Association">
-      <ownedEnd xmi:id="5294" isDerivedUnion="false" owningAssociation="5293" visibility="public" opposite="5292" upper="1" isDerived="false" lower="1" type="5287" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
+    <ownedType xmi:id="5303" visibility="public" isDerived="false" memberEnd="5302" isAbstract="false" package="5275" xsi:type="Association">
+      <ownedEnd xmi:id="5304" isDerivedUnion="false" owningAssociation="5303" visibility="public" opposite="5302" upper="1" isDerived="false" lower="1" type="5297" isReadOnly="false" isOrdered="false" isUnique="true" isComposite="false" xsi:type="Property" />
     </ownedType>
   </cmof:Package>
 </xmi:XMI>

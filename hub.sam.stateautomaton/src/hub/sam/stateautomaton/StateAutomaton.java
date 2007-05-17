@@ -21,7 +21,6 @@
 package hub.sam.stateautomaton;
 
 import hub.sam.stateautomaton.model.Automaton;
-import hub.sam.stateautomaton.model.AutomatonRuntime;
 import hub.sam.stateautomaton.model.FinalState;
 import hub.sam.stateautomaton.model.InitialState;
 import hub.sam.stateautomaton.model.State;
@@ -36,6 +35,7 @@ import hub.sam.mas.management.SimpleMasXmiFiles;
 import hub.sam.mof.Repository;
 import hub.sam.mof.management.MofModel;
 import hub.sam.mof.management.MofModelManager;
+import hub.sam.mof.ocl.OclEnvironment;
 import hub.sam.mof.ocl.OclObjectEnvironment;
 
 public class StateAutomaton {
@@ -69,12 +69,17 @@ public class StateAutomaton {
         MofModel testModel = testManager.createM1Model("test");
         modelFactory testFactory = (modelFactory) testModel.getFactory();
         
+        // prepares execution and installs implementations managers for activities,
+        // ocl queries and java code (in order).
         MasExecutionHelper.prepareRun(repository, masContext, testModel);
-        
-        //Automaton automaton = createSimpleTestModel(testFactory);
-        //automaton.instantiate().run("baba");
-        
+               
         Automaton automaton = createLargeTestModel(testFactory);
+        
+        boolean invariantCheckResult = testModel.getExtent().getAdaptor(OclEnvironment.class).checkAllInvariantsOnAllObjects();
+        if (!invariantCheckResult) {
+            System.out.println("Warning: Meta-model invariants evaluated to false.");
+        }
+        
         automaton.run("dbdecacf");
     }
     
@@ -214,6 +219,77 @@ public class StateAutomaton {
         
         // connect states and transitions
         tstart.setSource(start);
+        tstart.setTarget(stateA);
+        ta.setSource(stateA);
+        ta.setTarget(stop);
+        
+        // inner automaton Y
+        Automaton automatonY = factory.createAutomaton();
+        automatonY.setName("Y");
+        stateA.setSubAutomaton(automatonY);
+        
+        // states
+        InitialState startY = factory.createInitialState();
+        startY.setName("startY");
+        
+        State stateB = factory.createState();
+        stateB.setName("B");
+
+        FinalState stopY = factory.createFinalState();
+        stopY.setName("stopY");
+        
+        // transitions
+        Transition tstartY = factory.createTransition();
+
+        Transition tb = factory.createTransition();
+        tb.setInput("b");
+        
+        // add states and transitions to automatons
+        automatonY.setInitialState(startY);
+        automatonY.getState().add(stateB);
+        automatonY.getFinalState().add(stopY);
+        automatonY.getTransition().add(tstartY);
+        automatonY.getTransition().add(tb);
+        
+        // connect states and transitions
+        tstartY.setSource(startY);
+        tstartY.setTarget(stateB);
+        tb.setSource(stateB);
+        tb.setTarget(stopY);
+        
+        return automaton;
+    }
+    
+    private Automaton createIncompleteTestModel(modelFactory factory) {
+        // main automaton X
+        Automaton automaton = factory.createAutomaton();
+        automaton.setName("X");
+        
+        // states
+        //InitialState start = factory.createInitialState();
+        //start.setName("start");
+        
+        State stateA = factory.createState();
+        stateA.setName("A");
+
+        FinalState stop = factory.createFinalState();
+        stop.setName("stop");
+        
+        // transitions
+        Transition tstart = factory.createTransition();
+
+        Transition ta = factory.createTransition();
+        ta.setInput("a");
+
+        // add states and transitions to automatons
+        //automaton.setInitialState(start);
+        automaton.getState().add(stateA);
+        automaton.getFinalState().add(stop);
+        automaton.getTransition().add(tstart);
+        automaton.getTransition().add(ta);
+        
+        // connect states and transitions
+        //tstart.setSource(start);
         tstart.setTarget(stateA);
         ta.setSource(stateA);
         ta.setTarget(stop);

@@ -20,8 +20,6 @@
 
 package hub.sam.stateautomaton.model;
 
-import hub.sam.stateautomaton.StateAutomaton;
-
 public class AutomatonRuntimeCustom extends AutomatonRuntimeDlg {
 
     /**
@@ -30,10 +28,10 @@ public class AutomatonRuntimeCustom extends AutomatonRuntimeDlg {
      */
     @Override
     public void initialise() {
-        StateAutomaton.evaluateInvariant("self.state->size() > 0 and initialState->size() = 1 and finalState->size() > 0",
+        /*StateAutomaton.evaluateInvariant("self.state->size() > 0 and initialState->size() = 1 and finalState->size() > 0",
                 getMetaClassifierAutomaton());
         StateAutomaton.evaluateInvariant("initialState.outgoing->size() = 1",
-                self.getMetaClassifierAutomaton());
+                self.getMetaClassifierAutomaton());*/
 
         setCurrentState(getMetaClassifierAutomaton().getInitialState());
         Transition initialTransition = getCurrentState().getOutgoing().iterator().next();
