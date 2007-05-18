@@ -6,7 +6,8 @@ Bundle-Version: 1.1.0
 Bundle-Activator: hub.sam.mof.PlugInActivator
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
- org.junit
+ org.junit,
+ hub.sam.mof.oslo
 Eclipse-LazyStart: true
 Eclipse-BuddyPolicy: registered
 Bundle-ClassPath: resources/lib/ant.jar,
@@ -14,7 +15,6 @@ Bundle-ClassPath: resources/lib/ant.jar,
  resources/lib/jbossall-client.jar,
  resources/lib/jdom.jar,
  resources/lib/mopa.jar,
- resources/lib/oslo.jar,
  amof.jar
 Export-Package: .,
  cmof,
@@ -78,11 +78,4 @@ Export-Package: .,
  hub.sam.tools.tests,
  hub.sam.util,
  org.jdom,
- org.oslo.ocl20,
- org.oslo.ocl20.semantics.bridge,
- org.oslo.ocl20.semantics.model.contexts,
- org.oslo.ocl20.semantics.model.expressions,
- org.oslo.ocl20.semantics.model.types,
- org.oslo.ocl20.standard.lib,
- org.oslo.ocl20.standard.types,
  warehouse

@@ -62,10 +62,11 @@ public class MofOclModelElementTypeImpl extends OclAnyTypeImpl implements OclMod
     	int index = 0;
     	int i = 0;
     	boolean newSlot = true;
-    	for (Object obj: MofEvaluationAdaptor.currentValue) {
+    	loop: for (Object obj: MofEvaluationAdaptor.currentValue) {
     		if (obj == null) {
     			index = i;
     			newSlot = false;
+    			break loop;
     		}
     		i++;
     	}    	
@@ -111,10 +112,7 @@ public class MofOclModelElementTypeImpl extends OclAnyTypeImpl implements OclMod
             } else if (mofElementType instanceof DataType) {
             	// empty
             }
-        }
-        if (prop == null) {
-        	System.out.println("fehler");
-        }
+        }        
         return prop;
     }
 
