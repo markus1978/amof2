@@ -3,8 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="generated-src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/AMOF2"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/MAS"/>
-	<classpathentry kind="con" path="com.omondo.uml.CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/hub.sam.mas"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/hub.sam.mof"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
