@@ -3,15 +3,9 @@ package hub.sam.mas.execution;
 import hub.sam.mof.Repository;
 import hub.sam.mof.ocl.OclEnvironment;
 import hub.sam.mof.ocl.OclObjectEnvironment;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import cmof.NamedElement;
-import cmof.Package;
 import cmof.exception.IllegalArgumentException;
 import cmof.reflection.Extent;
-import cmof.reflection.Factory;
 
 public class ExecutionEnvironment extends AnalysisEnvironment {	   
     
