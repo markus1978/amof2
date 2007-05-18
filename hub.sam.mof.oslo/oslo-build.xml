@@ -1,0 +1,13 @@
+<project name = "OSLO" basedir=".">
+	<description>
+		Modified OSLO OCL Processor
+	</description>
+
+	<target name="build-jar">
+		<jar destfile="${basedir}/oslo.jar" basedir="${basedir}/build">
+			<zipgroupfileset dir="${basedir}/resources/lib">
+				<include name="*.jar" />
+			</zipgroupfileset>
+		</jar>
+	</target>
+</project>
