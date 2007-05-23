@@ -86,6 +86,7 @@ public class Misc extends AbstractRepository {
     public void testEmptyExtent() throws Exception {
     	repository.createExtent("testEmptyExtent").objectsOfType(
     			(UmlClass)m3Extent.query("Package:cmof/Class:Namespace"), true);
+    	repository.reset();
     	repository.createExtent("testEmptyExtent").objectsOfType(
     			(UmlClass)m3Extent.query("Package:cmof/Class:Namespace"), false);
     }

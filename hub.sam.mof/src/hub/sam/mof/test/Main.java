@@ -46,6 +46,7 @@ public class Main extends TestCase {
         TestSuite suite = new TestSuite();
         suite.addTestSuite(BootstrapM3Model.class);
         suite.addTestSuite(XmiM2.class);
+        suite.addTestSuite(XmiMagicDraw.class);
         suite.addTestSuite(UpdateGraph.class);
         suite.addTestSuite(CustomCode.class);
         suite.addTestSuite(ClientServer.class);

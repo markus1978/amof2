@@ -44,6 +44,10 @@ public class XmiM2 extends AbstractRepository {
        
     public void testExport() throws Exception {        
         testImport();
+        export();
+    }
+    
+    private void export() throws Exception {                
         try {
         	repository.writeExtentToXmi("resources/models/work/out.xml", m3, firstImport);
         } catch (Exception e) {        	
@@ -54,7 +58,7 @@ public class XmiM2 extends AbstractRepository {
         
     public void testReImport() throws Exception {
         testImport();
-        testExport();
+        export();
         Extent secondImport = repository.createExtent("secondImport");
         try {
         	repository.loadXmiIntoExtent(secondImport, m3, "resources/models/work/out.xml");
@@ -77,7 +81,7 @@ public class XmiM2 extends AbstractRepository {
         }
     	assertTrue( ((UmlClass)firstImport.query("Package:warehouse/Class:Box")).getGeneral().size() == 1);
     	
-        testExport();        
+        export();    
         Extent secondImport = repository.createExtent("secondImport");
         try {
         	repository.loadXmiIntoExtent(secondImport, m3, "resources/models/work/out.xml");
@@ -147,7 +151,7 @@ public class XmiM2 extends AbstractRepository {
         	e.printStackTrace();
         	assertTrue(false);
         }
-        testExport();        
+        export();    
         Extent secondImport = repository.createExtent("secondImport");
         try {
         	repository.loadXmiIntoExtent(secondImport, m3, "resources/models/work/out.xml");

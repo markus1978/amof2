@@ -211,4 +211,17 @@ public class MagicDrawXmi2ToMOF2 extends PatternClass implements XmiTransformato
         d.setComposite(null);
         d.delete();
     }
+    
+    //o=Operation(p=Parameter)
+    @PatternList(order = 91, value = {
+    		@Pattern( atype = "Operation", variable="o", children="value"),
+    		@Pattern( atype = "Parameter", variable="p", property="formalParameter", name="value")})
+    public void returnType(
+    		@Name("p") ClassInstance<XmiClassifier,String,String> p,
+    		@Name("o") ClassInstance<XmiClassifier,String,String> o) {
+    	String type = getUnspecifiedValue(p, "type", 0);
+    	if ("return".equals(getUnspecifiedValue(p, "direction", 0)) && type != null) {    		
+			o.addValue("type", model.createInstanceValue(model.getInstance(type)), null);    		
+    	}
+    }
 }

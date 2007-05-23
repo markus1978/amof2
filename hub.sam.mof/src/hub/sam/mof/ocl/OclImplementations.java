@@ -40,7 +40,7 @@ public class OclImplementations  extends ImplementationsImpl {
 				Constraint constraint = (Constraint)content;
 				for (Object constraintElement: constraint.getConstrainedElement()) {					
 					if (constraintElement instanceof Property) {
-						fImplementations.put((Property)constraintElement, implementationFor(constraint));
+						fImplementations.put((Property)constraintElement, implementationFor(OclImplementationsHelper.getOclImplementation(constraint)));
 					}
 				}
 			}
@@ -56,28 +56,19 @@ public class OclImplementations  extends ImplementationsImpl {
 	private Implementation implementationFor(Operation operation) {
 		Implementation impl = fImplementations.get(operation);
 		if (impl == null) {
-			Constraint bodyCondition = operation.getBodyCondition();
-			impl = implementationFor(bodyCondition);
+			String oclImplementationExpression = OclImplementationsHelper.getOclImplementation(operation);
+			impl = implementationFor(oclImplementationExpression);
 			fImplementations.put(operation, impl);
 		}
 		return impl;
 	}
 
-	private Implementation implementationFor(Constraint bodyCondition) {
-		Implementation impl;
-		Object specificationAsObject = bodyCondition.getSpecification();
-		if (specificationAsObject instanceof OpaqueExpression) {
-			OpaqueExpression specification = (OpaqueExpression)specificationAsObject;			
-			String language = specification.getLanguage();
-			if (language != null && language.startsWith("OCL")) {
-				impl = new Implementation(true, specification.getBody());
-			} else {
-				impl = new Implementation(false, null);
-			}
+	private Implementation implementationFor(String oclImplementationExpression) {			
+		if (oclImplementationExpression != null) {
+			return new Implementation(true, oclImplementationExpression);
 		} else {
-			impl = new Implementation(false, null);
-		}
-		return impl;
+			return new Implementation(false, null);
+		}				
 	}
 
 	@Override

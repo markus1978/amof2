@@ -34,6 +34,7 @@ public class MergeTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
     	repository = Repository.getLocalRepository();
+    	repository.reset();
         Extent m3Extent = repository.getExtent(Repository.CMOF_EXTENT_NAME);
         m3 = (Package)m3Extent.query("Package:cmof");
 

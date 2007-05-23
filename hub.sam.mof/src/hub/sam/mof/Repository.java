@@ -560,15 +560,19 @@ public class Repository extends hub.sam.util.Identity {
 
     public void reset() {
     	fRepositoryChangeListener.clear();
+    	Collection<String> extentNamesToDelete = new Vector<String>();
     	for (String extentName : extents.keySet()) {
             Extent extent = extents.get(extentName);
             if (!extentName.equals(CMOF_EXTENT_NAME)) {
-                extents.remove(extent);
+            	extentNamesToDelete.add(extentName);
                 if (extent instanceof ExtentImpl) {
                     ((ExtentImpl)extent).myFinalize();
                 }
             }
-        }        
+        }            	
+    	for(String extentName: extentNamesToDelete) {
+    		extents.remove(extentName);
+    	}
         System.gc();
     }
 

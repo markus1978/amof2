@@ -96,7 +96,7 @@ public class Xmi2Writer {
         if (additionalXmi != null) {
         	Collection<Element> children = new Vector<Element>();
 	        for (Object obj: additionalXmi.getChildren()) {
-	        	children.add((Element)obj);	       	        
+	        	children.add((Element)((Element)obj).clone());	       	        
 	        }
 	        for (Element additionalElement: children) {
 	        	additionalElement.detach();
