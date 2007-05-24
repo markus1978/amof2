@@ -49,7 +49,7 @@ public class ContextExtensionPinEditPart extends ContextPinEditPart {
     }
     
     public void propertyChange(PropertyChangeEvent event) {
-        if (event.getPropertyName().equals("extensionName")) {
+        if ("extensionName".equals(event.getPropertyName())) {
             refreshVisuals();
         }
     }
