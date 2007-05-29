@@ -28,10 +28,8 @@ public class AutomatonRuntimeCustom extends AutomatonRuntimeDlg {
      */
     @Override
     public void initialise() {
-        /*StateAutomaton.evaluateInvariant("self.state->size() > 0 and initialState->size() = 1 and finalState->size() > 0",
-                getMetaClassifierAutomaton());
-        StateAutomaton.evaluateInvariant("initialState.outgoing->size() = 1",
-                self.getMetaClassifierAutomaton());*/
+//        StateAutomaton.evaluateInvariant("self.state->size() > 0 and initialState->size() = 1 and finalState->size() > 0",
+//                getMetaClassifierAutomaton());
 
         setCurrentState(getMetaClassifierAutomaton().getInitialState());
         Transition initialTransition = getCurrentState().getOutgoing().iterator().next();

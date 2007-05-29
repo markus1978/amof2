@@ -27,13 +27,12 @@ public class AutomatonCustom extends AutomatonDlg {
         AutomatonRuntime runtime = self.metaCreateAutomatonRuntime();
         runtime.initialise();
 
-        while (input.length() > 0) {
-            java.lang.String chr = input.substring(0, 1);
-            boolean consumed = runtime.consume(chr);            
-            input = input.substring(1);
+        for (int i=0; i < input.length(); i++) {
+            java.lang.String token = input.substring(i, i+1);
+            boolean consumed = runtime.consume(token);            
             if (!consumed) {
                 // ignore token
-                System.out.println("ignoring token '" + chr + "'");
+                System.out.println("ignoring token '" + token + "'");
             }
         }
         
