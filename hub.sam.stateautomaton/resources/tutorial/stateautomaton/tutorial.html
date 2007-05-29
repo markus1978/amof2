@@ -100,7 +100,9 @@ alt="frontpage hit counter" border="0"/></a> </noscript>
 
 <p>written by <a href="mailto:blunk@informatik.hu-berlin.de">Andreas Blunk</a>, May 2007</p>
 
-<p>This tutorial shows how our language modelling tools can be used together to create the structure and behaviour of a computer language. The demonstration is based on an example language for modelling and executing composite state automatons. Before we start, you should download the complete language definition <a href="stateautomaton.jar">from here</a> <font color="red">(todo: create jar)</font> or check it out <a href="http://developer.berlios.de/svn/?group_id=5941">from SVN</a> (project hub.sam.stateautomaton). It contains an Eclipse project that includes all the necessary resources we are using in this tutorial. You may use the archive without Eclipse at first, but in the last part, a working Eclipse 3.2 installation will be required. So you should install <a href="http://www.eclipse.org/">Eclipse 3.2</a> now and then import the archive as an Eclipse project. Further tools and Eclipse plugins will be needed during the tutorial, but you can install them later. When you have finished installing Eclipse and set up the project, you may proceed with the tutorial. Don't worry when you have build problems at this point, we will solve them later on.</p>
+<p><font color="red">todo: check all links for valid urls</font></p>
+
+<p>This tutorial shows how our language modelling tools can be used together to create the structure and behaviour of a computer language. The demonstration is based on an example language for modelling and executing composite state automatons. Before we start, you should download the complete language definition <a href="stateautomaton.jar">from here</a> or check it out <a href="http://developer.berlios.de/svn/?group_id=5941">from SVN</a> (project hub.sam.stateautomaton). It contains an Eclipse project that includes all the necessary resources we are using in this tutorial. You may use the archive without Eclipse at first, but in the last part, a working Eclipse 3.2 installation will be required. So you should install <a href="http://www.eclipse.org/">Eclipse 3.2</a> now and then import the archive as an Eclipse project. Further tools and Eclipse plugins will be needed during the tutorial, but you can install them later. When you have finished installing Eclipse and set up the project, you may proceed with the tutorial. Don't worry when you have build problems at this point, we will solve them later on.</p>
 
 <p>We begin with an introduction into our language modelling method and then construct the example language by using the tools that we have build for this method.</p>
 
@@ -397,25 +399,25 @@ Our approch is to use operational semantics. We augment a meta-model with operat
 
 <h4>Activities</h4>
 
-<p>The problem with implementations in Java is that they are not model based and so tools cannot be derived (e.g. a debugger). What we need is a model based specification of the language semantics. Our approach is to use an activity language that is similar to UML activities. Actually it is a subset of UML activities and its semantics is based on the well-known petrinet formalism, so there is a solid foundation. It is designed to describe semantics in CMOF-based models, and so we named it <i>MOF Action Semantics</i> (abbreviated MAS). It defines a set of atomic actions that can be used to describe operational semantics. Activities are composed of these actions plus some more elements for control and object flow. Each activity models the behaviour of one operation. If the model is executed, the corresponding activities will be interpreted in the context of a model instance. Without going into the details of the activity language, we now present our tools for modelling them.</p>
+<p>The problem with implementations in Java is that they are not model based and so tools cannot be derived (e.g. a debugger). What we need is a model based specification of the language semantics. Our approach is to use an activity language that is similar to UML activities. Actually it is a subset of UML activities and its semantics is based on the well-known petrinet formalism, so there is a solid foundation. It is designed to describe semantics in CMOF-based models, and so we named it <i>MOF Action Semantics</i> (abbreviated MAS). The language defines a set of atomic actions that can be used to describe operational semantics. Activities are composed of these actions plus some more elements for control and object flow. Each activity models the behaviour of one operation. If the model is executed, the corresponding activities will be interpreted in the context of a model instance. Without going into the details of the activity language, we now present our tools for modelling them.</p>
 
-<p>MAS itself is a language, just like our composite state automaton language. We want to use MAS for modelling behaviour and therefore we decided to develop a graphical editor that is based on Eclipse's GEF. The editor is known as MASE (MAS Editor).</p>
+<p>We developed a graphical editor for really using the MAS language to develop behaviour models. The editor is known as MASE (MAS Editor) and it is based on Eclipse's GEF. MASE lets us model the behaviour of one operation in an activity diagram. So for every activity there will be one opened editor instance.</p>
 
 <p><img src="images/activities_mase.png"></p>
 
-<p>... We compensated them by using an Eclipse plugin that we had already developed. You may know the plugin from the <a href="../aMOF2.0forJava/index.html">AMOF Tutorial page</a>. Its the <i>MOF 2.0 Browser Plugin</i> (abbreviated MOF2B). It can be used to browse CMOF-based models in an Eclipse Tree View.</p>
+<p>There is another plugin, named <i>MOF 2.0 Browser Plugin</i>, which can be used to navigate through CMOF-based models (you may know the plugin from the <a href="../aMOF2.0forJava/index.html">AMOF Tutorial page</a>).</p>
 
 <p><img src="images/activities_mof2b.png"></p>
 
-<p>We now use it together with MASE to provide language developers with a simple interface for modelling activities. You can navigate through a structure model, right-click on an operation und choose "Create Behaviour" or "Edit Behaviour" to open a MASE editor.</p>
+<p>We use this plugin to navigate to an operation in the syntax meta-model of a language and then open a context-menu at that operation to create or edit its behaviour. This opens a new MASE instance where we can model the activity.</p>
 
 <p><img src="images/activities_mase_mof2b.png"></p>
 
-<p>Multiple editors can be opened at the same time. The activities are saved together in one XML file. At this point, we need to install the required plugins. We then show you how to use them.</p>
+<p>At this point, we need to install the required plugins. We then show you how to use them.</p>
 
 <ul>
-	<p><b>Installing required Eclipse Plugins:</b> <font color="red">(todo: deploy an updated version of the mdld feature)</font></p>
-	<p>We assembled our Eclipse Plugins for meta-modelling as an Eclipse Feature. It includes AMOF (as a plugin), MAS (execution + editor), a variation of the OSLO OCL interpreter. and MOF2B. Please install this feature now by following these instructions:</p>
+	<p><b>Installing required Eclipse Plugins:</b></p>
+	<p>We assembled our Eclipse Plugins for meta-modelling as an Eclipse Feature. It includes AMOF2, MAS (execution + editor), a variation of the OSLO OCL interpreter and the MOF 2.0 Browser Plugin. Please install this feature now by following these instructions:</p>
 	<p>Open the Eclipse Installation Wizard ...</p>
 	<p><img src="images/eclipse_install.png"></p>
 	<p>Select "Search for new features to install" ...</p>
@@ -428,23 +430,17 @@ Our approch is to use operational semantics. We augment a meta-model with operat
 	<p>Click "Finish" to start installation.</p>
 </ul>
 
-<p>Now we would like to use the installed plugins and open activities of some operations that we supplied with the example language. While operations are part of a syntax meta-model that is based on the CMOF meta-meta-model, activities are part of a semantic model that is based on the MAS meta-model. We cannot hold the two models in one XMI file without losing the ability to load syntax models with MagicDraw UML. So we decided to have two seperate model files, <i>StateAutomaton.syntax.mdxml</i> and <i>StateAutomaton.semantic.xml</i>.</p>
-
-<p>The activities defined in the semantic model are fairly useless without a reference to a syntax model. They make only sense in the context of a syntax model that defines their operations. Therefore we connect a syntax and a semantic model in a MAS context file. This file is a simple Java properties file. It defines the properties syntax and semantic that refer to the two model files. The next figure shows the MAS context file for our example language that is located in <i>resources/StateAutomaton.masctx</i>.</p>
+<p>Now we are going to use the installed plugins and edit the activities of some operations that we supplied with the example language. While operations are part of a syntax meta-model that is based on the CMOF meta-meta-model, activities are part of a semantic model that is based on the MAS meta-model. We hold these two models in seperate XMI files and then use a MAS context file to connect them. This file is a simple Java properties file. It defines the properties syntax and semantic that refer to the two model files. The next figure shows the MAS context file for our example language that is located in <i>resources/StateAutomaton.masctx</i>.</p>
 
 <pre class="hl"><span class="line">     </span><span class="sym">syntax</span> = StateAutomaton.syntax.mdxml
 <span class="line">     </span><span class="sym">semantic</span> = StateAutomaton.semantic.xml
 </pre>
 
-<p>MAS context files can be loaded with the MOF 2.0 Browser Plugin. We provide a special Eclipse perspective named "Mof Action Semantics Editor" for editing activities. When you open the perspective, you will find the MOF 2.0 Browser Plugin at the left, optional MAS Editors at the right and a properties view at the bottom.</p>
+<p>MAS context files can be loaded with the MOF 2.0 Browser Plugin. We provide a special Eclipse perspective named "Mof Action Semantics Editor" for modelling activities. When you open the perspective, you will find the MOF 2.0 Browser Plugin at the left, optional MAS Editors at the right and a properties view at the bottom.</p>
 
-<p>You can now add a new MAS context to the repository in the Model View at the left.</p>
+<p>You can now add a new MAS context to the repository in the Model View at the left and then open the MAS context file in <i>resources/StateAutomaton.masctx</i>.</p>
 
 <p><img src="images/choose_mas_context.png"></p>
-
-<p>Open the MAS context file in <i>resources/StateAutomaton.masctx</i>. <font color="red">(we made this screenshot from an english windows version)</font></p>
-
-<p><img src="images/choose_mas_context_2.png"></p>
 
 <p>The syntax and semantic model are loaded into two seperate extents in the AMOF2 repository. We can browse the syntax model tree and apply behaviour in the form of MAS activities to operations.</p>
 
@@ -555,7 +551,7 @@ Our approch is to use operational semantics. We augment a meta-model with operat
 <span class="line">   10 </span>                        <span class="kwa">new</span> <span class="kwd">MultiLevelImplementationsManager</span><span class="sym">(</span>masContext<span class="sym">.</span><span class="kwd">getMasModel</span><span class="sym">().</span><span class="kwd">getFactory</span><span class="sym">()),</span>
 <span class="line">   11 </span>                        <span class="kwa">new</span> <span class="kwd">ImplementationsManagerImpl</span><span class="sym">() }</span>
 <span class="line">   12 </span>        <span class="sym">));</span>
-</pre><p>At this point, things become complicated :). We install implementations managers for activities in our language's semantics extent. We have to do this because MAS itself is a language and we use this language for modelling the behaviour of other languages (e.g. the state automatons). It consists of a syntax meta-model and execution semantics with an implementation in Java code. You can think of its execution semantics as the engine that interprets a given activity of your language. We install a MultiLevelImplementationsManager first. It handles implementations for runtime operations (e.g. metaCreateAutomatonRuntime, metaDelete). Next, we install a ImplementationsManagerImpl which handles implementations in Java code.<font color="red">put the OCL implementation managager here too.</font></p><pre class="hl">
+</pre><p>At this point, things become complicated :). We install implementations managers for activities in our language's semantics extent. We have to do this because MAS itself is a language and we use this language for modelling the behaviour of other languages (e.g. the state automatons). It consists of a syntax meta-model and execution semantics with an implementation in Java code. You can think of its execution semantics as the engine that interprets a given activity of your language. We install a MultiLevelImplementationsManager first. It handles implementations for runtime operations (e.g. metaCreateAutomatonRuntime, metaDelete). Next, we install an ImplementationsManagerImpl which handles implementations in Java code. Below you can see two more implementations managers. At the model extent we additionally install managers for activities (MASImplementationsManager) and OCL queries (OclImplementationsManager). The order in which we install implementations managers matters. The first manager is checked first for an implementation, then the second and so on. This way we could model just some of the operations with activities and others with Java code.</p><pre class="hl">
 <span class="line">   13 </span>
 <span class="line">   14 </span>        <span class="slc">// MultiLevelImplementationsManager creates runtime instances</span>
 <span class="line">   15 </span>        <span class="sym">((</span>ExtentImpl<span class="sym">)</span> m1Model<span class="sym">.</span><span class="kwd">getExtent</span><span class="sym">()).</span><span class="kwd">setCustomImplementationsManager</span><span class="sym">(</span><span class="kwa">new</span> <span class="kwd">ImplementationsManagerContainer</span><span class="sym">(</span>
@@ -566,20 +562,9 @@ Our approch is to use operational semantics. We augment a meta-model with operat
 <span class="line">   20 </span>                        <span class="kwa">new</span> <span class="kwd">ImplementationsManagerImpl</span><span class="sym">() }</span>
 <span class="line">   21 </span>        <span class="sym">));</span>
 <span class="line">   22 </span>    <span class="sym">}</span>
-</pre><p>The order in which we install implementations managers matters. The first manager is checked first and then the second and so on. This way we could model one operation's implementation with an activity and all the others with Java code. We just have to guarantee that there is one implementation that can be found. The OclImplementationsManager is new here. It looks for OCL queries attached to operations in the meta-model.</p><pre class="hl">
 <span class="line">   23 </span>
 <span class="line">   24 </span><span class="sym">}</span>
 </pre>
-
-<h2>Future Tools</h2>
-
-<h3>Modelling Notation</h3>
-
-<p>Textual Editing Framework (TEF)</p>
-
-<h3>Debugging MAS</h3>
-	
-<p>MAS Debugger</p>
 
 
 
