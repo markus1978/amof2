@@ -2,18 +2,17 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mof Browser Plug-in
 Bundle-SymbolicName: hub.sam.mof.browser;singleton:=true
-Bundle-Version: 1.1.0
+Bundle-Version: 1.2.0
 Bundle-Activator: hub.sam.mof.plugin.Mof2Plugin
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.jface,
+Require-Bundle: org.eclipse.jface,
  org.eclipse.osgi,
  org.eclipse.ui,
  org.eclipse.ui.views,
  org.eclipse.ui.workbench,
  hub.sam.mof,
  org.eclipse.ui.ide,
- org.eclipse.core.resources
+ org.eclipse.core.resources;visibility:=reexport
 Eclipse-LazyStart: true
 Export-Package: hub.sam.mof.plugin,
  hub.sam.mof.plugin.modeleditor,
