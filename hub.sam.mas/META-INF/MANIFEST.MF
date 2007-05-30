@@ -14,13 +14,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.views,
  hub.sam.mof,
  hub.sam.mof.browser,
- hub.sam.tef.TEFPlugin,
  org.eclipse.ui.editors,
  org.eclipse.ui.workbench.texteditor,
  org.eclipse.jface.text,
- org.eclipse.emf,
- org.eclipse.emf.edit,
- hub.sam.mof.emfbridge,
  hub.sam.mof.oslo
 Eclipse-LazyStart: true
 Eclipse-RegisterBuddy: hub.sam.mof
