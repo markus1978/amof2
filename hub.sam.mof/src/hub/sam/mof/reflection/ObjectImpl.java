@@ -213,10 +213,14 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
                 throw new IllegalArgumentException("qualifiers not allowed for derived properties");
             }
             return implementation.invokeImplementationFor(semantics.getFinalProperty(property), this, semantics);
-        }        
-        if (property.isDerived() && !property.isDerivedUnion()) {        	
+        }                   
+        
+        /** TODO
+        if (!((ExtentImpl)extent).bootstrap && property.isDerived() && !property.isDerivedUnion()) {        	
         	System.out.println("warning: no implementation found for " + property.getQualifiedName());
         }
+        */
+        
         checkQualifierType(qualifier, property);
         ValueSpecificationList<UmlClass, Property, java.lang.Object> values = instance.get(property).
                 getValuesAsList(extent.specificationForValue(qualifier));

@@ -2,12 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: AMOF2 Plug-in
 Bundle-SymbolicName: hub.sam.mof
-Bundle-Version: 1.1.0
+Bundle-Version: 1.2.0
 Bundle-Activator: hub.sam.mof.PlugInActivator
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.junit,
- hub.sam.mof.oslo
+ hub.sam.mof.oslo;visibility:=reexport
 Eclipse-LazyStart: true
 Eclipse-BuddyPolicy: registered
 Bundle-ClassPath: resources/lib/ant.jar,
@@ -52,6 +52,7 @@ Export-Package: .,
  hub.sam.mof.instancemodel,
  hub.sam.mof.instancemodel.conversion,
  hub.sam.mof.javamapping,
+ hub.sam.mof.management,
  hub.sam.mof.merge,
  hub.sam.mof.mofinstancemodel,
  hub.sam.mof.mofinstancemodel.events,

@@ -57,7 +57,7 @@ import java.util.Map;
 import java.util.Vector;
 
 public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection.Extent {
-    private final boolean bootstrap;
+    protected final boolean bootstrap;
     private ReflectiveCollection<? extends cmof.reflection.Object> bootstrapOutermostComposites = null;
     private ReflectiveCollection<cmof.reflection.Object> objects;
     private final Map<String, UmlClass> m3ElementCache = new HashMap<String, UmlClass>();
