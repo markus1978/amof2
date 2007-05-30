@@ -2,22 +2,19 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mof Action Semantics Plug-in
 Bundle-SymbolicName: hub.sam.mas;singleton:=true
-Bundle-Version: 1.1.0
+Bundle-Version: 1.2.0
 Bundle-Activator: hub.sam.mas.MasPlugin
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.core.resources,
+Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.ui.ide,
- org.eclipse.draw2d,
+ org.eclipse.draw2d;visibility:=reexport,
  org.eclipse.gef,
  org.eclipse.ui.views,
- hub.sam.mof,
+ hub.sam.mof;visibility:=reexport,
  hub.sam.mof.browser,
  org.eclipse.ui.editors,
  org.eclipse.ui.workbench.texteditor,
- org.eclipse.jface.text,
- hub.sam.mof.oslo
+ org.eclipse.jface.text
 Eclipse-LazyStart: true
 Eclipse-RegisterBuddy: hub.sam.mof
 Bundle-ClassPath: mas.jar,
