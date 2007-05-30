@@ -2,10 +2,11 @@
 <feature
       id="hub.sam.mdld"
       label="Model Driven Language Development Feature"
-      version="1.0.0">
+      version="1.1.0">
 
    <description url="http://developer.berlios.de/projects/amof2">
-      Model Driven Language Development includes the Tools &quot;A MOF 2.0 for Java&quot;, &quot;MOF Action Semantics&quot; and &quot;MOF Browser Plug-in&quot;.
+      This feature includes our tools for model driven language development:
+A MOF 2.0 for Java, MOF Action Semantics, MOF 2.0 Browser Plug-in and OSLO.
    </description>
 
    <copyright>
@@ -460,7 +461,6 @@ OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
    <requires>
       <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.draw2d"/>
       <import plugin="org.junit"/>
       <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.osgi"/>
@@ -469,7 +469,11 @@ OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
       <import plugin="org.eclipse.ui.workbench"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.draw2d"/>
       <import plugin="org.eclipse.gef"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.jface.text"/>
    </requires>
 
    <plugin

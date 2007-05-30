@@ -3,6 +3,6 @@
    <description url="http://amof2.berlios.de/updatesite/">
       
    </description>
-   <feature url="features/hub.sam.mdld_1.0.0.jar" id="hub.sam.mdld" version="1.0.0"/>
    <feature url="features/GEF_Image_Export_1.0.0.jar" id="GEF_Image_Export" version="1.0.0"/>
+   <feature url="features/hub.sam.mdld_1.1.0.jar" id="hub.sam.mdld" version="1.1.0"/>
 </site>
