@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: StateAutomaton
+Bundle-SymbolicName: StateAutomaton
+Bundle-Version: 1.0.0
+Bundle-Localization: plugin
+Require-Bundle: hub.sam.mas,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources
