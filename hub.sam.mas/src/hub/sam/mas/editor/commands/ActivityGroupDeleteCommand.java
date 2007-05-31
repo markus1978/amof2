@@ -41,6 +41,13 @@ public class ActivityGroupDeleteCommand extends MofDeleteCommand {
     public void redo() {
         super.redo();
         activity.getGroup().remove(group);
+        // TODO
+        if (activity.getGroup().contains(group)) {
+            System.out.println("in group");
+        }
+        if (activity.getGefChildren().contains(group)) {
+            System.out.println("in gefChildren");
+        }
     }
     
     public void undo() {

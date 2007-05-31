@@ -1,19 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:mas="http://www.foo.org/mas" xmi:version="2.1">
-  <mas:Activity xmi:id="10345" linkId="mas-id-1169604833" />
-  <mas:Activity xmi:id="10334" linkId="mas-id-1898011505">
-    <edge xmi:id="10338" activity="10334" target="10335" source="10339" xsi:type="ControlFlow" />
-    <node xmi:id="10335" activityAsNode="10334" initialTokesn="0" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAHcAAACp&#xA;" actionBody="empty" incoming="10338" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="10336" action="10335" xsi:type="InputPinList" />
-      <outputList xmi:id="10337" action="10335" xsi:type="OutputPinList" />
+  <mas:Activity xmi:id="6728" linkId="mas-id-1169604833">
+    <group xmi:id="6731" activityAsNode="6728" activityAsGroup="6728" initialTokesn="0" outgoing="6729" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAGoAAADs&#xA;" mode="iterative" margin="8" xsi:type="ExpansionRegion">
+      <node xmi:id="6734" activityAsNode="6731" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAADcAAAA8&#xA;" initialTokesn="0" outgoing="6747" actionBody="empty" incoming="6745" margin="8" xsi:type="OpaqueAction">
+        <input xmi:id="6735" num="0" initialTokesn="0" incoming="6736" xsi:type="InputPin" />
+        <inputList xmi:id="6750" action="6734" xsi:type="InputPinList" />
+        <outputList xmi:id="6749" action="6734" xsi:type="OutputPinList" />
+      </node>
+      <node xmi:id="6748" activityAsNode="6731" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAGEAAACD&#xA;" initialTokesn="0" incoming="6747" xsi:type="FinalNode" />
+      <node xmi:id="6746" activityAsNode="6731" outgoing="6745" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAACUAAAAY&#xA;" initialTokesn="0" xsi:type="InitialNode" />
+      <inList xmi:id="6732" region="6731" xsi:type="InExpansionNodeList" />
+      <inputElement xmi:id="6737" num="0" regionAsInput="6731" initialTokesn="0" outgoing="6736" incoming="6738" xsi:type="InExpansionNode" />
+      <body xmi:id="6751" region="6731" xsi:type="ExpansionRegionBody" />
+      <outList xmi:id="6733" region="6731" xsi:type="OutExpansionNodeList" />
+    </group>
+    <edge xmi:id="6729" activity="6728" target="6730" source="6731" xsi:type="ControlFlow" />
+    <edge xmi:id="6736" activity="6728" target="6735" source="6737" xsi:type="ObjectFlow" />
+    <edge xmi:id="6738" activity="6728" target="6737" source="6739" xsi:type="ObjectFlow" />
+    <edge xmi:id="6741" activity="6728" target="6740" source="6742" xsi:type="ControlFlow" />
+    <edge xmi:id="6747" activity="6728" target="6748" source="6734" xsi:type="ControlFlow" />
+    <edge xmi:id="6745" activity="6728" target="6734" source="6746" xsi:type="ControlFlow" />
+    <node xmi:id="6730" activityAsNode="6728" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAWsAAAFg&#xA;" initialTokesn="0" incoming="6729" xsi:type="FinalNode" />
+    <node xmi:id="6740" activityAsNode="6728" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAFYAAAB9&#xA;" initialTokesn="0" actionBody="empty" incoming="6741" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="6744" action="6740" xsi:type="InputPinList" />
+      <output xmi:id="6739" num="0" outgoing="6738" xsi:type="OutputPin" />
+      <outputList xmi:id="6743" action="6740" xsi:type="OutputPinList" />
     </node>
-    <node xmi:id="10339" activityAsNode="10334" outgoing="10338" initialTokesn="0" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAIsAAAA6&#xA;" actionBody="empty" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="10340" action="10339" xsi:type="InputPinList" />
-      <outputList xmi:id="10341" action="10339" xsi:type="OutputPinList" />
+    <node xmi:id="6742" activityAsNode="6728" outgoing="6741" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAHgAAAA4&#xA;" initialTokesn="0" xsi:type="InitialNode" />
+    <node xmi:id="6752" activityAsNode="6728" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAS0AAABJ&#xA;" initialTokesn="0" actionBody="empty" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="6755" action="6752" xsi:type="InputPinList" />
+      <output xmi:id="6753" num="0" xsi:type="OutputPin" />
+      <outputList xmi:id="6754" action="6752" xsi:type="OutputPinList" />
     </node>
-    <node xmi:id="10342" activityAsNode="10334" initialTokesn="0" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAJ0AAAEJ&#xA;" actionBody="empty" margin="8" xsi:type="OpaqueAction">
-      <inputList xmi:id="10343" action="10342" xsi:type="InputPinList" />
-      <outputList xmi:id="10344" action="10342" xsi:type="OutputPinList" />
+  </mas:Activity>
+  <mas:Activity xmi:id="6713" linkId="mas-id-1898011505">
+    <group xmi:id="6721" activityAsNode="6713" activityAsGroup="6713" initialTokesn="0" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAT0AAACv&#xA;" mode="iterative" margin="8" xsi:type="ExpansionRegion">
+      <inList xmi:id="6722" region="6721" xsi:type="InExpansionNodeList" />
+      <body xmi:id="6724" region="6721" xsi:type="ExpansionRegionBody" />
+      <outList xmi:id="6723" region="6721" xsi:type="OutExpansionNodeList" />
+    </group>
+    <edge xmi:id="6714" activity="6713" target="6715" source="6718" xsi:type="ControlFlow" />
+    <node xmi:id="6715" activityAsNode="6713" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAHcAAACp&#xA;" initialTokesn="0" actionBody="empty" incoming="6714" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="6717" action="6715" xsi:type="InputPinList" />
+      <outputList xmi:id="6716" action="6715" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="6718" activityAsNode="6713" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAIsAAAA6&#xA;" initialTokesn="0" outgoing="6714" actionBody="empty" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="6720" action="6718" xsi:type="InputPinList" />
+      <outputList xmi:id="6719" action="6718" xsi:type="OutputPinList" />
+    </node>
+    <node xmi:id="6725" activityAsNode="6713" rectangle="rO0ABXNyACVvcmcuZWNsaXBzZS5kcmF3MmQuZ2VvbWV0cnkuUmVjdGFuZ2xlAAAAAAAAAAECAARJ&#xA;AAZoZWlnaHRJAAV3aWR0aEkAAXhJAAF5eHD//////////wAAAJ0AAAEJ&#xA;" initialTokesn="0" actionBody="empty" margin="8" xsi:type="OpaqueAction">
+      <inputList xmi:id="6727" action="6725" xsi:type="InputPinList" />
+      <outputList xmi:id="6726" action="6725" xsi:type="OutputPinList" />
     </node>
   </mas:Activity>
 </xmi:XMI>

@@ -75,7 +75,10 @@ public abstract class AbstractActivityNodeComponentEditPolicy extends ComponentE
         for(Object hostChild: getHost().getChildren()) {
             GroupRequest request = new GroupRequest();
             request.setType(RequestConstants.REQ_DELETE);
-            compound.add( ((EditPart) hostChild).getCommand(request) );
+            Command cmd = ((EditPart) hostChild).getCommand(request);
+            if (cmd != null && cmd.canExecute()) {
+                compound.add(cmd);
+            }
         }
         
         return compound;
