@@ -9,3 +9,4 @@ Require-Bundle: hub.sam.mof,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.edit,
  org.eclipse.emf.ecore.xmi
+Export-Package: hub.sam.mof.emf
