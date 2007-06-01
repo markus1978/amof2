@@ -67,6 +67,9 @@ public class ActivityNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy
         if (command instanceof ActivityEdgeCreateCommand) {
             ActivityNode sourceNode = ((ActivityEdgeCreateCommand) command).getSourceNode();
             ActivityNode targetNode = getHostEditPart().getModel();
+            if (sourceNode == targetNode) {
+                return null;
+            }
             
             if (targetUpperLimit == -1 || targetNode.getIncoming().size() < targetUpperLimit) {
                 if (sourceNode instanceof ObjectNode && targetNode instanceof ObjectNode
