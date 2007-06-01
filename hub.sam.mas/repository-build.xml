@@ -19,9 +19,11 @@
 
 	<target name="init">
 		<mkdir dir="${bin-dir}"/>
+		<!--
         <typedef name="package" classname="hub.sam.mof.ant.Package" classpathref="classpath"/>
 	    <taskdef name="generatecode" classname="hub.sam.mof.ant.GenerateCode" classpathref="classpath"/>
-        <taskdef name="mofmerge" classname="hub.sam.mof.ant.MergeModel" classpathref="classpath" />
+		<taskdef name="convertxmi" classname="hub.sam.mof.ant.UpgradeXmi" classpathref="classpath"/>
+        <taskdef name="mofmerge" classname="hub.sam.mof.ant.MergeModel" classpathref="classpath" />-->
 	</target>
 
 	<target name="clean">
@@ -33,14 +35,23 @@
 	</target>
 
 	<target name="generate-repository" depends="clean,init">
+		<!--
+		<convertxmi inKind="md" outKind="mof" inFile="${basedir}/resources/models/mas.mdxml" outFile="${basedir}/resources/models/mas.xml" />
         <mofmerge dest="${basedir}/resources/models/mas_merged.xml" packageToMerge="Package:mas">
-            <xmifile key="mas" file="${basedir}/resources/models/mas.mdxml"/>
+            <xmifile key="mas" file="${basedir}/resources/models/mas.xml"/>
         </mofmerge>
 	    <generatecode src="${basedir}/resources/models/mas_merged.xml" destDir="./generated-src"
 	        staticModel="hub.sam.mas.model.mas.MasModel" instances="true" force="true">
 		        <package name="mas" nsPrefix="mas" javaPackagePrefix="hub.sam.mas.model"/>
 		        <package name="petrinets" javaPackagePrefix="hub.sam.mas.model"/>
-	    </generatecode>
+	    </generatecode>-->
+		<javac debug="on" destdir="${bin-dir}" source="1.5" nowarn="yes" srcdir="${src-dir}">
+			<include name="hub/sam/mas/GenerateRepository.java"/>
+			<classpath refid="classpath"/>
+	    </javac>
+		<java classname="hub.sam.mas.GenerateRepository" fork="false">
+			<classpath refid="classpath"/>
+	    </java>
 	</target>
 
 	<target name="javadoc">
