@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
 public class PluginMasXmiFiles implements MasXmiFiles {
@@ -41,7 +42,7 @@ public class PluginMasXmiFiles implements MasXmiFiles {
         this.semanticFile = semanticFile;
     }
 
-    public PluginMasXmiFiles(Path pathToContextFile, String contextFile) throws FileNotFoundException, IOException {
+    public PluginMasXmiFiles(IPath pathToContextFile, String contextFile) throws FileNotFoundException, IOException {
         Properties properties = new Properties();
         properties.load(new FileInputStream( pathToContextFile.append(contextFile).makeAbsolute().toOSString() ));
         
