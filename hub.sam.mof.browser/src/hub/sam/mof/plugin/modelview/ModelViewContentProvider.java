@@ -10,19 +10,29 @@ import hub.sam.mof.plugin.modelview.tree.TreeParent;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.ui.internal.ViewSite;
 
 public class ModelViewContentProvider implements IStructuredContentProvider, ITreeContentProvider {
 
-	private final ModelView view;
+	private TreeViewer treeViewer;
 	private final Filter filter;
 
 	private InvisibleTreeRoot invisibleRoot;
 	
-	public ModelViewContentProvider(ModelView view) {
-		this.view = view;
+	public ModelViewContentProvider(TreeViewer treeViewer) {
+		this.treeViewer = treeViewer;
 		filter = new Filter();
 	}
+
+    public ModelViewContentProvider() {
+        this(null);
+    }
+    
+    public void setTreeViewer(TreeViewer treeViewer) {
+        this.treeViewer = treeViewer;
+    }
 	
 	public void inputChanged(Viewer v, Object oldInput, Object newInput) {
 		// empty
@@ -33,10 +43,14 @@ public class ModelViewContentProvider implements IStructuredContentProvider, ITr
 	}
 	
 	public Object[] getElements(Object parent) {
-		if (parent.equals(view.getViewSite())) {
+		/*if (parent.equals(view.getViewSite())) {
 			if (invisibleRoot == null) initialize();
 			return getChildren(invisibleRoot);
-		}
+		}*/
+        if (parent instanceof ViewSite || parent == null) {
+            if (invisibleRoot == null) initialize();
+            return getChildren(invisibleRoot);
+        }
 		return getChildren(parent);
 	}
     
@@ -68,7 +82,7 @@ public class ModelViewContentProvider implements IStructuredContentProvider, ITr
 	}
 
 	private void initialize() {			
-		invisibleRoot = new InvisibleTreeRoot(view.getViewer());
+		invisibleRoot = new InvisibleTreeRoot(treeViewer);
 	}
 	
 	public TreeParent getRoot() {
@@ -79,10 +93,12 @@ public class ModelViewContentProvider implements IStructuredContentProvider, ITr
 		if (invisibleRoot == null) {
 			initialize();
 		}
-		invisibleRoot.addChild(new RepositoryTreeObject(repository, invisibleRoot, view.getViewer()));
-		view.getViewer().refresh();
+		invisibleRoot.addChild(new RepositoryTreeObject(repository, invisibleRoot, treeViewer));
+        if (treeViewer != null) {
+            //treeViewer.refresh();
+        }
 	}
-	
+    
 	public void addClassToFilter(Class filter) {
 		this.filter.addClassToFilter(filter);
 	}

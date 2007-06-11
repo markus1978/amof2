@@ -31,8 +31,11 @@ public class RepositoryTreeObject extends TreeParent {
 		public void extendAdded(Extent extent) {
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {				
 				private void refresh() {
-					RepositoryTreeObject.this.refresh();						
-					getView().refresh(RepositoryTreeObject.this);
+					RepositoryTreeObject.this.refresh();
+                    TreeViewer view = getView();
+                    if (view != null) {
+                        view.refresh(RepositoryTreeObject.this);
+                    }
 				}			
 				public void run() {			
 					refresh();

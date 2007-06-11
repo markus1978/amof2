@@ -53,7 +53,7 @@ public class ModelView extends ViewPart {
 	public void createPartControl(Composite parent) {
 		actions.createPartControl(parent, new IModelTreeContentContentProvider() {
 			public IStructuredContentProvider getContentProvider(TreeViewer viewer) {
-				ModelViewContentProvider result = new ModelViewContentProvider(ModelView.this);
+				ModelViewContentProvider result = new ModelViewContentProvider(getViewer());
 				result.addRepository(Repository.getLocalRepository());
 				return result;
 			}			
