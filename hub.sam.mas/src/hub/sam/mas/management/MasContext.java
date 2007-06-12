@@ -57,7 +57,6 @@ import cmof.reflection.Extent;
 public class MasContext {
     
     private static Logger logger = Logger.getLogger(MasContext.class.getName());
-    private Extent contextId;
     private Map<String, MasLink> links = new TreeMap<String, MasLink>();
     private MofModel syntaxModel;
     private MofModel masModel;
@@ -73,8 +72,6 @@ public class MasContext {
         masModel = modelContainer.getMasModel();
         checkMasModel();
         
-        contextId = syntaxModel.getExtent();
-
         operations = getOperations(syntaxModel.getExtent());
         activities = getActivities(masModel.getExtent());
         
@@ -325,8 +322,8 @@ public class MasContext {
         return activities;
     }
 
-    protected Extent getContextId() {
-        return contextId;
+    public Extent getContextId() {
+        return syntaxModel.getExtent();
     }
     
     public void close() {

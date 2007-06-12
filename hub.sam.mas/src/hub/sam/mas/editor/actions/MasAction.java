@@ -24,6 +24,7 @@ import hub.sam.mas.management.MasContext;
 import hub.sam.mas.management.MasLink;
 import hub.sam.mas.management.MasRepository;
 import hub.sam.mof.plugin.modelview.tree.TreeObject;
+import hub.sam.mof.reflection.ExtentImpl;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -40,8 +41,7 @@ public abstract class MasAction extends Mof2PluginAction {
     
     protected MasContext getMASContextFromSelection() {
     	if (selection != null) {
-	        Extent syntaxExtent = currentOperation.getExtent();
-	        return MasRepository.getInstance().getMasContext(syntaxExtent);
+	        return MasRepository.getInstance().getMasContext(currentOperation.getExtent());
     	} else {
     		return null;
     	}
