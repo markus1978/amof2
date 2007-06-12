@@ -70,7 +70,7 @@ public class MofModelManager {
         m2Model = loadModelFromXmi(getCmofModel(), xmiFile, extentName, packageQuery);
     }
 
-    public void loadM2Model(Extent modelExtent, String packageQuery) {
+    public void loadM2Model(Extent modelExtent, String packageQuery) throws LoadException {
         m2Model = loadStaticModel(getCmofModel(), modelExtent, packageQuery);
     }
     
@@ -82,9 +82,13 @@ public class MofModelManager {
         m1Model = loadStaticModel(m2Model, modelExtent, null);
     }
     
-    private Package getPackageFromQuery(Extent extent, String packageQuery) {
+    private Package getPackageFromQuery(Extent extent, String packageQuery) throws LoadException {
         if (packageQuery != null) {
-            return (Package) extent.query(packageQuery);
+            Package modelPackage = (Package) extent.query(packageQuery);
+            if (modelPackage == null) {
+                throw new LoadException("package " + packageQuery + " does not exist in model.");
+            }
+            return modelPackage;
         }
         return null;
     }
@@ -93,24 +97,24 @@ public class MofModelManager {
         return new Integer(uniqueExtentId++).toString();
     }
 
-    private MofModel loadModelFromXmi(MofModel metaModel, String xmiFile, String extentName, String modelPackage) throws LoadException {
+    private MofModel loadModelFromXmi(MofModel metaModel, String xmiFile, String extentName, String packageQuery) throws LoadException {
         assert(metaModel != null);
         // TODO: reuse existing model extent or generate unique extent name ?
         extentName = extentName + " " + getUniqueExtentId();
         Extent modelExtent = repository.createExtent(extentName, metaModel.getExtent());
         MofModel mofModel = null;
-        
+
         try {
             if (xmiFile.endsWith(".xml")) {
                 repository.loadXmiIntoExtent(modelExtent, metaModel.getPackage(), new FileInputStream(xmiFile));
                 mofModel = new MofModel(repository, metaModel, xmiFile, modelExtent, xmiFile,
-                        getPackageFromQuery(modelExtent, modelPackage));
+                        getPackageFromQuery(modelExtent, packageQuery));
             }
             else if (xmiFile.endsWith(".mdxml")) {
                 XmiImportExport diagramInfo = repository.loadMagicDrawXmiIntoExtent(modelExtent,
                         metaModel.getPackage(), new FileInputStream(xmiFile));
                 mofModel = new MagicDrawMofModel(repository, metaModel, xmiFile, modelExtent, xmiFile,
-                        getPackageFromQuery(modelExtent, modelPackage), diagramInfo);
+                        getPackageFromQuery(modelExtent, packageQuery), diagramInfo);
             }
             else {
                 throw new LoadException("unkown extension for xmi file " + xmiFile);
@@ -135,10 +139,10 @@ public class MofModelManager {
         return mofModel;
     }
     
-    private MofModel loadStaticModel(MofModel metaModel, Extent modelExtent, String modelPackage) {
+    private MofModel loadStaticModel(MofModel metaModel, Extent modelExtent, String packageQuery) throws LoadException {
         assert(metaModel != null);
         ((ExtentImpl) modelExtent).configureExtent(metaModel.getPackage());
-        return new MofModel(repository, metaModel, null, modelExtent, null, getPackageFromQuery(modelExtent, modelPackage));
+        return new MofModel(repository, metaModel, null, modelExtent, null, getPackageFromQuery(modelExtent, packageQuery));
     }
     
     public MofModel getM2Model() {

@@ -72,6 +72,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
     private OclEnvironment fOclEnvironment = null;
     private Iterable<? extends Package> fMetaModel = null;
     private final Map<Class, Object> fFactories = new HashMap<Class, Object>();
+    private final String fName;
 
     protected ImplementationsManager createImplementationManager() {
         return new ImplementationsManagerImpl();
@@ -91,6 +92,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
 
     private ExtentImpl(boolean bootstrap, String path) {
         super(path);
+        this.fName = path;
         this.bootstrap = bootstrap;
         setPrimaryIdentity(model);
         objects = new SetImpl<cmof.reflection.Object>();
@@ -106,6 +108,10 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
 
     public ExtentImpl() {
         this(false, null);
+    }
+    
+    public String getName() {
+        return fName;
     }
 
     public InstanceModel<UmlClass,Property,java.lang.Object> getModel() {
