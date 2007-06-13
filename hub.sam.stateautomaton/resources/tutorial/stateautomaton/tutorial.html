@@ -21,12 +21,15 @@
 
   <meta name="description" content="This site presents a way of modelling languages, using MOF based meta-modelling. It shows how you can use our tools to give a custom semantic to UML and applies them to language oriented programming and the design of domain specific languages.">
 
+  <link rel="stylesheet" type="text/css" href="../../systemanalyse.css">
 
-<link rel="stylesheet" type="text/css" href="../systemanalyse.css">
+
+  <link rel="stylesheet" type="text/css" href="../../site.css">
+
+
+  <link rel="stylesheet" type="text/css" href="../aMOF2.0forJava.css">
+
   <link rel="stylesheet" type="text/css" href="highlight.css">
-
-
-  <link rel="stylesheet" type="text/css" href="../site.css">
 
 
 <!--[if IE]>
@@ -82,13 +85,31 @@ alt="frontpage hit counter" border="0"/></a> </noscript>
 
 					<tr>
 
-<td colspan="2" id="Tab" valign="bottom" nowrap="nowrap"><span>Language Modelling Home</span><a href="../aMOF2.0forJava/index.html">A MOF 2.0 for Java</a><a href="../tef/index.html">Textual Editing Framework</a><a href="../mopa/index.html">Model Pattern</a></td>
-
+						<td colspan="2" id="Tab" valign="bottom" nowrap="nowrap"><a href="../../index.html">Language Modelling Home</a><span>A MOF 2.0 for Java</span><a href="../../tef/index.html">Textual Editing Framework</a><a href="../../mopa/index.html">Model Pattern</a></td>
 					</tr>
 
 
   </tbody>
 </table>
+
+			</div>
+<div id="Navigation">
+<div class="box">
+					<span class="topLeft"></span><span class="topRight"></span>
+
+<h2>Navigation</h2>
+
+
+<div class="body">
+                        <p><a href="../index.html">A MOF Home</a></p>
+                        <p><a href="../tool.html">About A MOF</a></p>
+                        <p><a href="../download.html">Download</a></p>
+			<p>Tutorials<p>
+			<p>&nbsp;&nbsp;<a href="../documentation.html">Warehouse</a></p>
+                        <p>&nbsp;&nbsp;State Automaton</p>
+					</div>
+
+					<span class="botRight"></span><span class="botLeft"></span></div>
 
 			</div>
 
@@ -98,9 +119,7 @@ alt="frontpage hit counter" border="0"/></a> </noscript>
 
 <h1>Tutorial: Using our Tools for Model Driven Language Development</h1>
 
-<p>written by <a href="mailto:blunk@informatik.hu-berlin.de">Andreas Blunk</a>, May 2007</p>
-
-<p><font color="red">todo: check all links for valid urls</font></p>
+<p>written by <a href="mailto:blunk@informatik.hu-berlin.de">Andreas Blunk</a>, June 2007</p>
 
 <p>This tutorial shows how our language modelling tools can be used together to create the structure and behaviour of a computer language. The demonstration is based on an example language for modelling and executing composite state automatons. Before we start, you should download the complete language definition <a href="resources/StateAutomaton_1.0.0.jar">from here</a> or check it out <a href="http://developer.berlios.de/svn/?group_id=5941">from SVN</a> (project hub.sam.stateautomaton). It contains an Eclipse project that includes all the necessary resources we are using in this tutorial. A working Eclipse 3.2 installation is required (<a href="http://www.eclipse.org/">download and install from here</a>). When you have downloaded the archive, run Eclipse, create a new general project and import the archive into that project. There are other tools and Eclipse plugins needed during the tutorial, but you can install them later. When you have finished setting up the project, you may proceed with the tutorial. Don't worry when you have build problems at this point, we will solve them later on.</p>
 
@@ -123,9 +142,9 @@ alt="frontpage hit counter" border="0"/></a> </noscript>
 
 <p>In order to understand this tutorial, you should be familiar with our CMOF-based programming framework <i>A MOF 2.0 for Java</i>. Further knowledge of our operational approach to define execution semantics may be helpful. Please refer to the following articles and papers for detailed information:
 <ul>
-	<li>(structure) <a href="../aMOF2.0forJava/index.html">A MOF 2.0 for Java</a></li>
+	<li>(structure) <a href="../index.html">A MOF 2.0 for Java</a></li>
 	<li>(structure) <a href="http://www2.informatik.hu-berlin.de/~scheidge/downloads/OnMof2.pdf">Markus Scheidgen: On Implementing MOF 2.0: New Features for Modelling Abstractions</a></li>
-	<li>(semantics) <a href="">Markus Scheidgen, Joachim Fischer: Human Comprehensible and Machine Processable Specifications of Operational Semantics</a> </li>
+	<li>(semantics) <a href="http://www2.informatik.hu-berlin.de/~scheidge/downloads/ECMDA07.pdf">Markus Scheidgen, Joachim Fischer: Human Comprehensible and Machine Processable Specifications of Operational Semantics</a> </li>
 </ul>
 </p>
 
@@ -193,7 +212,7 @@ alt="frontpage hit counter" border="0"/></a> </noscript>
 
 <h3>Programming with CMOF-based Models</h3>
 
-<p>Our language meta-model is based on CMOF. In order to work with CMOF-based models, we developed a programming framework: <a href="../aMOF2.0forJava/index.html">A MOF 2.0 for Java</a> (abbreviated AMOF2). It allows storing and managing meta-models and models. A binary version of AMOF2 is already supplied with the example language (located in <i>resources/lib/aMOF2.0forJava.jar</i>). Our language meta-model has to be in a format that AMOF2 can understand. It currently understands XMI version 2.0 and file formats of several proprietary UML modelling tools. One of them is <a href="http://www.magicdraw.com">MagicDraw UML</a> which we have already used to model the language structure. Programming with the model in Java requires the generation of a model repository with AMOF2.</p>
+<p>Our language meta-model is based on CMOF. In order to work with CMOF-based models, we developed a programming framework: <a href="../index.html">A MOF 2.0 for Java</a> (abbreviated AMOF2). It allows storing and managing meta-models and models. A binary version of AMOF2 is already supplied with the example language (located in <i>resources/lib/aMOF2.0forJava.jar</i>). Our language meta-model has to be in a format that AMOF2 can understand. It currently understands XMI version 2.0 and file formats of several proprietary UML modelling tools. One of them is <a href="http://www.magicdraw.com">MagicDraw UML</a> which we have already used to model the language structure. Programming with the model in Java requires the generation of a model repository with AMOF2.</p>
 
 <h4>Repository Generation</h4>
 
@@ -405,7 +424,7 @@ Our approch is to use operational semantics. We augment a meta-model with operat
 
 <p><img src="images/activities_mase.png"></p>
 
-<p>There is another plugin, named <i>MOF 2.0 Browser Plugin</i>, which can be used to navigate through CMOF-based models (you may know the plugin from the <a href="../aMOF2.0forJava/index.html">AMOF Tutorial page</a>).</p>
+<p>There is another plugin, named <i>MOF 2.0 Browser Plugin</i>, which can be used to navigate through CMOF-based models (you may know the plugin from the <a href="../index.html">AMOF Tutorial page</a>).</p>
 
 <p><img src="images/activities_mof2b.png"></p>
 
@@ -451,7 +470,7 @@ Our approch is to use operational semantics. We augment a meta-model with operat
 
 <p><img src="images/activities_edit2.png"></p>
 
-<p>The MAS language itself is not explained in this tutorial. If you want to learn how to model activities with MAS, you have to read our paper <a href="">Human Comprehensible and Machine Processable Specifications of Operational Semantics</a>.</p>
+<p>The MAS language itself is not explained in this tutorial. If you want to learn how to model activities with MAS, you have to read our paper <a href="http://www2.informatik.hu-berlin.de/~scheidge/downloads/ECMDA07.pdf">Human Comprehensible and Machine Processable Specifications of Operational Semantics</a>.</p>
 
 <h3>Executing the User Model</h3>
 
@@ -505,7 +524,7 @@ Our approch is to use operational semantics. We augment a meta-model with operat
 <span class="line">   40 </span>        testManager<span class="sym">.</span><span class="kwd">setM2Model</span><span class="sym">(</span>masModelContainer<span class="sym">.</span><span class="kwd">getSyntaxModel</span><span class="sym">());</span>
 <span class="line">   41 </span>        MofModel testModel <span class="sym">=</span> testManager<span class="sym">.</span><span class="kwd">createM1Model</span><span class="sym">(</span><span class="str">&quot;test&quot;</span><span class="sym">);</span>
 <span class="line">   42 </span>        modelFactory testFactory <span class="sym">= (</span>modelFactory<span class="sym">)</span> testModel<span class="sym">.</span><span class="kwd">getFactory</span><span class="sym">();</span>
-</pre><p>Creates an environment for the test model by using our new model management interface. The interface will be described in detail in the <a href="../aMOF2.0forJava/index.html">AMOF2 tutorial</a> as soon as possible. For now, we give the following explanation: We first create a test model manager that can manage models of different meta-layers. We then set the syntax model from the model container as the M2 model and create our test model as the M1 model. We retrieve a factory for the test model, which we use later to create model elements. In the past, there was no such structure like a model manager that could keep all the important information together in one place.</p><pre class="hl">
+</pre><p>Creates an environment for the test model by using our new model management interface. The interface will be described in detail in the <a href="../index.html">AMOF2 tutorial</a> as soon as possible. For now, we give the following explanation: We first create a test model manager that can manage models of different meta-layers. We then set the syntax model from the model container as the M2 model and create our test model as the M1 model. We retrieve a factory for the test model, which we use later to create model elements. In the past, there was no such structure like a model manager that could keep all the important information together in one place.</p><pre class="hl">
 <span class="line">   43 </span>
 <span class="line">   44 </span>        MasExecutionHelper<span class="sym">.</span><span class="kwd">prepareRun</span><span class="sym">(</span>repository<span class="sym">,</span> masContext<span class="sym">,</span> testModel<span class="sym">);</span>
 </pre><p>Prepares the test model for execution within the MAS context and installs implementations managers for activities, ocl queries and Java code (in order).</p><pre class="hl">

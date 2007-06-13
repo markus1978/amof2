@@ -23,6 +23,11 @@ package hub.sam.stateautomaton.model;
 public class AutomatonCustom extends AutomatonDlg {
     
     @Override
+    public void run() {
+        run("dbdecacf");
+    }
+
+    @Override
     public void run(java.lang.String input) {
         AutomatonRuntime runtime = self.metaCreateAutomatonRuntime();
         runtime.initialise();
