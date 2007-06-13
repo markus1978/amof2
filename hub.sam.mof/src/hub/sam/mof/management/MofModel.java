@@ -47,6 +47,9 @@ import cmof.reflection.Factory;
  */
 public class MofModel {
 
+    private final static String clonedXmiSuffix = "_cloned.xml";
+    private final boolean isCloned;
+    
     protected final Repository repository;
     private final String xmiFile;
     private final Extent extent;
@@ -68,7 +71,14 @@ public class MofModel {
     public MofModel(Repository repository, MofModel metaModel, String xmiFile, Extent extent, String extentName, Package modelPackage) {
         this.repository = repository;
         this.metaModel = metaModel;
-        this.xmiFile = xmiFile;
+        if (xmiFile != null && isClonedXmi(xmiFile)) {
+            this.xmiFile = getUnclonedXmi(xmiFile);
+            this.isCloned = true;
+        }
+        else {
+            this.xmiFile = xmiFile;
+            this.isCloned = false;
+        }
         this.extent = extent;
         this.extentName = extentName;
         this.modelPackage = modelPackage;
@@ -85,6 +95,18 @@ public class MofModel {
      */
     public MofModel(Repository repository, String xmiFile, Extent extent, String extentName, Package modelPackage) {
         this(repository, null, xmiFile, extent, extentName, modelPackage);
+    }
+
+    public boolean isClonedXmi(String xmiFile) {
+        return xmiFile.indexOf(clonedXmiSuffix) != -1;
+    }
+    
+    public String getUnclonedXmi(String xmiFile) {
+        return xmiFile.substring(0, xmiFile.length() - clonedXmiSuffix.length());
+    }
+    
+    public static String getClonedXmi(String xmiFile) {
+        return xmiFile + clonedXmiSuffix;
     }
 
     public Extent getExtent() {
@@ -150,9 +172,13 @@ public class MofModel {
     }
     
     public void save() throws SaveException {
+        if (isCloned) {
+            throw new SaveException("A cloned XMI cannot be saved.");
+        }
+        
         String xmiFile = getXmiFile();
         if (xmiFile == null) {
-            throw new SaveException("xmi file not specified");
+            throw new SaveException("XMI file not specified.");
         }
         
         try {
