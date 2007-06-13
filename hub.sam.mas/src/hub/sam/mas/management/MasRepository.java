@@ -52,7 +52,6 @@ public class MasRepository {
         MasContext context = new MasContext(modelContainer);
         contexts.put(context.getContextId(), context);
         xmiFiles.put(context.getSyntaxModel().getXmiFile(), context);
-        xmiFiles.put(MasModelContainer.getClonedXmiName(context.getSyntaxModel().getXmiFile()), context);
         return context;
     }
     
@@ -61,10 +60,22 @@ public class MasRepository {
         contexts.remove(context.getContextId());
     }
     
+    /**
+     * retrieve MAS Context from Syntax XMI File
+     * 
+     * @param syntaxXmiFile
+     * @return
+     */
     public MasContext getMasContext(String syntaxXmiFile) {
         return xmiFiles.get(syntaxXmiFile);
     }
 
+    /**
+     * retrieve MAS Context from Syntax Extent
+     * 
+     * @param syntaxExtent
+     * @return
+     */
     public MasContext getMasContext(Extent syntaxExtent) {
         return contexts.get(syntaxExtent);
     }

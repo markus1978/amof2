@@ -82,7 +82,7 @@ public class MasModelContainer implements IMasModelContainer {
      */
     public void loadSyntaxModelForExecution(String xmiFile, String packageQuery) throws LoadException {
         // clone syntax model - prevents saving runtime-instance-of-association
-        String clonedSyntaxFile = getClonedXmiName(xmiFile);
+        String clonedSyntaxFile = MofModel.getClonedXmi(xmiFile);
         cloneXmiModel(xmiFile, clonedSyntaxFile);
         syntaxModelManager.loadM2Model(clonedSyntaxFile, "Syntax: " + getFilename(xmiFile), packageQuery);
         
@@ -118,10 +118,6 @@ public class MasModelContainer implements IMasModelContainer {
 
     public MofModel getSyntaxModel() {
         return syntaxModelManager.getM2Model();
-    }
-    
-    public static String getClonedXmiName(String xmiFile) {
-        return xmiFile + "_cloned.xml";
     }
     
     private static void cloneXmiModel(String xmiFile, String clonedXmiFile) {

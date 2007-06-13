@@ -33,7 +33,7 @@ import cmof.reflection.Extent;
 
 public class MasExecutionHelper {
 
-    public static void prepareRun(Repository repository, MasContext masContext, MofModel m1Model) throws Exception {
+    public static void prepareRun(Repository repository, MasContext masContext, MofModel m1Model) {
         ExecutionEnvironment env = new ExecutionEnvironment(m1Model.getExtent(),
                 masContext.getMasModel().getMetaModel().getExtent(), repository);
         
