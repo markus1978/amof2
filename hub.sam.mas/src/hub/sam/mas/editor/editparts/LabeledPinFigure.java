@@ -18,9 +18,11 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.editor.figures;
+package hub.sam.mas.editor.editparts;
 
 import hub.sam.mas.editor.MaseEditDomain;
+import hub.sam.mas.editor.figures.EditableFigure;
+import hub.sam.mas.editor.figures.PinFigure;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
@@ -29,14 +31,14 @@ import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 
-public class ContextExtensionPinFigure extends Figure implements EditableFigure {
-    
-    private final Label extensionName;
-    private final ContextPinFigure contextPin;
+public class LabeledPinFigure extends Figure implements EditableFigure {
+
+    private final Label label;
+    private final PinFigure pin;
+    private final static String labelPrefix = "=";
     public static final Color COLOR = new Color(null,255,153,0);
     
-    public ContextExtensionPinFigure(int num) {
-
+    public LabeledPinFigure(PinFigure pin) {
         ToolbarLayout layout = new ToolbarLayout(ToolbarLayout.VERTICAL);
         setLayoutManager(layout);
         
@@ -46,36 +48,41 @@ public class ContextExtensionPinFigure extends Figure implements EditableFigure 
             setBackgroundColor(COLOR);
         }
         
-        extensionName = new Label();
-        add(extensionName);
+        label = new Label();
+        add(label);
         
-        contextPin = new ContextPinFigure(num);
-        add(contextPin);
+        this.pin = pin;
+        add(pin);
     }
     
     public Dimension getPreferredSize(int wHint, int hHint) {
         Dimension preferredSize = new Dimension();
-        preferredSize.expand(0, contextPin.getPreferredSize().height);
-        preferredSize.expand(0, extensionName.getPreferredSize(wHint, hHint).height);
-        int maxWidth = Math.max(contextPin.getPreferredSize().width, extensionName.getPreferredSize().width);
+        preferredSize.expand(0, pin.getPreferredSize().height);
+        preferredSize.expand(0, label.getPreferredSize(wHint, hHint).height);
+        int maxWidth = Math.max(pin.getPreferredSize().width, label.getPreferredSize().width);
         preferredSize.expand(maxWidth, 0);
         return preferredSize;
     }
     
     public void setText(String str) {
-        extensionName.setText(str);
+        if (str != null && str.length() > 0) {
+            label.setText(labelPrefix + str);
+        }
+        else {
+            label.setText(str);
+        }
     }
     
     public String getText() {
-        return extensionName.getText();
+        return label.getText();
     }
     
     public IFigure getLocatorFigure() {
-        return extensionName;
+        return label;
     }
     
     public IFigure getAnchorFigure() {
-        return contextPin;
+        return pin;
     }
     
 }

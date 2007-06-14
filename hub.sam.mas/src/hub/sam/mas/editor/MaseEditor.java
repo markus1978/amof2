@@ -23,7 +23,6 @@ package hub.sam.mas.editor;
 import hub.sam.mas.MasPlugin;
 import hub.sam.mas.editor.actions.CreateGuardSpecificationAction;
 import hub.sam.mas.model.mas.Activity;
-import hub.sam.mas.model.mas.ContextExtensionPin;
 import hub.sam.mas.model.mas.ContextPin;
 import hub.sam.mas.model.mas.ControlFlow;
 import hub.sam.mas.model.mas.DecisionNode;
@@ -204,12 +203,14 @@ public class MaseEditor extends GraphicalEditorWithPalette {
                 MasPlugin.getImageDescriptor("icons/rectangle.gif"));
         group.add(entry);
 
-        entry = new CreationToolEntry("ContextExtensionPin",
-                "new ContextExtensionPin",
-                new MaseCreationFactory(editDomain, ContextExtensionPin.class),
-                MasPlugin.getImageDescriptor("icons/rectangle.gif"),
-                MasPlugin.getImageDescriptor("icons/rectangle.gif"));
-        group.add(entry);
+// ContextExtensionPins are deprecated and should not be created anymore.
+// Use ContextPin with valueExpression instead.
+//        entry = new CreationToolEntry("ContextExtensionPin",
+//                "new ContextExtensionPin",
+//                new MaseCreationFactory(editDomain, ContextExtensionPin.class),
+//                MasPlugin.getImageDescriptor("icons/rectangle.gif"),
+//                MasPlugin.getImageDescriptor("icons/rectangle.gif"));
+//        group.add(entry);
 
         entry = new CreationToolEntry("InExpansionNode",
                 "new InExpansionNode",

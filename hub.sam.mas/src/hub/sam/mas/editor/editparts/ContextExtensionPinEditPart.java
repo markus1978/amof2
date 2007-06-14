@@ -24,13 +24,18 @@ import java.beans.PropertyChangeEvent;
 
 import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.editparts.properties.ContextExtensionPinPropertySource;
-import hub.sam.mas.editor.figures.ContextExtensionPinFigure;
+import hub.sam.mas.editor.figures.ContextPinFigure;
 import hub.sam.mas.model.mas.ContextExtensionPin;
 
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.ui.views.properties.IPropertySource;
 
+/**
+ * 
+ * @deprecated Use ContextPin with valueExpression. This class should remain intact for backward compatibility.
+ */
+@Deprecated
 public class ContextExtensionPinEditPart extends ContextPinEditPart {
     
     public ContextExtensionPin getModel() {
@@ -39,7 +44,8 @@ public class ContextExtensionPinEditPart extends ContextPinEditPart {
     
     @Override
     protected IFigure createFigure() {
-        ContextExtensionPinFigure figure = new ContextExtensionPinFigure(getModel().getNum());
+        ContextPinFigure pinFigure = new ContextPinFigure(getModel().getNum());
+        LabeledPinFigure figure = new LabeledPinFigure(pinFigure);
         if (getModel().getExtensionName() == null) {
             String extensionName = MaseEditDomain.getProperties().getProperty("contextExtensionPin.name");
             getModel().setExtensionName(extensionName);
@@ -55,7 +61,7 @@ public class ContextExtensionPinEditPart extends ContextPinEditPart {
     }
     
     protected void refreshVisuals() {
-        ((ContextExtensionPinFigure) getFigure()).setText(getModel().getExtensionName());
+        ((LabeledPinFigure) getFigure()).setText(getModel().getExtensionName());
     }
     
     private IPropertySource propertyDescriptor = null;

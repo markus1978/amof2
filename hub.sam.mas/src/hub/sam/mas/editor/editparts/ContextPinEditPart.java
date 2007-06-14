@@ -34,8 +34,9 @@ public class ContextPinEditPart extends InputPinEditPart {
 
     @Override
     protected IFigure createFigure() {
-        ContextPinFigure figure = new ContextPinFigure(getModel().getNum());
-        anchor = new ChopboxAnchor(figure);
+        ContextPinFigure pinFigure = new ContextPinFigure(getModel().getNum());
+        LabeledPinFigure figure = new LabeledPinFigure(pinFigure);
+        anchor = new ChopboxAnchor(figure.getAnchorFigure());
         return figure;
     }
     

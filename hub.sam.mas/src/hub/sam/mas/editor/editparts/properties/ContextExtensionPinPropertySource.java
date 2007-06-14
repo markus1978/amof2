@@ -23,6 +23,11 @@ package hub.sam.mas.editor.editparts.properties;
 import hub.sam.mas.editor.editparts.properties.handlers.ContextExtensionPinHandler;
 import hub.sam.mas.model.mas.ContextExtensionPin;
 
+/**
+ * 
+ * @deprecated Use ContextPin with valueExpression. This class should remain intact for backward compatibility.
+ */
+@Deprecated
 public class ContextExtensionPinPropertySource extends AbstractPropertySource {
 
     private final ContextExtensionPin model;

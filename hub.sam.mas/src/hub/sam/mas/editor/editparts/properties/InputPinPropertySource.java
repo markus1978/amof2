@@ -18,33 +18,22 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.editor.editparts.properties.handlers;
+package hub.sam.mas.editor.editparts.properties;
 
-import hub.sam.mas.model.mas.ContextExtensionPin;
+import hub.sam.mas.editor.editparts.properties.handlers.InputPinHandler;
+import hub.sam.mas.model.mas.InputPin;
 
-/**
- * 
- * @deprecated Use ContextPin with valueExpression. This class should remain intact for backward compatibility.
- */
-@Deprecated
-public class ContextExtensionPinHandler extends StringAttributeHandler {
+public class InputPinPropertySource extends AbstractPropertySource {
 
-    private final ContextExtensionPin model;
-
-    public ContextExtensionPinHandler(ContextExtensionPin model) {
-        super("CONTEXT_EXTENSION_PIN_NAME", "extension name");
+    private final InputPin model;
+    
+    public InputPinPropertySource(InputPin model) {
         this.model = model;
     }
-
-    @Override
-    protected String getString() {
-        return model.getExtensionName();
-    }
-
-    @Override
-    protected void setString(String value) {
-        model.setExtensionName(value);
-    }
     
-    
+    @Override
+    protected void createPropertyHandlers() {
+        installPropertyHandler(new InputPinHandler(model));
+    }
+   
 }

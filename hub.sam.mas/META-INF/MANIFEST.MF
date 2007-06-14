@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mof Action Semantics Plug-in
 Bundle-SymbolicName: hub.sam.mas;singleton:=true
-Bundle-Version: 1.2.0
+Bundle-Version: 1.3.0
 Bundle-Activator: hub.sam.mas.MasPlugin
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui;visibility:=reexport,
