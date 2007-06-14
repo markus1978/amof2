@@ -20,6 +20,8 @@
 
 package hub.sam.mas.editor.actions;
 
+import java.lang.reflect.InvocationTargetException;
+
 import hub.sam.mas.MasPlugin;
 import hub.sam.mas.editor.IMaseEditorInput;
 import hub.sam.mas.editor.MaseEditor;
@@ -30,16 +32,24 @@ import hub.sam.mas.model.mas.Activity;
 import hub.sam.mas.model.mas.MaseCreationFactory;
 import hub.sam.mas.model.mas.masFactory;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
-public class EditBehaviourAction extends MasAction {
+public class EditBehaviourAction extends MasAction implements IRunnableWithProgress {
+
+    private Display display;
+    private MasLink link;
 
     public void run(IAction action) {
-        MasLink link = getLinkFromSelection();
+        link = getLinkFromSelection();
         if (link == null) {
             MasContext masContext = getMASContextFromSelection();
             MaseCreationFactory maseFactory = new MaseCreationFactory((masFactory) masContext.getMasModel().getFactory(),
@@ -48,14 +58,36 @@ public class EditBehaviourAction extends MasAction {
             link = masContext.createLink(currentOperation, activity);
         }
         
-        IMaseEditorInput input = new MaseEditorInput(link);
+        display = Display.getCurrent();
+        ProgressMonitorDialog progressMonitor = new ProgressMonitorDialog(display.getActiveShell());
         try {
-            IEditorPart editorPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input, MasPlugin.EDITOR_PACKAGE_PREFIX);
-            link.setAssociatedEditor((MaseEditor) editorPart);
+            progressMonitor.run(true, false, this);
         }
-        catch (PartInitException e) {
-            e.printStackTrace();
+        catch (InvocationTargetException e) {
+            MessageDialog.openError(display.getActiveShell(), "Error",
+                    "Failed to open a MAS Editor: " + e.getMessage());
         }
+        catch (InterruptedException e) {
+        }
+    }
+
+    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+        monitor.beginTask("Opening MAS Editor ...", 1);
+        display.syncExec(new Runnable() {            
+            public void run() {
+                try {
+                    IMaseEditorInput input = new MaseEditorInput(link);
+                    IEditorPart editorPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input, MasPlugin.EDITOR_PACKAGE_PREFIX);
+                    link.setAssociatedEditor((MaseEditor) editorPart);
+                }
+                catch (PartInitException e) {
+                    MessageDialog.openError(display.getActiveShell(), "Error",
+                            "Failed to open a MAS Editor: " + e.getMessage());
+                }
+            }
+        });
+        monitor.worked(1);
+        monitor.done();
     }
 
     @Override
@@ -73,6 +105,5 @@ public class EditBehaviourAction extends MasAction {
             action.setText("Edit Behaviour");
         }
     }
-
     
 }
