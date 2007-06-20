@@ -66,7 +66,7 @@ public class StateAutomaton {
         // as instance of the syntax model.
         MofModelManager testManager = new MofModelManager(repository);
         testManager.setM2Model(masModelContainer.getSyntaxModel());
-        MofModel testModel = testManager.createM1Model("test");
+        MofModel testModel = testManager.createM1Model("test", "resources/test-model.xml");
         modelFactory testFactory = (modelFactory) testModel.getFactory();
         
         // prepares execution and installs implementations managers for activities,
@@ -74,6 +74,7 @@ public class StateAutomaton {
         MasExecutionHelper.prepareRun(repository, masContext, testModel);
                
         Automaton automaton = createLargeTestModel(testFactory);
+        testModel.save();
         
         boolean invariantCheckResult = testModel.getExtent().getAdaptor(OclEnvironment.class).checkAllInvariantsOnAllObjects();
         if (!invariantCheckResult) {
