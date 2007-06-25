@@ -28,6 +28,7 @@ import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.MetaModelException;
 import hub.sam.mof.javamapping.JavaMapping;
+import hub.sam.mof.xmi.CMOFToXmi;
 import hub.sam.mof.xmi.XmiException;
 import cmof.Package;
 import cmof.Tag;
@@ -160,9 +161,25 @@ public class MofModel {
         Factory factory = getFactory();
         if (factory instanceof cmofFactory) {
             cmofFactory cmofFactory = (cmofFactory) factory;
+            Tag prefixTag = cmofFactory.createTag();
+            prefixTag.setName(JavaMapping.PackagePrefixTagName);
+            prefixTag.setValue(prefix);
+            getPackage().getTag().add(prefixTag);
+        }
+    }
+    
+    /**
+     * Adding a prefix to the package is only allowed if the meta-model is CMOF.
+     * 
+     * @return
+     */
+    public void addNsPrefix(String nsPrefix) {
+        Factory factory = getFactory();
+        if (factory instanceof cmofFactory) {
+            cmofFactory cmofFactory = (cmofFactory) factory;
             Tag nsPrefixTag = cmofFactory.createTag();
-            nsPrefixTag.setName(JavaMapping.PackagePrefixTagName);
-            nsPrefixTag.setValue(prefix);
+            nsPrefixTag.setName(CMOFToXmi.NS_PREFIX_TAG_NAME);
+            nsPrefixTag.setValue(nsPrefix);
             getPackage().getTag().add(nsPrefixTag);
         }
     }
