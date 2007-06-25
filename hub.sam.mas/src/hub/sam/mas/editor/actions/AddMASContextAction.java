@@ -55,13 +55,13 @@ public class AddMASContextAction extends Mof2PluginAction implements IRunnableWi
         FileDialog dialog = new FileDialog(shell, SWT.SINGLE);
         dialog.setFilterExtensions(new String[] { "*.masctx" }); //$NON-NLS-1$;               
 
-        String result = dialog.open();
-        if (result == null) {
+        String selectedFile = dialog.open();
+        if (selectedFile == null) {
             return;
         }
         
         try {
-            xmiFiles = new PluginMasXmiFiles(new Path(dialog.getFilterPath()), dialog.getFileName());
+            xmiFiles = new PluginMasXmiFiles(selectedFile);
             ProgressMonitorDialog progressMonitor = new ProgressMonitorDialog(shell);
             progressMonitor.run(true, false, this);
         }

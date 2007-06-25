@@ -24,7 +24,7 @@ import hub.sam.mas.execution.MasExecutionHelper;
 import hub.sam.mas.management.MasContext;
 import hub.sam.mas.management.MasModelContainer;
 import hub.sam.mas.management.MasRepository;
-import hub.sam.mas.management.MasXmiFiles;
+import hub.sam.mas.management.IMasXmiFiles;
 import hub.sam.mas.management.SimpleMasXmiFiles;
 import hub.sam.mas.model.petrinets.Net;
 import hub.sam.mas.model.petrinets.Place;
@@ -61,7 +61,7 @@ public class TestPetrinet {
         Repository.getConfiguration().setGenerousXMI(true);
         
         // load xmi files for syntax and semantic from mas context file
-        MasXmiFiles xmiFiles = new SimpleMasXmiFiles("resources/models/", "petrinets.masctx");
+        IMasXmiFiles xmiFiles = new SimpleMasXmiFiles("resources/models/", "petrinets.masctx");
 
         // create a new mas model container
         MasModelContainer masModelContainer = new MasModelContainer(repository);

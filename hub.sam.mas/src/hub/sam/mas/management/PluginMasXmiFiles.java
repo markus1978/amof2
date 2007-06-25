@@ -20,49 +20,35 @@
 
 package hub.sam.mas.management;
 
-import hub.sam.mas.MasPlugin;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
-public class PluginMasXmiFiles implements MasXmiFiles {
+public class PluginMasXmiFiles implements IMasXmiFiles {
     
     private String syntaxFile;
     private String semanticFile;
-    private String semanticMetaFile;
     
-    public PluginMasXmiFiles(String syntaxFile, String semanticFile) {
-        this.syntaxFile = syntaxFile;
-        this.semanticFile = semanticFile;
-    }
-
-    public PluginMasXmiFiles(IPath pathToContextFile, String contextFile) throws FileNotFoundException, IOException {
+    public PluginMasXmiFiles(String contextFile) throws FileNotFoundException, IOException {
+        IPath pathToContextFile = new Path(contextFile).removeLastSegments(1);
+        
         Properties properties = new Properties();
-        properties.load(new FileInputStream( pathToContextFile.append(contextFile).makeAbsolute().toOSString() ));
+        properties.load(new FileInputStream(contextFile));
         
         syntaxFile = pathToContextFile.append( (String) properties.get("syntax") ).makeAbsolute().toOSString();
         semanticFile = pathToContextFile.append( (String) properties.get("semantic") ).makeAbsolute().toOSString();
-        
-        String urlPath = FileLocator.toFileURL(MasPlugin.getDefault().getBundle().getEntry(masMetaFileRelative)).getPath();
-        semanticMetaFile = new Path(urlPath).makeAbsolute().toOSString();
     }
-
+    
     public String getMasFile() {
         return semanticFile;
     }
 
     public String getSyntaxFile() {
         return syntaxFile;
-    }
-
-    public String getMasMetaFile() {
-        return semanticMetaFile;
     }
 
 }

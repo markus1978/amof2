@@ -26,8 +26,8 @@ import hub.sam.mas.model.mas.Activity;
 import hub.sam.mof.management.MofModel;
 import hub.sam.mof.management.SaveException;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -57,12 +57,12 @@ import cmof.reflection.Extent;
 public class MasContext {
     
     private static Logger logger = Logger.getLogger(MasContext.class.getName());
-    private Map<String, MasLink> links = new TreeMap<String, MasLink>();
+    private Map<String, MasLink> links = new HashMap<String, MasLink>();
     private MofModel syntaxModel;
     private MofModel masModel;
     private static String linkIdPrefix = "mas-id-";
-    private Map<String, Operation> operations  = new TreeMap<String, Operation>();
-    private Map<String, Activity> activities = new TreeMap<String, Activity>();
+    private Map<String, Operation> operations  = new HashMap<String, Operation>();
+    private Map<String, Activity> activities = new HashMap<String, Activity>();
     private boolean syntaxModelNeedsSaving = false;
     
     protected MasContext(IMasModelContainer modelContainer) {
@@ -276,13 +276,13 @@ public class MasContext {
     }
     
     /**
-     * Returns a TreeMap that maps ids to operations.
+     * Returns a HashMap that maps ids to operations.
      * 
      * @param syntaxExtent
      * @return
      */
     private Map<String, Operation> getOperations(Extent syntaxExtent) {
-        Map<String, Operation> operations  = new TreeMap<String, Operation>();
+        Map<String, Operation> operations  = new HashMap<String, Operation>();
         for(Object obj: syntaxExtent.outermostComposites()) {
             if (obj instanceof Package) {
                 for(Element element: ((Package) obj).getOwnedElement()) {
@@ -304,13 +304,13 @@ public class MasContext {
     }
 
     /**
-     * Returns a TreeMap that maps ids to activities.
+     * Returns a HashMap that maps ids to activities.
      * 
      * @param semanticExtent
      * @return
      */
     private Map<String, Activity> getActivities(Extent semanticExtent) {
-        Map<String, Activity> activities = new TreeMap<String, Activity>();
+        Map<String, Activity> activities = new HashMap<String, Activity>();
         for(Object obj: semanticExtent.outermostComposites()) {
             if (obj instanceof Activity) {
                 Activity act = (Activity) obj;

@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cmof.Package;
+import cmof.Tag;
 import cmof.cmofFactory;
 import cmof.reflection.Extent;
 
@@ -66,6 +67,7 @@ public class MasModelContainer implements IMasModelContainer {
         this.masModelManager = new MofModelManager(repository);
         // load static mas meta-model
         this.masModelManager.loadM2Model(MasModel.createModel(), "Package:mas");
+        System.out.println("bla");
     }
     
     private String getFilename(String path) {

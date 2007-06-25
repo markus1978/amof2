@@ -20,9 +20,7 @@
 
 package hub.sam.mas.management;
 
-public interface MasXmiFiles {
+public interface IMasXmiFiles {
     public String getSyntaxFile();
     public String getMasFile();
-    public String getMasMetaFile();
-    public String masMetaFileRelative = "resources/models/mas_merged.xml";
 }

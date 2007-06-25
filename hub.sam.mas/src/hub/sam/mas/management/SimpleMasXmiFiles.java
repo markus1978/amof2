@@ -25,7 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-public class SimpleMasXmiFiles implements MasXmiFiles {
+public class SimpleMasXmiFiles implements IMasXmiFiles {
     
     private String syntaxFile;
     private String semanticFile;
@@ -44,10 +44,6 @@ public class SimpleMasXmiFiles implements MasXmiFiles {
 
     public String getSyntaxFile() {
         return syntaxFile;
-    }
-
-    public String getMasMetaFile() {
-        return masMetaFileRelative;
     }
 
 }
