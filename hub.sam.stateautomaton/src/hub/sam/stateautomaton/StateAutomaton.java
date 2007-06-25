@@ -30,7 +30,7 @@ import hub.sam.mas.execution.MasExecutionHelper;
 import hub.sam.mas.management.MasContext;
 import hub.sam.mas.management.MasModelContainer;
 import hub.sam.mas.management.MasRepository;
-import hub.sam.mas.management.MasXmiFiles;
+import hub.sam.mas.management.IMasXmiFiles;
 import hub.sam.mas.management.SimpleMasXmiFiles;
 import hub.sam.mof.Repository;
 import hub.sam.mof.management.MofModel;
@@ -46,7 +46,7 @@ public class StateAutomaton {
         Repository.getConfiguration().setGenerousXMI(true);
         
         // load xmi files for syntax and semantic from a mas context file
-        MasXmiFiles xmiFiles = new SimpleMasXmiFiles("resources/", "StateAutomaton.masctx");
+        IMasXmiFiles xmiFiles = new SimpleMasXmiFiles("resources/", "StateAutomaton.masctx");
 
         // create a new mas model container
         MasModelContainer masModelContainer = new MasModelContainer(repository);
@@ -57,6 +57,7 @@ public class StateAutomaton {
         // load state automaton meta-model (syntax)
         masModelContainer.loadSyntaxModelForExecution(xmiFiles.getSyntaxFile(), "Package:model");
         masModelContainer.getSyntaxModel().addJavaPackagePrefix("hub.sam.stateautomaton");
+        masModelContainer.getSyntaxModel().addNsPrefix("stateautomaton");
         
         // now we can create a mas context
         MasContext masContext = MasRepository.getInstance().createMasContext(masModelContainer);

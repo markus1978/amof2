@@ -4,6 +4,6 @@ Bundle-Name: StateAutomaton
 Bundle-SymbolicName: StateAutomaton
 Bundle-Version: 1.0.0
 Bundle-Localization: plugin
-Require-Bundle: hub.sam.mas,
- org.eclipse.core.runtime,
- org.eclipse.core.resources
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ hub.sam.mas.launcher;visibility:=reexport
