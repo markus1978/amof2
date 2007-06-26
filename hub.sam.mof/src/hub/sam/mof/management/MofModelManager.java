@@ -29,6 +29,8 @@ import hub.sam.mof.xmi.XmiImportExport;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.jdom.JDOMException;
 
@@ -40,9 +42,13 @@ import cmof.reflection.Extent;
  * M2 is a meta-model as instance of CMOF and M1 is a model as instance of M2.
  * 
  * The manager allows loading M2 and M1 model from an xmi file or a statically created extent.
- * Please note, that you have to load the M2 model first!
+ * The M2 model has to be loaded before the M1 model!
  * When you load a particular model, all useful information will be saved in a MofModel object.
- * It can be retrieved by calling the methods getM2Model or getM1Model. 
+ * It can be retrieved by calling the methods getM2Model or getM1Model.
+ * 
+ * The MofModelManager can be configured to prevent reloading the same model XMI multiple times
+ * into different extents. In such a case where an XMI file has already been loaded, the corresponding
+ * MofModel is simply returned.
  *
  */
 public class MofModelManager {
@@ -53,6 +59,21 @@ public class MofModelManager {
     private MofModel cmofModel;
     private static int uniqueExtentId = 0;
     
+    /**
+     * Every model XMI loaded through the manager is mapped to its corresponding MofModel.
+     * This prevents loading the same model XMI multiple times into different extents.
+     */
+    private static boolean allowDuplicateXmiModel = false;
+    private static Map<String, MofModel> xmiToMofModel = new HashMap<String, MofModel>();
+    
+    public static boolean isAllowDuplicateXmiModel() {
+        return allowDuplicateXmiModel;
+    }
+
+    public static void setAllowDuplicateXmiModel(boolean enableDuplicateXmiModelDetection) {
+        MofModelManager.allowDuplicateXmiModel = enableDuplicateXmiModelDetection;
+    }
+
     public MofModelManager(Repository repository) {
         this.repository = repository;
     }
@@ -99,10 +120,23 @@ public class MofModelManager {
 
     private MofModel loadModelFromXmi(MofModel metaModel, String xmiFile, String extentName, String packageQuery) throws LoadException {
         assert(metaModel != null);
+        
+        MofModel mofModel = null;
+        if (!isAllowDuplicateXmiModel()) {
+            mofModel = xmiToMofModel.get(xmiFile);
+            if (mofModel != null) {
+                if (mofModel.isValid()) {
+                    return mofModel;
+                }
+                else {
+                    xmiToMofModel.remove(xmiFile);
+                }
+            }
+        }
+        
         // TODO: reuse existing model extent or generate unique extent name ?
         extentName = extentName + " " + getUniqueExtentId();
         Extent modelExtent = repository.createExtent(extentName, metaModel.getExtent());
-        MofModel mofModel = null;
 
         try {
             if (xmiFile.endsWith(".xml")) {
@@ -135,6 +169,8 @@ public class MofModelManager {
         catch (MetaModelException e) {
             throw new LoadException("xmi file " + xmiFile, e);
         }
+        
+        xmiToMofModel.put(xmiFile, mofModel);
         
         return mofModel;
     }

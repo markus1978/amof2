@@ -34,7 +34,9 @@ import cmof.Package;
 import cmof.Tag;
 import cmof.cmofFactory;
 import cmof.reflection.Extent;
+import cmof.reflection.ExtentChangeListener;
 import cmof.reflection.Factory;
+import cmof.reflection.Object;
 
 /**
  * Keeps all information of a MOF model together in one place:
@@ -46,10 +48,11 @@ import cmof.reflection.Factory;
  * - getting an appropriate factory for creating instances of meta-model elements in the model extent
  * 
  */
-public class MofModel {
+public class MofModel implements ExtentChangeListener {
 
     private final static String clonedXmiSuffix = "_cloned.xml";
     private final boolean isCloned;
+    private boolean isValid = true;
     
     protected final Repository repository;
     private final String xmiFile;
@@ -81,6 +84,7 @@ public class MofModel {
             this.isCloned = false;
         }
         this.extent = extent;
+        extent.addExtentChangeListener(this);
         this.extentName = extentName;
         this.modelPackage = modelPackage;
     }
@@ -219,9 +223,34 @@ public class MofModel {
         if (getMetaModel() != null) {
             getMetaModel().close();
         }
+        delete();
         if (getExtentName() != null) {
             repository.deleteExtent(getExtentName());
         }
+    }
+    
+    public void delete() {
+        extent.removeExtentChangeListener(this);
+        isValid = false;
+    }
+    
+    /**
+     * The MofModel is valid as long as its extent is alive.
+     * 
+     * @return
+     */
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void extendAboutToBeRemoved() {
+        delete();
+    }
+
+    public void newObject(Object newObject) {
+    }
+
+    public void removedObject(Object oldObject) {
     }
     
 }
