@@ -60,6 +60,8 @@ public class FactoryImpl extends hub.sam.util.Identity implements Factory {
             java.lang.Class implementation = PlugInActivator.getClassLoader().loadClass(className);
             java.lang.reflect.Constructor constructor = implementation.getConstructor(new java.lang.Class[] {ExtentImpl.class, cmof.Package.class });
             factory = (FactoryImpl) constructor.newInstance(extent, forPackage);
+        } catch (ClassNotFoundException ex) {
+        	return new FactoryImpl((ExtentImpl)extent, forPackage);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
@@ -77,17 +79,8 @@ public class FactoryImpl extends hub.sam.util.Identity implements Factory {
     	Collection<cmof.Package> allPackages = new Vector<Package>();
     	collectAllPackages(metaModel, allPackages);
     	for (cmof.Package aPackage: allPackages) {
-    		String className = javaMapping.getFullQualifiedImplFactoryNameForPackage(aPackage);
     		if (javaMapping.getFullQualifiedFactoryNameForPackage(aPackage).equals(factoryClass.getCanonicalName())) {
-    	        Factory factory = null;
-    	        try {            
-    	            java.lang.Class implementation = PlugInActivator.getClassLoader().loadClass(className);
-    	            java.lang.reflect.Constructor constructor = implementation.getConstructor(new java.lang.Class[] {ExtentImpl.class, cmof.Package.class });
-    	            factory = (FactoryImpl) constructor.newInstance(extent, aPackage);
-    	        } catch (Exception ex) {
-    	            throw new RuntimeException(ex);
-    	        }
-    	        return (T)factory;
+    	        return (T)createFactory(extent, aPackage);    	        
     		}
     	}
     	return null;
@@ -125,6 +118,8 @@ public class FactoryImpl extends hub.sam.util.Identity implements Factory {
                                     return enumConstant;
                                 }
                             }
+                        } catch (ClassNotFoundException ex) {
+                        	return literal.getName();
                         } catch (Exception e) {
                             throw new RuntimeException("cannot create enum value");
                         }
@@ -251,7 +246,7 @@ public class FactoryImpl extends hub.sam.util.Identity implements Factory {
         if (exists) {
         	return (cmof.reflection.Object)javaClasses.get(className).newInstance(instance, extent);
         } else {
-            return null;
+            return new ObjectImpl(instance, extent);
         }
     }
 

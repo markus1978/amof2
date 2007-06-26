@@ -719,7 +719,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
                 java.lang.reflect.Constructor constructor = implementation.getConstructor(new java.lang.Class[]{});
                 ObjectDlg object = (ObjectDlg)constructor.newInstance();
                 delegates.add(object);
-            }
+            }        
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -19,7 +19,9 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package cmof.common;
 
-public interface ReflectiveSequence<E> extends ReflectiveCollection<E> {
+import java.io.Serializable;
+
+public interface ReflectiveSequence<E> extends ReflectiveCollection<E>, Serializable {
 
     public E get(int index);
     

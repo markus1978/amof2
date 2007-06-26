@@ -19,7 +19,9 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package cmof.common;
 
-public interface ReflectiveCollection<E> extends Iterable<E> {
+import java.io.Serializable;
+
+public interface ReflectiveCollection<E> extends Iterable<E>, Serializable {
     
     public boolean add(Object element);
 
