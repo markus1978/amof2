@@ -35,7 +35,7 @@ public class MasRepository {
 
     private static MasRepository instance;
     private Map<Extent, MasContext> contexts = new HashMap<Extent, MasContext>();
-    private Map<String, MasContext> xmiFiles = new HashMap<String, MasContext>();
+    private Map<String, MasContext> syntaxXmiToMasContext = new HashMap<String, MasContext>();
     
     private MasRepository() {
         // private constructor
@@ -51,7 +51,7 @@ public class MasRepository {
     public MasContext createMasContext(IMasModelContainer modelContainer) {
         MasContext context = new MasContext(modelContainer);
         contexts.put(context.getContextId(), context);
-        xmiFiles.put(context.getSyntaxModel().getXmiFile(), context);
+        syntaxXmiToMasContext.put(context.getSyntaxModel().getXmiFile(), context);
         return context;
     }
     
@@ -67,7 +67,7 @@ public class MasRepository {
      * @return
      */
     public MasContext getMasContext(String syntaxXmiFile) {
-        return xmiFiles.get(syntaxXmiFile);
+        return syntaxXmiToMasContext.get(syntaxXmiFile);
     }
 
     /**
