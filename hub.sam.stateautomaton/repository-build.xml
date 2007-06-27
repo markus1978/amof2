@@ -24,7 +24,7 @@
 	</target>
 
 	<target name="generate-repository" depends="clean,init">
-	    <generatecode src="resources/StateAutomaton.syntax.mdxml" md="true" destDir="./generated-src" instances="true">
+	    <generatecode src="resources/StateAutomaton.syntax.mdxml" md="true" destDir="./generated-src" instances="true" remote="true">
 	        <package name="model" javaPackagePrefix="hub.sam.stateautomaton"/>
 	    </generatecode>
 	</target>

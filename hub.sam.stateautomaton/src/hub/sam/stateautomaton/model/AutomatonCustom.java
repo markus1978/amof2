@@ -21,7 +21,7 @@
 package hub.sam.stateautomaton.model;
 
 public class AutomatonCustom extends AutomatonDlg {
-    
+
     @Override
     public void run() {
         run("dbdecacf");
