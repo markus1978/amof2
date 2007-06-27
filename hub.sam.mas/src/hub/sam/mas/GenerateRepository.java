@@ -23,6 +23,7 @@ package hub.sam.mas;
 import java.util.Arrays;
 
 import hub.sam.mof.Repository;
+import hub.sam.mof.codegeneration.CodeGenerationConfiguration;
 import hub.sam.mof.javamapping.JavaMapping;
 import hub.sam.mof.merge.MergeContext;
 import hub.sam.mof.runtimelayer.M1SemanticModel;
@@ -63,6 +64,8 @@ public class GenerateRepository {
             semanticModel.createImplicitElements(Arrays.asList(new Package[] {
             		asPackage,(Package)masExtent.query("Package:petrinets")}));
                         
+            CodeGenerationConfiguration.setActualConfig(
+            		new CodeGenerationConfiguration(false, false, false, true));
             repository.generateCode(masExtent, "generated-src", Arrays.asList(
             		new String[]{"mas", "petrinets"}));           
             repository.writeExtentToXmi("resources/models/mas_merged.xml", cmofPackage, masExtent);
