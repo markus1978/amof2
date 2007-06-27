@@ -1,5 +1,10 @@
 package hub.sam.mof.plugin;
 
+import java.util.Collection;
+import java.util.Vector;
+
+import hub.sam.mof.IRepository;
+import hub.sam.mof.Repository;
 import hub.sam.mof.plugin.modelview.tree.TreeObject;
 
 import org.eclipse.ui.plugin.*;
@@ -58,5 +63,50 @@ public class Mof2Plugin extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path);
+	}
+	
+	private static Collection<IRepository> additionalRepositories = new Vector<IRepository>();		
+	/**
+	 * Registers additonal repositories to the model view. Each model view that is opened
+	 * will try to at these repositories to its content provider. When the repositories aren't
+	 * accessable (an exception occurs, using them) they will be removed from this
+	 * registry. 
+	 * 
+	 * This is used for showing remote repositories in the view.
+	 */
+	public static void registerAdditionalRepository(IRepository repository) {
+		additionalRepositories.add(repository);
+		for (AdditionalRepositoriesChangeListener listener: additionalRepositoriesChangeListener) {
+			listener.repositoryAdded(repository);
+		}
+	}
+
+	public static Collection<IRepository> getAdditionalRepositories() {
+		Collection<IRepository> invalidRepositories = new Vector<IRepository>();
+		for (IRepository additionalRepository: additionalRepositories) {
+			try {
+				additionalRepository.getExtentNames();
+			} catch (Exception ex) {
+				invalidRepositories.add(additionalRepository);
+			}
+		}
+		additionalRepositories.removeAll(invalidRepositories);
+		return additionalRepositories;
+	}
+	
+	public static class AdditionalRepositoriesChangeListener {
+		public void repositoryAdded(IRepository repository) {
+			
+		}
+	}
+
+	private static Collection<AdditionalRepositoriesChangeListener> additionalRepositoriesChangeListener = new Vector<AdditionalRepositoriesChangeListener>();
+	
+	public static void addAdditionalRepositoriesChangeListener(AdditionalRepositoriesChangeListener listener) {
+		additionalRepositoriesChangeListener.add(listener);
+	}
+	
+	public static void removeAdditionalRepositoriesChangeListener(AdditionalRepositoriesChangeListener listener) {
+		additionalRepositoriesChangeListener.remove(listener);
 	}
 }

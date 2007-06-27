@@ -1,5 +1,6 @@
 package hub.sam.mof.plugin.modelview.tree;
 
+import hub.sam.mof.IRepository;
 import hub.sam.mof.Repository;
 import hub.sam.mof.RepositoryChangeListener;
 import hub.sam.mof.plugin.modelview.Images;
@@ -17,7 +18,7 @@ import cmof.reflection.Extent;
 
 public class RepositoryTreeObject extends TreeParent {
 
-	private final Repository repository;
+	private final IRepository repository;
 	
 	/**
 	 * For the case an extent is removed, it has to be marked as removed because it will still exist when the
@@ -59,7 +60,7 @@ public class RepositoryTreeObject extends TreeParent {
 		}
 	};
 		
-	public RepositoryTreeObject(Repository repository, TreeParent parent, TreeViewer view) {
+	public RepositoryTreeObject(IRepository repository, TreeParent parent, TreeViewer view) {
 		super(repository, parent, view);
 		this.repository = repository;
 		repository.addRepositoryChangeListener(fChangeListener);
@@ -81,11 +82,11 @@ public class RepositoryTreeObject extends TreeParent {
 
 	@Override
 	public String getText() {
-		return "LocalRepository";
+		return getElement().getName();
 	}	
 	
 	@Override
-	public Repository getElement() {		
+	public IRepository getElement() {		
 		return repository;
 	}
 
@@ -96,7 +97,7 @@ public class RepositoryTreeObject extends TreeParent {
     
     public Extent addStaticModel(String className) {
         try {
-            Extent extent = getElement().addStaticModel( Thread.currentThread().getContextClassLoader().loadClass(className) );
+            Extent extent = ((Repository)getElement()).addStaticModel(Thread.currentThread().getContextClassLoader().loadClass(className) );
             refresh();
             return extent;
         }
@@ -113,10 +114,10 @@ public class RepositoryTreeObject extends TreeParent {
         Extent extent = null;
         try {
             if (xmiFileName.endsWith(".xml")) {
-                extent = getElement().addXmiModel(new FileInputStream(xmiFileName), xmiFileName, Repository.XMI2);
+                extent = ((Repository)getElement()).addXmiModel(new FileInputStream(xmiFileName), xmiFileName, Repository.XMI2);
             }
             else if (xmiFileName.endsWith(".mdxml")) {
-                extent = getElement().addXmiModel(new FileInputStream(xmiFileName), xmiFileName, Repository.MD);
+                extent = ((Repository)getElement()).addXmiModel(new FileInputStream(xmiFileName), xmiFileName, Repository.MD);
             }
         }
         catch (Exception e) {

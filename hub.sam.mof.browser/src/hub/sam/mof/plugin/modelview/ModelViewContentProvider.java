@@ -2,7 +2,9 @@ package hub.sam.mof.plugin.modelview;
 
 import java.util.*;
 
+import hub.sam.mof.IRepository;
 import hub.sam.mof.Repository;
+import hub.sam.mof.plugin.Mof2Plugin;
 import hub.sam.mof.plugin.modelview.tree.InvisibleTreeRoot;
 import hub.sam.mof.plugin.modelview.tree.RepositoryTreeObject;
 import hub.sam.mof.plugin.modelview.tree.TreeObject;
@@ -12,6 +14,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.ViewSite;
 
 public class ModelViewContentProvider implements IStructuredContentProvider, ITreeContentProvider {
@@ -24,6 +27,20 @@ public class ModelViewContentProvider implements IStructuredContentProvider, ITr
 	public ModelViewContentProvider(TreeViewer treeViewer) {
 		this.treeViewer = treeViewer;
 		filter = new Filter();
+		Mof2Plugin.addAdditionalRepositoriesChangeListener(new Mof2Plugin.AdditionalRepositoriesChangeListener() {
+			@Override
+			public void repositoryAdded(IRepository repository) {
+				addRepository(repository);
+				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {	
+					public void run() {			
+						TreeViewer treeViewer = getTreeViewer();
+						if (treeViewer != null) {
+							treeViewer.refresh();
+						}
+					}				
+				});
+			}			
+		});
 	}
 
     public ModelViewContentProvider() {
@@ -32,6 +49,10 @@ public class ModelViewContentProvider implements IStructuredContentProvider, ITr
     
     public void setTreeViewer(TreeViewer treeViewer) {
         this.treeViewer = treeViewer;
+    }
+    
+    private TreeViewer getTreeViewer() {
+    	return treeViewer;
     }
 	
 	public void inputChanged(Viewer v, Object oldInput, Object newInput) {
@@ -89,7 +110,7 @@ public class ModelViewContentProvider implements IStructuredContentProvider, ITr
 		return invisibleRoot;
 	}
 	
-	public void addRepository(Repository repository) {
+	public void addRepository(IRepository repository) {
 		if (invisibleRoot == null) {
 			initialize();
 		}

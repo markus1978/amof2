@@ -1,6 +1,8 @@
 package hub.sam.mof.plugin.modelview;
 
+import hub.sam.mof.IRepository;
 import hub.sam.mof.Repository;
+import hub.sam.mof.plugin.Mof2Plugin;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -55,6 +57,9 @@ public class ModelView extends ViewPart {
 			public IStructuredContentProvider getContentProvider(TreeViewer viewer) {
 				ModelViewContentProvider result = new ModelViewContentProvider(getViewer());
 				result.addRepository(Repository.getLocalRepository());
+				for (IRepository additionalRepository: Mof2Plugin.getAdditionalRepositories()) {
+					result.addRepository(additionalRepository);
+				}
 				return result;
 			}			
 		}, getViewSite(), getSite());		

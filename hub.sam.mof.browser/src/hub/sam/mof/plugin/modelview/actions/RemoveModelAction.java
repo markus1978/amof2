@@ -1,5 +1,6 @@
 package hub.sam.mof.plugin.modelview.actions;
 
+import hub.sam.mof.Repository;
 import hub.sam.mof.plugin.modelview.tree.ExtentTreeObject;
 import hub.sam.mof.plugin.modelview.tree.RepositoryTreeObject;
 import hub.sam.mof.plugin.modelview.tree.TreeObject;
@@ -24,7 +25,7 @@ public class RemoveModelAction extends ContextAction {
 	public void runFor(TreeObject toDelete) {
         RepositoryTreeObject repositoryTreeObject = (RepositoryTreeObject) toDelete.getParent();
         repositoryTreeObject.getChildren().remove(toDelete);
-        repositoryTreeObject.getElement().deleteExtent( ((ExtentTreeObject) toDelete).getText() );
+        ((Repository)repositoryTreeObject.getElement()).deleteExtent( ((ExtentTreeObject) toDelete).getText() );
         view.refresh();
 	}
 	
