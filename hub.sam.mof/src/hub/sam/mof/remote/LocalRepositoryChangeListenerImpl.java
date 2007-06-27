@@ -1,21 +1,32 @@
 package hub.sam.mof.remote;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 
-public class LocalPropertyChangeListenerImpl implements PropertyChangeListener {
+import cmof.reflection.Extent;
+import hub.sam.mof.RepositoryChangeListener;
 
-	private final RemotePropertyChangeListener remoteListener;
+public class LocalRepositoryChangeListenerImpl extends RepositoryChangeListener {
+
+	private final RemoteRepositoryChangeListener remoteListener;
 	
-	public LocalPropertyChangeListenerImpl(final RemotePropertyChangeListener remoteListener) {
+	public LocalRepositoryChangeListenerImpl(final RemoteRepositoryChangeListener remoteListener) {
 		super();
 		this.remoteListener = remoteListener;
 	}
 
-	public void propertyChange(PropertyChangeEvent evt) {
+	@Override
+	public void extendAboutToBeRemoved(String name, Extent extent) {
 		try {
-			remoteListener.propertyChange(new RemotePropertyChangeEventImpl(evt));
+			remoteListener.extendAboutToBeRemoved(name, new RemoteExtentImpl(extent));
+		} catch (RemoteException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public void extendAdded(Extent extent) {
+		try {
+			remoteListener.extendAdded(new RemoteExtentImpl(extent));
 		} catch (RemoteException e) {
 			throw new RuntimeException(e);
 		}
@@ -41,7 +52,7 @@ public class LocalPropertyChangeListenerImpl implements PropertyChangeListener {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		final LocalPropertyChangeListenerImpl other = (LocalPropertyChangeListenerImpl) obj;
+		final LocalRepositoryChangeListenerImpl other = (LocalRepositoryChangeListenerImpl) obj;
 		if (remoteListener == null) {
 			if (other.remoteListener != null)
 				return false;
@@ -53,6 +64,7 @@ public class LocalPropertyChangeListenerImpl implements PropertyChangeListener {
 				throw new RuntimeException(e);
 			}
 		return true;
-	}
+	}	
+	
 
 }

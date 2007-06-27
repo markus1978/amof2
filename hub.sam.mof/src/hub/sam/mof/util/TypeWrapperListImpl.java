@@ -21,6 +21,7 @@ package hub.sam.mof.util;
 
 import hub.sam.mof.reflection.ObjectImpl;
 import hub.sam.mof.reflection.client.impl.ClientObjectImpl;
+import hub.sam.mof.remote.LocalObjectImpl;
 import cmof.common.ReflectiveCollection;
 import cmof.common.ReflectiveSequence;
 
@@ -42,11 +43,19 @@ public class TypeWrapperListImpl<E> extends TypeWrapperSetImpl<E> implements Ref
         this.untypedList = untypedList;
     }
 
+    // dummy
     public TypeWrapperListImpl(ReflectiveSequence untypedList, ClientObjectImpl clientObjectImpl, String propertyName) {
         super(untypedList);
         this.untypedList = untypedList;
     }
 
+    // dummy
+    public TypeWrapperListImpl(ReflectiveSequence untypedList, LocalObjectImpl clientObjectImpl, String propertyName) {
+        super(untypedList);
+        this.untypedList = untypedList;
+    }
+
+    
     @SuppressWarnings("unchecked")
 	public E get(int index) {
         return (E)untypedList.get(index);

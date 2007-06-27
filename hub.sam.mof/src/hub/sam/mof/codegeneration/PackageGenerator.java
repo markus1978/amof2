@@ -93,7 +93,7 @@ public class PackageGenerator extends AbstractGenerator {
                                 new ClientObjectProxyImplementationGenerator(streamFactory, "ClientImpl").generate(myPackageName, umlClass);
                             }
                             if (CodeGenerationConfiguration.getActualConfig().isGenerateRemote()) {
-                            	new ObjectLocalProxyImplementationGenerator(streamFactory, "ClientImpl").generate(myPackageName, umlClass);
+                            	new ObjectLocalProxyImplementationGenerator(streamFactory, "LocalImpl").generate(myPackageName, umlClass);
                             }
                         }
 	                } else if (ownedType instanceof cmof.Enumeration) {

@@ -4,12 +4,12 @@ import java.rmi.RemoteException;
 
 import cmof.reflection.ObjectChangeListener;
 
-public class RemoteObjectChangeListenerImpl extends java.rmi.server.RemoteObject  implements
+public class RemoteObjectChangeListenerImpl extends java.rmi.server.UnicastRemoteObject  implements
 		RemoteObjectChangeListener {
 
 	private final ObjectChangeListener localListener;
 	
-	public RemoteObjectChangeListenerImpl(final ObjectChangeListener localListener) {
+	public RemoteObjectChangeListenerImpl(final ObjectChangeListener localListener) throws RemoteException {
 		super();
 		this.localListener = localListener;
 	}

@@ -69,7 +69,7 @@ import cmof.reflection.Factory;
  * A repository manages a set of extents that can contain
  * models on all meta-modeling levels.
  */
-public class Repository extends hub.sam.util.Identity {
+public class Repository extends hub.sam.util.Identity implements IRepository {
 
 	private static Configuration configuration = new Configuration();
 	private Collection<RepositoryChangeListener> fRepositoryChangeListener = new Vector<RepositoryChangeListener>();
@@ -594,6 +594,10 @@ public class Repository extends hub.sam.util.Identity {
     
     public void removeRepositoryChangeListener(RepositoryChangeListener listener) {
     	this.fRepositoryChangeListener.remove(listener);
+    }
+    
+    public String getName() {
+    	return "Local Repository";
     }
     
     private void fireExtentAddedRepositoryChange(Extent extent) {

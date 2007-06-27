@@ -27,6 +27,7 @@ import cmof.Property;
 import cmof.common.ReflectiveCollection;
 import hub.sam.mof.reflection.ObjectImpl;
 import hub.sam.mof.reflection.client.impl.ClientObjectImpl;
+import hub.sam.mof.remote.LocalObjectImpl;
 
 public class TypeWrapperSetImpl<E> implements ReflectiveCollection<E> {
     
@@ -52,6 +53,13 @@ public class TypeWrapperSetImpl<E> implements ReflectiveCollection<E> {
 
     // dummy
     public TypeWrapperSetImpl(ReflectiveCollection untypedSet, ClientObjectImpl clientObjectImpl, String propertyName) {
+        this.untypedSet = untypedSet;
+        this.fObject = null;
+        this.propertyName = null;
+    }
+    
+    // dummy
+    public TypeWrapperSetImpl(ReflectiveCollection untypedSet, LocalObjectImpl clientObjectImpl, String propertyName) {
         this.untypedSet = untypedSet;
         this.fObject = null;
         this.propertyName = null;

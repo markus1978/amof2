@@ -19,12 +19,22 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.mofinstancemodel;
 
+import java.io.Serializable;
+
 import cmof.*;
 import hub.sam.mof.instancemodel.ValueSpecification;
 
-public class MofPrimitiveDataValue extends hub.sam.mof.instancemodel.PrimitiveDataValue<UmlClass,Property,java.lang.Object> implements ValueSpecification<UmlClass,Property,java.lang.Object> {
+public class MofPrimitiveDataValue extends hub.sam.mof.instancemodel.PrimitiveDataValue<UmlClass,Property,java.lang.Object> implements ValueSpecification<UmlClass,Property,java.lang.Object>, Serializable {
           
     private final java.lang.Object value;
+    
+    /**
+     * Only for serialization
+     */
+    protected MofPrimitiveDataValue() {
+    	super();
+    	value = null;
+    } 
 
     protected MofPrimitiveDataValue(java.lang.Object value) {
         super(value);

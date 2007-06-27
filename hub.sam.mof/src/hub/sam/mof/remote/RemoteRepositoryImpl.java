@@ -4,14 +4,15 @@ import hub.sam.mof.Repository;
 
 import java.rmi.RemoteException;
 import java.util.Collection;
+import java.util.Vector;
 
 import cmof.reflection.Extent;
 
-public class RemoteRepositoryImpl extends java.rmi.server.RemoteObject implements RemoteRepository {
+public class RemoteRepositoryImpl extends java.rmi.server.UnicastRemoteObject implements RemoteRepository {
 	
 	private final Repository localRepository;
 
-	public RemoteRepositoryImpl(final Repository localRepository) {
+	public RemoteRepositoryImpl(final Repository localRepository) throws RemoteException {
 		super();
 		this.localRepository = localRepository;
 	}
@@ -22,9 +23,17 @@ public class RemoteRepositoryImpl extends java.rmi.server.RemoteObject implement
 	}
 
 	public Collection<String> getExtentNames() throws RemoteException {
-		return localRepository.getExtentNames();
-	}
+		return new Vector<String>(localRepository.getExtentNames());
+	}	
 	
+	public void addRepositoryChangeListener(RemoteRepositoryChangeListener listener) throws RemoteException {
+		localRepository.addRepositoryChangeListener(new LocalRepositoryChangeListenerImpl(listener));
+	}
+
+	public void removeRepositoryChangeListener(RemoteRepositoryChangeListener listener) throws RemoteException {
+		localRepository.removeRepositoryChangeListener(new LocalRepositoryChangeListenerImpl(listener));
+	}
+
 	public int remoteHashCode() throws RemoteException {
 		final int PRIME = 31;
 		int result = super.hashCode();

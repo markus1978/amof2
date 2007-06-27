@@ -9,11 +9,11 @@ import cmof.common.ReflectiveCollection;
 import cmof.exception.QueryParseException;
 import cmof.reflection.Extent;
 
-public class RemoteExtentImpl extends java.rmi.server.RemoteObject implements RemoteExtent {
+public class RemoteExtentImpl extends java.rmi.server.UnicastRemoteObject implements RemoteExtent {
 	
 	private final Extent localExtent;
 
-	public RemoteExtentImpl(final Extent localExtent) {
+	public RemoteExtentImpl(final Extent localExtent) throws RemoteException {
 		super();
 		this.localExtent = localExtent;
 	}
@@ -27,7 +27,7 @@ public class RemoteExtentImpl extends java.rmi.server.RemoteObject implements Re
 			throws RemoteException {
 		ReflectiveCollection<? extends RemoteObject> result = new SetImpl<RemoteObject>();
 		for (cmof.reflection.Object localObject: localExtent.getObject()) {
-			result.add(new RemoteObjectImpl(localObject));
+			result.add(RemoteObjectImpl.createRemoteObjectFromLocalObject(localObject));
 		}
 		return result;
 	}
@@ -37,7 +37,7 @@ public class RemoteExtentImpl extends java.rmi.server.RemoteObject implements Re
 		ReflectiveCollection<? extends RemoteObject> result = new SetImpl<RemoteObject>();
 		for (cmof.reflection.Object localObject: localExtent.objectsOfType(
 				(UmlClass)LocalObjectImpl.createLocalObjectFromRemoteObject(type), includeSubtypes)) {
-			result.add(new RemoteObjectImpl(localObject));
+			result.add(RemoteObjectImpl.createRemoteObjectFromLocalObject(localObject));
 		}
 		return result;
 	}
@@ -46,7 +46,7 @@ public class RemoteExtentImpl extends java.rmi.server.RemoteObject implements Re
 			throws RemoteException {
 		ReflectiveCollection<? extends RemoteObject> result = new SetImpl<RemoteObject>();
 		for (cmof.reflection.Object localObject: localExtent.outermostComposites()) {
-			result.add(new RemoteObjectImpl(localObject));
+			result.add(RemoteObjectImpl.createRemoteObjectFromLocalObject(localObject));
 		}
 		return result;
 	}
@@ -54,7 +54,7 @@ public class RemoteExtentImpl extends java.rmi.server.RemoteObject implements Re
 	public RemoteObject query(String queryString) throws QueryParseException,
 			RemoteException {
 		cmof.reflection.Object localObject = localExtent.query(queryString);		
-		return localObject == null ? null : new RemoteObjectImpl(localObject);
+		return RemoteObjectImpl.createRemoteObjectFromLocalObject(localObject);
 	}
 
 	public void removeExtentChangeListener(RemoteExtentChangeListener listener)

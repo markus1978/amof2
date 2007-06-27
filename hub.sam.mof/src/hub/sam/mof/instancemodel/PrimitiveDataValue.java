@@ -21,6 +21,13 @@ package hub.sam.mof.instancemodel;
 
 public class PrimitiveDataValue<C,P,DataValue> extends ValueSpecificationImpl<C,P,DataValue> {
 
+	/**
+	 * only for serialisation
+	 */
+	protected PrimitiveDataValue() {
+		value = null;
+	}
+	
     private final DataValue value;
     public PrimitiveDataValue(DataValue value) {
         this.value = value;

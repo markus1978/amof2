@@ -1,5 +1,6 @@
 package hub.sam.mof.remote;
 
+import hub.sam.mof.PlugInActivator;
 import hub.sam.mof.jocl.standardlib.OclModelElement;
 import hub.sam.mof.util.ListImpl;
 
@@ -25,39 +26,47 @@ public class LocalObjectImpl implements cmof.reflection.Object {
 			return null;
 		}
 		// normalImplClass = <package>.<mclassname>Impl;
-		String normalImplClass;
+		String normalImplClass = null;
 		try {
 			normalImplClass = remoteObject.getConcreteInterface().getCanonicalName();
 		} catch (RemoteException e) {
-			throw new RuntimeException(e);
+			if (e.getCause().getClass().equals(ClassNotFoundException.class)) {
+				normalImplClass = null;
+			} else {
+				throw new RuntimeException(e);
+			}
 		}		
 
-		// localImplClass = <package>.<mclassname>LocalImpl;		
-		String localImplClassName = normalImplClass.substring(0, normalImplClass.length() - 5) + "LocalImpl";
-		Class localImplClass;
-		try {
-			localImplClass = remoteObject.getClass().getClassLoader().loadClass(localImplClassName);
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-		Constructor constructor;
-		try {
-			constructor = localImplClass.getDeclaredConstructor(new Class[] {RemoteObject.class});
-		} catch (SecurityException e) {
-			throw new RuntimeException(e);
-		} catch (NoSuchMethodException e) {
-			throw new RuntimeException(e);
-		}
-		try {
-			return (cmof.reflection.Object)constructor.newInstance(new Object[] { remoteObject });
-		} catch (java.lang.IllegalArgumentException e) {
-			throw new RuntimeException(e);
-		} catch (InstantiationException e) {
-			throw new RuntimeException(e);
-		} catch (IllegalAccessException e) {
-			throw new RuntimeException(e);
-		} catch (InvocationTargetException e) {
-			throw new RuntimeException(e);
+		if (normalImplClass == null) {
+			return new LocalObjectImpl(remoteObject);
+		} else {
+			// localImplClass = <package>.<mclassname>LocalImpl;		
+			String localImplClassName = normalImplClass.substring(0, normalImplClass.length() - 4) + "LocalImpl";
+			Class localImplClass;
+			try {			
+				localImplClass = PlugInActivator.getClassLoader().loadClass(localImplClassName);
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException(e);
+			}
+			Constructor constructor;
+			try {
+				constructor = localImplClass.getDeclaredConstructor(new Class[] {RemoteObject.class});
+			} catch (SecurityException e) {
+				throw new RuntimeException(e);
+			} catch (NoSuchMethodException e) {
+				throw new RuntimeException(e);
+			}
+			try {
+				return (cmof.reflection.Object)constructor.newInstance(new Object[] { remoteObject });
+			} catch (java.lang.IllegalArgumentException e) {
+				throw new RuntimeException(e);
+			} catch (InstantiationException e) {
+				throw new RuntimeException(e);
+			} catch (IllegalAccessException e) {
+				throw new RuntimeException(e);
+			} catch (InvocationTargetException e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}	
 	

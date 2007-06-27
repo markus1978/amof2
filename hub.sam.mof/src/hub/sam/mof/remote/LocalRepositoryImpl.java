@@ -1,17 +1,22 @@
 package hub.sam.mof.remote;
 
+import hub.sam.mof.IRepository;
+import hub.sam.mof.RepositoryChangeListener;
+
 import java.rmi.RemoteException;
 import java.util.Collection;
 
 import cmof.reflection.Extent;
 
-public class LocalRepositoryImpl {
+public class LocalRepositoryImpl implements IRepository {
 
 	private final RemoteRepository remoteRepository;
+	private final String name;
 	
-	public LocalRepositoryImpl(final RemoteRepository remoteRepository) {
+	public LocalRepositoryImpl(final RemoteRepository remoteRepository, String name) {
 		super();
 		this.remoteRepository = remoteRepository;
+		this.name = name;
 	}
 
 	public Extent getExtent(String name) {
@@ -30,6 +35,26 @@ public class LocalRepositoryImpl {
 		} catch (RemoteException e) {
 			throw new RuntimeException(e);
 		}
+	}	
+
+	public void addRepositoryChangeListener(RepositoryChangeListener localListener) {
+		try {
+			remoteRepository.addRepositoryChangeListener(new RemoteRepositoryChangeListenerImpl(localListener));
+		} catch (RemoteException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void removeRepositoryChangeListener(RepositoryChangeListener localListener) {
+		try {
+			remoteRepository.removeRepositoryChangeListener(new RemoteRepositoryChangeListenerImpl(localListener));
+		} catch (RemoteException e) {
+			throw new RuntimeException(e);
+		}		
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	@Override

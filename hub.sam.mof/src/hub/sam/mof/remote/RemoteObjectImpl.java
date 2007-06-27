@@ -1,8 +1,11 @@
 package hub.sam.mof.remote;
 
 import hub.sam.mof.util.ListImpl;
+import hub.sam.util.Identity;
 
 import java.rmi.RemoteException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.jboss.ha.jndi.HAJNDI_Stub;
 
@@ -10,22 +13,55 @@ import cmof.Property;
 import cmof.UmlClass;
 import cmof.common.ReflectiveCollection;
 
-public class RemoteObjectImpl extends java.rmi.server.RemoteObject implements RemoteObject {
+public class RemoteObjectImpl extends java.rmi.server.UnicastRemoteObject implements RemoteObject {
 	
 	protected static Object createRemoteJavaObjectFromLocalJavaObject(Object localObject) {
-		return null; // TODO
+		if (localObject instanceof cmof.reflection.Object) {
+			try {
+				return createRemoteObjectFromLocalObject((cmof.reflection.Object)localObject);
+			} catch (RemoteException e) {
+				throw new RuntimeException(e);
+			}
+		} else if (localObject instanceof ReflectiveCollection) {
+			ReflectiveCollection result = new ListImpl();
+			for (Object obj: (ReflectiveCollection)localObject) {
+				result.add(createRemoteJavaObjectFromLocalJavaObject(obj));
+			}
+			return result;
+		} else {
+			return localObject;
+		}
 	}
 	
-	protected static RemoteObject createRemoteObjectFromLocalObject(cmof.reflection.Object localObject) {
+	private static Map<Object, cmof.reflection.Object> identities = new HashMap<Object, cmof.reflection.Object>();
+	
+	protected static RemoteObject createRemoteObjectFromLocalObject(cmof.reflection.Object localObject) throws RemoteException {
+		if (localObject != null) {
+			Object id = ((Identity)localObject).getId();
+			cmof.reflection.Object existingIdentity = identities.get(id);
+			if (existingIdentity != null && existingIdentity != localObject) {
+				throw new RuntimeException("identity concept failed");
+			}
+			identities.put(id, localObject);
+		}
 		return localObject == null ? null : new RemoteObjectImpl(localObject);
 	}
 	
-	protected static cmof.reflection.Object createLocalObjectFromRemoteObject(RemoteObject remoteObject) {
-		return ((RemoteObjectImpl)remoteObject).localObject;
+	protected static cmof.reflection.Object createLocalObjectFromRemoteObject(RemoteObject remoteObject)  {
+		cmof.reflection.Object localObject;
+		try {
+			localObject = identities.get(remoteObject.getId());
+		} catch (RemoteException e) {
+			throw new RuntimeException(e);
+		}
+		if (localObject == null) {
+			throw new RuntimeException("unknown remote object.");
+		}
+		return localObject;
 	}
 	
 	protected static Object createLocalJavaObjectFromRemoteJavaObject(Object remoteObject) {
-		if (remoteObject instanceof RemoteObject) {
+		if (remoteObject instanceof RemoteObject) {		
 			return createLocalObjectFromRemoteObject((RemoteObject)remoteObject);
 		} else if (remoteObject instanceof ReflectiveCollection) {
 			ReflectiveCollection result = new ListImpl();
@@ -40,7 +76,7 @@ public class RemoteObjectImpl extends java.rmi.server.RemoteObject implements Re
 	
 	private final cmof.reflection.Object localObject;
 
-	public RemoteObjectImpl(final cmof.reflection.Object localObject) {
+	public RemoteObjectImpl(final cmof.reflection.Object localObject) throws RemoteException {
 		super();
 		this.localObject = localObject;
 	}
@@ -123,6 +159,10 @@ public class RemoteObjectImpl extends java.rmi.server.RemoteObject implements Re
 
 	public Class getConcreteInterface() throws RemoteException {
 		return localObject.getClass();
+	}
+
+	public Object getId() throws RemoteException {
+		return ((Identity)localObject).getId();
 	}
 
 	public int remoteHashCode() throws RemoteException {

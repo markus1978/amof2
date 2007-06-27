@@ -21,6 +21,7 @@ package hub.sam.mof.bootstrap;
 
 import cmof.reflection.Extent;
 import hub.sam.mof.codegeneration.Analyser;
+import hub.sam.mof.codegeneration.CodeGenerationConfiguration;
 import hub.sam.mof.codegeneration.PackageGenerator;
 import hub.sam.mof.codegeneration.StreamFactory;
 import hub.sam.mof.instancemodel.ClassInstance;
@@ -72,6 +73,8 @@ public class Bootstrap {
         new Analyser().analyse(mof);
         System.out.println("generate mof repository");
         StreamFactory streamFactory = new StreamFactory("resources/repository/generated-src/");
+        CodeGenerationConfiguration.setActualConfig(
+        		new CodeGenerationConfiguration(false, false, false, true));
         for (cmof.reflection.Object element: mof.objectsOfType(null, true)) {
             if (element instanceof cmof.Package) {
                 if (((cmof.Package)element).getOwner() == null) {

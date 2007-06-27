@@ -45,4 +45,6 @@ public interface RemoteObject extends Remote {
     public void removeListener(String propertyName, RemotePropertyChangeListener listener) throws RemoteException;
     
     public Class getConcreteInterface() throws RemoteException;
+    
+    public Object getId() throws RemoteException;
 }

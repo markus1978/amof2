@@ -4,12 +4,12 @@ import java.rmi.RemoteException;
 
 import cmof.reflection.ExtentChangeListener;
 
-public class RemoteExtentChangeListenerImpl extends java.rmi.server.RemoteObject  implements
+public class RemoteExtentChangeListenerImpl extends java.rmi.server.UnicastRemoteObject  implements
 		RemoteExtentChangeListener {
 	
 	private final ExtentChangeListener localListener;
 
-	public RemoteExtentChangeListenerImpl(final ExtentChangeListener localListener) {
+	public RemoteExtentChangeListenerImpl(final ExtentChangeListener localListener) throws RemoteException {
 		super();
 		this.localListener = localListener;
 	}

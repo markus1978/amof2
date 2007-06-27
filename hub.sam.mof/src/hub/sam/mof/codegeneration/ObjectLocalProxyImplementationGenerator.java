@@ -21,6 +21,7 @@ package hub.sam.mof.codegeneration;
 
 import hub.sam.mof.codegeneration.wrapper.UmlClassWrapper;
 import hub.sam.mof.remote.LocalObjectImpl;
+import hub.sam.mof.remote.RemoteObject;
 import hub.sam.mof.remote.RemoteObjectImpl;
 
 public class ObjectLocalProxyImplementationGenerator extends
@@ -37,7 +38,7 @@ public class ObjectLocalProxyImplementationGenerator extends
 
     @Override
     protected void addGeneralClassBodyCode(UmlClassWrapper umlClass) throws Throwable {
-        add("public " + getClassName(umlClass) + "(" + RemoteObjectImpl.class.getName() + " remote) {");
+        add("public " + getClassName(umlClass) + "(" + RemoteObject.class.getName() + " remote) {");
         add("    super(remote);");
         add("}");
         //if (CodeGenerationConfiguration.getActualConfig().isGenerateOcl()) {
