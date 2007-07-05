@@ -70,6 +70,9 @@ public class ClassifierContextDeclASImpl
     if (o instanceof ClassifierContextDeclAS) {
       try {
         ClassifierContextDeclAS obj = (ClassifierContextDeclAS)o;
+        if (obj.getPathName() == null) {
+        	return this == o;
+        }
         return (
 obj.getPathName().equals( this.getPathName() )
 );

@@ -960,8 +960,10 @@ public class OclEvaluatorVisitorImpl extends SemanticsVisitor$Class implements S
     				result = eo.eGet(structuralFeature);
                 	*/
             	} else {                                
-	            	String operName = this.processor.getModelEvaluationAdapter().getGetterName(host.getReferredProperty());
-	            	
+	            	// change by HUB -- only the next two lines, bugfix (?)
+            		//String operName = this.processor.getModelEvaluationAdapter().getGetterName(host.getReferredProperty());
+            		String operName = this.processor.getModelEvaluationAdapter().getGetterName(prop);
+            		
 	                if (sourceType instanceof OclModelElementType) {
 	                	// change by HUB -- putting qualifies to arguments
 	                	// result = invokeModelOperation(sourceType, host.getType(), javaSource, operName, new Vector(), new Vector(), log);
