@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.omg.org/XSI" xmlns:stateautomaton="http://www.foo.org/stateautomaton" xmi:version="2.1">
-  <stateautomaton:Automaton xmi:id="5757" name="X">
-    <transition xmi:id="5765" target="5758" source="5766" xsi:type="Transition" />
-    <transition xmi:id="5762" input="a" target="5758" source="5761" xsi:type="Transition" />
-    <transition xmi:id="5760" input="b" target="5761" source="5758" xsi:type="Transition" />
-    <transition xmi:id="5763" input="f" target="5764" source="5758" xsi:type="Transition" />
-    <finalState xmi:id="5764" incoming="5763" name="stopX" xsi:type="FinalState" />
-    <state xmi:id="5758" subAutomaton="5744" outgoing="5760 5763" incoming="5765 5762" name="A" xsi:type="State" />
-    <state xmi:id="5761" subAutomaton="5744" outgoing="5762" incoming="5760" name="B" xsi:type="State" />
-    <initialState xmi:id="5766" outgoing="5765" name="startX" xsi:type="InitialState" />
+  <stateautomaton:Automaton xmi:id="5542" name="Y">
+    <transition xmi:id="5544" target="5545" source="5543" xsi:type="Transition" />
+    <transition xmi:id="5548" input="d" target="5547" source="5545" xsi:type="Transition" />
+    <transition xmi:id="5546" input="c" target="5545" source="5547" xsi:type="Transition" />
+    <transition xmi:id="5549" input="e" target="5550" source="5547" xsi:type="Transition" />
+    <state xmi:id="5545" outgoing="5548" incoming="5544 5546" name="C" xsi:type="State" />
+    <state xmi:id="5547" outgoing="5546 5549" incoming="5548" name="D" xsi:type="State" />
+    <finalState xmi:id="5550" incoming="5549" name="stopY" xsi:type="FinalState" />
+    <initialState xmi:id="5543" outgoing="5544" name="startY" xsi:type="InitialState" />
   </stateautomaton:Automaton>
-  <stateautomaton:Automaton xmi:id="5744" name="Y">
-    <transition xmi:id="5751" target="5745" source="5752" xsi:type="Transition" />
-    <transition xmi:id="5746" input="d" target="5747" source="5745" xsi:type="Transition" />
-    <transition xmi:id="5748" input="c" target="5745" source="5747" xsi:type="Transition" />
-    <transition xmi:id="5749" input="e" target="5750" source="5747" xsi:type="Transition" />
-    <finalState xmi:id="5750" incoming="5749" name="stopY" xsi:type="FinalState" />
-    <state xmi:id="5745" outgoing="5746" incoming="5751 5748" name="C" xsi:type="State" />
-    <state xmi:id="5747" outgoing="5748 5749" incoming="5746" name="D" xsi:type="State" />
-    <initialState xmi:id="5752" outgoing="5751" name="startY" xsi:type="InitialState" />
+  <stateautomaton:Automaton xmi:id="5555" name="X">
+    <transition xmi:id="5557" target="5558" source="5556" xsi:type="Transition" />
+    <transition xmi:id="5559" input="a" target="5558" source="5560" xsi:type="Transition" />
+    <transition xmi:id="5561" input="b" target="5560" source="5558" xsi:type="Transition" />
+    <transition xmi:id="5563" input="f" target="5564" source="5558" xsi:type="Transition" />
+    <state xmi:id="5558" subAutomaton="5542" outgoing="5561 5563" incoming="5557 5559" name="A" xsi:type="State" />
+    <state xmi:id="5560" subAutomaton="5542" outgoing="5559" incoming="5561" name="B" xsi:type="State" />
+    <finalState xmi:id="5564" incoming="5563" name="stopX" xsi:type="FinalState" />
+    <initialState xmi:id="5556" outgoing="5557" name="startX" xsi:type="InitialState" />
   </stateautomaton:Automaton>
 </xmi:XMI>
 
