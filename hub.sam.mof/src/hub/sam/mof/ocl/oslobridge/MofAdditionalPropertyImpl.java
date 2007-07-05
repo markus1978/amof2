@@ -6,7 +6,7 @@ import org.oslo.ocl20.semantics.SemanticsVisitor;
 import org.oslo.ocl20.semantics.bridge.Classifier;
 import org.oslo.ocl20.semantics.bridge.Property;
 
-public class MofAdditionalPropertyImpl implements Property {
+public final class MofAdditionalPropertyImpl implements Property {
 
 	private final Classifier type;
 	private final String name;

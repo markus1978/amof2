@@ -1,5 +1,7 @@
 package hub.sam.mof.ocl.oslobridge;
 
+import hub.sam.mof.ocl.OclException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -143,8 +145,23 @@ public class MofBridgeFactory extends BridgeFactoryImpl {
 				return super.processor.getTypeFactory().buildBooleanType();
 			} else if (name.equals(UnlimitedNatural.class.getSimpleName())) {
 				return super.processor.getTypeFactory().buildIntegerType();
+			} else if (name.equals(core.primitivetypes.Object.class.getSimpleName())) {
+				return super.processor.getTypeFactory().buildOclAnyType();
 			} else {
 				return buildOclModelElementType(dt); 
+			}
+		} else if (o instanceof Class) {
+			java.lang.String name = ((Class)o).getName();
+			if (name.equals(java.lang.String.class.getSimpleName())) {
+				return super.processor.getTypeFactory().buildStringType();
+			} else if (name.equals(java.lang.Integer.class.getSimpleName())) {
+				return super.processor.getTypeFactory().buildIntegerType();
+			} else if (name.equals(java.lang.Boolean.class.getSimpleName())) {
+				return super.processor.getTypeFactory().buildBooleanType();
+			} else if (name.equals(Long.class.getSimpleName())) {
+				return super.processor.getTypeFactory().buildIntegerType();
+			} else {
+				throw new OclException("unknown primitive java type"); 
 			}
 		}
 		return null;

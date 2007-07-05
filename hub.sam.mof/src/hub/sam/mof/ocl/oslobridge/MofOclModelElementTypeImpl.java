@@ -58,6 +58,9 @@ public class MofOclModelElementTypeImpl extends OclAnyTypeImpl implements OclMod
     	return mofElementType;
     }
     
+    public class Null {    	
+    }
+    
     public void addAdditionalProperty(String name, Object value, Type propertyType) {
     	int index = 0;
     	int i = 0;
@@ -74,13 +77,13 @@ public class MofOclModelElementTypeImpl extends OclAnyTypeImpl implements OclMod
     		index = MofEvaluationAdaptor.currentValue.size();
     	}
     	
-    	if (index > 2) {
+    	if (index > 6) {
     		throw new OclException("To many additional context attributes for this implementation.");
     	}
     	if (index >= MofEvaluationAdaptor.currentValue.size()) {
-    		MofEvaluationAdaptor.currentValue.add(value);
+    		MofEvaluationAdaptor.currentValue.add(value == null ? new Null() : value);
     	} else {
-    		MofEvaluationAdaptor.currentValue.set(index, value);
+    		MofEvaluationAdaptor.currentValue.set(index, value == null ? new Null() : value);
     	}
     	MofAdditionalPropertyImpl additionalProperty = new MofAdditionalPropertyImpl(name, processor.getBridgeFactory().buildClassifier(propertyType), index);	
     	mofProperties.put(name, additionalProperty);    	

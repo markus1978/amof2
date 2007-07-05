@@ -79,6 +79,10 @@ public class Repository extends hub.sam.util.Identity implements IRepository {
      * {@link hub.sam.mof.as.actions.AsGuardExpression}.
      */
     public static PrimitiveType booleanType = null;
+    
+    public static Object getFromCmofModel(String query) {
+    	return getLocalRepository().getExtent(CMOF_EXTENT_NAME).query(query);
+    }
 
     @SuppressWarnings("unchecked")
     private static Context getInitialContext(String providerUrl) throws NamingException {

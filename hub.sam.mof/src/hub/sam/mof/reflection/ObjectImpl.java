@@ -38,6 +38,7 @@ import hub.sam.mof.mofinstancemodel.events.SetEvent;
 import hub.sam.mof.ocl.OclEnvironment;
 import hub.sam.mof.ocl.OclObjectEnvironment;
 import hub.sam.mof.ocl.oslobridge.MofEvaluationAdaptor;
+import hub.sam.mof.ocl.oslobridge.MofOclModelElementTypeImpl;
 import hub.sam.mof.util.AssertionException;
 import hub.sam.mof.util.SetImpl;
 import hub.sam.mof.xmi.CMOFToXmi;
@@ -389,7 +390,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         }
     }
 
-    public synchronized void delete() {
+    public synchronized void delete() {    	
         if (!(instance == null || isStatic)) {                  
 	        if (handler != null) {
 	            for (ObjectChangeListener aHandler : handler) {
@@ -948,17 +949,37 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
       * Is only called with java reflection.
       */
     public Object getOclAdditionalValue0() {
-        return MofEvaluationAdaptor.currentValue.get(0);
+        return getOclAddionalValue(0);
     }
     
     public Object getOclAdditionalValue1() {
-    	return MofEvaluationAdaptor.currentValue.get(1);
+    	return getOclAddionalValue(1);
     }
     
     public Object getOclAdditionalValue2() {
-    	return MofEvaluationAdaptor.currentValue.get(2);
+    	return getOclAddionalValue(2);
+    }
+    
+    public Object getOclAdditionalValue3() {
+    	return getOclAddionalValue(3);
+    }
+    
+    public Object getOclAdditionalValue4() {
+    	return getOclAddionalValue(4);
+    }
+    
+    public Object getOclAdditionalValue5() {
+    	return getOclAddionalValue(5);
+    }
+    
+    public Object getOclAdditionalValue6() {
+    	return getOclAddionalValue(6);
     }
 
+    private Object getOclAddionalValue(int index) {
+    	Object value = MofEvaluationAdaptor.currentValue.get(index);
+        return value instanceof MofOclModelElementTypeImpl.Null ? null : value;
+    }
     /**
      * Copies all values of all features of this object to the target object. It uses
      * {@link CMOFToXmi} to deal with duplicate values due to subsetting.

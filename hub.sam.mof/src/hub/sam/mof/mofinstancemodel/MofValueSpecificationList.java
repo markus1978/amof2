@@ -325,7 +325,14 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
                 removedObject = remove(index);
             }
             if (o != null) {
-        		add(index, o);
+            	if (removedObject != null) {
+            		/* This is not good, like a quick fix. Otherwise the indexed add would be turned into a
+            		 * set, because this is the right semantics for most set operations of non higher mulitplicity
+            		 * value sets (?!).
+            		 */
+            		performingSet = false;
+            	}
+        		add(index, o); 
         	}
         }
         performingSet = false;    
@@ -452,7 +459,7 @@ public class MofValueSpecificationList extends ListImpl<ValueSpecification<UmlCl
 	public void addPlain(int index, ValueSpecification<UmlClass,Property,java.lang.Object> value,
 			UpdateGraphNode node) {
         if (performingSet && index < values.size()) {
-            values.set(index, value);
+            values.set(index, value); // BUG
         } else {
             values.add(index, value);
         }
