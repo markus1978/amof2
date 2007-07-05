@@ -8,7 +8,11 @@ public class ActionCustom extends ActionDlg {
 	@Override
 	public ReflectiveCollection<? extends ASPlace> getInputPlaces() {
 		 ReflectiveCollection<? extends ASPlace> result = ((ASTransition)getSuper(ASTransition.class)).getInputPlaces();
-		 result.addAll(self.getInput());
+		 for(InputPin pin: self.getInput()) {
+			 if (pin.getIncoming().size() > 0) {
+				 result.add(pin);		 
+			 }
+		 }		 
 		 return result;
 	}
 

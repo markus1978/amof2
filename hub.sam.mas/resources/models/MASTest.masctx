@@ -1,0 +1,2 @@
+syntax = MASTest.syntax.mdxml
+semantic =  MASTest.semantics.xml

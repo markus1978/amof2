@@ -47,9 +47,13 @@
 	    </generatecode>-->
 		<javac debug="on" destdir="${bin-dir}" source="1.5" nowarn="yes" srcdir="${src-dir}">
 			<include name="hub/sam/mas/GenerateRepository.java"/>
+			<include name="hub/sam/mas/GenerateTestRepository.java"/>
 			<classpath refid="classpath"/>
 	    </javac>
 		<java classname="hub.sam.mas.GenerateRepository" fork="false">
+			<classpath refid="classpath"/>
+	    </java>
+		<java classname="hub.sam.mas.GenerateTestRepository" fork="false">
 			<classpath refid="classpath"/>
 	    </java>
 	</target>

@@ -35,7 +35,8 @@ public class MasExecutionHelper {
 
     public static void prepareRun(Repository repository, MasContext masContext, MofModel m1Model) {
         ExecutionEnvironment env = new ExecutionEnvironment(m1Model.getExtent(),
-                masContext.getMasModel().getMetaModel().getExtent(), repository);
+        		m1Model.getMetaModel().getExtent(), repository);
+                //masContext.getMasModel().getMetaModel().getExtent(), repository);
         
         Extent semanticExtent = masContext.getMasModel().getExtent();
         ((ExtentImpl) semanticExtent).setCustomImplementationsManager(new ImplementationsManagerContainer(

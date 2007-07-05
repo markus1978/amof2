@@ -23,6 +23,7 @@ package hub.sam.mas.management;
 import hub.sam.mas.MasPlugin;
 import hub.sam.mas.editor.MaseEditor;
 import hub.sam.mas.model.mas.Activity;
+import hub.sam.mof.Repository;
 import hub.sam.mof.management.MofModel;
 import hub.sam.mof.management.SaveException;
 
@@ -41,6 +42,7 @@ import cmof.Element;
 import cmof.Feature;
 import cmof.Operation;
 import cmof.Package;
+import cmof.UmlClass;
 import cmof.cmofFactory;
 import cmof.reflection.Extent;
 
@@ -191,7 +193,7 @@ public class MasContext {
     }
     
     private void warnUser(String title, String message) {
-        if (PlatformUI.isWorkbenchRunning() && PlatformUI.getWorkbench() != null) {
+        if (PlatformUI.isWorkbenchRunning() && PlatformUI.getWorkbench() != null && PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null) {
             Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart().getSite().getShell();
             MessageDialog.openWarning(shell, title, message);
         }
@@ -281,25 +283,15 @@ public class MasContext {
      * @param syntaxExtent
      * @return
      */
-    private Map<String, Operation> getOperations(Extent syntaxExtent) {
-        Map<String, Operation> operations  = new HashMap<String, Operation>();
-        for(Object obj: syntaxExtent.outermostComposites()) {
-            if (obj instanceof Package) {
-                for(Element element: ((Package) obj).getOwnedElement()) {
-                    if (element instanceof Classifier) {
-                        for(Feature feature: ((Classifier) element).getFeature()) {
-                            if (feature instanceof Operation) {
-                                Operation op = (Operation) feature;
-                                String id = getLinkId(op);
-                                if (id != null) {
-                                    operations.put(id, op);
-                                }
-                            }
-                        }
-                    }
-                }
+    private Map<String, Operation> getOperations(Extent syntaxExtent) {    	
+    	for(Object obj: syntaxExtent.objectsOfType((UmlClass)Repository.getFromCmofModel("Package:cmof/Class:Operation"), false)) {
+    		Operation op = (Operation)obj;
+            String id = getLinkId(op);
+            if (id != null) {
+                operations.put(id, op);
             }
-        }
+    	}
+    	        
         return operations;
     }
 

@@ -4,6 +4,10 @@ import hub.sam.mas.execution.SemanticException;
 import hub.sam.mas.model.petrinets.NetInstance;
 import hub.sam.mas.model.petrinets.Transition;
 import hub.sam.mof.util.ListImpl;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import cmof.common.ReflectiveCollection;
 
 public class DecisionNodeCustom extends DecisionNodeDlg {
@@ -24,9 +28,14 @@ public class DecisionNodeCustom extends DecisionNodeDlg {
 	
 	@Override
 	public void fire(NetInstance context) {		
-		DebugInfo.printInfo("decision " + self.getBody());
-		Object decisionExpressionResult = OpaqueActionCustom.evaluateExpression(self, self.getBody(), self.getContext(),
-				(ActivityInstance) context);
+		DebugInfo.printInfo("decision " + self.getBody());		
+		ReflectiveCollection<? extends ContextPin> contextPins = self.getContext();		
+		
+		Map<String, Object> extensions = new HashMap<String, Object>(((ActivityInstance)context).getVariableAssignment().getExtensions()); 
+		OpaqueActionCustom.evaluateInputPins(contextPins,(ActivityInstance) context, extensions, ((ActivityInstance)context).getVariableAssignment().getExtensions());
+							
+		Object decisionExpressionResult = OpaqueActionCustom.evaluateExpression(self.getBody(), 
+				((ActivityInstance)context).getOclContext(), extensions, (ActivityInstance) context);
 		for (ActivityEdge edge: self.getOutgoing()) {
 			GuardSpecification guard = edge.getGuardSpecification();
 			boolean foundTrueEdge = false;
@@ -38,7 +47,9 @@ public class DecisionNodeCustom extends DecisionNodeDlg {
 				if (guardInput != null) {
 					pins.add(guardInput);
 				}
-				Object guardResult = OpaqueActionCustom.evaluateExpression(self, guard.getBody(), pins, (ActivityInstance) context);
+				Object guardResult = 
+					OpaqueActionCustom.evaluateExpression(guard.getBody(), 
+							((ActivityInstance)context).getOclContext(), extensions, (ActivityInstance) context);					
 				
 				if (guardResult.equals(decisionExpressionResult)) {
 					if (foundTrueEdge) {

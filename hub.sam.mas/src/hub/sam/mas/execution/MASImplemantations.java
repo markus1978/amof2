@@ -45,6 +45,7 @@ public class MASImplemantations extends ImplementationsImpl {
 			ClassifierSemantics<Property, Operation, String> semantics) {
 		Activity activity = masContext.getLink(operation).getActivity();
 		ActivityInstance activityInstance = activity.instantiate();
+		VariableAssignment assignement = activityInstance.getVariableAssignment();
 		activityInstance.setOclContext(object);
 		activityInstance.setEnv(env);		
 		boolean hasReturn = false;
@@ -60,6 +61,7 @@ public class MASImplemantations extends ImplementationsImpl {
 						}
 					}
 				}
+				assignement.setVariableValue(paramName, args[i]);
 				i++;
 			} else {
 				hasReturn = true;

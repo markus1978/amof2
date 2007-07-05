@@ -4,13 +4,20 @@ import hub.sam.mas.execution.ExecutionEnvironment;
 import hub.sam.mas.execution.SemanticException;
 import hub.sam.mas.model.petrinets.Place;
 import hub.sam.mas.model.petrinets.Transition;
+import hub.sam.mof.Repository;
 import hub.sam.mof.mofinstancemodel.MofClassSemantics;
+import hub.sam.mof.ocl.oslobridge.MofEvaluationAdaptor;
 import hub.sam.mof.reflection.ArgumentImpl;
 import hub.sam.mof.runtimelayer.M1SemanticModel;
 import hub.sam.mof.util.ListImpl;
+import hub.sam.util.OrderedTuple;
 
-import java.util.Collection;
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.sun.org.apache.regexp.internal.REProgram;
+
+import sun.awt.RepaintArea;
 
 import cmof.Operation;
 import cmof.Property;
@@ -20,20 +27,86 @@ import cmof.common.ReflectiveSequence;
 import cmof.reflection.Argument;
 
 public class OpaqueActionCustom extends OpaqueActionDlg {
+	
+	private final static String CONTEXT_ID = "__context__";	
+	
+	protected static void evaluateInputPin(InputPin pin, ActivityInstance context, Map<String, Object> extensions, Map<String, Object> localExtensions) {
+		String completeValueExpression = pin.getValueExpression();
+		completeValueExpression = completeValueExpression == null ? completeValueExpression : completeValueExpression.trim();
+		Object incomingObject = ((PinInstance)context.getPlaces(pin)).getValue();
+		boolean hasIncoming = pin.getIncoming().size() > 0;		
+		boolean isContextPin = pin instanceof ContextPin;
+		
+		if (completeValueExpression == null) {
+			extensions.put(CONTEXT_ID, incomingObject);
+			return;
+		} else { 			
+			String variable = null;
+			String valueExpression = null;
+			if (completeValueExpression.endsWith(":=")) {
+				variable = completeValueExpression.substring(0, completeValueExpression.length() - 2);
+				valueExpression = "";
+			} else {
+				String[] valueExpressionParts = completeValueExpression.split("\\:\\=");
+				if (valueExpressionParts.length == 1) {
+					valueExpression = valueExpressionParts[0];
+				} else if (valueExpressionParts.length == 2) {
+					variable = valueExpressionParts[0];
+					valueExpression = valueExpressionParts[1];
+				} else {
+					throw new SemanticException("wrongly formated expression string: " + completeValueExpression);
+				}
+			}			
+			if (valueExpression.trim().equals("")) {
+				if (hasIncoming) {
+					extensions.put(variable == null ? CONTEXT_ID : variable, incomingObject);
+					return;	
+				} else {
+					throw new SemanticException("context or context extension pin without incoming value");
+				}
+			}
+			Object evaluationContext = null;
+			if (hasIncoming) {
+				evaluationContext = incomingObject;
+			} else {
+				evaluationContext = context.getOclContext();
+			}
+			Object value = evaluateExpression(valueExpression, evaluationContext, localExtensions, context);
+			((PinInstance)context.getPlaces(pin)).setValue(value);
+			if (isContextPin) {
+				extensions.put(variable == null ? CONTEXT_ID : variable, value);
+				return;	
+			} else {
+				return;
+			}
+		}						
+	}
+	
+	protected static void evaluateInputPins(Iterable<? extends InputPin> pins, ActivityInstance context,
+			Map<String, Object> extensions, Map<String, Object> localExtensions) {					
+		for(InputPin pin: pins) {
+			evaluateInputPin(pin, context, extensions, localExtensions);			
+		}		
+	}
     
 	@Override
 	public void fire(ActivityInstance context) {
+		ExecutionEnvironment env = context.getEnv();
+		Map<String, Object> contextExtensions = new HashMap<String, Object>(context.getVariableAssignment().getExtensions()); 
+		evaluateInputPins(self.getInput(), context, contextExtensions, context.getVariableAssignment().getExtensions());
+		
 		// perform all as semantics actions
 		Object contextValue = null;
         MofClassSemantics semantics = null;
 		switch(self.getActionKind()) {
 			case EXPRESSION:
                 DebugInfo.printInfo("eval " + self.getActionBody());
-				propagateOutput(evaluateExpression(self, self.getActionBody(), self.getInput(), context), true, context);
+				propagateOutput(evaluateExpression(self.getActionBody(), context.getOclContext(), contextExtensions, context), 
+						true, context);
 				break;
 			case CALL:
                 DebugInfo.printInfo("call " + self.getActionBody());
-				String operationName = getActionBody();				;
+				String operationName = getActionBody();
 				contextValue = context.getOclContext();
 				ReflectiveSequence<Argument> arguments = new ListImpl<Argument>();
 				for(InputPin pin: self.getInput()) {
@@ -47,8 +120,9 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 					throw new SemanticException("Context must not be null for call " + self.getActionBody());
 				}
 				semantics = MofClassSemantics.createClassClassifierForUmlClass((UmlClass)
-						getTypeForObject(contextValue));
+						env.getTypeForObject(contextValue));
 				
+				// TODO running through the pins twice ??? what for ???
 				for (InputPin inputPin: self.getInput()) {
 					if (!(inputPin instanceof ContextPin)) {
 						operationName += "_" + getTypeOfValue(((PinInstance)context.getPlaces(inputPin)).getValue());
@@ -86,7 +160,7 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 						}
 					}
 				}				
-				Property feature = resolveFeature(contextValue);				
+				Property feature = resolveFeature(contextValue, env);				
 				if (qualifierValue != null) {
 					if (feature.getQualifier() == null) {
 						throw new SemanticException("To much input pins for a write structural feature action without qualifier.");
@@ -113,7 +187,7 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 						featureValue = ((PinInstance)context.getPlaces(pin)).getValue();
 					}
 				}				
-				feature = resolveFeature(contextValue);				
+				feature = resolveFeature(contextValue, env);				
 				((ReflectiveSequence)((cmof.reflection.Object)contextValue).get(feature)).add(featureValue);
 				break;
 			case REMOVE_STRUCTURAL_FEATURE_VALUE:
@@ -130,7 +204,7 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 						featureValue = ((PinInstance)context.getPlaces(pin)).getValue();
 					}
 				}				
-				feature = resolveFeature(contextValue);				
+				feature = resolveFeature(contextValue, env);				
 				((ReflectiveSequence)((cmof.reflection.Object)contextValue).get(feature)).remove(featureValue);
 				break;
 			case CREATE_OBJECT:
@@ -146,7 +220,7 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
                     }
                 }                
                 if (hasContextClass) {
-	                UmlClass syntaxClass = (UmlClass)getTypeForObject(contextValue);
+	                UmlClass syntaxClass = (UmlClass)env.getTypeForObject(contextValue);
 	                String className = self.getActionBody();
 	                UmlClass runtimeClass = null;
 	                for (Type classAsType: syntaxClass.getPackage().getOwnedType()) {
@@ -167,7 +241,7 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
                 }
                 break;
 			case PRINT_EXPRESSION:
-                System.out.println(evaluateExpression(self, self.getActionBody(), self.getInput(), context));
+                System.out.println(evaluateExpression(self.getActionBody(), context.getOclContext(), contextExtensions, context));
                 break;
 			default:
 				System.out.println("WARNING: unknown action kind");
@@ -177,10 +251,10 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 		((Transition)getSuper(Transition.class)).fire(context);
 	}	
 	
-	private Property resolveFeature(Object contextValue) {
+	private Property resolveFeature(Object contextValue, ExecutionEnvironment env) {
 		
 		Property result = MofClassSemantics.createClassClassifierForUmlClass(
-				(UmlClass)getTypeForObject(contextValue)).getProperty(self.getActionBody());
+				(UmlClass)env.getTypeForObject(contextValue)).getProperty(self.getActionBody());
 		if (result == null) {
 			throw new SemanticException("Feature could not be resolved.");				
 		}
@@ -189,7 +263,7 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 	
 	private void propagateOutput(Object value, boolean forced, ActivityInstance context) {
 		if (self.getOutput().size() != 1) {
-			if (forced || self.getOutput().size() > 1) { 
+			if (/*forced || (allow to loose output values)*/self.getOutput().size() > 1) { 
 				throw new SemanticException("Illegal argument count for expression.");
 			}
 			return;
@@ -197,8 +271,11 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 			OutputPin pin = self.getOutput().get(0);
 			for (ActivityEdge edge: pin.getOutgoing()) {
 				ActivityNode target = edge.getTarget();
-				if (target instanceof ValueNode && "return".equals(((ValueNode)target).getName())) {
-					context.setReturn(value);
+				if (target instanceof ValueNode) {
+					context.getVariableAssignment().setVariableValue(target.getName(), value);
+					if ("return".equals(((ValueNode)target).getName())) {				
+						context.setReturn(value);
+					}
 				}
 			}
 		}
@@ -208,17 +285,8 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 			}
 		}		
 	}
-
-	protected static Type getTypeForObject(Object object) {
-        if (object == null) {
-            return null;
-        } else if (object instanceof cmof.reflection.Object) {
-			return ((cmof.reflection.Object)object).getMetaClass();
-		} else {
-			throw new SemanticException("non object contexts types not allowed yet.");
-		}
-	}
 	
+	/*
 	protected static Object evaluateExpression(ActivityNode self, String body, Iterable<? extends InputPin> pins,
             ActivityInstance context) {
 		ExecutionEnvironment env = context.getEnv();	
@@ -245,6 +313,40 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 		for (ContextExtensionPin pin: extensions) {			
 			env.removeAdditionalContextAttribute(pin.getExtensionName(), OpaqueActionCustom.getTypeForObject(contextValue)); 		
 		}
+		return result;
+	}
+	*/
+	
+	protected static Object evaluateExpression(String expr, Object contextValue, Map<String, Object> extensions, 
+			ActivityInstance context) {
+		ExecutionEnvironment env = context.getEnv();			
+				
+		contextValue = extensions.keySet().contains(CONTEXT_ID) ? extensions.get(CONTEXT_ID) : contextValue;		
+		
+		for (String extName: extensions.keySet()) {
+			if (!extName.equals(CONTEXT_ID)) {
+				Object contextExtensionValue = extensions.get(extName);
+				if (contextValue == null) {
+					env.addAdditionalContextAttribute(extName, 
+							contextExtensionValue, env.getTypeForObject(contextExtensionValue), 
+							env.getTypeForObject(context.getOclContext()));
+				} else {
+					env.addAdditionalContextAttribute(extName, 
+							contextExtensionValue, env.getTypeForObject(contextExtensionValue), 
+							env.getTypeForObject(contextValue));
+				}
+			}
+		}
+		Object result = env.evaluateInvariant(expr, env.getTypeForObject(contextValue), contextValue);
+		for (String extName: extensions.keySet()) {
+			if (!extName.equals(CONTEXT_ID)) {
+				if (contextValue == null) {
+					env.removeAdditionalContextAttribute(extName, env.getTypeForObject(context.getOclContext()));
+				} else {
+					env.removeAdditionalContextAttribute(extName, env.getTypeForObject(contextValue));
+				}
+			}
+		}		
 		return result;
 	}
 	

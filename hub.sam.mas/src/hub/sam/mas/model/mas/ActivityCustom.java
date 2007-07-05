@@ -1,5 +1,6 @@
 package hub.sam.mas.model.mas;
 
+import hub.sam.mas.execution.VariableAssignment;
 import hub.sam.mas.model.petrinets.Place;
 import hub.sam.mas.model.petrinets.PlaceInstance;
 import hub.sam.mof.util.ListImpl;
@@ -9,7 +10,7 @@ public class ActivityCustom extends ActivityDlg {
 
 	/**
 	 * Returns all places of an activity. Each action with an incomming (control flow) edge is a place;
-	 * each input pin is a place; each expansion region with an incomming control flow is a place;
+	 * each input pin with an incoming (object flow) edge is a place; each expansion region with an incomming control flow is a place;
 	 * each InExpasionNode is a place; all the places within an expansion regions, and the deeper expansion regions
 	 * are places; each control node with an incomming (control flow) edge is a place.
 	 */
@@ -26,6 +27,13 @@ public class ActivityCustom extends ActivityDlg {
 			}
 			if (node instanceof Action) {
 				result.addAll(((Action)node).getInput());
+				/*
+				for (InputPin input: ((Action)node).getInput()) {
+					if (input.getIncoming().size() > 0) {
+						result.add(input);
+					}
+				}
+				*/
 			}
 			if (node instanceof DecisionNode) {
 				result.addAll(((DecisionNode)node).getContext());
@@ -77,7 +85,7 @@ public class ActivityCustom extends ActivityDlg {
 			}
 			result.setPlaces(place, placeInstance);					
 		}		
-		
+		result.setVariableAssignment(new VariableAssignment());		
 		/*
 		for (ActivityNode node: self.getNode()) {
 			if (node instanceof ExpansionRegion) {
