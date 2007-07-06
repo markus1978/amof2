@@ -25,14 +25,18 @@ import cmof.Element;
 import cmof.Operation;
 import cmof.Property;
 import cmof.UmlClass;
+import cmof.common.ReflectiveCollection;
 import cmof.reflection.Extent;
 import hub.sam.mof.codegeneration.wrapper.OperationWrapper;
+import hub.sam.mof.util.SetImpl;
 import hub.sam.util.MultiMap;
+import hub.sam.util.Tree;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Vector;
 
 public class MofClassSemantics extends MofClassifierSemantics {
 
@@ -52,6 +56,14 @@ public class MofClassSemantics extends MofClassifierSemantics {
         String opName = new OperationWrapper(op).getUnambigousName();
         operationNames.put(opName, op);
     }
+    
+    private Iterable<Operation> allOperations(UmlClass classifier) {
+        ReflectiveCollection<Operation> members = new SetImpl<Operation>(classifier.getOwnedOperation());
+        for (UmlClass superClass : classifier.getSuperClass()) {
+            members.addAll(allOperations(superClass));
+        }
+        return members;
+    }
 
     @Override
 	protected  void initialize() {
@@ -59,15 +71,37 @@ public class MofClassSemantics extends MofClassifierSemantics {
         if (classifier == null) {
             return;
         }
-        for (Element e: classifier.getMember()) {
-            if (e instanceof Operation) {
-                Operation op = (Operation)e;
-                addOperation(op);
-                for (Operation redefinedOp: op.getRedefinedOperation()) {
-                	addOperation(redefinedOp);
+        
+        Tree<Operation> redefinitions = new Tree<Operation>();
+        Collection<Operation> allOperations = new Vector<Operation>();
+        for (Element e: allOperations(classifier)) {
+            if (e instanceof Operation) {            	
+                Operation operation = (Operation)e;
+                String unamigiousOpName = new OperationWrapper(operation).getUnambigousName();
+                for (Operation redefinedOperation: operation.getRedefinedOperation()) {
+                	String unamigiousRedefinedOperationName = new OperationWrapper(redefinedOperation).getUnambigousName();
+                	if (unamigiousOpName.equals(unamigiousRedefinedOperationName)) {
+                		redefinitions.put(redefinedOperation, operation);
+                	}
                 }
+                allOperations.add(operation);
             }
         }
+        for (Operation op: allOperations) {
+        	for (Operation leave: redefinitions.getLeaves(op)) {
+        		addOperation(leave);
+        	}
+        }
+        
+        // check for further bugfixing
+        /*
+        Collection<String> opnames = new Vector<String>();
+        for (Operation op: allOperations) {
+        	if (operationNames.get(new OperationWrapper(op).getUnambigousName()) == null) {
+        		throw new RuntimeException("assert");
+        	}
+        }
+        */
 
         this.extent = ((cmof.reflection.Object)classifier).getExtent();
         if (notNaviagableEnds.get(extent) == null) {
