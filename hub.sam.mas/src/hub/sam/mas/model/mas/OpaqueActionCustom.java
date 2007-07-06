@@ -160,7 +160,7 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 						}
 					}
 				}				
-				Property feature = resolveFeature(contextValue, env);				
+				Property feature = resolveFeature(contextValue, env, self.getActionBody());				
 				if (qualifierValue != null) {
 					if (feature.getQualifier() == null) {
 						throw new SemanticException("To much input pins for a write structural feature action without qualifier.");
@@ -187,12 +187,12 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 						featureValue = ((PinInstance)context.getPlaces(pin)).getValue();
 					}
 				}				
-				feature = resolveFeature(contextValue, env);				
+				feature = resolveFeature(contextValue, env, self.getActionBody());				
 				((ReflectiveSequence)((cmof.reflection.Object)contextValue).get(feature)).add(featureValue);
 				break;
 			case REMOVE_STRUCTURAL_FEATURE_VALUE:
                 DebugInfo.printInfo("remove " + self.getActionBody());
-				contextValue = context.getOclContext();
+				contextValue = context.getOclContext();				
 				featureValue = null;
 				for(InputPin pin: self.getInput()) {
 					if (pin instanceof ContextPin) {
@@ -203,9 +203,17 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 						}
 						featureValue = ((PinInstance)context.getPlaces(pin)).getValue();
 					}
-				}				
-				feature = resolveFeature(contextValue, env);				
-				((ReflectiveSequence)((cmof.reflection.Object)contextValue).get(feature)).remove(featureValue);
+				}	
+				String body = self.getActionBody();
+				if (body.contains(":")) {
+					String[] bodyParts = body.split("\\:");					
+					feature = resolveFeature(contextValue, env, bodyParts[0]);
+					Integer index = new Integer(bodyParts[1]);
+					((ReflectiveSequence)((cmof.reflection.Object)contextValue).get(feature)).remove((int)index);
+				} else {
+					feature = resolveFeature(contextValue, env, body);				
+					((ReflectiveSequence)((cmof.reflection.Object)contextValue).get(feature)).remove(featureValue);
+				}
 				break;
 			case CREATE_OBJECT:
                 DebugInfo.printInfo("create " + self.getActionBody());
@@ -237,7 +245,8 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 	                result = ((cmof.reflection.Object)contextValue).invokeOperation(op, new ListImpl<Argument>());
 	                propagateOutput(result, false, context);
                 } else {
-                	throw new SemanticException("not implemented yet.");
+                	result = env.instantiate(self.getActionBody());
+                	propagateOutput(result, false, context);                	
                 }
                 break;
 			case PRINT_EXPRESSION:
@@ -251,10 +260,9 @@ public class OpaqueActionCustom extends OpaqueActionDlg {
 		((Transition)getSuper(Transition.class)).fire(context);
 	}	
 	
-	private Property resolveFeature(Object contextValue, ExecutionEnvironment env) {
-		
+	private Property resolveFeature(Object contextValue, ExecutionEnvironment env, String featureName) {		
 		Property result = MofClassSemantics.createClassClassifierForUmlClass(
-				(UmlClass)env.getTypeForObject(contextValue)).getProperty(self.getActionBody());
+				(UmlClass)env.getTypeForObject(contextValue)).getProperty(featureName);
 		if (result == null) {
 			throw new SemanticException("Feature could not be resolved.");				
 		}

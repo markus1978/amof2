@@ -20,6 +20,7 @@
 
 package hub.sam.mas.management;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,12 +31,20 @@ public class SimpleMasXmiFiles implements IMasXmiFiles {
     private String syntaxFile;
     private String semanticFile;
     
+    public SimpleMasXmiFiles(String contextFile) throws FileNotFoundException, IOException {
+    	File file = new File(contextFile);
+    	String pathToContextFile = file.getParent();    	
+    	
+    	Properties properties = new Properties();
+    	properties.load(new FileInputStream(file));
+    	
+    	syntaxFile = pathToContextFile.concat(File.separator + (String) properties.get("syntax") );
+        semanticFile = pathToContextFile.concat(File.separator + (String) properties.get("semantic") );
+    }
+    
+    @Deprecated
     public SimpleMasXmiFiles(String pathToContextFile, String contextFile) throws FileNotFoundException, IOException {
-        Properties properties = new Properties();
-        properties.load(new FileInputStream( pathToContextFile.concat(contextFile) ));
-        
-        syntaxFile = pathToContextFile.concat( (String) properties.get("syntax") );
-        semanticFile = pathToContextFile.concat( (String) properties.get("semantic") );
+    	this(pathToContextFile.concat(contextFile));        
     }
 
     public String getMasFile() {

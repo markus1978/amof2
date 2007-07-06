@@ -4,6 +4,7 @@ import hub.sam.mof.Repository;
 import hub.sam.mof.ocl.OclEnvironment;
 import hub.sam.mof.ocl.OclException;
 import hub.sam.mof.ocl.OclObjectEnvironment;
+import hub.sam.mof.reflection.FactoryImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,14 +12,19 @@ import java.util.Map;
 import cmof.NamedElement;
 import cmof.PrimitiveType;
 import cmof.Type;
+import cmof.UmlClass;
 import cmof.exception.IllegalArgumentException;
 import cmof.reflection.Extent;
+import cmof.reflection.Factory;
 
 public class ExecutionEnvironment extends AnalysisEnvironment {	   
     
     private final Extent extent;
     private final Extent m2Extent;
-        
+    
+    private Map<String, UmlClass> classNameChache = new HashMap<String, UmlClass>();
+    private Map<cmof.Package, Factory> factoryCache = new HashMap<cmof.Package, Factory>();
+    
 	public ExecutionEnvironment(Extent m1Extent, Extent m2Extent, Repository repository) {
 		super(m1Extent, m2Extent, repository);
         extent = m1Extent;
@@ -33,7 +39,7 @@ public class ExecutionEnvironment extends AnalysisEnvironment {
             } else {                    
                 return OclObjectEnvironment.createObjectEnvironment(null, environment).execute(invariant);
             }
-        } else {        
+        } else {
             return ((cmof.reflection.Object)self).getAdaptor(OclObjectEnvironment.class).execute(invariant);
         }
 	}
@@ -71,4 +77,29 @@ public class ExecutionEnvironment extends AnalysisEnvironment {
         }
 	}
     
+	public cmof.reflection.Object instantiate(String className) {
+		UmlClass metaClass = classNameChache.get(className);
+		if (metaClass == null) {
+			for(Object obj: m2Extent.objectsOfType((UmlClass)Repository.getFromCmofModel("Package:cmof/Class:Class"), false)) {
+				if (((UmlClass)obj).getName().equals(className)) {
+					if (metaClass != null) {
+						throw new SemanticException("Class name " + className + " is not unambigeous.");
+					} else {
+						metaClass = (UmlClass)obj;
+						classNameChache.put(className, (UmlClass)obj);
+					}
+				}
+			}
+			if (metaClass == null) {
+				throw new SemanticException("Class name " + className + " could not be resolved.");
+			}
+		}
+		cmof.Package thePackage = metaClass.getPackage();
+		Factory factory = factoryCache.get(thePackage);
+		if (factory == null) {
+			factory = FactoryImpl.createFactory(extent, thePackage);
+			factoryCache.put(thePackage, factory);
+		}
+		return factory.create(metaClass);
+	}	
 }
