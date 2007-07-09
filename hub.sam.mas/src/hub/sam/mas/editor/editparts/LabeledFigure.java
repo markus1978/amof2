@@ -22,23 +22,30 @@ package hub.sam.mas.editor.editparts;
 
 import hub.sam.mas.editor.MaseEditDomain;
 import hub.sam.mas.editor.figures.EditableFigure;
-import hub.sam.mas.editor.figures.PinFigure;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 
-public class LabeledPinFigure extends Figure implements EditableFigure {
+/**
+ * Wraps a given figure by adding a label at the top.
+ *
+ */
+public class LabeledFigure extends Figure implements EditableFigure {
 
     private final Label label;
-    private final PinFigure pin;
+    private final IFigure wrappedFigure;
     private final static String labelPrefix = "=";
     public static final Color COLOR = new Color(null,255,153,0);
+    public static final int POSITION_TOP = 1;
+    public static final int POSITION_BOTTOM = 2;
     
-    public LabeledPinFigure(PinFigure pin) {
+    public LabeledFigure(IFigure wrappedFigure, int position) {
         ToolbarLayout layout = new ToolbarLayout(ToolbarLayout.VERTICAL);
         setLayoutManager(layout);
         
@@ -49,17 +56,25 @@ public class LabeledPinFigure extends Figure implements EditableFigure {
         }
         
         label = new Label();
-        add(label);
+        label.setFont(new Font(null, MaseEditDomain.getDefaultFontName(),
+                MaseEditDomain.getDefaultFontSize(), SWT.NORMAL));
+        this.wrappedFigure = wrappedFigure;
         
-        this.pin = pin;
-        add(pin);
+        if (position == POSITION_TOP) {
+            add(label);
+            add(wrappedFigure);
+        }
+        else if (position == POSITION_BOTTOM) {
+            add(wrappedFigure);
+            add(label);
+        }
     }
     
     public Dimension getPreferredSize(int wHint, int hHint) {
         Dimension preferredSize = new Dimension();
-        preferredSize.expand(0, pin.getPreferredSize().height);
+        preferredSize.expand(0, wrappedFigure.getPreferredSize().height);
         preferredSize.expand(0, label.getPreferredSize(wHint, hHint).height);
-        int maxWidth = Math.max(pin.getPreferredSize().width, label.getPreferredSize().width);
+        int maxWidth = Math.max(wrappedFigure.getPreferredSize().width, label.getPreferredSize().width);
         preferredSize.expand(maxWidth, 0);
         return preferredSize;
     }
@@ -82,7 +97,7 @@ public class LabeledPinFigure extends Figure implements EditableFigure {
     }
     
     public IFigure getAnchorFigure() {
-        return pin;
+        return wrappedFigure;
     }
     
 }

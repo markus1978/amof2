@@ -26,7 +26,7 @@ import hub.sam.mas.model.mas.InExpansionNode;
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.IFigure;
 
-public class InExpansionNodeEditPart extends AttachedNodeEditPart {
+public class InExpansionNodeEditPart extends ExpansionNodeEditPart {
     
     public InExpansionNode getModel() {
         return (InExpansionNode) super.getModel();
@@ -38,8 +38,9 @@ public class InExpansionNodeEditPart extends AttachedNodeEditPart {
     
     @Override
     protected IFigure createFigure() {
-        ExpansionNodeFigure figure = new ExpansionNodeFigure(getModel().getNum(), ExpansionNodeFigure.INPUT_COLOR);
-        anchor = new ChopboxAnchor(figure);
+        ExpansionNodeFigure nodeFigure = new ExpansionNodeFigure(getModel().getNum(), ExpansionNodeFigure.INPUT_COLOR);
+        LabeledFigure figure = new LabeledFigure(nodeFigure, LabeledFigure.POSITION_TOP);
+        anchor = new ChopboxAnchor(figure.getAnchorFigure());
         return figure;
     }
     

@@ -20,15 +20,11 @@
 
 package hub.sam.mas.editor.editparts;
 
-import java.beans.PropertyChangeEvent;
-
-import hub.sam.mas.editor.editparts.properties.InputPinPropertySource;
 import hub.sam.mas.editor.figures.PinFigure;
 import hub.sam.mas.model.mas.InputPin;
 
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.ui.views.properties.IPropertySource;
 
 public class InputPinEditPart extends PinEditPart {
     
@@ -36,39 +32,12 @@ public class InputPinEditPart extends PinEditPart {
         return (InputPin) super.getModel();
     }
     
-    public final IFigure getFigure() {
-        return super.getFigure();
-    }
-    
     @Override
     protected IFigure createFigure() {
         PinFigure pinFigure = new PinFigure(getModel().getNum(), PinFigure.INPUT_COLOR);
-        LabeledPinFigure figure = new LabeledPinFigure(pinFigure);
+        LabeledFigure figure = new LabeledFigure(pinFigure, LabeledFigure.POSITION_TOP);
         anchor = new ChopboxAnchor(figure.getAnchorFigure());
         return figure;
-    }
-    
-    public void propertyChange(PropertyChangeEvent event) {
-        if ("valueExpression".equals(event.getPropertyName())) {
-            refreshVisuals();
-        }
-    }
-    
-    protected void refreshVisuals() {
-        ((LabeledPinFigure) getFigure()).setText(getModel().getValueExpression());
-    }
-    
-    private IPropertySource propertyDescriptor = null;
-    
-    public Object getAdapter(Class key) {
-        if (key == IPropertySource.class) {
-            if (propertyDescriptor == null) {
-                propertyDescriptor = new InputPinPropertySource(getModel());
-            }
-            return propertyDescriptor;
-        }
-        
-        return super.getAdapter(key);
     }
     
 }

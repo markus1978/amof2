@@ -167,12 +167,6 @@ public class MaseCreationFactory implements CreationFactory {
         return newObject;
     }
 
-    public ContextExtensionPin createContextExtensionPin() {
-        ContextExtensionPin newObject = getFactory().createContextExtensionPin();
-        editDomain.getModelGarbageCollector().mark(newObject);
-        return newObject;
-    }
-
     public GuardSpecification createGuardSpecification() {
         GuardSpecification newObject = getFactory().createGuardSpecification();
         return newObject;

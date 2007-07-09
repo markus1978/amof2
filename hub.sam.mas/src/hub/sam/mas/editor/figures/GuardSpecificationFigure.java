@@ -20,11 +20,15 @@
 
 package hub.sam.mas.editor.figures;
 
+import hub.sam.mas.editor.MaseEditDomain;
+
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 
 public class GuardSpecificationFigure extends Figure implements EditableFigure {
     
@@ -37,6 +41,8 @@ public class GuardSpecificationFigure extends Figure implements EditableFigure {
         setBackgroundColor(ColorConstants.white);
         setOpaque(true);
         label = new Label();
+        label.setFont(new Font(null, MaseEditDomain.getDefaultFontName(),
+                    MaseEditDomain.getDefaultFontSize(), SWT.NORMAL));
         add(label);
     }
 

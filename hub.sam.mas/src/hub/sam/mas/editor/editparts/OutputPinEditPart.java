@@ -20,14 +20,11 @@
 
 package hub.sam.mas.editor.editparts;
 
-import hub.sam.mas.editor.MaseEditDomain;
-import hub.sam.mas.editor.editparts.properties.OutputPinPropertySource;
 import hub.sam.mas.editor.figures.PinFigure;
 import hub.sam.mas.model.mas.OutputPin;
 
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.ui.views.properties.IPropertySource;
 
 public class OutputPinEditPart extends PinEditPart {
     
@@ -35,14 +32,11 @@ public class OutputPinEditPart extends PinEditPart {
         return (OutputPin) super.getModel();
     }
 
-    public PinFigure getFigure() {
-        return (PinFigure) super.getFigure();
-    }
-
     @Override
     protected IFigure createFigure() {
-        PinFigure figure = new PinFigure(getModel().getNum(), PinFigure.OUTPUT_COLOR);
-        anchor = new ChopboxAnchor(figure);
+        PinFigure pinFigure = new PinFigure(getModel().getNum(), PinFigure.OUTPUT_COLOR);
+        LabeledFigure figure = new LabeledFigure(pinFigure, LabeledFigure.POSITION_BOTTOM);
+        anchor = new ChopboxAnchor(figure.getAnchorFigure());
         return figure;
     }
 
@@ -53,20 +47,6 @@ public class OutputPinEditPart extends PinEditPart {
 
     protected void refreshVisuals() {
         super.refreshVisuals();
-    }
-    
-    private IPropertySource propertyDescriptor = null;
-    
-    public Object getAdapter(Class key) {
-        if (key == IPropertySource.class) {
-            if (propertyDescriptor == null) {
-                propertyDescriptor = new OutputPinPropertySource(getModel(),
-                        (MaseEditDomain) getViewer().getEditDomain());
-            }
-            return propertyDescriptor;
-        }
-        
-        return super.getAdapter(key);
     }
     
 }

@@ -20,26 +20,20 @@
 
 package hub.sam.mas.editor.editparts.properties;
 
-import hub.sam.mas.editor.MaseEditDomain;
-import hub.sam.mas.editor.editparts.properties.handlers.OutputPinHandler;
-import hub.sam.mas.model.mas.OutputPin;
+import hub.sam.mas.editor.editparts.properties.handlers.ValuedNodeHandler;
+import hub.sam.mas.model.mas.ValuedNode;
 
-/**
- * @deprecated
- */
-public class OutputPinPropertySource extends AbstractPropertySource {
+public class ValuedNodePropertySource extends AbstractPropertySource {
 
-    private final OutputPin model;
-    private final MaseEditDomain editDomain;
+    private final ValuedNode model;
     
-    public OutputPinPropertySource(OutputPin model, MaseEditDomain editDomain) {
+    public ValuedNodePropertySource(ValuedNode model) {
         this.model = model;
-        this.editDomain = editDomain;
     }
-
+    
     @Override
     protected void createPropertyHandlers() {
-        installPropertyHandler(new OutputPinHandler(model, editDomain));
+        installPropertyHandler(new ValuedNodeHandler(model));
     }
-    
+   
 }

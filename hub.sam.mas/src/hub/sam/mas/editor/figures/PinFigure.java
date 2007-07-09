@@ -31,7 +31,9 @@ import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.XYLayout;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 
 public class PinFigure extends RectangleFigure {
     

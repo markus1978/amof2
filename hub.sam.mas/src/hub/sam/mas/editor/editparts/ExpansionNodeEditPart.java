@@ -22,46 +22,25 @@ package hub.sam.mas.editor.editparts;
 
 import java.beans.PropertyChangeEvent;
 
-import hub.sam.mas.editor.MaseEditDomain;
-import hub.sam.mas.editor.editparts.properties.ContextExtensionPinPropertySource;
-import hub.sam.mas.editor.figures.ContextPinFigure;
-import hub.sam.mas.model.mas.ContextExtensionPin;
-
-import org.eclipse.draw2d.ChopboxAnchor;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.ui.views.properties.IPropertySource;
 
-/**
- * 
- * @deprecated Use ContextPin with valueExpression. This class should remain intact for backward compatibility.
- */
-@Deprecated
-public class ContextExtensionPinEditPart extends ContextPinEditPart {
+import hub.sam.mas.editor.editparts.properties.ValuedNodePropertySource;
+import hub.sam.mas.model.mas.ExpansionNode;
+
+public abstract class ExpansionNodeEditPart extends AttachedNodeEditPart {
     
-    public ContextExtensionPin getModel() {
-        return (ContextExtensionPin) super.getModel();
-    }
-    
-    @Override
-    protected IFigure createFigure() {
-        ContextPinFigure pinFigure = new ContextPinFigure(getModel().getNum());
-        LabeledPinFigure figure = new LabeledPinFigure(pinFigure);
-        if (getModel().getExtensionName() == null) {
-            String extensionName = MaseEditDomain.getProperties().getProperty("contextExtensionPin.name");
-            getModel().setExtensionName(extensionName);
-        }
-        anchor = new ChopboxAnchor(figure.getAnchorFigure());
-        return figure;
+    public ExpansionNode getModel() {
+        return (ExpansionNode) super.getModel();
     }
     
     public void propertyChange(PropertyChangeEvent event) {
-        if ("extensionName".equals(event.getPropertyName())) {
+        if ("valueExpression".equals(event.getPropertyName())) {
             refreshVisuals();
         }
     }
-    
+
     protected void refreshVisuals() {
-        ((LabeledPinFigure) getFigure()).setText(getModel().getExtensionName());
+        ((LabeledFigure) getFigure()).setText(getModel().getValueExpression());
     }
     
     private IPropertySource propertyDescriptor = null;
@@ -69,7 +48,7 @@ public class ContextExtensionPinEditPart extends ContextPinEditPart {
     public Object getAdapter(Class key) {
         if (key == IPropertySource.class) {
             if (propertyDescriptor == null) {
-                propertyDescriptor = new ContextExtensionPinPropertySource(getModel());
+                propertyDescriptor = new ValuedNodePropertySource(getModel());
             }
             return propertyDescriptor;
         }

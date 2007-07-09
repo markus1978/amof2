@@ -20,12 +20,40 @@
 
 package hub.sam.mas.editor.editparts;
 
+import java.beans.PropertyChangeEvent;
+
+import org.eclipse.ui.views.properties.IPropertySource;
+
+import hub.sam.mas.editor.editparts.properties.ValuedNodePropertySource;
 import hub.sam.mas.model.mas.Pin;
 
 public abstract class PinEditPart extends AttachedNodeEditPart {
     
     public Pin getModel() {
         return (Pin) super.getModel();
+    }
+    
+    public void propertyChange(PropertyChangeEvent event) {
+        if ("valueExpression".equals(event.getPropertyName())) {
+            refreshVisuals();
+        }
+    }
+
+    protected void refreshVisuals() {
+        ((LabeledFigure) getFigure()).setText(getModel().getValueExpression());
+    }
+    
+    private IPropertySource propertyDescriptor = null;
+    
+    public Object getAdapter(Class key) {
+        if (key == IPropertySource.class) {
+            if (propertyDescriptor == null) {
+                propertyDescriptor = new ValuedNodePropertySource(getModel());
+            }
+            return propertyDescriptor;
+        }
+        
+        return super.getAdapter(key);
     }
     
 }
