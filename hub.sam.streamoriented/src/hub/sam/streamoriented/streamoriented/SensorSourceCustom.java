@@ -14,17 +14,19 @@ public class SensorSourceCustom extends SensorSourceDlg {
 	private static Random random = new Random();
 	
 	@Override
-	public java.lang.Object getNextValue() {
-		System.out.print(".");		
+	public void push(java.lang.Object o) {
+		System.out.print(".");
+		int result = 0;
 		int randomInt = random.nextInt(20);
 		if (randomInt == 1) {
 			index = 0;
 		}
 		if (index < sensorValues.length) {
-			return sensorValues[index++];
+			result = sensorValues[index++];
 		} else {
-			return 1;
+			result = 1;
 		}
+		self.getSink().consume(result);
 	}
 
 }

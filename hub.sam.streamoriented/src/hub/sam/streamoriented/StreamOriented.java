@@ -26,7 +26,9 @@ public class StreamOriented extends AbstractRunModelMain {
         filter.setSource(source);
         sink.setSource(filter);
         
-        sink.consume();
+        while(true) {
+        	source.push(null);
+        }
 	}
 	
 	public static void main(String[] args) throws Exception {

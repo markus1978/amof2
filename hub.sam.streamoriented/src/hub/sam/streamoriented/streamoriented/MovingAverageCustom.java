@@ -17,10 +17,12 @@ public class MovingAverageCustom extends MovingAverageDlg {
 	}
 	
 	@Override
-	public void move(int newValue) {
+	public void move(int value) {
 		ReflectiveSequence values = self.getValues();
-		values.remove(0);
-		values.add(newValue);
+		if (values.size() == self.getTime()) {
+			values.remove(0);
+		}
+		values.add(value);
 	}
 
 }
