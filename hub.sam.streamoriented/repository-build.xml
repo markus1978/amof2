@@ -1,0 +1,32 @@
+<project name="StreamOriented" basedir="." default="generate-repository">
+
+    <property name="src-dir" value="${basedir}/src"/>
+    <property name="gen-src-dir" value="${basedir}/generated-src"/>
+    <property name="bin-dir" value="${basedir}/bin"/>
+
+	<path id="classpath">
+		<pathelement path="${bin-dir}"/>
+		<fileset dir="${basedir}/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+	<target name="init">
+		<mkdir dir="${bin-dir}"/>
+	    <mkdir dir="${gen-src-dir}"/>
+        <typedef name="package" classname="hub.sam.mof.ant.Package" classpathref="classpath"/>
+	    <taskdef name="generatecode" classname="hub.sam.mof.ant.GenerateCode" classpathref="classpath"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="${bin-dir}"/>
+	    <delete dir="${gen-src-dir}"/>
+	</target>
+
+	<target name="generate-repository" depends="clean,init">
+	    <generatecode src="models/streamoriented.mdxml" md="true" destDir="./generated-src" instances="true" remote="true">
+	        <package name="streamoriented" javaPackagePrefix="hub.sam.streamoriented"/>
+	    </generatecode>
+	</target>
+	
+</project>

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Streamoriented Plug-in
+Bundle-SymbolicName: hub.sam.streamoriented
+Bundle-Version: 1.0.0
+Bundle-Activator: hub.sam.streamoriented.Activator
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ hub.sam.mas
+Eclipse-LazyStart: true

@@ -1,0 +1,2 @@
+syntax = streamoriented.mdxml
+semantic =  streamoriented.semantic.xml
