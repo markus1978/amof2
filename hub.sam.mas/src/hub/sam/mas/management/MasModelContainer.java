@@ -37,7 +37,7 @@ import hub.sam.mof.runtimelayer.M1SemanticModel;
 import hub.sam.mof.xmi.Xmi1Reader.XmiKind;
 
 /**
- * An implementation of a MasModelContainer. It's purpose is to hold a syntax and
+ * An implementation of IMasModelContainer. It's purpose is to hold a syntax and
  * a semantic model, that can be used by a MasContext to establish the connection between them.
  * 
  * Meta-models:

@@ -24,48 +24,44 @@ import hub.sam.mas.management.MasContext;
 import hub.sam.mas.management.MasLink;
 import hub.sam.mas.management.MasRepository;
 import hub.sam.mof.plugin.modelview.tree.TreeObject;
-import hub.sam.mof.reflection.ExtentImpl;
 
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
 import cmof.Operation;
-import cmof.reflection.Extent;
 
 public abstract class MasAction extends Mof2PluginAction {
     
-    protected Operation currentOperation = null;
-    protected TreeObject selection = null;
+    private Operation selectedOperation = null;
     
     protected MasContext getMASContextFromSelection() {
-    	if (selection != null) {
-	        return MasRepository.getInstance().getMasContext(currentOperation.getExtent());
+    	if (selectedOperation != null) {
+	        return MasRepository.getInstance().getMasContext(selectedOperation.getExtent());
     	} else {
     		return null;
     	}
     }
+    
+    protected Operation getSelectedOperation() {
+        return selectedOperation;
+    }
 
     protected MasLink getLinkFromSelection() {
         MasContext masContext = getMASContextFromSelection();
-        if (masContext == null) {
-        	if (selection != null) {
-        		MessageDialog.openError(getModelView().getSite().getShell(), "Error", "No MAS Context exists!");
-        	}
-            return null;
+        if (masContext != null) {
+            return getMASContextFromSelection().getLink(selectedOperation);
         }
-        return masContext.getLink(currentOperation);
+        return null;
     }
 
     public void selectionChanged(IAction action, ISelection selection) {
-        this.selection = (TreeObject) ((IStructuredSelection)selection).getFirstElement();
-        if (this.selection != null) {
-	        currentOperation = (Operation)this.selection.getElement();
-	        action.setEnabled(shouldEnable());
+        if (selection != null) {
+            TreeObject structuredSelection = (TreeObject) ((IStructuredSelection) selection).getFirstElement();
+	        selectedOperation = (Operation) structuredSelection.getElement();
+	        action.setEnabled(isEnabled());
         }
     }
     
-    protected abstract boolean shouldEnable();
-
+    protected abstract boolean isEnabled();
 }

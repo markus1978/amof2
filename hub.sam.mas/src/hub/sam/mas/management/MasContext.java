@@ -36,12 +36,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
-import cmof.Classifier;
 import cmof.Comment;
-import cmof.Element;
-import cmof.Feature;
 import cmof.Operation;
-import cmof.Package;
 import cmof.UmlClass;
 import cmof.cmofFactory;
 import cmof.reflection.Extent;
@@ -60,13 +56,20 @@ public class MasContext {
     
     private static Logger logger = Logger.getLogger(MasContext.class.getName());
     private Map<String, MasLink> links = new HashMap<String, MasLink>();
-    private MofModel syntaxModel;
-    private MofModel masModel;
-    private static String linkIdPrefix = "mas-id-";
+    private final MofModel syntaxModel;
+    private final MofModel masModel;
+    private static final String linkIdPrefix = "mas-id-";
     private Map<String, Operation> operations  = new HashMap<String, Operation>();
     private Map<String, Activity> activities = new HashMap<String, Activity>();
     private boolean syntaxModelNeedsSaving = false;
+    private IMasContextFileResource contextFile;
+    private final ObjectIdentifierManager objectIdentifierManager;
     
+    /**
+     * Creates a MAS Context.
+     * 
+     * @param modelContainer
+     */
     protected MasContext(IMasModelContainer modelContainer) {
         MasPlugin.configureLog4j();
         
@@ -78,6 +81,28 @@ public class MasContext {
         activities = getActivities(masModel.getExtent());
         
         preserveIntegrity(operations, activities);
+        
+        objectIdentifierManager = new ObjectIdentifierManager(masModel);
+    }
+    
+    /**
+     * Creates a MAS Context that keeps a reference to its MAS Context File.
+     * 
+     * @param modelContainer
+     * @param contextFile
+     */
+    protected MasContext(IMasModelContainer modelContainer, IMasContextFileResource contextFile) {
+        this(modelContainer);
+        this.contextFile = contextFile;
+    }
+    
+    /**
+     * Returns the MAS Context File that this MAS Context was created from or NULL if no such file was specified.
+     * 
+     * @return
+     */
+    public IMasContextFileResource getContextFile() {
+        return contextFile;
     }
     
     private void checkMasModel() {
@@ -354,4 +379,8 @@ public class MasContext {
         this.syntaxModelNeedsSaving = syntaxModelNeedsSaving;
     }
     
+    public ObjectIdentifierManager getObjectIdentifierManager() {
+        return objectIdentifierManager;
+    }
+
 }

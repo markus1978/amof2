@@ -55,7 +55,7 @@ public class EditBehaviourAction extends MasAction implements IRunnableWithProgr
             MaseCreationFactory maseFactory = new MaseCreationFactory((masFactory) masContext.getMasModel().getFactory(),
                     Activity.class);
             Activity activity = maseFactory.createActivity();
-            link = masContext.createLink(currentOperation, activity);
+            link = masContext.createLink(getSelectedOperation(), activity);
         }
         
         display = Display.getCurrent();
@@ -91,7 +91,7 @@ public class EditBehaviourAction extends MasAction implements IRunnableWithProgr
     }
 
     @Override
-    protected boolean shouldEnable() {
+    protected boolean isEnabled() {
         return true;
     }
     

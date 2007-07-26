@@ -32,7 +32,7 @@ public class DeleteBehaviourAction extends MasAction {
     }
 
     @Override
-    protected boolean shouldEnable() {
+    protected boolean isEnabled() {
         return getLinkFromSelection() != null;
     }
 

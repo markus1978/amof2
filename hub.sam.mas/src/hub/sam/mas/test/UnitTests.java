@@ -21,11 +21,11 @@
 package hub.sam.mas.test;
 
 import hub.sam.mas.execution.MasExecutionHelper;
-import hub.sam.mas.management.IMasXmiFiles;
+import hub.sam.mas.management.IMasContextFile;
 import hub.sam.mas.management.MasContext;
 import hub.sam.mas.management.MasModelContainer;
 import hub.sam.mas.management.MasRepository;
-import hub.sam.mas.management.SimpleMasXmiFiles;
+import hub.sam.mas.management.SimpleMasContextFile;
 import hub.sam.mas.model.tests.flow.descisionobjectflow.descisionobjectflowFactory;
 import hub.sam.mas.model.tests.flow.iterative.TestObject;
 import hub.sam.mas.model.tests.flow.iterative.iterativeFactory;
@@ -53,21 +53,21 @@ public class UnitTests extends TestCase {
 	        Repository.getConfiguration().setGenerousXMI(true);
 	        
 	        // load xmi files for syntax and semantic from a mas context file
-	        IMasXmiFiles xmiFiles = new SimpleMasXmiFiles("resources/models/", "MASTest.masctx");
+	        IMasContextFile contextFile = new SimpleMasContextFile("resources/models/MASTest.masctx");
 	
 	        // create a new mas model container
 	        MasModelContainer masModelContainer = new MasModelContainer(repository);
 	        
 	        // load mas model (semantic)
-	        masModelContainer.loadMasModel(xmiFiles.getMasFile());
+	        masModelContainer.loadMasModel(contextFile.getMasFile());
 	        
 	        // load state automaton meta-model (syntax)
-	        masModelContainer.loadSyntaxModelForExecution(xmiFiles.getSyntaxFile(), "Package:tests");
+	        masModelContainer.loadSyntaxModelForExecution(contextFile.getSyntaxFile(), "Package:tests");
 	        masModelContainer.getSyntaxModel().addJavaPackagePrefix("hub.sam.mas.model");
 	        masModelContainer.getSyntaxModel().addNsPrefix("mastests");
 	        
 	        // now we can create a mas context
-	        MasContext masContext = MasRepository.getInstance().createMasContext(masModelContainer);
+	        MasContext masContext = MasRepository.getInstance().createMasContext(masModelContainer, contextFile);
 	        
 	        // create a test model:        
 	        // here the mof model manager concept can be used to create a test model

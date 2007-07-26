@@ -18,14 +18,13 @@
  * MA  02110-1301  USA
  ***********************************************************************/
 
-package hub.sam.mas.editor;
+package hub.sam.mas.management;
 
-import hub.sam.mas.management.MasLink;
-
-import org.eclipse.core.resources.IResource;
-import org.eclipse.ui.IEditorInput;
-
-public interface IMaseEditorInput extends IEditorInput {
-    public MasLink getLink();
-    public IResource getContextFile();
+public interface IMasContextFile {
+    String getLocation();
+    String getSyntaxFile();
+    String getMasFile();
+    String getNsPrefixOfSyntaxXmi();
+    String getPackageOfSyntaxModel();
+    String getJavaPackagePrefixOfSyntaxModel();
 }

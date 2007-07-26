@@ -24,8 +24,8 @@ import hub.sam.mas.execution.MasExecutionHelper;
 import hub.sam.mas.management.MasContext;
 import hub.sam.mas.management.MasModelContainer;
 import hub.sam.mas.management.MasRepository;
-import hub.sam.mas.management.IMasXmiFiles;
-import hub.sam.mas.management.SimpleMasXmiFiles;
+import hub.sam.mas.management.IMasContextFile;
+import hub.sam.mas.management.SimpleMasContextFile;
 import hub.sam.mas.model.petrinets.Net;
 import hub.sam.mas.model.petrinets.Place;
 import hub.sam.mas.model.petrinets.Transition;
@@ -61,20 +61,20 @@ public class TestPetrinet {
         Repository.getConfiguration().setGenerousXMI(true);
         
         // load xmi files for syntax and semantic from mas context file
-        IMasXmiFiles xmiFiles = new SimpleMasXmiFiles("resources/models/", "petrinets.masctx");
+        IMasContextFile contextFile = new SimpleMasContextFile("resources/models/petrinets.masctx");
 
         // create a new mas model container
         MasModelContainer masModelContainer = new MasModelContainer(repository);
         
         // load mas model
-        masModelContainer.loadMasModel(xmiFiles.getMasFile());
+        masModelContainer.loadMasModel(contextFile.getMasFile());
         
         // load syntax model
-        masModelContainer.loadSyntaxModelForExecution(xmiFiles.getSyntaxFile(), "Package:petrinets");
+        masModelContainer.loadSyntaxModelForExecution(contextFile.getSyntaxFile(), "Package:petrinets");
         masModelContainer.getSyntaxModel().addJavaPackagePrefix("hub.sam.mas.model");
         
         // now we can create a mas context
-        MasContext masContext = MasRepository.getInstance().createMasContext(masModelContainer);
+        MasContext masContext = MasRepository.getInstance().createMasContext(masModelContainer, contextFile);
         
         // create a test model:        
         // here the mof model manager concept can be used to easily create a test model

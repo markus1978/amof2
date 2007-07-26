@@ -21,11 +21,11 @@
 package hub.sam.mas;
 
 import hub.sam.mas.execution.MasExecutionHelper;
-import hub.sam.mas.management.IMasXmiFiles;
+import hub.sam.mas.management.IMasContextFile;
 import hub.sam.mas.management.MasContext;
 import hub.sam.mas.management.MasModelContainer;
 import hub.sam.mas.management.MasRepository;
-import hub.sam.mas.management.SimpleMasXmiFiles;
+import hub.sam.mas.management.SimpleMasContextFile;
 import hub.sam.mof.Repository;
 import hub.sam.mof.management.MofModel;
 import hub.sam.mof.management.MofModelManager;
@@ -34,13 +34,13 @@ public abstract class AbstractRunModelMain {
 	
 	protected MofModelManager manager = null;
 	
-	private final String contextFile;
+	private final String contextFileLocation;
 	private final String metaModelPackagePath;
 	private final String javaPackagePrefix;
 	
-	public AbstractRunModelMain(final String contextFile, final String metaModelPackagePath, final String javaPackagePrefix) {
+	public AbstractRunModelMain(final String contextFileLocation, final String metaModelPackagePath, final String javaPackagePrefix) {
 		super();
-		this.contextFile = contextFile;
+		this.contextFileLocation = contextFileLocation;
 		this.metaModelPackagePath = metaModelPackagePath;
 		this.javaPackagePrefix = javaPackagePrefix;
 	}
@@ -53,20 +53,20 @@ public abstract class AbstractRunModelMain {
 	        Repository.getConfiguration().setGenerousXMI(true);
 	        
 	        // load xmi files for syntax and semantic from a mas context file
-	        IMasXmiFiles xmiFiles = new SimpleMasXmiFiles(contextFile);
+	        IMasContextFile contextFile = new SimpleMasContextFile(contextFileLocation);
 	
 	        // create a new mas model container
 	        MasModelContainer masModelContainer = new MasModelContainer(repository);
 	        
 	        // load mas model (semantic)
-	        masModelContainer.loadMasModel(xmiFiles.getMasFile());
+	        masModelContainer.loadMasModel(contextFile.getMasFile());
 	        
 	        // load state automaton meta-model (syntax)
-	        masModelContainer.loadSyntaxModelForExecution(xmiFiles.getSyntaxFile(), metaModelPackagePath);
+	        masModelContainer.loadSyntaxModelForExecution(contextFile.getSyntaxFile(), metaModelPackagePath);
 	        masModelContainer.getSyntaxModel().addJavaPackagePrefix(javaPackagePrefix);	        
 	        
 	        // now we can create a mas context
-	        MasContext masContext = MasRepository.getInstance().createMasContext(masModelContainer);
+	        MasContext masContext = MasRepository.getInstance().createMasContext(masModelContainer, contextFile);
 	        
 	        // create a test model:        
 	        // here the mof model manager concept can be used to create a test model

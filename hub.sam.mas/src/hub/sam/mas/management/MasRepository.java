@@ -35,7 +35,7 @@ public class MasRepository {
 
     private static MasRepository instance;
     private Map<Extent, MasContext> contexts = new HashMap<Extent, MasContext>();
-    private Map<String, MasContext> syntaxXmiToMasContext = new HashMap<String, MasContext>();
+    private Map<String, MasContext> contextFileToMasContext = new HashMap<String, MasContext>();
     
     private MasRepository() {
         // private constructor
@@ -48,10 +48,31 @@ public class MasRepository {
         return instance;
     }
     
-    public MasContext createMasContext(IMasModelContainer modelContainer) {
+    /**
+     * Creates a MAS Context in this MAS Repository.
+     * 
+     * @param modelContainer
+     * @return
+     */
+    public MasContext createMasContext(IMasModelContainer modelContainer, IMasContextFile contextFile) {
         MasContext context = new MasContext(modelContainer);
         contexts.put(context.getContextId(), context);
-        syntaxXmiToMasContext.put(context.getSyntaxModel().getXmiFile(), context);
+        contextFileToMasContext.put(contextFile.getLocation(), context);
+        return context;
+    }
+    
+    /**
+     * Creates a MAS Context in this MAS Repository and keeps a reference to the MAS Context File.
+     * Use this method if you need this reference later.
+     * 
+     * @param modelContainer
+     * @param contextFile
+     * @return
+     */
+    public MasContext createMasContext(IMasModelContainer modelContainer, IMasContextFileResource contextFileResource) {
+        MasContext context = new MasContext(modelContainer, contextFileResource);
+        contexts.put(context.getContextId(), context);
+        contextFileToMasContext.put(contextFileResource.getLocation(), context);
         return context;
     }
     
@@ -61,13 +82,13 @@ public class MasRepository {
     }
     
     /**
-     * retrieve MAS Context from Syntax XMI File
+     * retrieve the MasContext for the supplied MasContextFile
      * 
-     * @param syntaxXmiFile
+     * @param contextFile
      * @return
      */
-    public MasContext getMasContext(String syntaxXmiFile) {
-        return syntaxXmiToMasContext.get(syntaxXmiFile);
+    public MasContext getMasContext(String contextFile) {
+        return contextFileToMasContext.get(contextFile);
     }
 
     /**

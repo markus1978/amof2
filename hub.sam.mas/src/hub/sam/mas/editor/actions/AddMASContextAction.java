@@ -22,29 +22,34 @@ package hub.sam.mas.editor.actions;
 
 import java.lang.reflect.InvocationTargetException;
 
+import hub.sam.mas.management.IMasContextFileResource;
+import hub.sam.mas.management.MasContextFile;
 import hub.sam.mas.management.MasModelContainer;
 import hub.sam.mas.management.MasRepository;
-import hub.sam.mas.management.PluginMasXmiFiles;
 import hub.sam.mof.Repository;
 import hub.sam.mof.management.LoadException;
 import hub.sam.mof.plugin.modelview.tree.RepositoryTreeObject;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
+import org.eclipse.ui.model.WorkbenchContentProvider;
+import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.eclipse.ui.views.navigator.ResourceSorter;
 
 public class AddMASContextAction extends Mof2PluginAction implements IRunnableWithProgress {
 
-    private PluginMasXmiFiles xmiFiles;
+    private IMasContextFileResource contextFile;
     private Display display;
     private MasModelContainer modelManager;
 
@@ -52,36 +57,40 @@ public class AddMASContextAction extends Mof2PluginAction implements IRunnableWi
         display = Display.getCurrent();
         Shell shell = new Shell(display);
         
-        FileDialog dialog = new FileDialog(shell, SWT.SINGLE);
-        dialog.setFilterExtensions(new String[] { "*.masctx" }); //$NON-NLS-1$;               
-
-        String selectedFile = dialog.open();
-        if (selectedFile == null) {
-            return;
-        }
+        ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(shell, new WorkbenchLabelProvider(),
+                new WorkbenchContentProvider());
+        dialog.setTitle("MAS Context File"); 
+        dialog.setMessage("Select a MAS Context File:"); 
+        dialog.setInput(ResourcesPlugin.getWorkspace().getRoot()); 
+        dialog.setSorter(new ResourceSorter(ResourceSorter.NAME));
+        // TODO filter *.masctx
         
-        try {
-            xmiFiles = new PluginMasXmiFiles(selectedFile);
-            ProgressMonitorDialog progressMonitor = new ProgressMonitorDialog(shell);
-            progressMonitor.run(true, false, this);
-        }
-        catch (Exception e) {
-            MessageDialog.openError(
-                    shell,
-                    "Error",
-                    "Failed to create a MAS Context: " + e.getMessage());
-            return;
-        }
-        
-        IStructuredSelection selection = (IStructuredSelection) getModelView().getViewer().getSelection();
-        ((RepositoryTreeObject) selection.getFirstElement()).refresh();
+        if (dialog.open() == IDialogConstants.OK_ID) {
+            IResource resource = (IResource) dialog.getFirstResult();
+            
+            try {
+                contextFile = new MasContextFile(resource);
+                ProgressMonitorDialog progressMonitor = new ProgressMonitorDialog(shell);
+                progressMonitor.run(true, false, this);
+            }
+            catch (Exception e) {
+                MessageDialog.openError(
+                        shell,
+                        "Error",
+                        "Failed to create a MAS Context: " + e.getMessage());
+                return;
+            }
+            
+            IStructuredSelection selection = (IStructuredSelection) getModelView().getViewer().getSelection();
+            ((RepositoryTreeObject) selection.getFirstElement()).refresh();
 
-        getModelView().getViewer().refresh();
-        shell.dispose();
+            getModelView().getViewer().refresh();
+            shell.dispose();
+        }
     }
 
     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-        monitor.beginTask("Loading Models: MAS Meta-Model", 4);
+        monitor.beginTask("Loading MAS Meta-Model ...", 4);
         display.syncExec(new Runnable() {            
             public void run() {
                 try {
@@ -96,11 +105,11 @@ public class AddMASContextAction extends Mof2PluginAction implements IRunnableWi
         });
         monitor.worked(1);
         
-        monitor.setTaskName("Loading Models: MAS Model");        
+        monitor.setTaskName("Loading MAS Model ...");        
         display.syncExec(new Runnable() {            
             public void run() {
                 try {
-                    modelManager.loadMasModel(xmiFiles.getMasFile());
+                    modelManager.loadMasModel(contextFile.getMasFile());
                 }
                 catch (LoadException e) {
                     MessageDialog.openError(display.getActiveShell(), "Error",
@@ -110,11 +119,11 @@ public class AddMASContextAction extends Mof2PluginAction implements IRunnableWi
         });
         monitor.worked(2);
 
-        monitor.setTaskName("Loading Models: Syntax Model");        
+        monitor.setTaskName("Loading Syntax Model ...");        
         display.syncExec(new Runnable() {            
             public void run() {
                 try {
-                    modelManager.loadSyntaxModelForEditing(xmiFiles.getSyntaxFile(), null);
+                    modelManager.loadSyntaxModelForEditing(contextFile.getSyntaxFile(), null);
                 }
                 catch (LoadException e) {
                     MessageDialog.openError(display.getActiveShell(), "Error",
@@ -124,8 +133,8 @@ public class AddMASContextAction extends Mof2PluginAction implements IRunnableWi
         });
         monitor.worked(3);
 
-        monitor.setTaskName("Creating a MAS Context.");        
-        MasRepository.getInstance().createMasContext(modelManager);
+        monitor.setTaskName("Creating a MAS Context ...");        
+        MasRepository.getInstance().createMasContext(modelManager, contextFile);
         monitor.worked(4);
         
         monitor.done();

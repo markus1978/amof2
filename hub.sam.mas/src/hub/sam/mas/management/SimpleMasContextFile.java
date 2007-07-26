@@ -26,33 +26,56 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-public class SimpleMasXmiFiles implements IMasXmiFiles {
-    
-    private String syntaxFile;
-    private String semanticFile;
-    
-    public SimpleMasXmiFiles(String contextFile) throws FileNotFoundException, IOException {
-    	File file = new File(contextFile);
+/**
+ * Use SimpleMasContextFile if you don't have the context file as an Eclipse IResource.
+ * If you do have it, use MasContextFile.
+ * 
+ */
+public class SimpleMasContextFile implements IMasContextFile {
+
+    private final Properties properties;
+    private final String syntaxFile;
+    private final String semanticFile;
+    private final String contextFileLocation;
+
+    public SimpleMasContextFile(String contextFileLocation) throws FileNotFoundException, IOException {
+        this.contextFileLocation = contextFileLocation;
+    	File file = new File(contextFileLocation);
     	String pathToContextFile = file.getParent();    	
     	
-    	Properties properties = new Properties();
+    	properties = new Properties();
     	properties.load(new FileInputStream(file));
     	
     	syntaxFile = pathToContextFile.concat(File.separator + (String) properties.get("syntax") );
         semanticFile = pathToContextFile.concat(File.separator + (String) properties.get("semantic") );
     }
     
-    @Deprecated
-    public SimpleMasXmiFiles(String pathToContextFile, String contextFile) throws FileNotFoundException, IOException {
+    public SimpleMasContextFile(String pathToContextFile, String contextFile) throws FileNotFoundException, IOException {
     	this(pathToContextFile.concat(contextFile));        
     }
 
+    public String getJavaPackagePrefixOfSyntaxModel() {
+        return (String) properties.getProperty("syntax_package_prefix");
+    }
+
+    public String getNsPrefixOfSyntaxXmi() {
+        return (String) properties.getProperty("syntax_namespace_prefix");
+    }
+
+    public String getPackageOfSyntaxModel() {
+        return (String) properties.getProperty("syntax_package");
+    }
+    
     public String getMasFile() {
         return semanticFile;
     }
 
     public String getSyntaxFile() {
         return syntaxFile;
+    }
+
+    public String getLocation() {
+        return contextFileLocation;
     }
 
 }

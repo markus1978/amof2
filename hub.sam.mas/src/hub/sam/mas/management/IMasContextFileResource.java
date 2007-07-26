@@ -20,7 +20,8 @@
 
 package hub.sam.mas.management;
 
-public interface IMasXmiFiles {
-    public String getSyntaxFile();
-    public String getMasFile();
+import org.eclipse.core.resources.IResource;
+
+public interface IMasContextFileResource extends IMasContextFile {
+    IResource getResource();
 }

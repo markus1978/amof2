@@ -22,6 +22,7 @@ package hub.sam.mas.editor;
 
 import hub.sam.mas.management.MasLink;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IPersistableElement;
 
@@ -45,12 +46,10 @@ public class MaseEditorInput implements IMaseEditorInput {
     }
     
     public boolean exists() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     public ImageDescriptor getImageDescriptor() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -68,12 +67,18 @@ public class MaseEditorInput implements IMaseEditorInput {
     }
 
     public Object getAdapter(Class adapter) {
-        // TODO Auto-generated method stub
+        if (adapter == MasLink.class) {
+            return link;
+        }
         return null;
     }
 
     public MasLink getLink() {
         return link;
+    }
+    
+    public IResource getContextFile() {
+        return link.getMasContext().getContextFile().getResource();
     }
 
 }

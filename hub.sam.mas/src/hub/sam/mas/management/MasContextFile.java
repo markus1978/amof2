@@ -20,35 +20,32 @@
 
 package hub.sam.mas.management;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Properties;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
+import org.eclipse.core.resources.IResource;
 
-public class PluginMasXmiFiles implements IMasXmiFiles {
+/**
+ * Use MasContextFile if you have the context file as an Eclipse IResource.
+ * If you don't have it, use SimpleMasContextFile.
+ * 
+ */
+public class MasContextFile extends SimpleMasContextFile implements IMasContextFileResource {
     
-    private String syntaxFile;
-    private String semanticFile;
+    private final IResource contextFileResource;
     
-    public PluginMasXmiFiles(String contextFile) throws FileNotFoundException, IOException {
-        IPath pathToContextFile = new Path(contextFile).removeLastSegments(1);
-        
-        Properties properties = new Properties();
-        properties.load(new FileInputStream(contextFile));
-        
-        syntaxFile = pathToContextFile.append( (String) properties.get("syntax") ).makeAbsolute().toOSString();
-        semanticFile = pathToContextFile.append( (String) properties.get("semantic") ).makeAbsolute().toOSString();
-    }
-    
-    public String getMasFile() {
-        return semanticFile;
+    public MasContextFile(IResource contextFileResource) throws FileNotFoundException, IOException {
+        super(contextFileResource.getLocation().toOSString());
+        this.contextFileResource = contextFileResource;
     }
 
-    public String getSyntaxFile() {
-        return syntaxFile;
+    public MasContextFile(String contextFileLocation) throws FileNotFoundException, IOException {
+        super(contextFileLocation);
+        this.contextFileResource = null;
+    }
+    
+    public IResource getResource() {
+        return contextFileResource;
     }
 
 }

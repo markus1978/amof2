@@ -14,7 +14,8 @@ Require-Bundle: org.eclipse.ui;visibility:=reexport,
  hub.sam.mof.browser,
  org.eclipse.ui.editors,
  org.eclipse.ui.workbench.texteditor,
- org.eclipse.jface.text
+ org.eclipse.jface.text,
+ org.eclipse.core.variables
 Eclipse-LazyStart: true
 Eclipse-RegisterBuddy: hub.sam.mof
 Bundle-ClassPath: mas.jar,

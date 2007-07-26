@@ -24,6 +24,8 @@ import java.io.IOException;
 
 import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -100,4 +102,13 @@ public class MasPlugin extends AbstractUIPlugin {
             }
         }
     }
+    
+    public static void logError(String message, Throwable e) {
+        log(new Status(IStatus.ERROR, PLUGIN_ID, 0, message, e));  
+    }
+    
+    public static void log(IStatus status) {
+        getDefault().getLog().log(status);
+    }
+    
 }
