@@ -1,2 +1,5 @@
 syntax = StateAutomaton.syntax.mdxml
+syntax_namespace_prefix = stateautomaton
+syntax_package = model
+syntax_package_prefix = hub.sam.stateautomaton
 semantic =  StateAutomaton.semantic.xml

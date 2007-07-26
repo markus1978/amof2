@@ -20,6 +20,10 @@
 
 package hub.sam.stateautomaton;
 
+import cmof.Operation;
+import cmof.UmlClass;
+import cmof.common.ReflectiveSequence;
+import cmof.reflection.Argument;
 import hub.sam.stateautomaton.model.Automaton;
 import hub.sam.stateautomaton.model.FinalState;
 import hub.sam.stateautomaton.model.InitialState;
@@ -30,13 +34,14 @@ import hub.sam.mas.execution.MasExecutionHelper;
 import hub.sam.mas.management.MasContext;
 import hub.sam.mas.management.MasModelContainer;
 import hub.sam.mas.management.MasRepository;
-import hub.sam.mas.management.IMasXmiFiles;
-import hub.sam.mas.management.SimpleMasXmiFiles;
+import hub.sam.mas.management.IMasContextFile;
+import hub.sam.mas.management.SimpleMasContextFile;
 import hub.sam.mof.Repository;
 import hub.sam.mof.management.MofModel;
 import hub.sam.mof.management.MofModelManager;
 import hub.sam.mof.ocl.OclEnvironment;
 import hub.sam.mof.ocl.OclObjectEnvironment;
+import hub.sam.mof.util.ListImpl;
 
 public class StateAutomaton {
 
@@ -46,21 +51,21 @@ public class StateAutomaton {
         Repository.getConfiguration().setGenerousXMI(true);
         
         // load xmi files for syntax and semantic from a mas context file
-        IMasXmiFiles xmiFiles = new SimpleMasXmiFiles("resources/", "StateAutomaton.masctx");
+        IMasContextFile contextFile = new SimpleMasContextFile("resources/StateAutomaton.masctx");
 
         // create a new mas model container
         MasModelContainer masModelContainer = new MasModelContainer(repository);
         
         // load mas model (semantic)
-        masModelContainer.loadMasModel(xmiFiles.getMasFile());
+        masModelContainer.loadMasModel(contextFile.getMasFile());
         
         // load state automaton meta-model (syntax)
-        masModelContainer.loadSyntaxModelForExecution(xmiFiles.getSyntaxFile(), "Package:model");
-        masModelContainer.getSyntaxModel().addJavaPackagePrefix("hub.sam.stateautomaton");
-        masModelContainer.getSyntaxModel().addNsPrefix("stateautomaton");
+        masModelContainer.loadSyntaxModelForExecution(contextFile.getSyntaxFile(), "Package:" + contextFile.getPackageOfSyntaxModel());
+        masModelContainer.getSyntaxModel().addJavaPackagePrefix(contextFile.getJavaPackagePrefixOfSyntaxModel());
+        masModelContainer.getSyntaxModel().addNsPrefix(contextFile.getNsPrefixOfSyntaxXmi());
         
         // now we can create a mas context
-        MasContext masContext = MasRepository.getInstance().createMasContext(masModelContainer);
+        MasContext masContext = MasRepository.getInstance().createMasContext(masModelContainer, contextFile);
         
         // create a test model:        
         // here the mof model manager concept can be used to create a test model
@@ -82,7 +87,18 @@ public class StateAutomaton {
             System.out.println("Warning: Meta-model invariants evaluated to false.");
         }
         
-        automaton.run("dbdecacf");
+        //automaton.run();
+        Operation op = null;
+        FindOperation: for (Object operationAsObject: testModel.getMetaModel().getExtent().objectsOfType((UmlClass)testModel.getMetaModel().getMetaModel().getExtent().query("Package:cmof/Class:Operation"), false)) {
+            op = ((Operation)operationAsObject);
+            if (op.getQualifiedName().equals("model.Automaton.run") && op.getFormalParameter().size() == 0) {
+                break FindOperation;
+            } else {
+                op = null;
+            }
+        }
+        ReflectiveSequence<Argument> arguments = new ListImpl<Argument>();
+        automaton.invokeOperation(op, arguments);
     }
     
     public static boolean evaluateInvariant(String invariant, cmof.reflection.Object forObject) {
