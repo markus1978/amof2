@@ -63,7 +63,6 @@ public class MasContext {
     private Map<String, Activity> activities = new HashMap<String, Activity>();
     private boolean syntaxModelNeedsSaving = false;
     private IMasContextFileResource contextFile;
-    private final ObjectIdentifierManager objectIdentifierManager;
     
     /**
      * Creates a MAS Context.
@@ -81,8 +80,6 @@ public class MasContext {
         activities = getActivities(masModel.getExtent());
         
         preserveIntegrity(operations, activities);
-        
-        objectIdentifierManager = new ObjectIdentifierManager(masModel);
     }
     
     /**
@@ -377,10 +374,6 @@ public class MasContext {
 
     protected void setSyntaxModelNeedsSaving(boolean syntaxModelNeedsSaving) {
         this.syntaxModelNeedsSaving = syntaxModelNeedsSaving;
-    }
-    
-    public ObjectIdentifierManager getObjectIdentifierManager() {
-        return objectIdentifierManager;
     }
 
 }
