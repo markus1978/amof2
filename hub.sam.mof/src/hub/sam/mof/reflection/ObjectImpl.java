@@ -202,7 +202,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         return get(property,  null);
     }
 
-    public synchronized java.lang.Object get(Property property, java.lang.Object qualifier) {
+    public /* synchronized */ java.lang.Object get(Property property, java.lang.Object qualifier) {
         if (attributes != null) {
             if (qualifier != null) {
                 throw new IllegalArgumentException("qualifiers not allows for static models");
@@ -486,7 +486,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         }
     }
 
-    public synchronized java.lang.Object invokeOperation(String opName, java.lang.Object[] args) {
+    public /* synchronized */ java.lang.Object invokeOperation(String opName, java.lang.Object[] args) {
         if (semantics == null) {
             // lazy semantics innitialisation is nessessary to avoid endless recusion in bootstrap and static models
             if (getMetaClass() != null) {
@@ -540,7 +540,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         return new OperationWrapper(op).getUnambigousName();        
     }
 
-    public synchronized java.lang.Object invokeOperation(cmof.Operation op, ReflectiveSequence<Argument> arguments) {
+    public /* synchronized */ java.lang.Object invokeOperation(cmof.Operation op, ReflectiveSequence<Argument> arguments) {
         java.lang.Object[] args = new Object[arguments.size()];
         int i = 0;
         for (Argument arg : arguments) {
