@@ -52,7 +52,7 @@ public class MofModel implements ExtentChangeListener {
 
     private final static String clonedXmiSuffix = "_cloned.xml";
     private final boolean isCloned;
-    private boolean isValid = true;
+    private boolean alive = true;
     
     protected final Repository repository;
     private final String xmiFile;
@@ -220,18 +220,21 @@ public class MofModel implements ExtentChangeListener {
     }
     
     public void close() {
-        if (getMetaModel() != null) {
-            getMetaModel().close();
-        }
-        delete();
-        if (getExtentName() != null) {
-            repository.deleteExtent(getExtentName());
+        if (isAlive()) {
+            if (getMetaModel() != null) {
+                getMetaModel().close();
+            }
+            extent.removeExtentChangeListener(this);
+            alive = false;
+            if (getExtentName() != null) {
+                repository.deleteExtent(getExtentName());
+            }
         }
     }
     
+    @Deprecated
     public void delete() {
-        extent.removeExtentChangeListener(this);
-        isValid = false;
+        // TODO physical delete (model file)
     }
     
     /**
@@ -239,12 +242,13 @@ public class MofModel implements ExtentChangeListener {
      * 
      * @return
      */
-    public boolean isValid() {
-        return isValid;
+    public boolean isAlive() {
+        return alive;
     }
 
     public void extendAboutToBeRemoved() {
-        delete();
+        extent.removeExtentChangeListener(this);
+        alive = false;
     }
 
     public void newObject(Object newObject) {

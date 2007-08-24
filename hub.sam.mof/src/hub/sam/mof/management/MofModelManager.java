@@ -125,7 +125,7 @@ public class MofModelManager {
         if (!isAllowDuplicateXmiModel()) {
             mofModel = xmiToMofModel.get(xmiFile);
             if (mofModel != null) {
-                if (mofModel.isValid()) {
+                if (mofModel.isAlive()) {
                     return mofModel;
                 }
                 else {

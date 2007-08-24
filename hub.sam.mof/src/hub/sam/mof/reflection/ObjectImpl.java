@@ -169,7 +169,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         return get(propertyName, null);
     }
 
-    public synchronized java.lang.Object get(String propertyName, java.lang.Object qualifier) {
+    public /* synchronized */ java.lang.Object get(String propertyName, java.lang.Object qualifier) {
         if (attributes != null) {
             if (qualifier != null) {
                 throw new IllegalArgumentException("qualifiers not allows for static models");
@@ -601,7 +601,7 @@ public class ObjectImpl extends hub.sam.util.Identity implements cmof.reflection
         return extent;
     }
 
-    public synchronized cmof.reflection.Object container() {
+    public /* synchronized */ cmof.reflection.Object container() {
         if (attributes != null) {
             return (cmof.reflection.Object)valueForStaticValue(attributes.get("__container"));
         } else {
