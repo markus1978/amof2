@@ -221,13 +221,18 @@ public class MofModel implements ExtentChangeListener {
     
     public void close() {
         if (isAlive()) {
-            if (getMetaModel() != null) {
-                getMetaModel().close();
-            }
+            // close this model first
             extent.removeExtentChangeListener(this);
             alive = false;
             if (getExtentName() != null) {
                 repository.deleteExtent(getExtentName());
+            }
+            // close meta-model
+            if (getMetaModel() != null) {
+                String extentName =  getMetaModel().getExtentName();
+                if (extentName != null && !extentName.equals(Repository.CMOF_EXTENT_NAME)) {
+                    getMetaModel().close();
+                }
             }
         }
     }

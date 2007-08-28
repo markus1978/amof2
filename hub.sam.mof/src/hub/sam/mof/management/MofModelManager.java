@@ -141,13 +141,13 @@ public class MofModelManager {
         try {
             if (xmiFile.endsWith(".xml")) {
                 repository.loadXmiIntoExtent(modelExtent, metaModel.getPackage(), new FileInputStream(xmiFile));
-                mofModel = new MofModel(repository, metaModel, xmiFile, modelExtent, xmiFile,
+                mofModel = new MofModel(repository, metaModel, xmiFile, modelExtent, extentName,
                         getPackageFromQuery(modelExtent, packageQuery));
             }
             else if (xmiFile.endsWith(".mdxml")) {
                 XmiImportExport diagramInfo = repository.loadMagicDrawXmiIntoExtent(modelExtent,
                         metaModel.getPackage(), new FileInputStream(xmiFile));
-                mofModel = new MagicDrawMofModel(repository, metaModel, xmiFile, modelExtent, xmiFile,
+                mofModel = new MagicDrawMofModel(repository, metaModel, xmiFile, modelExtent, extentName,
                         getPackageFromQuery(modelExtent, packageQuery), diagramInfo);
             }
             else {
