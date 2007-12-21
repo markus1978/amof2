@@ -12,7 +12,6 @@ import org.oslo.ocl20.standard.lib.OclEnumeration;
 import org.oslo.ocl20.standard.lib.OclSet;
 import org.oslo.ocl20.standard.lib.OclType;
 
-
 /**
  * @author dha
  *
@@ -25,8 +24,13 @@ public interface ModelEvaluationAdapter {
 	//String getModelPropertyName(String string);
 	//String getEnumLiteralReference(EnumLiteral enumLit);
 	//String getDefinedPropertyReference(OclAny source, DefinedProperty property);
+	
+	ModelMethodForPropertyAccess getGetterMethod(Property property);
+	ModelMethodForPropertyAccess getSetterMethod(Property property);
 
+	@Deprecated
 	String getGetterName(Property property);
+	@Deprecated
 	String getSetterName(Property property);
 
 	Object getEnumLiteralValue(EnumLiteral enumLit);

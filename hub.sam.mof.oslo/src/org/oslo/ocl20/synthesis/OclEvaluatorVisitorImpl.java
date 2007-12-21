@@ -83,6 +83,7 @@ import org.oslo.ocl20.semantics.model.types.StringType;
 import org.oslo.ocl20.semantics.model.types.TupleType;
 import org.oslo.ocl20.semantics.model.types.VoidType;
 import org.oslo.ocl20.standard.lib.OclAny;
+import org.oslo.ocl20.standard.lib.OclAnyModelElement;
 import org.oslo.ocl20.standard.lib.OclBag;
 import org.oslo.ocl20.standard.lib.OclBoolean;
 import org.oslo.ocl20.standard.lib.OclCollection;
@@ -616,6 +617,11 @@ public class OclEvaluatorVisitorImpl extends SemanticsVisitor$Class implements S
             oclTypes.add(type);
             javaTypes.add(type.getDelegate());
 
+//            if (value instanceof OclEnumeration) {
+//                oclArgs.add(value);
+//                javaArgs.add(((OclAny) ((OclEnumeration) value).asJavaObject()).asJavaObject()); // dirty
+//            }
+//            else if (value instanceof OclAny) {
             if (value instanceof OclAny) {
                 oclArgs.add(value);
                 javaArgs.add(((OclAny) value).asJavaObject());
@@ -718,22 +724,31 @@ public class OclEvaluatorVisitorImpl extends SemanticsVisitor$Class implements S
         return this.processor.getStdLibAdapter().OclAny(result);
     }
 
-    protected Object invokeModelOperation(Classifier sourceType, Classifier resultType, Object source, String operName, List javaTypes, List args, ILog log) {
+    protected Object invokeModelOperation(Classifier sourceType, Classifier resultType, Object source, Method oper, List javaTypes, List args, ILog log) {
         Object result = null;
         try {
-            Method oper = getMethod(source, operName, (Class[]) javaTypes.toArray(new Class[] {}));
             if (source != null) {
                 if (oper != null) {
                     result = oper.invoke(source, args.toArray());
                 } else {
                     //try converting source into an OclAnyModelElement ?
-                    log.reportError("eval: Operation " + operName + javaTypes + " not found on object " + source);
+                    log.reportError("eval: Operation " + oper.getName() + javaTypes + " not found on object " + source);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return this.processor.getStdLibAdapter().OclAny(result);
+    }
+    
+    protected Object invokeModelOperation(Classifier sourceType, Classifier resultType, Object source, String operName, List javaTypes, List args, ILog log) {
+        try {
+            Method oper = getMethod(source, operName, (Class[]) javaTypes.toArray(new Class[] {}));
+            return invokeModelOperation(sourceType, resultType, source, oper, javaTypes, args, log);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     protected Object invokeOclLibOperation(Classifier sourceType, Object source, String operName, List oclTypes, List args, ILog log) {
@@ -962,10 +977,11 @@ public class OclEvaluatorVisitorImpl extends SemanticsVisitor$Class implements S
             	} else {                                
 	            	// change by HUB -- only the next two lines, bugfix (?)
             		//String operName = this.processor.getModelEvaluationAdapter().getGetterName(host.getReferredProperty());
-            		String operName = this.processor.getModelEvaluationAdapter().getGetterName(prop);
-            		
+            	    
 	                if (sourceType instanceof OclModelElementType) {
-	                	// change by HUB -- putting qualifies to arguments
+	                    ModelMethodForPropertyAccess propertyMethod = this.processor.getModelEvaluationAdapter().getGetterMethod(prop);
+
+	                    // change by HUB -- putting qualifies to arguments
 	                	// result = invokeModelOperation(sourceType, host.getType(), javaSource, operName, new Vector(), new Vector(), log);
 	                	List types = new Vector();
 	                	List args = new Vector();
@@ -983,11 +999,23 @@ public class OclEvaluatorVisitorImpl extends SemanticsVisitor$Class implements S
 	                        } else {	                            
 	                            args.add(processor.getStdLibAdapter().OclAny(value));
 	                        }
-	                	}	                		                	
-	                    result = invokeModelOperation(sourceType, host.getType(), javaSource, operName, types, args, log);
+	                        propertyMethod.addParameter((Class) property.getType().getDelegate(), value);
+	                	}
+	                	
+	                	try { 
+	                	    Method oper = getMethod(javaSource, propertyMethod.getMethodName(), propertyMethod.getParameterTypes());
+	                        result = invokeModelOperation(sourceType, host.getType(), javaSource, oper,
+	                                propertyMethod.getParameterTypesAsList(), propertyMethod.getParameterValuesAsList(), log);
+	                	}
+	                	catch (Exception e) {
+	                        e.printStackTrace();
+	                    }
 	                   // end change by HUB
-	                } else
+	                }
+	                else {
+	                    String operName = this.processor.getModelEvaluationAdapter().getGetterName(prop);
 	                    result = invokeOclLibOperation(sourceType, source, operName, new Vector(), new Vector(), log);
+	                }
             	}
                 /*
                 try {
@@ -1027,7 +1055,7 @@ public class OclEvaluatorVisitorImpl extends SemanticsVisitor$Class implements S
                     if (result instanceof Collection)
                         return this.processor.getStdLibAdapter().Collection((Collection) result);
                     if (prop != null && prop.getType() instanceof EnumerationType)
-                    	return this.processor.getStdLibAdapter().Enumeration(prop.getType(), result);
+                    	return this.processor.getStdLibAdapter().Enumeration(prop.getType(), ((OclAnyModelElement)result).asJavaObject());
                     return this.processor.getStdLibAdapter().OclAny( result);
             }
         }

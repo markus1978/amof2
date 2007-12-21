@@ -47,6 +47,7 @@ implements StdLibAdapter
 
 	public OclAny OclAny(java.lang.Object obj) {
 		if (obj == null) return this.Undefined();
+		
 		if (obj instanceof OclAny) return (OclAny)obj;
 		if (obj instanceof OclCollection) return (OclCollection)obj;
 		if (obj instanceof java.lang.Boolean) return this.Boolean((java.lang.Boolean)obj);

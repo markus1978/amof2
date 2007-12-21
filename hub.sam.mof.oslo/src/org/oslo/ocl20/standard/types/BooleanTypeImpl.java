@@ -45,7 +45,7 @@ public class BooleanTypeImpl extends PrimitiveImpl implements BooleanType {
 		return "Boolean";
 	}
 	public Object getDelegate() {
-		return java.lang.Boolean.class;
+		return java.lang.Boolean.TYPE; // this is dirty. we need this because AMOF maps Boolean to boolean.
 	}
 
 	public Class getImplClass() {

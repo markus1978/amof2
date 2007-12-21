@@ -53,7 +53,7 @@ public class IntegerTypeImpl extends RealTypeImpl implements IntegerType {
 	}
 	
 	public Object getDelegate() {
-		return java.lang.Integer.class;
+		return java.lang.Integer.TYPE; // this is dirty. we need this because AMOF maps Integer to int.
 	}
 	public Class getImplClass() {
 		return OclInteger.class;
