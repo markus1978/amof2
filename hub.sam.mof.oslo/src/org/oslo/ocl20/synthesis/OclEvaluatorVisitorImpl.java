@@ -993,12 +993,13 @@ public class OclEvaluatorVisitorImpl extends SemanticsVisitor$Class implements S
 	                		Object value = null;	                       
 	                        value = property.accept(this, data);
 	                        if (value instanceof OclAny) {
-	                            args.add(((OclAny) value).asJavaObject());
-	                        } else if (value instanceof OclCollection) {	                            
-	                            args.add(((OclCollection) value).asJavaObject());
+	                            value = ((OclAny) value).asJavaObject();
+	                        } else if (value instanceof OclCollection) {
+	                            value = ((OclCollection) value).asJavaObject();
 	                        } else {	                            
-	                            args.add(processor.getStdLibAdapter().OclAny(value));
+	                            value = processor.getStdLibAdapter().OclAny(value);
 	                        }
+	                        args.add(value);
 	                        propertyMethod.addParameter((Class) property.getType().getDelegate(), value);
 	                	}
 	                	
