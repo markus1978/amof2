@@ -4,7 +4,7 @@ Bundle-Name: A MOF 2.0 for Java EMF bridge
 Bundle-SymbolicName: hub.sam.mof.emfbridge
 Bundle-Version: 1.0.0
 Bundle-Localization: plugin
-Require-Bundle: hub.sam.mof,
+Require-Bundle: hub.sam.mof;visibility:=reexport,
  org.eclipse.emf,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.edit,

@@ -135,9 +135,15 @@ public class Xmi2Writer {
                         }
                     }
                 } else if (value.asUnspecifiedValue() != null) {
-                    addValueToBuffer(values, value.asUnspecifiedValue().getUnspecifiedData().toString());
+                    // addValueToBuffer(values, value.asUnspecifiedValue().getUnspecifiedData().toString());
+                    org.jdom.Element element = jdom.element(slot.getProperty());
+                    parent.addContent(element);                    
+                    element.setContent(jdom.cdata(value.asUnspecifiedValue().getUnspecifiedData().toString()));
                 } else if (value.asDataValue() != null) {
-                    addValueToBuffer(values, value.asDataValue().getValue());
+                    // addValueToBuffer(values, value.asDataValue().getValue());
+                    org.jdom.Element element = jdom.element(slot.getProperty());
+                    parent.addContent(element);                    
+                    element.setContent(jdom.cdata(value.asDataValue().getValue()));                    
                 } else {
                     throw new XmiException("assert");
                 }

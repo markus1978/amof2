@@ -74,7 +74,7 @@ public class Bootstrap {
         System.out.println("generate mof repository");
         StreamFactory streamFactory = new StreamFactory("resources/repository/generated-src/");
         CodeGenerationConfiguration.setActualConfig(
-        		new CodeGenerationConfiguration(false, false, false, true));
+        		new CodeGenerationConfiguration(false, false));
         for (cmof.reflection.Object element: mof.objectsOfType(null, true)) {
             if (element instanceof cmof.Package) {
                 if (((cmof.Package)element).getOwner() == null) {

@@ -96,7 +96,8 @@ public class EcoreGenerator {
 		emfOwner.getEClassifiers().add(newClass);
 		newClass.setAbstract(mofClass.isAbstract());		
 		for (UmlClass superClass: mofClass.getSuperClass()) {
-			newClass.getESuperTypes().add(fFluxBox.getObject(superClass, EcorePackage.eINSTANCE.getEClass()));
+			newClass.getESuperTypes().add(
+					(EClass)fFluxBox.getObject(superClass, EcorePackage.eINSTANCE.getEClass()));
 		}
 		for (Property attribute: mofClass.getOwnedAttribute()) {
 			addFeature(newClass, attribute);

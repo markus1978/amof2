@@ -1,31 +1,18 @@
 package hub.sam.mof.ocl.oslobridge;
 
-import cmof.Enumeration;
-import cmof.NamedElement;
-import cmof.Package;
-import cmof.reflection.Extent;
-import hub.sam.mof.Repository;
-import hub.sam.mof.ocl.OclException;
-import hub.sam.mof.util.AssertionException;
-import org.oslo.ocl20.OclProcessor;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.oslo.ocl20.OclProcessorImpl;
 import org.oslo.ocl20.semantics.analyser.OclDebugVisitorImpl;
 import org.oslo.ocl20.semantics.analyser.OclSemanticAnalyser;
 import org.oslo.ocl20.semantics.analyser.OclSemanticAnalyserImpl;
 import org.oslo.ocl20.semantics.analyser.OclSemanticAnalyserVisitorImpl;
 import org.oslo.ocl20.semantics.bridge.BridgeFactory;
-import org.oslo.ocl20.semantics.bridge.Environment;
-import org.oslo.ocl20.semantics.bridge.EnvironmentImpl;
 import org.oslo.ocl20.semantics.model.types.TypeFactory;
-import org.oslo.ocl20.standard.lib.OclAny;
-import org.oslo.ocl20.standard.lib.OclBoolean;
-import org.oslo.ocl20.standard.lib.OclCollection;
-import org.oslo.ocl20.standard.lib.OclReal;
-import org.oslo.ocl20.standard.lib.OclUndefined;
 import org.oslo.ocl20.standard.lib.StdLibAdapter;
 import org.oslo.ocl20.standard.lib.StdLibAdapterImpl;
 import org.oslo.ocl20.standard.types.TypeFactoryImpl;
-import org.oslo.ocl20.syntax.ast.contexts.PackageDeclarationAS;
 import org.oslo.ocl20.syntax.parser.OclParser;
 import org.oslo.ocl20.syntax.parser.OclParserImpl;
 import org.oslo.ocl20.synthesis.ModelEvaluationAdapter;
@@ -34,20 +21,9 @@ import org.oslo.ocl20.synthesis.OclCodeGenerator;
 import org.oslo.ocl20.synthesis.OclEvaluator;
 import org.oslo.ocl20.synthesis.OclEvaluatorImpl;
 import org.oslo.ocl20.synthesis.OclEvaluatorVisitorImpl;
-import org.oslo.ocl20.synthesis.RuntimeEnvironment;
-import org.oslo.ocl20.synthesis.RuntimeEnvironmentImpl;
-import uk.ac.kent.cs.kmf.util.ILog;
-import warehouse.Box;
-import warehouse.Item;
-import warehouse.Rack;
-import warehouse.WarehouseModel;
-import warehouse.warehouseFactory;
 
-import java.io.StringReader;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import uk.ac.kent.cs.kmf.util.ILog;
+import cmof.Enumeration;
 
 public class MofOclProcessor extends OclProcessorImpl {
 

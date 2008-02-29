@@ -19,15 +19,13 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.util;
 
-import java.util.Iterator;
+import hub.sam.mof.reflection.ObjectImpl;
+import hub.sam.mof.remote.LocalObjectImpl;
 
-import sun.misc.FpUtils;
+import java.util.Iterator;
 
 import cmof.Property;
 import cmof.common.ReflectiveCollection;
-import hub.sam.mof.reflection.ObjectImpl;
-import hub.sam.mof.reflection.client.impl.ClientObjectImpl;
-import hub.sam.mof.remote.LocalObjectImpl;
 
 public class TypeWrapperSetImpl<E> implements ReflectiveCollection<E> {
     
@@ -50,13 +48,6 @@ public class TypeWrapperSetImpl<E> implements ReflectiveCollection<E> {
         this.fObject = objectImpl;
         this.propertyName = propertyName;
     }    
-
-    // dummy
-    public TypeWrapperSetImpl(ReflectiveCollection untypedSet, ClientObjectImpl clientObjectImpl, String propertyName) {
-        this.untypedSet = untypedSet;
-        this.fObject = null;
-        this.propertyName = null;
-    }
     
     // dummy
     public TypeWrapperSetImpl(ReflectiveCollection untypedSet, LocalObjectImpl clientObjectImpl, String propertyName) {

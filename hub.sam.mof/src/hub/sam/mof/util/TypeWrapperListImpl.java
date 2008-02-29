@@ -20,7 +20,6 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 package hub.sam.mof.util;
 
 import hub.sam.mof.reflection.ObjectImpl;
-import hub.sam.mof.reflection.client.impl.ClientObjectImpl;
 import hub.sam.mof.remote.LocalObjectImpl;
 import cmof.common.ReflectiveCollection;
 import cmof.common.ReflectiveSequence;
@@ -40,12 +39,6 @@ public class TypeWrapperListImpl<E> extends TypeWrapperSetImpl<E> implements Ref
 
     public TypeWrapperListImpl(ReflectiveSequence untypedList, ObjectImpl objectImpl, String propertyName) {
         super(untypedList,objectImpl,propertyName);
-        this.untypedList = untypedList;
-    }
-
-    // dummy
-    public TypeWrapperListImpl(ReflectiveSequence untypedList, ClientObjectImpl clientObjectImpl, String propertyName) {
-        super(untypedList);
         this.untypedList = untypedList;
     }
 

@@ -26,7 +26,7 @@ import cmof.Package;
 public class GenerateRepository {
 
     public static void main(String[] args) throws Exception {
-        CodeGenerationConfiguration.setActualConfig(new CodeGenerationConfiguration(true, false, true));
+        CodeGenerationConfiguration.setActualConfig(new CodeGenerationConfiguration(true, false));
         Repository repository = Repository.getLocalRepository();
         System.out.println("Generate repository");
 

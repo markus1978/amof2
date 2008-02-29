@@ -141,10 +141,12 @@
         <java classname="hub.sam.mof.test.lib.GenerateConcreteLibrary" fork="false">
     		<classpath refid="classpath"/>
     	</java>
+    	<java classname="hub.sam.mof.test.bugs.GenerateImportMultiplicitiesBug" fork="false">
+    	  	<classpath refid="classpath"/>
+    	</java>
     	<!--<taskdef name="mof" classname="hub.sam.mof.ant.GenerateCode" classpathref="classpath"/>
     	<mof src="resources/models/test/automaton-ea.xml" destdir="${test-generated-src}" ea="true" library="true" libraryFile="resources/models/user/core.xml" force="true"/>-->
     	<delete dir="${test-generated-src}/core"/>
-        <antcall target="doclet-test"/>
         <antcall target="compile"/>
     </target>
 
@@ -165,23 +167,6 @@
 
     <target name="-splash">
         <splash showduration="0" imageurl="file:doc/rationale.jpg"/>
-    </target>
-
-	<target name="doclet-test" depends="compile">
-		<!--<javadoc packagenames="hub.sam.mof.domainmodelsinmodels.builderexample" sourcepathref="sourcepath"
-				doclet="hub.sam.mof.domainmodelsinmodels.JavaModelGenerationDoclet" docletpathref="classpath">
-			<classpath refid="classpath"/>
-		</javadoc>-->
-        <javadoc packagenames="hub.sam.mof.domainmodels.solotest" sourcepathref="sourcepath">
-			<classpath refid="classpath"/>
-            <doclet name="hub.sam.mof.domainmodels.JavaModelGenerationDoclet" pathref="classpath">
-                <param name="-modelfile" value="resources/models/work/solo-domain-model-test.xml"/>
-                <param name="-modelname" value="soloDomainModel"/>
-            </doclet>
-        </javadoc>
-        <taskdef name="mof" classname="hub.sam.mof.ant.GenerateCode" classpathref="classpath"/>
-    	<mof src="${basedir}/resources/models/work/solo-domain-model-test.xml"
-             destdir="${test-generated-src}"/>
     </target>
 	
 </project>

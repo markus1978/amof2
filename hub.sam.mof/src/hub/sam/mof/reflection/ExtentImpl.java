@@ -19,26 +19,14 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.reflection;
 
-import cmof.Association;
-import cmof.NamedElement;
-import cmof.Package;
-import cmof.Property;
-import cmof.UmlClass;
-import cmof.common.ReflectiveCollection;
-import cmof.common.ReflectiveSequence;
-import cmof.exception.IllegalArgumentException;
-import cmof.reflection.Extent;
-import cmof.reflection.ExtentChangeListener;
-import cmof.reflection.Factory;
 import hub.sam.mof.Repository;
 import hub.sam.mof.instancemodel.ClassInstance;
 import hub.sam.mof.instancemodel.InstanceModel;
 import hub.sam.mof.instancemodel.ValueSpecification;
 import hub.sam.mof.instancemodel.ValueSpecificationList;
+import hub.sam.mof.mofinstancemodel.MofInstanceModel;
 import hub.sam.mof.mofinstancemodel.MofValueSpecificationList;
 import hub.sam.mof.ocl.OclEnvironment;
-import hub.sam.mof.domainmodels.ProxyInstanceModel;
-import hub.sam.mof.domainmodels.ProxyObjectInstance;
 import hub.sam.mof.reflection.query.ParseException;
 import hub.sam.mof.reflection.query.Query;
 import hub.sam.mof.util.ListImpl;
@@ -56,6 +44,18 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
+import cmof.Association;
+import cmof.NamedElement;
+import cmof.Package;
+import cmof.Property;
+import cmof.UmlClass;
+import cmof.common.ReflectiveCollection;
+import cmof.common.ReflectiveSequence;
+import cmof.exception.IllegalArgumentException;
+import cmof.reflection.Extent;
+import cmof.reflection.ExtentChangeListener;
+import cmof.reflection.Factory;
+
 public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection.Extent {
     protected final boolean bootstrap;
     private ReflectiveCollection<? extends cmof.reflection.Object> bootstrapOutermostComposites = null;
@@ -67,7 +67,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
     private MultiMap<UmlClass, cmof.reflection.Object> objectsForTypes = null;
     private MultiMap<UmlClass, cmof.reflection.Object> objectsForTypesWithSubtypes = null;
     private ImplementationsManager implementationsManager = null;
-    protected final InstanceModel<UmlClass,Property,java.lang.Object> model = new ProxyInstanceModel();//TODO
+    protected final InstanceModel<UmlClass,Property,java.lang.Object> model = new MofInstanceModel();//TODO
     private final Collection<ExtentChangeListener> fListeners = new Vector<ExtentChangeListener>();
     private OclEnvironment fOclEnvironment = null;
     private Iterable<? extends Package> fMetaModel = null;
@@ -131,11 +131,7 @@ public class ExtentImpl extends hub.sam.util.Identity implements cmof.reflection
         } else if (spec.asInstanceValue() != null) {
         	Object result = getObjectForInstance(spec.asInstanceValue().getInstance()); 
             if (result == null) {
-            	if (spec.asInstanceValue().getInstance() instanceof ProxyObjectInstance) {
-            		return null;
-            	} else {
             		return null; // BUG: this should be throw new NullPointerException(); but causes the JavaTypeTest to fail.
-            	}
             }
             return result;
         } else {

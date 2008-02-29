@@ -65,7 +65,7 @@ public class GenerateRepository {
             		asPackage,(Package)masExtent.query("Package:petrinets")}));
                         
             CodeGenerationConfiguration.setActualConfig(
-            		new CodeGenerationConfiguration(false, false, false, true));
+            		new CodeGenerationConfiguration(false, false));
             repository.generateCode(masExtent, "generated-src", Arrays.asList(
             		new String[]{"mas", "petrinets"}));           
             repository.writeExtentToXmi("resources/models/mas_merged.xml", cmofPackage, masExtent);

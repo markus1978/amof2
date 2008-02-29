@@ -1,8 +1,6 @@
 package hub.sam.tools.tests;
 
 import hub.sam.mof.Repository;
-import hub.sam.mof.reflection.client.ClientRepository;
-import cmof.NamedElement;
 import cmof.Package;
 import cmof.reflection.Extent;
 

@@ -20,13 +20,13 @@
 
 package hub.sam.mas;
 
-import java.util.Arrays;
-
 import hub.sam.mof.Repository;
 import hub.sam.mof.codegeneration.CodeGenerationConfiguration;
 import hub.sam.mof.javamapping.JavaMapping;
-import hub.sam.mof.merge.MergeContext;
 import hub.sam.mof.runtimelayer.M1SemanticModel;
+
+import java.util.Arrays;
+
 import cmof.Package;
 import cmof.Tag;
 import cmof.cmofFactory;
@@ -57,7 +57,7 @@ public class GenerateTestRepository {
             		asPackage,(Package)masExtent.query("Package:tests")}));
                         
             CodeGenerationConfiguration.setActualConfig(
-            		new CodeGenerationConfiguration(false, false, false, true));
+            		new CodeGenerationConfiguration(false, false));
             repository.generateCode(masExtent, "generated-src", Arrays.asList(
             		new String[]{"tests"}));                       
             repository.generateStaticModel(masExtent, "hub.sam.mas.model.TestModel", "generated-src");

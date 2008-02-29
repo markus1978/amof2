@@ -24,6 +24,6 @@ public class ReadASampleModel extends TestCase {
         cmof.Package umlPackage = (cmof.Package)umlExtent.query("Package:uml");
 
         Extent modelExtent = repo.createExtent("model");
-        repo.loadXmiIntoExtent(modelExtent, umlPackage, "resources/models/TestModel.mdxml");        
+        repo.loadXmiIntoExtent(modelExtent, umlPackage, "resources/models/TestModel.mdxml");
     }
 }

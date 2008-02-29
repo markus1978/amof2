@@ -31,8 +31,6 @@ public class GenerateCode extends Task {
     private String staticModel = null;
     private File src = null;
     private File destdir = null;
-    private boolean remote = false;
-    private boolean EJBRemote = false;
     private boolean ocl = false;
     private List<hub.sam.mof.ant.Package> packages = new Vector<hub.sam.mof.ant.Package>();
 
@@ -59,7 +57,7 @@ public class GenerateCode extends Task {
             throw new BuildException(destdir.toString() + " is not a directory");
         }
 
-        CodeGenerationConfiguration.setActualConfig(new CodeGenerationConfiguration(isOcl(), false, isEJBRemote(), isRemote()));
+        CodeGenerationConfiguration.setActualConfig(new CodeGenerationConfiguration(isOcl(), false));
 
         // check if nessesary
         if ((src.lastModified() <= destdir.lastModified()) && (destdir.listFiles().length > 0)) {
@@ -198,23 +196,6 @@ public class GenerateCode extends Task {
 
     public void setInstances(boolean instances) {
         this.instances = instances;
-    }
-
-    public boolean isEJBRemote() {
-        return EJBRemote;
-    }
-
-    public void setEJBRemote(boolean remote) {
-        this.EJBRemote = remote;
-    }
-    
-
-    public boolean isRemote() {
-        return remote;
-    }
-
-    public void setRemote(boolean remote) {
-        this.remote = remote;
     }
 
     public boolean isOcl() {

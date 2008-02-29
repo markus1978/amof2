@@ -26,8 +26,6 @@ import hub.sam.mof.codegeneration.ResolveJavaCodeClashes;
 import hub.sam.mof.codegeneration.StreamFactory;
 import hub.sam.mof.instancemodel.MetaModelException;
 import hub.sam.mof.reflection.ExtentImpl;
-import hub.sam.mof.reflection.server.ejb.ServerRepositoryHome;
-import hub.sam.mof.reflection.server.impl.ReflectionFactory;
 import hub.sam.mof.xmi.Xmi1Reader;
 import hub.sam.mof.xmi.XmiException;
 import hub.sam.mof.xmi.XmiImportExport;
@@ -52,7 +50,6 @@ import java.util.Vector;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.rmi.PortableRemoteObject;
 
 import org.jdom.JDOMException;
 
@@ -91,19 +88,6 @@ public class Repository extends hub.sam.util.Identity implements IRepository {
         props.put(Context.URL_PKG_PREFIXES, "org.jboss.naming:org.jnp.interfaces");
         props.put(Context.PROVIDER_URL, providerUrl);
         return new InitialContext(props);
-    }
-
-    public static hub.sam.mof.reflection.client.ClientRepository connectToRemoteRepository(String providerUrl)
-            throws Exception {
-        java.lang.Object o = getInitialContext(providerUrl).lookup(ServerRepositoryHome.JNDI_NAME);
-        ServerRepositoryHome repositoryHome =
-                (ServerRepositoryHome)PortableRemoteObject.narrow(o, ServerRepositoryHome.class);
-        return new hub.sam.mof.reflection.client.impl.ClientRepositoryImpl(repositoryHome.create());
-    }
-
-    public static hub.sam.mof.reflection.client.ClientRepository connectToLocalRepository() {
-        return new hub.sam.mof.reflection.client.impl.ClientRepositoryImpl(
-                ReflectionFactory.getFactory().createRepository());
     }
 
     public static Repository getLocalRepository() {

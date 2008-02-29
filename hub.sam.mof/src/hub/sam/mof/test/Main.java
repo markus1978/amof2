@@ -19,6 +19,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.test;
 
+import hub.sam.mof.test.bugs.ImportMultiplicitiesBug;
 import hub.sam.mof.test.bugs.MisreadAggregationOnMDImport;
 import hub.sam.mof.test.bugs.ReflectiveSequenceExtension;
 import hub.sam.mof.test.bugs.ReflectiveSequenceTest;
@@ -49,8 +50,6 @@ public class Main extends TestCase {
         suite.addTestSuite(XmiMagicDraw.class);
         suite.addTestSuite(UpdateGraph.class);
         suite.addTestSuite(CustomCode.class);
-        suite.addTestSuite(ClientServer.class);
-        suite.addTestSuite(DomainModelsTest.class);
         suite.addTestSuite(Misc.class);
         suite.addTestSuite(OclTests.class);
 
@@ -78,6 +77,7 @@ public class Main extends TestCase {
         
         suite.addTestSuite(ReflectiveSequenceTest.class);
         suite.addTestSuite(MisreadAggregationOnMDImport.class);
+        suite.addTestSuite(ImportMultiplicitiesBug.class);
         
         return suite;
     }

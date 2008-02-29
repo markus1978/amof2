@@ -19,16 +19,15 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 package hub.sam.mof.codegeneration;
 
-import cmof.PackageableElement;
-import cmof.PrimitiveType;
-import cmof.UmlClass;
-import hub.sam.mof.codegeneration.wrapper.FactoryWrapper;
-import hub.sam.mof.codegeneration.wrapper.UmlClassWrapper;
-import hub.sam.mof.remote.LocalObjectImpl;
 import static hub.sam.mof.javamapping.JavaMapping.mapping;
+import hub.sam.mof.codegeneration.wrapper.FactoryWrapper;
 
 import java.util.List;
 import java.util.Vector;
+
+import cmof.PackageableElement;
+import cmof.PrimitiveType;
+import cmof.UmlClass;
 
 public class PackageGenerator extends AbstractGenerator {
     private final StreamFactory streamFactory;
@@ -54,15 +53,9 @@ public class PackageGenerator extends AbstractGenerator {
             print(wrapper);
 
             FactoryImplGenerator factoryImplGenerator = null;
-            FactoryImplGenerator factoryClientImplGenerator = null;
             if (!CodeGenerationConfiguration.actualConfig.isInterfacesOnly()) {
             	factoryImplGenerator = new FactoryImplGenerator(streamFactory);
             	factoryImplGenerator.init(myPackageName, wrapper);
-
-                if (CodeGenerationConfiguration.getActualConfig().isGenerateEJBRemote()) {
-                    factoryClientImplGenerator = new FactoryClientImplGenerator(streamFactory);
-                    factoryClientImplGenerator.init(myPackageName, wrapper);
-                }
             }
 
             GenerationException exceptions = new GenerationException("Errors during code generation: ");
@@ -75,9 +68,6 @@ public class PackageGenerator extends AbstractGenerator {
 	                        print(null);
 	                        if (!CodeGenerationConfiguration.actualConfig.isInterfacesOnly()) {
 	                        	factoryImplGenerator.addType(umlClass);
-                                if (CodeGenerationConfiguration.getActualConfig().isGenerateEJBRemote()) {
-                                    factoryClientImplGenerator.addType(umlClass);
-                                }
                             }
 	                    }
 	                    new ObjectProxyInterfaceGenerator(streamFactory, CodeGenerationConfiguration.actualConfig.isInterfacesOnly()).generate(myPackageName, umlClass);
@@ -88,13 +78,7 @@ public class PackageGenerator extends AbstractGenerator {
                             }
                         }
 	                    if (!umlClass.isAbstract() && !CodeGenerationConfiguration.actualConfig.isInterfacesOnly()) {
-	                        new ObjectProxyImplementationGenerator(streamFactory, "Impl").generate(myPackageName, umlClass);
-                            if (CodeGenerationConfiguration.getActualConfig().isGenerateEJBRemote()) {
-                                new ClientObjectProxyImplementationGenerator(streamFactory, "ClientImpl").generate(myPackageName, umlClass);
-                            }
-                            if (CodeGenerationConfiguration.getActualConfig().isGenerateRemote()) {
-                            	new ObjectLocalProxyImplementationGenerator(streamFactory, "LocalImpl").generate(myPackageName, umlClass);
-                            }
+	                        new ObjectProxyImplementationGenerator(streamFactory, "Impl").generate(myPackageName, umlClass);                            
                         }
 	                } else if (ownedType instanceof cmof.Enumeration) {
 	                    new EnumerationGenerator(streamFactory).generate(myPackageName, (cmof.Enumeration)ownedType);
@@ -125,9 +109,6 @@ public class PackageGenerator extends AbstractGenerator {
             }
             if (!CodeGenerationConfiguration.actualConfig.isInterfacesOnly()) {
              	factoryImplGenerator.end(wrapper);
-                if (CodeGenerationConfiguration.actualConfig.isGenerateEJBRemote()) {
-                    factoryClientImplGenerator.end(wrapper);
-                }
             }
             add("}");
             print(wrapper);
