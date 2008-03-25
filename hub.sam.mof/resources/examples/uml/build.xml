@@ -22,7 +22,7 @@
         <mkdir dir="${basedir}/build"/>
         <taskdef name="mofgencode" classname="hub.sam.mof.ant.GenerateCode" classpathref="classpath"/>
         <typedef name="xmifile" classname="hub.sam.mof.ant.XmiFile" classpathref="classpath"/>
-        <taskdef name="mofmerge" classname="hub.sam.mof.ant.MergeModel" classpathref="classpath" />
+        <taskdef name="mofmerge" classname="hub.sam.mof.ant.MergeModel" classpathref="classpath"/>
     </target>
 
 	<target name="prepare CD" depends="init">
@@ -35,7 +35,7 @@
     </target>
 
     <target name="precompile">
-        <ant antfile="${basedir}/../../../build.xml" dir="${basedir}/../../../" target="compile" inheritAll="false"/>
+        <ant antfile="${basedir}/../../../amof2-build.xml" dir="${basedir}/../../../" target="compile" inheritAll="false"/>
     </target>
 
     <target name="compile CD" depends="prepare CD">
