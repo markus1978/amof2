@@ -2,15 +2,19 @@ package hub.sam.mof.emf;
 
 import hub.sam.util.AbstractFluxBox;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
@@ -22,8 +26,6 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EcoreFactoryImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-
-import core.primitivetypes.Boolean;
 
 import cmof.Association;
 import cmof.Element;
@@ -49,8 +51,16 @@ public class EcoreGenerator {
 		}		
 	};
 	
+	private final Collection<EClass> hasFeaturesAdded = new HashSet<EClass>();
+	private final Collection<EClass> hasSuperClassesAdded = new HashSet<EClass>();
+	
 	private final Resource fResource;	
 	private final EcoreFactory fFactory;
+	
+	private static int i = 0;
+	public static String unique() {
+		return i++ + "";
+	}
 	
 	public EcoreGenerator(final Resource resource) {
 		super();
@@ -58,7 +68,7 @@ public class EcoreGenerator {
 		fFactory = EcoreFactoryImpl.eINSTANCE;
 	}
 
-	public void generateEcorModel(List<Package> mofPackages) {
+	public void generateEcoreModel(List<Package> mofPackages) {
 		EList contents = fResource.getContents();
 		for (Package mofPackage: mofPackages) {
 			contents.add(addPackage(null, mofPackage));
@@ -68,6 +78,8 @@ public class EcoreGenerator {
 	private EPackage addPackage(EPackage emfOwner, cmof.Package mofPackage) {
 		EPackage newPackage = (EPackage)fFluxBox.getObject(mofPackage, EcorePackage.eINSTANCE.getEPackage());
 		newPackage.setName(mofPackage.getName());
+		newPackage.setNsPrefix(mofPackage.getQualifiedName());
+		newPackage.setNsURI("http://www.hub.sam.generated.de/" + mofPackage.getQualifiedName());
 		if (emfOwner != null) {
 			emfOwner.getESubpackages().add(newPackage);
 		}
@@ -87,17 +99,15 @@ public class EcoreGenerator {
 				throw new RuntimeException("not implemented");
 			}
 		}
+		addAnnotation(newPackage, mofPackage);
 		return newPackage;
 	}
 	
-	private EClass addClass(EPackage emfOwner, cmof.UmlClass mofClass) {
-		EClass newClass = (EClass)fFluxBox.getObject(mofClass, EcorePackage.eINSTANCE.getEClass());
-		newClass.setName(mofClass.getName());
-		emfOwner.getEClassifiers().add(newClass);
-		newClass.setAbstract(mofClass.isAbstract());		
-		for (UmlClass superClass: mofClass.getSuperClass()) {
-			newClass.getESuperTypes().add(
-					(EClass)fFluxBox.getObject(superClass, EcorePackage.eINSTANCE.getEClass()));
+	private void addFeaturesToClass(EClass newClass, cmof.UmlClass mofClass) {
+		if (hasFeaturesAdded.contains(newClass)) {
+			return;
+		} else {
+			hasFeaturesAdded.add(newClass);
 		}
 		for (Property attribute: mofClass.getOwnedAttribute()) {
 			addFeature(newClass, attribute);
@@ -105,17 +115,66 @@ public class EcoreGenerator {
 		for (Operation operation: mofClass.getOwnedOperation()) {
 			addOperation(newClass, operation);
 		}
+	}
+	
+	private void addSuperTypesToClass(EClass newClass, cmof.UmlClass mofClass) {
+		if (hasSuperClassesAdded.contains(newClass)) {
+			return;
+		} else {
+			hasSuperClassesAdded.add(newClass);
+		}
+		for (UmlClass superClass: mofClass.getSuperClass()) {
+			EClass newSuperClass = (EClass)fFluxBox.getObject(superClass, EcorePackage.eINSTANCE.getEClass());
+			newSuperClass.setName(superClass.getName());
+			addSuperTypesToClass(newSuperClass, superClass);
+			addFeaturesToClass(newSuperClass, superClass);
+			newClass.getESuperTypes().add(newSuperClass);
+		}	
+	}
+	
+	private void addAnnotation(EModelElement newObject, cmof.NamedElement oldObject) {
+		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
+		annotation.setSource(oldObject.getQualifiedName());
+		newObject.getEAnnotations().add(annotation);
+	}
+	
+	private EClass addClass(EPackage emfOwner, cmof.UmlClass mofClass) {
+		EClass newClass = (EClass)fFluxBox.getObject(mofClass, EcorePackage.eINSTANCE.getEClass());
+		newClass.setName(mofClass.getName());
+		emfOwner.getEClassifiers().add(newClass);
+		newClass.setAbstract(mofClass.isAbstract());		
+		addSuperTypesToClass(newClass, mofClass);
+		addFeaturesToClass(newClass, mofClass);	
+		
+		addAnnotation(newClass, mofClass);
 		return newClass;
 	}
 	
 	private EStructuralFeature addFeature(EClass emfOwner, Property mofProperty) {
+		String name = mofProperty.getName();
+		
+		for (EStructuralFeature existingFeature : emfOwner
+				.getEAllStructuralFeatures()) {
+			if (existingFeature.getName().equals(name)) {
+				String existingFeatureClassName = existingFeature.getEContainingClass()
+						.getName();
+				if (existingFeatureClassName != null) {
+					existingFeature.setName(existingFeatureClassName + "_"
+							+ existingFeature.getName());
+				} else {
+					existingFeature.setName(unique() + "_"
+							+ existingFeature.getName());
+				}
+			}
+		}
+		
 		Property opposite = mofProperty.getOpposite();
 		EStructuralFeature newFeature = null;
-		if (opposite == null) {
+		if (opposite == null || (mofProperty.getType() instanceof PrimitiveType)) {
 			EAttribute newAttribute = (EAttribute)fFluxBox.getObject(mofProperty, EcorePackage.eINSTANCE.getEAttribute());
 			newFeature = newAttribute;
 		} else {
-			EReference newReference = (EReference)fFluxBox.getObject(mofProperty, EcorePackage.eINSTANCE.getEReference());
+			EReference newReference = (EReference)fFluxBox.getObject(mofProperty, EcorePackage.eINSTANCE.getEReference());			
 			newFeature = newReference;			
 			if (opposite.getOwner() instanceof UmlClass) {
 				newReference.setEOpposite((EReference)fFluxBox.getObject(opposite, EcorePackage.eINSTANCE.getEReference()));
@@ -123,10 +182,11 @@ public class EcoreGenerator {
 			newReference.setContainment(mofProperty.isComposite());
 		}	
 		emfOwner.getEStructuralFeatures().add(newFeature);
-		newFeature.setName(mofProperty.getName());		
+		newFeature.setName(name);		
 		newFeature.setDerived(mofProperty.isDerived());
 		setTypedElementFeatures(newFeature, mofProperty);
 		
+		addAnnotation(newFeature, mofProperty);
 		return newFeature;
 	}
 	
@@ -181,7 +241,8 @@ public class EcoreGenerator {
 	private EDataType addDataType(EPackage emfOwner, PrimitiveType mofDataType) {
 		EDataType newDataType = (EDataType)fFluxBox.getObject(mofDataType, EcorePackage.eINSTANCE.getEDataType());
 		emfOwner.getEClassifiers().add(newDataType);
-		newDataType.setName(mofDataType.getName());		
+		newDataType.setName(mofDataType.getName());	
+		newDataType.setInstanceTypeName(EcorePackage.eINSTANCE.getEString().getInstanceTypeName());
 		return newDataType;
 	}
 	
@@ -199,13 +260,13 @@ public class EcoreGenerator {
 		} else if (type instanceof Enumeration) {
 			return (EClassifier)fFluxBox.getObject(type, EcorePackage.eINSTANCE.getEEnum());
 		} else if (type instanceof PrimitiveType) {
-			if (type.getName().equals(Boolean.class.getSimpleName())) {
-				return EcorePackage.eINSTANCE.getEBoolean();
-			} else if (type.getName().equals(core.primitivetypes.String.class.getSimpleName())) {
+			if (type.getQualifiedName().equals("InfrastructureLibrary.PrimitiveTypes.String")) {
 				return EcorePackage.eINSTANCE.getEString();
-			} else if (type.getName().equals(core.primitivetypes.Integer.class.getSimpleName())) {
+			} else if (type.getQualifiedName().equals("InfrastructureLibrary.PrimitiveTypes.Boolean")) {
+				return EcorePackage.eINSTANCE.getEBoolean();
+			} else if (type.getQualifiedName().equals("InfrastructureLibrary.PrimitiveTypes.Integer")) {
 				return EcorePackage.eINSTANCE.getEInt();
-			} else if (type.getName().equals(core.primitivetypes.UnlimitedNatural.class.getSimpleName())) {
+			} else if (type.getQualifiedName().equals("InfrastructureLibrary.PrimitiveTypes.UnlimitedNatural")) {
 				return EcorePackage.eINSTANCE.getEInt();
 			} else {
 				return (EClassifier)fFluxBox.getObject(type, EcorePackage.eINSTANCE.getEDataType());	

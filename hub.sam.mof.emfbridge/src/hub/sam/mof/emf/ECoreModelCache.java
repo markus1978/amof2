@@ -53,7 +53,7 @@ public class ECoreModelCache {
 					packages.add((cmof.Package)obj);
 				}					
 			}
-			generator.generateEcorModel(packages);
+			generator.generateEcoreModel(packages);
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
