@@ -43,8 +43,6 @@ import org.jdom.JDOMException;
 import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
 
-import sun.tools.asm.Cover;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;

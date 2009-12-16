@@ -2,7 +2,9 @@
 	<description>
         UML
 	</description>
+	
 	<property name="build-dir" value="${basedir}/build"/>
+	<property name="models-dir" value="${basedir}/resources/models/uml2.2"/>
 
 	<path id="classpath">
 		<pathelement path="${build-dir}"/>
@@ -26,12 +28,12 @@
     </target>
 
 	<target name="prepare CD" depends="init">
-        <mofmerge dest="${basedir}/resources/models/CD.merged.cmof.xml" packageToMerge="Package:uml">
-            <xmifile key="Infrastructure.cmof" file="${basedir}/../../models/uml/Infrastructure.cmof.xml"/>
-            <xmifile key="Superstructure.cmof" file="${basedir}/../../models/uml/Superstructure.cmof.xml"/>
-            <xmifile key="CD.cmof" file="${basedir}/resources/models/CD.cmof.xml"/>
+        <mofmerge dest="${basedir}/resources/models/uml2.2/CD.merged.cmof.xml" packageToMerge="Package:uml">
+            <xmifile key="Infrastructure.cmof" file="${basedir}/resources/models/uml2.2/Infrastructure.xmi.xml"/>
+            <xmifile key="Superstructure.cmof" file="${basedir}/resources/models/uml2.2/Superstructure.xmi.xml"/>
+            <xmifile key="CD.cmof" file="${basedir}/resources/models/uml2.2/CD.cmof.xml"/>
         </mofmerge>
-    	<mofgencode src="${basedir}/resources/models/CD.merged.cmof.xml" destdir="${basedir}/generated-src"/>
+    	<mofgencode src="${basedir}/resources/models/uml2.2/CD.merged.cmof.xml" destdir="${basedir}/generated-src"/>
     </target>
 
     <target name="precompile">
@@ -69,14 +71,14 @@
 	</target>
     
     <target name="prepare L3" depends="init">
-        <mofmerge dest="${basedir}/resources/models/L3.merged.cmof.xml" packageToMerge="Package:L3">
-            <xmifile key="Infrastructure.cmof" file="${basedir}/../../models/uml/Infrastructure.cmof.xml"/>
-            <xmifile key="Superstructure.cmof" file="${basedir}/../../models/uml/Superstructure.cmof.xml"/>
-            <xmifile key="L0.cmof" file="${basedir}/resources/models/L0.cmof.xml"/>
-            <xmifile key="L1.cmof" file="${basedir}/resources/models/L1.cmof.xml"/>
-            <xmifile key="L2.cmof" file="${basedir}/resources/models/L2.cmof.xml"/>
-            <xmifile key="L3.cmof" file="${basedir}/resources/models/L3.cmof.xml"/>
+        <mofmerge dest="${models-dir}/L3.merged.xmi.xml" packageToMerge="Package:L3">
+            <xmifile key="Infrastructure.xmi" file="${models-dir}/Infrastructure.xmi.xml"/>
+            <xmifile key="Superstructure.xmi" file="${models-dir}/Superstructure.xmi.xml"/>
+            <xmifile key="L0.xmi" file="${models-dir}/uml-L0-model.xmi.xml"/>
+            <xmifile key="L1.xmi" file="${models-dir}/uml-L1-model.xmi.xml"/>
+            <xmifile key="L2.xmi" file="${models-dir}/uml-L2-model.xmi.xml"/>
+            <xmifile key="L3.xmi" file="${models-dir}/uml-L3-model.xmi.xml"/>
         </mofmerge>
-    	<mofgencode src="${basedir}/resources/models/L3.merged.cmof.xml" destdir="${basedir}/generated-src"/>
+    	<mofgencode src="${basedir}/resources/models/L3.merged.xmi.xml" destdir="${basedir}/generated-src"/>
     </target>
 </project>

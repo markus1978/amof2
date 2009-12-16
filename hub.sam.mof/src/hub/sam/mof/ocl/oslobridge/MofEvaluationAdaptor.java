@@ -16,6 +16,7 @@ import org.oslo.ocl20.standard.lib.OclSet;
 import org.oslo.ocl20.standard.lib.OclType;
 import org.oslo.ocl20.standard.lib.OclUndefined;
 import org.oslo.ocl20.synthesis.ModelEvaluationAdapter;
+import org.oslo.ocl20.synthesis.ModelMethodForPropertyAccess;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +42,16 @@ public class MofEvaluationAdaptor implements ModelEvaluationAdapter {
 	}
 
 	public Class getImplClass(Classifier me) {
+		return null;
+	}
+
+	public ModelMethodForPropertyAccess getGetterMethod(Property property) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ModelMethodForPropertyAccess getSetterMethod(Property property) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -182,4 +193,5 @@ public class MofEvaluationAdaptor implements ModelEvaluationAdapter {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }
